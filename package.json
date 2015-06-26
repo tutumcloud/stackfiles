@@ -1,0 +1,18 @@
+{
+  "name": "ComposeRegistry",
+  "version": "1.0.0",
+  "description": "Docker-Compose file registry ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Test passed\""
+  },
+  "keywords": [
+    "docker-compose"
+  ],
+  "author": "MaximeHeckel",
+  "license": "MIT",
+  "dependencies": {
+    "bower": "^1.4.1",
+    "express": "^4.13.0"
+  }
+}

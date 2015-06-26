@@ -1,0 +1,16 @@
+mongodb:
+  image: mongo:latest
+  environment:
+    - MONGODB_PASS=test1234
+    - OPLOG_SIZE=1
+  ports:
+    - "27017:27017"
+    - "28017:28017"
+registry:
+  build: .
+  links:
+    - mongodb
+  ports:
+    - "80:80"
+  volumes:
+    - .:./app
