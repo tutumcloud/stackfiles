@@ -1,5 +1,11 @@
 angular.module('registry.controllers', [])
 
+.controller('MainController', function($scope, API){
+    $scope.signin = function(){
+        API.signin();
+    }
+})
+
 .controller('RegistryDetailsController', function($scope){
 })
 
