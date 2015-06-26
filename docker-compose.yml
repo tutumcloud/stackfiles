@@ -6,11 +6,11 @@ mongodb:
   ports:
     - "27017:27017"
     - "28017:28017"
-registry:
-  build: .
-  links:
-    - mongodb
-  ports:
-    - "80:80"
-  volumes:
-    - .:./app
+#registry:
+#  build: .
+#  links:
+#    - mongodb
+#  ports:
+#    - "80:80"
+#  volumes:
+#    - .:./app
