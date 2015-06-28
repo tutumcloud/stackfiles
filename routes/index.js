@@ -1,6 +1,9 @@
 var path = require('path'),
     passport = require('passport'),
+    findOneOrCreate = require('mongoose-find-one-or-create'),
     GitHubStrategy = require('passport-github').Strategy;
+
+var User = require('../models/users.js');
 
 var GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
@@ -13,14 +16,34 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
+function userValidation(githubId, callback){
+    Users.findOne({
+        userId: githubId
+    }, function(err, user){
+        callback(user);
+    });
+};
+
 passport.use(new GitHubStrategy({
     clientID: GITHUB_CLIENT_ID,
     clientSecret: GITHUB_CLIENT_SECRET,
     callbackURL: "http://localhost:4000/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    process.nextTick(function () {
-      return done(null, profile);
+    var user = new User({
+        userId: profile.id,
+        username: profile.username,
+        profileUrl: profile.profileUrl
+    });
+
+    User.find({userId : profile.id}, function (err, docs) {
+        if (docs.length){
+            done(null, profile);
+        }else{
+            user.save(function(err){
+                done(null, profile);
+            });
+        }
     });
   }
 ));
