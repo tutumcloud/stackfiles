@@ -6,10 +6,19 @@ angular.module('registry.controllers', [])
     }
 })
 
-.controller('RegistryDetailsController', function($scope){
+.controller('RegistryDetailsController', function($scope, $routeParams, API){
+    API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
+        $scope.data = data;
+        $scope.composeFile = jsyaml.dump(data.compose);
+    })
 })
 
-.controller('RegistryController', function($scope){
+.controller('RegistryController', function($scope, API){
+    API.getFiles().success(function(data, status, headers, config){
+        $scope.files = data;
+    }).error(function(data, status, headers, config){
+        console.log(data);
+    })
 })
 
 .controller('CreateController', function($scope, $window, API){
@@ -22,12 +31,8 @@ angular.module('registry.controllers', [])
             title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
             compose: composeFile,
             readme: readMe,
-            user: "Maxime Heckel",
             tags: ["hello", "world","stack"]
         }
-
-        console.log(form)
-
         API.saveFile(form).success(function(data, status, headers, config){
             $window.location.href = ('/registry');
         }).error(function(data, status, header, config){

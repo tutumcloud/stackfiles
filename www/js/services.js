@@ -5,5 +5,26 @@ angular.module('registry.services', [])
          signin: function(){
              $window.location.href = ('/auth/github');
          },
+         saveFile: function(form){
+             return $http.post('/create', {
+                 method: 'POST',
+                 params: {
+                     form : form
+                }
+             });
+         },
+         getFiles: function(){
+             return $http.get('/files',{
+                 method: 'GET'
+             });
+         },
+         getFileWithId: function(id){
+             return $http.get('/files/' + id,{
+                 method: 'GET',
+                 params: {
+                     id: id
+                 }
+             });
+         }
      }
 })

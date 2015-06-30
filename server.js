@@ -9,13 +9,11 @@ var express = require('express'),
     methodOverride = require('method-override'),
     app = express();
 
-var db = mongoose.connect('mongodb://192.168.59.104:27017');
+var db = mongoose.connect('mongodb://192.168.59.103:27017');
 var port = process.env.PORT || 4000;
 
 app.use(cookieParser())
-app.use(bodyParser.json());
-app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser());
 app.use(methodOverride('X-HTTP-Method-Override'));
 app.use(session({secret: 'keyboard cat'}))
 app.use(passport.initialize());
@@ -28,3 +26,4 @@ app.listen(port, function(){
 });
 
 require('./routes/index.js')(app, db);
+require('./routes/files.js')(app, db);

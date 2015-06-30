@@ -45,7 +45,19 @@ passport.use(new GitHubStrategy({
             });
         }
     });
-  }
+}
+/*function(accessToken, refreshToken, profile, done) {
+    // asynchronous verification, for effect...
+    process.nextTick(function () {
+
+      // To keep the example simple, the user's GitHub profile is returned to
+      // represent the logged-in user.  In a typical application, you would want
+      // to associate the GitHub account with a user record in your database,
+      // and return that user instead.
+      console.log(profile)
+      return done(null, profile);
+    });
+}*/
 ));
 
 var auth = function(req, res, next){
@@ -54,9 +66,6 @@ var auth = function(req, res, next){
 };
 
 module.exports = function(app) {
-
-    app.use(passport.initialize());
-    app.use(passport.session());
 
     app.get('/', function(req, res){
         if (req.isAuthenticated()) {
@@ -68,6 +77,10 @@ module.exports = function(app) {
     });
 
     app.get('/registry', auth, function(req, res){
+        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+    });
+
+    app.get('/registry/:id', auth, function(req, res){
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
