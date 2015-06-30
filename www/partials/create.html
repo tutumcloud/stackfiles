@@ -5,17 +5,17 @@
         <form>
           <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Title">
+            <input type="text" class="form-control" id="title" placeholder="Title" ng-model="data.title">
           </div>
           <div class="form-group">
             <label for="compose-file">Compose File</label>
-            <textarea class="form-control" rows="7" id="compose-file" placeholder="Compose file"/>
+            <textarea class="form-control" rows="7" id="compose-file" placeholder="Compose file" ng-model="data.composefile"/>
           </div>
           <div class="form-group">
             <label for="readme">README</label>
-            <textarea class="form-control" rows="7" id="readme" placeholder="Read me"/>
+            <textarea class="form-control" rows="7" id="readme" placeholder="Read me" ng-model="data.readme"/>
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
+          <button type="submit" class="btn btn-default" ng-click="createNew()">Submit</button>
           <a href="/registry" class="btn btn-default">Cancel</a>
         </form>
     </div>

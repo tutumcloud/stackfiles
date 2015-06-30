@@ -10,3 +10,16 @@ var File = require('../models/composeFiles.js');
 } catch (e) {
   console.log(e);
 }*/
+var auth = function(req, res, next){
+    if (req.isAuthenticated()) { return next(); }
+    res.redirect('/');
+};
+
+
+module.exports = function(app) {
+    app.post('/create', auth, function(req, res){
+        console.log("*****");
+        console.log(req.body.params.form.compose);
+        res.redirect('/registry');
+    })
+};
