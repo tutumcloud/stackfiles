@@ -17,16 +17,13 @@
     "cookie-parser": "^1.3.5",
     "express": "^4.13.0",
     "express-session": "^1.11.3",
-    "github-oauth": "^0.2.1",
     "js-yaml": "^3.3.1",
     "method-override": "^2.3.3",
     "mongoosastic": "^3.1.2",
     "mongoose": "^4.0.6",
-    "mongoose-find-one-or-create": "^0.2.0",
     "morgan": "^1.6.0",
     "passport": "^0.2.2",
     "passport-github": "^0.1.5",
     "supervisor": "^0.7.0",
-    "yamljs": "^0.2.3"
   }
 }
