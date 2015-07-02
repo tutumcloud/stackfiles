@@ -1,4 +1,4 @@
-var mongoose = require('mongoose')
+var mongoose = require('mongoose'),
     mongoosastic = require('mongoosastic');
 
 var schema = new mongoose.Schema({
@@ -12,12 +12,26 @@ var schema = new mongoose.Schema({
         es_type:'string',
         es_indexed:true
     },
-})
-
-schema.plugin(mongoosastic, {
-  hosts: [
-    '192.168.59.103:9200'
-  ]
 });
+
+var env = process.env.NODE_ENV;
+if (env == 'development'){
+    console.log("Using dev ES");
+    schema.plugin(mongoosastic, {
+      hosts: [
+        '192.168.59.103:9200'
+      ]
+    });
+}
+
+if (env == 'production'){
+    var host = process.env.ELASTICSEARCH_PORT_9200_TCP_ADDR;
+    var port = process.env.ELASTICSEARCH_PORT_9200_TCP_PORT;
+    schema.plugin(mongoosastic, {
+      hosts: [
+        host + ":" + port
+      ]
+    });
+}
 
 module.exports = mongoose.model('File', schema);
