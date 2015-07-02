@@ -25,6 +25,14 @@ angular.module('registry.services', [])
                      id: id
                  }
              });
-         }
-     }
-})
+         },
+        searchFile: function(term){
+            return $http.get('/search',{
+                method: 'GET',
+                params: {
+                    term: term
+                }
+            });
+        }
+     };
+});

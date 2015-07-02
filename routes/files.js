@@ -80,9 +80,10 @@ module.exports = function(app) {
     });
 
     app.get("/search", function(req, res){
+
         File.search({
             query_string:{
-                query: req.body.params.term
+                query: req.query.term
             }
         }, function(err, data){
             if(err) console.log(err);
