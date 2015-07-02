@@ -1,4 +1,60 @@
 /*MAIN COMPONENTS*/
+#hero-header{
+    background: #7db9e8; /* Old browsers */
+    background: -moz-linear-gradient(left, #7db9e8 0%, #379af5 22%, #295edb 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#7db9e8), color-stop(22%,#379af5), color-stop(100%,#295edb)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #7db9e8 0%,#379af5 22%,#295edb 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #7db9e8 0%,#379af5 22%,#295edb 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #7db9e8 0%,#379af5 22%,#295edb 100%); /* IE10+ */
+    background: linear-gradient(to right, #7db9e8 0%,#379af5 22%,#295edb 100%);
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    color: white;
+    height: 400px;
+
+}
+
+#hero-header h1{
+    font-size: 45px;
+    font-weight: 100;
+}
+
+#hero-header p{
+    color: #A4CEFA;
+    font-weight: 300;
+    font-size: 20px;
+}
+
+#hero-header .content{
+    padding-top: 100px;
+}
+
+/*MAIN PAGE COMPONENTS*/
+
+.btn.btn-default.btn-github {
+    width: 150px;
+    border: none;
+    color: #5B77BE;
+    font-weight: 400;
+    box-shadow:0px 1px 3px #ccc;
+}
+
+#info-section .card{
+    border: none;
+}
+
+.card {
+    width: 600px;
+    height: 200px;
+    margin-top: -80px;
+    margin-left: auto;
+    margin-right: auto;
+    padding:1.5rem;
+    box-shadow:1px 6px 9px #D5D5D5;
+    background:white;
+    border-radius:3px;
+}
 
 /*REGISTRY COMPONENTS*/
 .focus-bar{
