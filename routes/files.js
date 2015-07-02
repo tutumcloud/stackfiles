@@ -21,7 +21,7 @@ File.createMapping(function(err, mapping){
     console.log('mapping created!');
     console.log(mapping);
   }
-})
+});
 
 function reIndex(stream, count, total, done){
   stream.on('data', function(doc){
@@ -59,7 +59,7 @@ module.exports = function(app) {
             user: req.user.username,
             profileLink: req.user.profileUrl,
             tags: req.body.params.form.tags
-        })
+        });
 
         file.save(function(err, savedFile){
             if(err){
@@ -74,15 +74,26 @@ module.exports = function(app) {
 
     app.get('/files', auth, function(req, res){
         File.find({}, function(err, files){
-            if(err) console.log(err)
-            res.json(files)
+            if(err) console.log(err);
+            res.json(files);
+        });
+    });
+
+    app.get("/search", function(req, res){
+        File.search({
+            query_string:{
+                query: req.body.params.term
+            }
+        }, function(err, data){
+            if(err) console.log(err);
+            res.json(data.hits.hits);
         });
     });
 
     app.get('/files/:id', auth, function(req, res){
         File.findOne({_id: req.query.id}, function(err, files){
-            if(err) console.log(err)
-            res.json(files)
+            if(err) console.log(err);
+            res.json(files);
         });
     });
 };
