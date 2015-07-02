@@ -1,27 +1,36 @@
 <div class="container">
     <div style="text-align:center;">
-        <h2>Compose files list</h2>
+        <h2>Stackfile list</h2>
     </div>
     <div class="col-lg-12">
-        <input type="text" placeholder="Search by Stack name, username, services" size="50">
+        <input type="text" class="form-group focus-bar" placeholder="Search by Stack name, username, services" ng-model="data.search" ng-change="searchFile()">
         <a class="btn btn-default pull-right" href="/create">Submit Stack File</a>
     </div>
-    <div class="col-lg-12">
+    <div class="col-lg-12" ng-show="data.search.length">
         <table class="table">
             <thead>
                 <tr>
-                    <th>
-                        Name
-                    </th>
-                    <th>
-                        Number of Services
-                    </th>
-                    <th>
-                        Created by
-                    </th>
-                    <th>
-
-                    </th>
+                    <th>Name</th>
+                    <th>Number of Services</th>
+                    <th>Created by</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="result in results" ng-class-odd="odd" ng-class-even="even" ng-hide="currentSection === 1">
+                    <td><a href="/registry/{{result._id}}">{{result._source.title}}</a></td>
+                    <td></td>
+                    <td><a href="{{result._source.profileLink}}">{{result._source.user}}</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-lg-12" ng-hide="data.search.length">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Number of Services</th>
+                    <th>Created by</th>
                 </tr>
             </thead>
             <tbody>

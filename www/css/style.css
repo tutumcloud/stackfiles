@@ -1,0 +1,19 @@
+/*MAIN COMPONENTS*/
+
+/*REGISTRY COMPONENTS*/
+.focus-bar{
+    width: 300px;
+    height: 40px;
+    -webkit-transition: width 0.3s ease-in-out;
+    -moz-transition:width 0.3s ease-in-out;
+    -o-transition: width 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out;
+}
+
+.focus-bar:focus{
+    width: 800px;
+}
+
+/*CREATE COMPONENTS*/
+
+/*DETAIL COMPONENTS*/

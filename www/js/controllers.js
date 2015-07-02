@@ -3,14 +3,14 @@ angular.module('registry.controllers', [])
 .controller('MainController', function($scope, API){
     $scope.signin = function(){
         API.signin();
-    }
+    };
 })
 
 .controller('RegistryDetailsController', function($scope, $routeParams, API){
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
         $scope.data = data;
         $scope.composeFile = jsyaml.dump(data.compose);
-    })
+    });
 })
 
 .controller('RegistryController', function($scope, API){
@@ -18,7 +18,16 @@ angular.module('registry.controllers', [])
         $scope.files = data;
     }).error(function(data, status, headers, config){
         console.log(data);
-    })
+    });
+
+    $scope.searchFile = function(){
+        var term = this.data.search;
+        API.searchFile(term).success(function(data, status, headers, config){
+            $scope.results = data;
+        }).error(function(data, status, headers, config){
+            console.log("data");
+        });
+    };
 })
 
 .controller('CreateController', function($scope, $window, API){
@@ -32,11 +41,11 @@ angular.module('registry.controllers', [])
             compose: composeFile,
             readme: readMe,
             tags: ["hello", "world","stack"]
-        }
+        };
         API.saveFile(form).success(function(data, status, headers, config){
             $window.location.href = ('/registry');
         }).error(function(data, status, header, config){
             console.log(data);
-        })
-    }
-})
+        });
+    };
+});

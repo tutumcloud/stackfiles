@@ -5,3 +5,8 @@ mongodb:
   ports:
     - "27018:27017"
     - "28018:28017"
+elasticsearch:
+    image: elasticsearch:latest
+    ports:
+      - "9200:9200"
+      - "9300:9300"
