@@ -1,11 +1,54 @@
 var yaml = require('js-yaml'),
     fs   = require('fs'),
+    mongoosastic = require('mongoosastic'),
     File = require('../models/composeFiles.js');
 
 var auth = function(req, res, next){
     if (req.isAuthenticated()) { return next(); }
     res.redirect('/');
 };
+
+var stream = File.find().stream();
+var total = 0;
+var count = 0;
+var done = false;
+
+File.createMapping(function(err, mapping){
+  if(err){
+    console.log('error creating mapping (you can safely ignore this)');
+    console.log(err);
+  } else {
+    console.log('mapping created!');
+    console.log(mapping);
+  }
+})
+
+function reIndex(stream, count, total, done){
+  stream.on('data', function(doc){
+    total++;
+    count++;
+    doc.index(function() {
+      count--;
+      allDone();
+    });
+  });
+
+  stream.on('close', function() {
+    done = true;
+    allDone();
+  });
+
+  stream.on('error', function(err){
+    throw err;
+  });
+}
+
+function allDone() {
+  if (count > 0) return;
+  if (!done) return;
+  console.log('indexed ' + total + ' docs');
+  process.exit(0);
+}
 
 module.exports = function(app) {
     app.post('/create', auth, function(req, res){
@@ -22,6 +65,9 @@ module.exports = function(app) {
             if(err){
                 console.log(err);
             }
+            file.on('es-indexed', function(){
+                console.log('file indexed');
+            });
         });
         res.redirect('/registry/' + file._id);
     });
