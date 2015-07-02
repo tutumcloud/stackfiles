@@ -24,6 +24,6 @@
     "morgan": "^1.6.0",
     "passport": "^0.2.2",
     "passport-github": "^0.1.5",
-    "supervisor": "^0.7.0",
+    "supervisor": "^0.7.0"
   }
 }
