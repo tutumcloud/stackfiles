@@ -20,6 +20,6 @@ registry:
   volumes:
     - .:./app
   environment:
-    - GITHUB_CLIENT_ID="**changeme**"
-    - GITHUB_CLIENT_SECRET="**changeme**"
+    - GITHUB_CLIENT_ID=**changeme**
+    - GITHUB_CLIENT_SECRET=**changeme**
     - NODE_ENV=production
