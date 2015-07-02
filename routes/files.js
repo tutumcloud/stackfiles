@@ -1,20 +1,11 @@
-var yaml = require('js-yaml');
-var fs   = require('fs');
+var yaml = require('js-yaml'),
+    fs   = require('fs'),
+    File = require('../models/composeFiles.js');
 
-var File = require('../models/composeFiles.js');
-
-// Get document, or throw exception on error
-/*try {
-  var doc = yaml.safeLoad(fs.readFileSync('./routes/test.yml', 'utf8'));
-  console.log(yaml.dump(doc))
-} catch (e) {
-  console.log(e);
-}*/
 var auth = function(req, res, next){
     if (req.isAuthenticated()) { return next(); }
     res.redirect('/');
 };
-
 
 module.exports = function(app) {
     app.post('/create', auth, function(req, res){
@@ -32,7 +23,7 @@ module.exports = function(app) {
                 console.log(err);
             }
         });
-        res.redirect('/registry'); //Redirect to corresponding db entry
+        res.redirect('/registry/' + file._id);
     });
 
     app.get('/files', auth, function(req, res){

@@ -3,15 +3,17 @@ mongodb:
   environment:
     - OPLOG_SIZE=1
   ports:
-    - "27017:27017"
-    - "28017:28017"
-#registry:
-#  build: .
-#  links:
-#    - mongodb
-#  ports:
-#    - "80:80"
-#  volumes:
-#    - .:./app
-#SET GITHUB env
-#SET Persistent data volume
+    - "27018:27017"
+    - "28018:28017"
+registry:
+  build: .
+  links:
+    - mongodb
+  ports:
+    - "80:80"
+  volumes:
+    - .:./app
+  environment:
+    - GITHUB_CLIENT_ID="**changeme**"
+    - GITHUB_CLIENT_SECRET="**changeme**"
+    - NODE_ENV=production

@@ -9,13 +9,25 @@ var express = require('express'),
     methodOverride = require('method-override'),
     app = express();
 
-var db = mongoose.connect('mongodb://192.168.59.103:27017');
+
+var env = process.env.NODE_ENV
+if (env == 'development'){
+    console.log("Using dev DB")
+    var db = mongoose.connect('mongodb://192.168.59.103:27018');
+}
+
+if (env == 'production'){
+    var port = process.env.MONGODB_PORT_27017_TCP_PORT;
+    var host = process.env.MONGODB_PORT_27017_TCP_ADDR;
+    var db = mongoose.connect('mongodb://' + host + ':' + port);
+}
+
 var port = process.env.PORT || 4000;
 
 app.use(cookieParser())
 app.use(bodyParser());
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use(session({secret: 'keyboard cat'}))
+app.use(session({secret: 'secretsecretsecretsecret'}))
 app.use(passport.initialize());
 app.use(passport.session());
 
