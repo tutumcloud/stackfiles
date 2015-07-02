@@ -1,6 +1,5 @@
 var path = require('path'),
     passport = require('passport'),
-    findOneOrCreate = require('mongoose-find-one-or-create'),
     GitHubStrategy = require('passport-github').Strategy;
 
 var User = require('../models/users.js');
