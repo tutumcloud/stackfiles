@@ -10,6 +10,7 @@ angular.module('registry.controllers', [])
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
         $scope.data = data;
         $scope.composeFile = jsyaml.dump(data.compose);
+        $scope.tags = data.tags;
     });
 })
 
