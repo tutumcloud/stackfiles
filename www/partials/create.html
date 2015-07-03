@@ -1,4 +1,4 @@
-<div style="text-align:center;">
+<div id="create" class="container">
     <div class="col-lg-12">
         <h2>Create new Stackfile</h2>
         <br>
@@ -14,6 +14,10 @@
           <div class="form-group">
             <label for="readme">README</label>
             <textarea class="form-control" rows="7" id="readme" placeholder="Read me" ng-model="data.readme"/>
+          </div>
+          <div class="form-group">
+              <label for="tags">Tags</label>
+              <tags-input ng-model="data.tags"></tags-input>
           </div>
           <button type="submit" class="btn btn-default" ng-click="createNew()">Submit</button>
           <a href="/registry" class="btn btn-default">Cancel</a>
