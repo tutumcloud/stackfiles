@@ -46,7 +46,7 @@ if (env == 'production'){
     passport.use(new GitHubStrategy({
         clientID: GITHUB_CLIENT_ID,
         clientSecret: GITHUB_CLIENT_SECRET,
-        callbackURL: "http://192.168.59.103/auth/github/callback"
+        callbackURL: "http://registry.stackfileio.admin.svc.tutum.us:8082/auth/github/callback"
         },
         function(accessToken, refreshToken, profile, done){
             var user = new User({
@@ -97,7 +97,7 @@ module.exports = function(app) {
     });
 
     app.get('/auth/github', passport.authenticate('github'), function(req,res){
-        console.log("Hello")
+        console.log("Hello");
     });
 
     app.get('/auth/github/callback', passport.authenticate('github'), function(req, res) {
