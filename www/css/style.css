@@ -76,4 +76,17 @@
     text-align: center;
 }
 
+/*override tags css file*/
+tags-input .tags{
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+tags-input .tags .tag-item{
+    background: none;
+}
+
 /*DETAIL COMPONENTS*/
