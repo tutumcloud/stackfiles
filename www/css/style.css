@@ -89,4 +89,7 @@ tags-input .tags .tag-item{
     background: none;
 }
 
+tags-input[disabled] .tags .tag-item{
+    background: none;
+}
 /*DETAIL COMPONENTS*/

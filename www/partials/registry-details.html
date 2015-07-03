@@ -10,6 +10,12 @@
           <label for="compose-file">Compose File</label>
           <textarea class="form-control" rows="15" id="compose-file" ng-model="composeFile" disabled/>
         </div>
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <div ng-repeat="tag in tags">
+                <div>{{tag}}</div>
+            </div>
+        </div>
         <a href="https://dashboard.tutum.co/stack/deploy/"><img src="https://s.tutum.co/deploy-to-tutum.svg"></a>
         <br/>
         <br/>
