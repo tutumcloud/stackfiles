@@ -55,7 +55,8 @@ if (env == 'production'){
             var user = new User({
             userId: profile.id,
             username: profile.username,
-            profileUrl: profile.profileUrl
+            profileUrl: profile.profileUrl,
+            accessToken: accessToken
             });
 
             User.find({userId : profile.id}, function (err, docs) {
