@@ -2,6 +2,8 @@ var path = require('path'),
     passport = require('passport'),
     GitHubStrategy = require('passport-github').Strategy;
 
+var Github = require("github-api");
+
 var User = require('../models/users.js');
 var env = process.env.NODE_ENV;
 
@@ -26,7 +28,8 @@ if (env == 'development'){
             var user = new User({
             userId: profile.id,
             username: profile.username,
-            profileUrl: profile.profileUrl
+            profileUrl: profile.profileUrl,
+            accessToken: accessToken
             });
 
             User.find({userId : profile.id}, function (err, docs) {

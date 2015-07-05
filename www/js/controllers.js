@@ -26,7 +26,7 @@ angular.module('registry.controllers', [])
         API.searchFile(term).success(function(data, status, headers, config){
             $scope.results = data;
         }).error(function(data, status, headers, config){
-            console.log("data");
+            console.log(data);
         });
     };
 })
@@ -40,19 +40,46 @@ angular.module('registry.controllers', [])
         return newArray;
     }
 
+    $scope.selectedValue = null;
+    var repos = [];
+
+    $scope.getRepos = function(){
+        API.getUserRepos().success(function(data, status, headers, config){
+            angular.forEach(data, function(value, key){
+                repos.push(value.name);
+            });
+            $scope.repos=repos;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    };
+
+    $scope.getComposeFile = function(name){
+        API.getYAMLFile(name).success(function(data, status, headers, config){
+            $scope.data.composefile = data;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    };
+
     $scope.createNew = function(){
         var title = this.data.title;
         var composeFile = jsyaml.load(this.data.composefile);
         var readMe = this.data.readme;
         var tags = this.data.tags;
+        var projectName = this.data.selectedValue;
 
-        var newArray = buildValueArray(tags);
+        console.log(projectName);
+
+        var tagArray = buildValueArray(tags);
 
         var form = {
             title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
             compose: composeFile,
             readme: readMe,
-            tags: newArray
+            tags: tagArray,
+            name: projectName
+
         };
         API.saveFile(form).success(function(data, status, headers, config){
             $window.location.href = ('/registry');

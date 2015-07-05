@@ -51,13 +51,14 @@ function allDone() {
 }
 
 module.exports = function(app) {
-    app.post('/create', auth, function(req, res){
+    app.post('/api/v1/create', auth, function(req, res){
         var file = new File({
             title: req.body.params.form.title,
             compose: req.body.params.form.compose,
             readme: req.body.params.form.readme,
             user: req.user.username,
             profileLink: req.user.profileUrl,
+            projectUrl: req.user.profileUrl + '/' + req.body.params.form.name,
             tags: req.body.params.form.tags
         });
 
@@ -72,14 +73,21 @@ module.exports = function(app) {
         res.redirect('/registry/' + file._id);
     });
 
-    app.get('/files', auth, function(req, res){
+    app.get('/api/v1/files', auth, function(req, res){
         File.find({}, function(err, files){
             if(err) console.log(err);
             res.json(files);
         });
     });
 
-    app.get("/search", function(req, res){
+    app.get('/api/v1/files/:id', auth, function(req, res){
+        File.findOne({_id: req.query.id}, function(err, files){
+            if(err) console.log(err);
+            res.json(files);
+        });
+    });
+
+    app.get("/api/v1/search", function(req, res){
 
         File.search({
             query_string:{
@@ -88,13 +96,6 @@ module.exports = function(app) {
         }, function(err, data){
             if(err) console.log(err);
             res.json(data.hits.hits);
-        });
-    });
-
-    app.get('/files/:id', auth, function(req, res){
-        File.findOne({_id: req.query.id}, function(err, files){
-            if(err) console.log(err);
-            res.json(files);
         });
     });
 };

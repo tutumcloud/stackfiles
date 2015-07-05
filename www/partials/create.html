@@ -8,6 +8,14 @@
             <input type="text" class="form-control" id="title" placeholder="Title" ng-model="data.title">
           </div>
           <div class="form-group">
+            <label for="title">Repositories</label>
+            <select ng-model="data.selectedValue" ng-init="getRepos()" ng-change="getComposeFile(data.selectedValue)">
+                <option ng-repeat="repo in repos track by $index" value ={{repo}}>
+                    {{repo}}
+                </option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="compose-file">Compose File</label>
             <textarea class="form-control" rows="7" id="compose-file" placeholder="Compose file" ng-model="data.composefile"/>
           </div>
