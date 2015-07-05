@@ -67,14 +67,19 @@ angular.module('registry.controllers', [])
         var composeFile = jsyaml.load(this.data.composefile);
         var readMe = this.data.readme;
         var tags = this.data.tags;
+        var projectName = this.data.selectedValue;
 
-        var newArray = buildValueArray(tags);
+        console.log(projectName);
+
+        var tagArray = buildValueArray(tags);
 
         var form = {
             title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
             compose: composeFile,
             readme: readMe,
-            tags: newArray
+            tags: tagArray,
+            name: projectName
+
         };
         API.saveFile(form).success(function(data, status, headers, config){
             $window.location.href = ('/registry');

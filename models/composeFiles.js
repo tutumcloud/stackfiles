@@ -7,6 +7,7 @@ var schema = new mongoose.Schema({
     readme: {type: String},
     user: {type: String, es_indexed:true},
     profileLink: {type: String},
+    projectUrl: {type: String},
     tags: {
         type: Array,
         es_type:'string',
