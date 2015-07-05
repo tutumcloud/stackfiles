@@ -39,3 +39,4 @@ app.listen(port, function(){
 
 require('./routes/index.js')(app, db);
 require('./routes/files.js')(app, db);
+require('./routes/github-api.js')(app, db);
