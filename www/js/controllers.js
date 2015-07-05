@@ -26,7 +26,7 @@ angular.module('registry.controllers', [])
         API.searchFile(term).success(function(data, status, headers, config){
             $scope.results = data;
         }).error(function(data, status, headers, config){
-            console.log("data");
+            console.log(data);
         });
     };
 })
@@ -39,6 +39,28 @@ angular.module('registry.controllers', [])
         });
         return newArray;
     }
+
+    $scope.selectedValue = null;
+    var repos = [];
+
+    $scope.getRepos = function(){
+        API.getUserRepos().success(function(data, status, headers, config){
+            angular.forEach(data, function(value, key){
+                repos.push(value.name);
+            });
+            $scope.repos=repos;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    };
+
+    $scope.getComposeFile = function(name){
+        API.getYAMLFile(name).success(function(data, status, headers, config){
+            $scope.data.composefile = data;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    };
 
     $scope.createNew = function(){
         var title = this.data.title;

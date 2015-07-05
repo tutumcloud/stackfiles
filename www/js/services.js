@@ -6,7 +6,7 @@ angular.module('registry.services', [])
              $window.location.href = ('/auth/github');
          },
          saveFile: function(form){
-             return $http.post('/create', {
+             return $http.post('/api/v1/create', {
                  method: 'POST',
                  params: {
                      form : form
@@ -14,12 +14,12 @@ angular.module('registry.services', [])
              });
          },
          getFiles: function(){
-             return $http.get('/files',{
+             return $http.get('/api/v1/files',{
                  method: 'GET'
              });
          },
          getFileWithId: function(id){
-             return $http.get('/files/' + id,{
+             return $http.get('/api/v1/files/' + id,{
                  method: 'GET',
                  params: {
                      id: id
@@ -27,12 +27,27 @@ angular.module('registry.services', [])
              });
          },
         searchFile: function(term){
-            return $http.get('/search',{
+            return $http.get('/api/v1/search',{
                 method: 'GET',
                 params: {
                     term: term
                 }
             });
+        },
+        getUserRepos: function(){
+            return $http.get('/api/v1/user/repos', {
+                method: 'GET'
+            });
+        },
+
+        getYAMLFile: function(repo){
+            return $http.post('/api/v1/user/repos/file',{
+                method: 'POST',
+                params: {
+                    repo: repo
+                }
+            });
         }
+
      };
 });
