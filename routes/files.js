@@ -81,10 +81,62 @@ module.exports = function(app) {
     });
 
     app.get('/api/v1/files/:id', auth, function(req, res){
-        File.findOne({_id: req.query.id}, function(err, files){
+        File.findOne({_id: req.query.id}, function(err, file){
+            if(err) console.log(err);
+            res.json(file);
+        });
+    });
+
+    app.get('/api/v1/userfiles', auth, function(req, res){
+        File.find({user: req.user.username}, function(err, files){
             if(err) console.log(err);
             res.json(files);
         });
+    });
+
+    app.get('/api/v1/userfiles/:id', auth, function(req, res){
+        File.findOne({_id: req.query.id, user: req.user.username}, function(err, file){
+            if(err) console.log(err);
+            res.json(file);
+        });
+    });
+
+    app.delete('/api/v1/userfiles/:id', auth, function(req, res){
+        File.findOne({_id: req.query.id, user: req.user.username}, function(err, file){
+            if(err) console.log(err);
+            file.remove(function(err, data){
+                if(err){
+                    res.json(err);
+                } else {
+                    res.json(data);
+                }
+            });
+        });
+    });
+
+    app.post('/api/v1/userfiles/:id', auth, function(req, res, next){
+        File.findOne({_id: req.body.params.id, user: req.user.username}, function(err, file){
+            if(err) {
+                console.log(err);
+            } else {
+                File.update({
+                    title: file.title,
+                    readme: file.readme,
+                    tags: file.tags
+                },
+                {
+                    title: req.body.params.form.title,
+                    readme: req.body.params.form.readme,
+                    tags: req.body.params.form.tags
+                },
+                {
+                    multi: false
+                }, function (err, data) {
+                    reIndex(stream, count, total, done);
+                });
+            }
+        });
+        res.redirect('/mystack');
     });
 
     app.get("/api/v1/search", function(req, res){
