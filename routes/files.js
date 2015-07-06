@@ -108,6 +108,7 @@ module.exports = function(app) {
                 if(err){
                     res.json(err);
                 } else {
+                    reIndex(stream, count, total, done);
                     res.json(data);
                 }
             });
