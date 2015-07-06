@@ -18,9 +18,39 @@ angular.module('registry.services', [])
                  method: 'GET'
              });
          },
+         userFiles: function(){
+             return $http.get('/api/v1/userfiles',{
+                 method: 'GET'
+             });
+         },
          getFileWithId: function(id){
              return $http.get('/api/v1/files/' + id,{
                  method: 'GET',
+                 params: {
+                     id: id
+                 }
+             });
+         },
+         userFileWithId: function(id){
+             return $http.get('/api/v1/userfiles/' + id,{
+                 method: 'GET',
+                 params: {
+                     id: id
+                 }
+             });
+         },
+         updateUserFile: function(id, form){
+             return $http.post('/api/v1/userfiles/' + id,{
+                method: 'POST',
+                params: {
+                    id: id,
+                    form: form
+                }
+             });
+         },
+         deleteUserFile: function(id){
+             return $http.delete('/api/v1/userfiles/' + id,{
+                 method:'DELETE',
                  params: {
                      id: id
                  }

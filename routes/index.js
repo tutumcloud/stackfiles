@@ -96,6 +96,14 @@ module.exports = function(app) {
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
+    app.get('/mystack', auth, function(req, res){
+        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+    });
+
+    app.get('/mystack/:id', auth, function(req, res){
+        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+    });
+
     app.get('/create', auth, function(req, res){
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });

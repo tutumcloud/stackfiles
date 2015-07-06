@@ -19,6 +19,14 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
         templateUrl: 'partials/create.html',
         controller: 'CreateController'
       }).
+      when('/mystack', {
+        templateUrl: 'partials/mystack.html',
+        controller: 'UserController'
+      }).
+      when('/mystack/:mystackId', {
+        templateUrl: 'partials/mystack-details.html',
+        controller: 'UserDetailsController'
+      }).
       otherwise({
         redirectTo: '/'
       });
