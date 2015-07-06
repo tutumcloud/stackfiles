@@ -1,6 +1,6 @@
 <div class="container">
     <div style="text-align:center;">
-        <h2>Stackfile list</h2>
+        <h2>My Stackfile list</h2>
     </div>
     <div class="col-lg-12">
         <input type="text" class="form-group focus-bar" placeholder="Search by Stack name, username, services" ng-model="data.search" ng-change="searchFile()">
@@ -31,16 +31,18 @@
                     <th>Name</th>
                     <th>Number of Services</th>
                     <th>Created by</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="file in files" ng-class-odd="odd" ng-class-even="even">
-                    <td><a href="/registry/{{file._id}}">{{file.title}}</a></td>
+                    <td><a href="/mystack/{{file._id}}">{{file.title}}</a></td>
                     <td></td>
                     <td><a href="{{file.profileLink}}">{{file.user}}</a></td>
+                    <td><a class="btn btn-danger" ng-click="deleteFile(file._id)">Delete</a><a class="btn btn-primary">Update</a></td>
                 </tr>
             </tbody>
         </table>
-        <a href="/mystack">My Stackfiles</a>
+        <a href="/registry">Back to registry</a>
     </div>
 </div>
