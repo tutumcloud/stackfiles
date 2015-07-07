@@ -40,7 +40,7 @@ angular.module('registry.services', [])
              });
          },
          updateUserFile: function(id, form){
-             return $http.post('/api/v1/userfiles/' + id,{
+             return $http.post('/api/v1/userfiles/update',{
                 method: 'POST',
                 params: {
                     id: id,

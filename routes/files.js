@@ -114,33 +114,33 @@ module.exports = function(app) {
         });
     });
 
-    app.post('/api/v1/userfiles/:id', auth, function(req, res, next){
-        File.findOne({_id: req.body.params.id, user: req.user.username}, function(err, file){
-            if(err) {
-                console.log(err);
-            } else {
-                File.update({
-                    title: file.title,
-                    readme: file.readme,
-                    tags: file.tags
-                },
-                {
-                    title: req.body.params.form.title,
-                    readme: req.body.params.form.readme,
-                    tags: req.body.params.form.tags
-                },
-                {
-                    multi: false
-                }, function (err, data) {
-                    reIndex(stream, count, total, done);
-                });
+    app.post('/api/v1/userfiles/update', auth, function(req, res, next){
+        File.findOneAndUpdate({
+            _id: req.body.params.id,
+            user: req.user.username
+        }, {
+            $set: {
+                title: req.body.params.form.title,
+                readme: req.body.params.form.readme,
+                tags: req.body.params.form.tags
             }
+        }, {
+            safe: true
+        },
+            function(err, file){
+                File.findOne({
+                    _id: req.body.params.id,
+                    user: req.user.username
+                }, function(err, file){
+                    file.index(function(err){
+                        if(err) console.log(err);
+                        res.json(file);
+                    });
+                });
         });
-        res.redirect('/mystack');
     });
 
     app.get("/api/v1/search", function(req, res){
-
         File.search({
             query_string:{
                 query: req.query.term
