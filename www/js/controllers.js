@@ -26,8 +26,14 @@ angular.module('registry.controllers', [])
 .controller('RegistryDetailsController', function($scope, $routeParams, API){
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
         $scope.data = data;
-        $scope.composeFile = jsyaml.dump(data.compose);
         $scope.tags = data.tags;
+        API.getYAMLFile(data.projectName).success(function(data, status, headers, config){
+            $scope.composeFile = data;
+        }).error(function(data, status, headers, config){
+            $scope.composeFile = "Unable to fetch tutu.yml from Github repository";
+        });
+    }).error(function(data, status, headers, config){
+        console.log(data);
     });
 })
 
@@ -59,8 +65,14 @@ angular.module('registry.controllers', [])
 
     API.userFileWithId($routeParams.mystackId).success(function(data, status, headers, config){
         $scope.data = data;
-        $scope.composeFile = jsyaml.dump(data.compose);
         $scope.tags = data.tags;
+        API.getYAMLFile(data.projectName).success(function(data, status, headers, config){
+            $scope.composeFile = data;
+        }).error(function(data, status, headers, config){
+            $scope.composeFile = "Unable to fetch tutu.yml from Github repository";
+        });
+    }).error(function(data, status, headers, config){
+        console.log(data);
     });
 
     $scope.updateFile = function(id){
@@ -79,8 +91,6 @@ angular.module('registry.controllers', [])
             $window.location.reload();
         }).error(function(data, status, headers, config){
             console.log(data);
-            console.log(status);
-            console.log(headers);
         });
     };
 })
@@ -119,7 +129,6 @@ angular.module('registry.controllers', [])
 
     $scope.createNew = function(){
         var title = this.data.title;
-        var composeFile = jsyaml.load(this.data.composefile);
         var readMe = this.data.readme;
         var tags = this.data.tags;
         var projectName = this.data.selectedValue;
@@ -127,7 +136,6 @@ angular.module('registry.controllers', [])
 
         var form = {
             title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
-            compose: composeFile,
             readme: readMe,
             tags: tagArray,
             name: projectName

@@ -3,11 +3,10 @@ var mongoose = require('mongoose'),
 
 var schema = new mongoose.Schema({
     title: {type: String, es_boost:2.0, es_indexed: true},
-    compose: {type: Object},
     readme: {type: String},
     user: {type: String, es_indexed:true},
     profileLink: {type: String},
-    projectUrl: {type: String},
+    projectName: {type: String},
     tags: {
         type: Array,
         es_type:'string',

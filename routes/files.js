@@ -54,11 +54,10 @@ module.exports = function(app) {
     app.post('/api/v1/create', auth, function(req, res){
         var file = new File({
             title: req.body.params.form.title,
-            compose: req.body.params.form.compose,
             readme: req.body.params.form.readme,
             user: req.user.username,
             profileLink: req.user.profileUrl,
-            projectUrl: req.user.profileUrl + '/' + req.body.params.form.name,
+            projectName: req.body.params.form.name,
             tags: req.body.params.form.tags
         });
 
