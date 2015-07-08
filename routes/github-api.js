@@ -1,8 +1,8 @@
 var Github = require("github-api");
 var User = require('../models/users.js');
+var File = require('../models/composeFiles.js');
 
-//BUILD ALL HELPER
-function listRepos(accessToken, callback){ //CALLBACK HERE
+function listRepos(accessToken, callback){
     var github = new Github({
       token: accessToken
     });
@@ -17,10 +17,8 @@ function listRepos(accessToken, callback){ //CALLBACK HERE
     });
 }
 
-function getYAML(accessToken, username, path, repositoryName, callback){
-    var github = new Github({
-      token: accessToken
-    });
+function getYAML(username, path, repositoryName, callback){
+    var github = new Github({});
     path = path.substr(1);
     var repo = github.getRepo(username, repositoryName);
     repo.read('master', path + 'tutum.yml', function(err, data) {
@@ -28,10 +26,8 @@ function getYAML(accessToken, username, path, repositoryName, callback){
     });
 }
 
-function getREADME(accessToken, username, repositoryName, callback){
-    var github = new Github({
-      token: accessToken
-    });
+function getREADME(username, repositoryName, callback){
+    var github = new Github({});
 
     var repo = github.getRepo(username, repositoryName);
     repo.read('master', 'README.md', function(err, data) {
@@ -60,16 +56,16 @@ module.exports = function(app) {
     app.post('/api/v1/user/repos/file', function(req, res){
         var repositoryName = req.body.params.repo;
         var repositoryPath = req.body.params.path;
-        User.findOne({username: req.user.username}, function(err, user){
+        File.findOne({_id: req.body.params.id}, function(err, file){
             if(err){
                 console.log(err);
                 res.redirect('/registry');
             }
-            getYAML(req.user.accessToken, req.user.username, repositoryPath, repositoryName, function(err, file){
+            getYAML(file.user, repositoryPath, repositoryName, function(err, yaml){
                 if(err){
                     console.log(err);
                 } else {
-                    res.send(file);
+                    res.send(yaml);
                 }
             });
         });
@@ -77,12 +73,12 @@ module.exports = function(app) {
 
     app.post('/api/v1/user/repos/readme', function(req, res){
         var repositoryName = req.body.params.repo;
-        User.findOne({username: req.user.username}, function(err, user){
+        File.findOne({_id: req.body.params.id}, function(err, file){
             if(err){
                 console.log(err);
                 res.redirect('/registry');
             }
-            getREADME(req.user.accessToken, req.user.username, repositoryName, function(err, file){
+            getREADME(file.user, repositoryName, function(err, file){
                 if(err){
                     console.log(err);
                 } else {

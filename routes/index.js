@@ -1,12 +1,10 @@
 var path = require('path'),
     passport = require('passport'),
-    GitHubStrategy = require('passport-github').Strategy;
+    GitHubStrategy = require('passport-github').Strategy,
+    Github = require("github-api"),
+    User = require('../models/users.js');
 
-var Github = require("github-api");
-
-var User = require('../models/users.js');
 var env = process.env.NODE_ENV;
-
 var GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
 
@@ -89,6 +87,7 @@ module.exports = function(app) {
     });
 
     app.get('/registry', function(req, res){
+        console.log(req.user);
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
@@ -108,9 +107,7 @@ module.exports = function(app) {
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
-    app.get('/auth/github', passport.authenticate('github'), function(req,res){
-        console.log("Hello");
-    });
+    app.get('/auth/github', passport.authenticate('github'));
 
     app.get('/auth/github/callback', passport.authenticate('github'), function(req, res) {
         res.redirect('/create');

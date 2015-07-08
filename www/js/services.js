@@ -13,6 +13,11 @@ angular.module('registry.services', [])
                 }
              });
          },
+
+         getRegistry: function(){
+             return http.get('/registry');
+         },
+
          getFiles: function(){
              return $http.get('/api/v1/files',{
                  method: 'GET'
@@ -70,19 +75,21 @@ angular.module('registry.services', [])
             });
         },
 
-        getYAMLFile: function(repo, path){
+        getYAMLFile: function(id, repo, path){
             return $http.post('/api/v1/user/repos/file',{
                 method: 'POST',
                 params: {
+                    id : id,
                     repo: repo,
                     path: path
                 }
             });
         },
-        getReadmeFile: function(repo){
+        getReadmeFile: function(id, repo){
             return $http.post('/api/v1/user/repos/readme',{
                 method: 'POST',
                 params: {
+                    id: id,
                     repo: repo
                 }
             });

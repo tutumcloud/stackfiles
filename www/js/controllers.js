@@ -8,7 +8,7 @@ angular.module('registry.controllers', [])
     $scope.signin = function(){
         API.signin();
     };
-    
+
     API.getFiles().success(function(data, status, headers, config){
         $scope.files = data;
         console.log(data);
@@ -30,12 +30,12 @@ angular.module('registry.controllers', [])
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
         $scope.data = data;
         $scope.tags = data.tags;
-        API.getYAMLFile(data.projectName, data.path).success(function(data, status, headers, config){
+        API.getYAMLFile(data._id, data.projectName, data.path).success(function(data, status, headers, config){
             $scope.composeFile = data;
         }).error(function(data, status, headers, config){
             $scope.composeFile = "Unable to fetch tutum.yml from Github repository";
         });
-        API.getReadmeFile(data.projectName).success(function(data, status, headers, config){
+        API.getReadmeFile(data._id, data.projectName).success(function(data, status, headers, config){
             $scope.readme = data;
         }).error(function(data, status, headers, config){
             $scope.readme = "Unable to fetch Readme.md from Github repository";
