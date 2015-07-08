@@ -87,7 +87,6 @@ module.exports = function(app) {
     });
 
     app.get('/registry', function(req, res){
-        console.log(req.user);
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 

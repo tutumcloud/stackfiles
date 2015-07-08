@@ -23,11 +23,6 @@ angular.module('registry.services', [])
                  method: 'GET'
              });
          },
-         userFiles: function(){
-             return $http.get('/api/v1/userfiles',{
-                 method: 'GET'
-             });
-         },
          getFileWithId: function(id){
              return $http.get('/api/v1/files/' + id,{
                  method: 'GET',
@@ -36,23 +31,7 @@ angular.module('registry.services', [])
                  }
              });
          },
-         userFileWithId: function(id){
-             return $http.get('/api/v1/userfiles/' + id,{
-                 method: 'GET',
-                 params: {
-                     id: id
-                 }
-             });
-         },
-         updateUserFile: function(id, form){
-             return $http.post('/api/v1/userfiles/update',{
-                method: 'POST',
-                params: {
-                    id: id,
-                    form: form
-                }
-             });
-         },
+        //CHANGE NAME
          deleteUserFile: function(id){
              return $http.delete('/api/v1/userfiles/' + id,{
                  method:'DELETE',
@@ -72,6 +51,16 @@ angular.module('registry.services', [])
         getUserRepos: function(){
             return $http.get('/api/v1/user/repos', {
                 method: 'GET'
+            });
+        },
+
+        getUserReposInfo: function(repo, path){
+            return $http.post('/api/v1/user/repos/new',{
+                method: 'GET',
+                params: {
+                    repo: repo,
+                    path: path
+                }
             });
         },
 

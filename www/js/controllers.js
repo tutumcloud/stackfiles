@@ -11,7 +11,6 @@ angular.module('registry.controllers', [])
 
     API.getFiles().success(function(data, status, headers, config){
         $scope.files = data;
-        console.log(data);
     }).error(function(data, status, headers, config){
         console.log(data);
     });
@@ -45,65 +44,6 @@ angular.module('registry.controllers', [])
     });
 })
 
-
-.controller('UserController', function($scope, $routeParams, $window, API){
-    API.userFiles().success(function(data, status, headers, config){
-        $scope.files = data;
-    }).error(function(data, status, headers, config){
-        console.log(data);
-    });
-
-    $scope.deleteFile = function(id){
-        API.deleteUserFile(id).success(function(data, status, headers, config){
-            $window.location.reload();
-        }).error(function(data, status, headers, config){
-            console.log(data);
-        });
-    };
-})
-
-.controller('UserDetailsController', function($scope, $routeParams, $window, API){
-    function buildValueArray(array){
-        var newArray = [];
-        angular.forEach(array, function(value, key){
-            newArray.push(value.text);
-        });
-        return newArray;
-    }
-
-    API.userFileWithId($routeParams.mystackId).success(function(data, status, headers, config){
-        $scope.data = data;
-        $scope.tags = data.tags;
-        API.getYAMLFile(data.projectName).success(function(data, status, headers, config){
-            $scope.composeFile = data;
-        }).error(function(data, status, headers, config){
-            $scope.composeFile = "Unable to fetch tutu.yml from Github repository";
-        });
-    }).error(function(data, status, headers, config){
-        console.log(data);
-    });
-
-    $scope.updateFile = function(id){
-        var title = this.data.title;
-        var readMe = this.data.readme;
-        var tags = this.data.tags;
-        var tagArray = buildValueArray(tags);
-
-        var form = {
-            title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
-            readme: readMe,
-            tags: tagArray,
-        };
-
-        API.updateUserFile(id, form).success(function(data, status, headers, config){
-            $window.location.reload();
-        }).error(function(data, status, headers, config){
-            console.log(data);
-        });
-    };
-})
-
-
 .controller('CreateController', function($scope, $window, API){
     function buildValueArray(array){
         var newArray = [];
@@ -129,7 +69,7 @@ angular.module('registry.controllers', [])
 
     $scope.getComposeFile = function(name, path){
         $scope.data.composefile = "";
-        API.getYAMLFile(name, path).success(function(data, status, headers, config){
+        API.getUserReposInfo(name, path).success(function(data, status, headers, config){
             $scope.data.composefile = data;
         }).error(function(data, status, headers, config){
             console.log(data);
@@ -147,7 +87,6 @@ angular.module('registry.controllers', [])
 
     $scope.createNew = function(){
         var title = this.data.title;
-        var readMe = this.data.readme;
         var stackfile = jsyaml.load(this.data.composefile);
         var path = this.data.path;
         var tags = this.data.tags;
@@ -156,7 +95,6 @@ angular.module('registry.controllers', [])
 
         var form = {
             title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
-            readme: readMe,
             stackfile: stackfile,
             path: path,
             tags: tagArray,

@@ -3,7 +3,6 @@ var mongoose = require('mongoose'),
 
 var schema = new mongoose.Schema({
     title: {type: String, es_boost:2.0, es_indexed: true},
-    readme: {type: String, es_indexed: true}, //Not sure if we want to index that
     stackfile : {type: Object},
     path: {type: String},
     user: {type: String, es_indexed:true},

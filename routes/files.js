@@ -55,7 +55,6 @@ module.exports = function(app) {
         var file = new File({
             title: req.body.params.form.title,
             stackfile: req.body.params.form.stackfile,
-            readme: req.body.params.form.readme,
             path : req.body.params.form.path,
             user: req.user.username,
             profileLink: req.user.profileUrl,
@@ -88,20 +87,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/api/v1/userfiles', auth, function(req, res){
-        File.find({user: req.user.username}, function(err, files){
-            if(err) console.log(err);
-            res.json(files);
-        });
-    });
-
-    app.get('/api/v1/userfiles/:id', auth, function(req, res){
-        File.findOne({_id: req.query.id, user: req.user.username}, function(err, file){
-            if(err) console.log(err);
-            res.json(file);
-        });
-    });
-
+    //CHANGE ROUTE
     app.delete('/api/v1/userfiles/:id', auth, function(req, res){
         File.findOne({_id: req.query.id, user: req.user.username}, function(err, file){
             if(err) console.log(err);
@@ -113,32 +99,6 @@ module.exports = function(app) {
                     res.json(data);
                 }
             });
-        });
-    });
-
-    app.post('/api/v1/userfiles/update', auth, function(req, res, next){
-        File.findOneAndUpdate({
-            _id: req.body.params.id,
-            user: req.user.username
-        }, {
-            $set: {
-                title: req.body.params.form.title,
-                readme: req.body.params.form.readme,
-                tags: req.body.params.form.tags
-            }
-        }, {
-            safe: true
-        },
-            function(err, file){
-                File.findOne({
-                    _id: req.body.params.id,
-                    user: req.user.username
-                }, function(err, file){
-                    file.index(function(err){
-                        if(err) console.log(err);
-                        res.json(file);
-                    });
-                });
         });
     });
 

@@ -31,6 +31,7 @@
                     <th>Name</th>
                     <th>Number of Services</th>
                     <th>Created by</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,9 +39,9 @@
                     <td><a href="/registry/{{file._id}}">{{file.title}}</a></td>
                     <td></td>
                     <td><a href="{{file.profileLink}}">{{file.user}}</a></td>
+                    <td><a href="https://dashboard.tutum.co/stack/deploy/?repo={{data.profileLink+'/'+data.projectName}}"><img src="https://s.tutum.co/deploy-to-tutum.svg"></a></td>
                 </tr>
             </tbody>
         </table>
-        <a href="/mystack">My Stackfiles</a>
     </div>
 </div>
