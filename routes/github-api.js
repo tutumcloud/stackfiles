@@ -17,13 +17,24 @@ function listRepos(accessToken, callback){ //CALLBACK HERE
     });
 }
 
-function getYAML(accessToken, username, repositoryName, callback){
+function getYAML(accessToken, username, path, repositoryName, callback){
+    var github = new Github({
+      token: accessToken
+    });
+    path = path.substr(1);
+    var repo = github.getRepo(username, repositoryName);
+    repo.read('master', path + 'tutum.yml', function(err, data) {
+        callback(null, data);
+    });
+}
+
+function getREADME(accessToken, username, repositoryName, callback){
     var github = new Github({
       token: accessToken
     });
 
     var repo = github.getRepo(username, repositoryName);
-    repo.read('master', 'tutum.yml', function(err, data) {
+    repo.read('master', 'README.md', function(err, data) {
         callback(null, data);
     });
 }
@@ -48,12 +59,30 @@ module.exports = function(app) {
 
     app.post('/api/v1/user/repos/file', function(req, res){
         var repositoryName = req.body.params.repo;
+        var repositoryPath = req.body.params.path;
         User.findOne({username: req.user.username}, function(err, user){
             if(err){
                 console.log(err);
                 res.redirect('/registry');
             }
-            getYAML(req.user.accessToken, req.user.username, repositoryName, function(err, file){
+            getYAML(req.user.accessToken, req.user.username, repositoryPath, repositoryName, function(err, file){
+                if(err){
+                    console.log(err);
+                } else {
+                    res.send(file);
+                }
+            });
+        });
+    });
+
+    app.post('/api/v1/user/repos/readme', function(req, res){
+        var repositoryName = req.body.params.repo;
+        User.findOne({username: req.user.username}, function(err, user){
+            if(err){
+                console.log(err);
+                res.redirect('/registry');
+            }
+            getREADME(req.user.accessToken, req.user.username, repositoryName, function(err, file){
                 if(err){
                     console.log(err);
                 } else {

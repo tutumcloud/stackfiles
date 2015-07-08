@@ -9,11 +9,15 @@
           </div>
           <div class="form-group">
             <label for="title">Repositories</label>
-            <select ng-model="data.selectedValue" ng-init="getRepos()" ng-change="getComposeFile(data.selectedValue)">
+            <select ng-model="data.reponame" ng-init="getRepos()" >
                 <option ng-repeat="repo in repos track by $index" value ={{repo}}>
                     {{repo}}
                 </option>
             </select>
+          </div>
+          <div class="form-group">
+            <label for="title">Path</label>
+            <input type="text" class="form-control" id="title" placeholder="Path" ng-model="data.path" ng-change="getComposeFile(data.reponame, data.path)">
           </div>
           <div class="form-group">
             <label for="compose-file">Compose File</label>

@@ -70,8 +70,17 @@ angular.module('registry.services', [])
             });
         },
 
-        getYAMLFile: function(repo){
+        getYAMLFile: function(repo, path){
             return $http.post('/api/v1/user/repos/file',{
+                method: 'POST',
+                params: {
+                    repo: repo,
+                    path: path
+                }
+            });
+        },
+        getReadmeFile: function(repo){
+            return $http.post('/api/v1/user/repos/readme',{
                 method: 'POST',
                 params: {
                     repo: repo
