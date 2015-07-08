@@ -27,10 +27,15 @@ angular.module('registry.controllers', [])
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
         $scope.data = data;
         $scope.tags = data.tags;
-        API.getYAMLFile(data.projectName).success(function(data, status, headers, config){
+        API.getYAMLFile(data.projectName, data.path).success(function(data, status, headers, config){
             $scope.composeFile = data;
         }).error(function(data, status, headers, config){
-            $scope.composeFile = "Unable to fetch tutu.yml from Github repository";
+            $scope.composeFile = "Unable to fetch tutum.yml from Github repository";
+        });
+        API.getReadmeFile(data.projectName).success(function(data, status, headers, config){
+            $scope.readme = data;
+        }).error(function(data, status, headers, config){
+            $scope.readme = "Unable to fetch Readme.md from Github repository";
         });
     }).error(function(data, status, headers, config){
         console.log(data);
@@ -119,8 +124,18 @@ angular.module('registry.controllers', [])
         });
     };
 
-    $scope.getComposeFile = function(name){
-        API.getYAMLFile(name).success(function(data, status, headers, config){
+    $scope.getComposeFile = function(name, path){
+        $scope.data.composefile = "";
+        API.getYAMLFile(name, path).success(function(data, status, headers, config){
+            $scope.data.composefile = data;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    };
+
+    $scope.getReadme = function(name){
+        $scope.data.composefile = "";
+        API.getReadmeFile(name).success(function(data, status, headers, config){
             $scope.data.composefile = data;
         }).error(function(data, status, headers, config){
             console.log(data);
@@ -130,13 +145,17 @@ angular.module('registry.controllers', [])
     $scope.createNew = function(){
         var title = this.data.title;
         var readMe = this.data.readme;
+        var stackfile = jsyaml.load(this.data.composefile);
+        var path = this.data.path;
         var tags = this.data.tags;
-        var projectName = this.data.selectedValue;
+        var projectName = this.data.reponame;
         var tagArray = buildValueArray(tags);
 
         var form = {
             title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
             readme: readMe,
+            stackfile: stackfile,
+            path: path,
             tags: tagArray,
             name: projectName
 

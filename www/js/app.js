@@ -1,4 +1,8 @@
-angular.module('registry',['registry.controllers','registry.services','ngRoute','ngTagsInput'])
+angular.module('registry',['registry.controllers','registry.services','ngRoute','ngTagsInput','hc.marked'])
+
+.config(['markedProvider', function(markedProvider) {
+      markedProvider.setOptions({gfm: true});
+}])
 
 .config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);

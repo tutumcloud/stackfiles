@@ -4,7 +4,7 @@
     </div>
     <div class="col-lg-12">
         <h4>{{data.title}} by <a href="{{data.profileLink}}">{{data.user}}</a></h4>
-        <p>{{data.readme}}</p>
+        <a href="https://dashboard.tutum.co/stack/deploy/?repo={{data.profileLink+'/'+data.projectName}}"><img src="https://s.tutum.co/deploy-to-tutum.svg"></a>
         <div class="form-group">
           <label for="compose-file">Compose File</label>
           <textarea class="form-control" rows="15" id="compose-file" ng-model="composeFile" disabled/>
@@ -15,7 +15,8 @@
                 <div>{{tag}}</div>
             </div>
         </div>
-        <a href="https://dashboard.tutum.co/stack/deploy/?repo={{data.profileLink+'/'+data.projectName}}"><img src="https://s.tutum.co/deploy-to-tutum.svg"></a>
+        <div marked="readme" disabled></div>
+
         <br/>
         <br/>
         <a href="/registry">Back to registry</a>
