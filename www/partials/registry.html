@@ -4,7 +4,7 @@
     </div>
     <div class="col-lg-12">
         <input type="text" class="form-group focus-bar" placeholder="Search by Stack name, username, services" ng-model="data.search" ng-change="searchFile()">
-        <a class="btn btn-default pull-right" href="/create">Submit Stack File</a>
+        <a class="btn btn-default pull-right" ng-click="signin()">Submit Stack File</a>
     </div>
     <div class="col-lg-12" ng-show="data.search.length">
         <table class="table">

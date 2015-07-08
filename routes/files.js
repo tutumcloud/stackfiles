@@ -74,14 +74,14 @@ module.exports = function(app) {
         res.redirect('/registry/' + file._id);
     });
 
-    app.get('/api/v1/files', auth, function(req, res){
+    app.get('/api/v1/files', function(req, res){
         File.find({}, function(err, files){
             if(err) console.log(err);
             res.json(files);
         });
     });
 
-    app.get('/api/v1/files/:id', auth, function(req, res){
+    app.get('/api/v1/files/:id', function(req, res){
         File.findOne({_id: req.query.id}, function(err, file){
             if(err) console.log(err);
             res.json(file);

@@ -74,7 +74,7 @@ if (env == 'production'){
 
 var auth = function(req, res, next){
     if (req.isAuthenticated()) { return next(); }
-    res.redirect('/');
+    res.redirect('/registry');
 };
 
 module.exports = function(app) {
@@ -88,11 +88,11 @@ module.exports = function(app) {
         }
     });
 
-    app.get('/registry', auth, function(req, res){
+    app.get('/registry', function(req, res){
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
-    app.get('/registry/:id', auth, function(req, res){
+    app.get('/registry/:id', function(req, res){
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
@@ -113,6 +113,6 @@ module.exports = function(app) {
     });
 
     app.get('/auth/github/callback', passport.authenticate('github'), function(req, res) {
-        res.redirect('/registry');
+        res.redirect('/create');
     });
 };

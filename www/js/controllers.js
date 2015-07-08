@@ -1,14 +1,17 @@
 angular.module('registry.controllers', [])
 
 .controller('MainController', function($scope, API){
-    $scope.signin = function(){
-        API.signin();
-    };
+
 })
 
 .controller('RegistryController', function($scope, API){
+    $scope.signin = function(){
+        API.signin();
+    };
+    
     API.getFiles().success(function(data, status, headers, config){
         $scope.files = data;
+        console.log(data);
     }).error(function(data, status, headers, config){
         console.log(data);
     });
