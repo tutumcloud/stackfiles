@@ -1,4 +1,5 @@
 var Github = require("github-api");
+var request = require('request');
 var User = require('../models/users.js');
 var File = require('../models/composeFiles.js');
 
@@ -22,9 +23,11 @@ function listRepos(accessToken, callback){
 function getYAML(username, path, repositoryName, callback){
     var github = new Github({});
     path = path.substr(1);
-    var repo = github.getRepo(username, repositoryName);
-    repo.read('master', path + 'tutum.yml', function(err, data) {
-        callback(null, data);
+    request.get("https://github.com/" + username + "/" + repositoryName + "/raw/master/" + path + "/tutum.yml", function(err, data){
+        if(err){
+            callback(err, null);
+        }
+        callback(null, data.body);
     });
 }
 

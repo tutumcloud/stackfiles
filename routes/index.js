@@ -78,12 +78,7 @@ var auth = function(req, res, next){
 module.exports = function(app) {
 
     app.get('/', function(req, res){
-        if (req.isAuthenticated()) {
-            res.redirect('/registry');
-        }
-        else {
-            res.sendFile(path.resolve(__dirname + '/../www/index.html'));
-        }
+        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
     app.get('/registry', function(req, res){

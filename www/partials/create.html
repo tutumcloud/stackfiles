@@ -1,34 +1,61 @@
-<div id="create" class="container">
-    <div class="col-lg-12">
-        <h2>Create new Stackfile</h2>
-        <br>
-        <form>
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" placeholder="Title" ng-model="data.title">
-          </div>
-          <div class="form-group">
-            <label for="title">Repositories</label>
-            <select ng-model="data.reponame" ng-init="getRepos()" >
-                <option ng-repeat="repo in repos track by $index" value ={{repo}}>
-                    {{repo}}
-                </option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="title">Path</label>
-            <input type="text" class="form-control" id="title" placeholder="Path" ng-model="data.path" ng-change="getComposeFile(data.reponame, data.path)">
-          </div>
-          <div class="form-group">
-            <label for="compose-file">Compose File</label>
-            <textarea class="form-control" rows="10" id="compose-file" placeholder="Compose file" ng-model="data.composefile"disabled />
-          </div>
-          <div class="form-group">
-              <label for="tags">Tags</label>
-              <tags-input ng-model="data.tags"></tags-input>
-          </div>
-          <button type="submit" class="btn btn-default" ng-click="createNew()">Submit</button>
-          <a href="/registry" class="btn btn-default">Cancel</a>
-        </form>
+<div id="wrapper">
+
+  <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="http://tutum.co">
+                    <img src="img/tutum.png">
+                </a>
+            </li>
+            <!--<li>
+                <a href="/registry">Registry</a>
+            </li>
+            <li>
+                <a href="/favorite">Favorites</a>
+            </li>-->
+        </ul>
+    </div>
+    <div id="page-content-wrapper">
+        <div id="create" class="row">
+            <div id="section-title">
+                <h2>Stackfile.io</h2>
+            </div>
+            <div class="col-lg-12 gradient">
+                <div class="elem-bar">
+                    <h2>Submit New Stackfile</h2>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <form>
+                  <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" placeholder="Title" ng-model="data.title">
+                  </div>
+                  <div class="form-group">
+                    <label for="title">Repositories</label>
+                    <select ng-model="data.reponame" ng-init="getRepos()" >
+                        <option ng-repeat="repo in repos track by $index" value ={{repo}}>
+                            {{repo}}
+                        </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="title">Path</label>
+                    <input type="text" class="form-control" id="title" placeholder="Path" ng-model="data.path" ng-change="getComposeFile(data.reponame, data.path)">
+                  </div>
+                  <div class="form-group">
+                    <label for="compose-file">Compose File</label>
+                    <textarea class="form-control" rows="10" id="compose-file" placeholder="Compose file" ng-model="data.composefile"disabled />
+                  </div>
+                  <div class="form-group">
+                      <label for="tags">Tags</label>
+                      <tags-input ng-model="data.tags"></tags-input>
+                  </div>
+                  <button type="submit" class="btn btn-default" ng-click="createNew()">Submit</button>
+                  <a href="/registry" class="btn btn-default">Cancel</a>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
