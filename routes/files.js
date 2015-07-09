@@ -54,7 +54,8 @@ module.exports = function(app) {
     app.post('/api/v1/create', auth, function(req, res){
         var file = new File({
             title: req.body.params.form.title,
-            readme: req.body.params.form.readme,
+            stackfile: req.body.params.form.stackfile,
+            path : req.body.params.form.path,
             user: req.user.username,
             profileLink: req.user.profileUrl,
             projectName: req.body.params.form.name,
@@ -72,34 +73,21 @@ module.exports = function(app) {
         res.redirect('/registry/' + file._id);
     });
 
-    app.get('/api/v1/files', auth, function(req, res){
+    app.get('/api/v1/files', function(req, res){
         File.find({}, function(err, files){
             if(err) console.log(err);
             res.json(files);
         });
     });
 
-    app.get('/api/v1/files/:id', auth, function(req, res){
+    app.get('/api/v1/files/:id', function(req, res){
         File.findOne({_id: req.query.id}, function(err, file){
             if(err) console.log(err);
             res.json(file);
         });
     });
 
-    app.get('/api/v1/userfiles', auth, function(req, res){
-        File.find({user: req.user.username}, function(err, files){
-            if(err) console.log(err);
-            res.json(files);
-        });
-    });
-
-    app.get('/api/v1/userfiles/:id', auth, function(req, res){
-        File.findOne({_id: req.query.id, user: req.user.username}, function(err, file){
-            if(err) console.log(err);
-            res.json(file);
-        });
-    });
-
+    //CHANGE ROUTE
     app.delete('/api/v1/userfiles/:id', auth, function(req, res){
         File.findOne({_id: req.query.id, user: req.user.username}, function(err, file){
             if(err) console.log(err);
@@ -111,32 +99,6 @@ module.exports = function(app) {
                     res.json(data);
                 }
             });
-        });
-    });
-
-    app.post('/api/v1/userfiles/update', auth, function(req, res, next){
-        File.findOneAndUpdate({
-            _id: req.body.params.id,
-            user: req.user.username
-        }, {
-            $set: {
-                title: req.body.params.form.title,
-                readme: req.body.params.form.readme,
-                tags: req.body.params.form.tags
-            }
-        }, {
-            safe: true
-        },
-            function(err, file){
-                File.findOne({
-                    _id: req.body.params.id,
-                    user: req.user.username
-                }, function(err, file){
-                    file.index(function(err){
-                        if(err) console.log(err);
-                        res.json(file);
-                    });
-                });
         });
     });
 

@@ -18,6 +18,7 @@
     "express": "^4.13.0",
     "express-session": "^1.11.3",
     "github-api": "^0.10.6",
+    "http": "0.0.0",
     "js-yaml": "^3.3.1",
     "method-override": "^2.3.3",
     "mongoosastic": "^3.1.2",

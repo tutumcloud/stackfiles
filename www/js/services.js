@@ -13,13 +13,13 @@ angular.module('registry.services', [])
                 }
              });
          },
+
+         getRegistry: function(){
+             return http.get('/registry');
+         },
+
          getFiles: function(){
              return $http.get('/api/v1/files',{
-                 method: 'GET'
-             });
-         },
-         userFiles: function(){
-             return $http.get('/api/v1/userfiles',{
                  method: 'GET'
              });
          },
@@ -31,23 +31,7 @@ angular.module('registry.services', [])
                  }
              });
          },
-         userFileWithId: function(id){
-             return $http.get('/api/v1/userfiles/' + id,{
-                 method: 'GET',
-                 params: {
-                     id: id
-                 }
-             });
-         },
-         updateUserFile: function(id, form){
-             return $http.post('/api/v1/userfiles/update',{
-                method: 'POST',
-                params: {
-                    id: id,
-                    form: form
-                }
-             });
-         },
+        //CHANGE NAME
          deleteUserFile: function(id){
              return $http.delete('/api/v1/userfiles/' + id,{
                  method:'DELETE',
@@ -70,10 +54,31 @@ angular.module('registry.services', [])
             });
         },
 
-        getYAMLFile: function(repo){
+        getUserReposInfo: function(repo, path){
+            return $http.post('/api/v1/user/repos/new',{
+                method: 'GET',
+                params: {
+                    repo: repo,
+                    path: path
+                }
+            });
+        },
+
+        getYAMLFile: function(id, repo, path){
             return $http.post('/api/v1/user/repos/file',{
                 method: 'POST',
                 params: {
+                    id : id,
+                    repo: repo,
+                    path: path
+                }
+            });
+        },
+        getReadmeFile: function(id, repo){
+            return $http.post('/api/v1/user/repos/readme',{
+                method: 'POST',
+                params: {
+                    id: id,
                     repo: repo
                 }
             });
