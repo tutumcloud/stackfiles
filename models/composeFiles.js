@@ -3,7 +3,8 @@ var mongoose = require('mongoose'),
 
 var schema = new mongoose.Schema({
     title: {type: String, es_boost:2.0, es_indexed: true},
-    stackfile : {type: Object},
+    stackfile: {type: Object},
+    branch: {type: String},
     path: {type: String},
     user: {type: String, es_indexed:true},
     profileLink: {type: String},
@@ -13,6 +14,12 @@ var schema = new mongoose.Schema({
         es_type:'string',
         es_indexed:true
     },
+    images: {
+        type: Array,
+        es_type:'string',
+        es_indexed: true
+    },
+    stars: {type: Number},
 });
 
 var env = process.env.NODE_ENV;

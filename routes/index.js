@@ -101,7 +101,7 @@ module.exports = function(app) {
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
-    app.get('/auth/github', passport.authenticate('github'));
+    app.get('/auth/github', passport.authenticate('github', { scope: 'read:org' }));
 
     app.get('/auth/github/callback', passport.authenticate('github'), function(req, res) {
         res.redirect('/create');

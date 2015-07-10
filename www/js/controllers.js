@@ -4,13 +4,14 @@ angular.module('registry.controllers', [])
 
 })
 
-.controller('RegistryController', function($scope, API){
+.controller('RegistryController', function($scope, $window,API){
     $scope.signin = function(){
         API.signin();
     };
 
     API.getFiles().success(function(data, status, headers, config){
         $scope.files = data;
+        console.log(data);
     }).error(function(data, status, headers, config){
         console.log(data);
     });
@@ -44,20 +45,25 @@ angular.module('registry.controllers', [])
     });
 })
 
-.controller('CreateController', function($scope, $window, API){
-    function buildValueArray(array){
-        var newArray = [];
-        angular.forEach(array, function(value, key){
-            newArray.push(value.text);
-        });
-        return newArray;
-    }
+.controller('CreateController', function($scope, $rootScope, $window, API){
 
-    $scope.selectedValue = null;
-    var repos = [];
+    var orgs = [];
+
+    API.getUser().success(function(data, status, headers, config){
+         $rootScope.setUser(data.username);
+    }).error(function(data, status, headers, config){
+        console.log(data);
+    });
 
     $scope.getRepos = function(){
-        API.getUserRepos().success(function(data, status, headers, config){
+        var repos = [];
+        $scope.repos = [];
+        var branches = [];
+        $scope.branches = [];
+        $scope.data.path = "";
+        $scope.data.composefile = "";
+
+        API.getUserRepos($scope.data.orgname).success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
                 repos.push(value.name);
             });
@@ -67,9 +73,36 @@ angular.module('registry.controllers', [])
         });
     };
 
-    $scope.getComposeFile = function(name, path){
+    $scope.getOrgs = function(){
+        API.getUserOrgs().success(function(data, status, headers, config){
+            angular.forEach(data, function(value, key){
+                orgs.push(value.login);
+            });
+            orgs.push($rootScope.getUser());
+            $scope.orgs=orgs;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    };
+
+    $scope.getBranches = function(){
+        var branches = [];
+        $scope.branches = [];
+        $scope.data.path = "";
         $scope.data.composefile = "";
-        API.getUserReposInfo(name, path).success(function(data, status, headers, config){
+        API.getRepoBranches($scope.data.orgname, $scope.data.reponame).success(function(data, status, headers, config){
+            angular.forEach(data, function(value, key){
+                branches.push(value);
+            });
+            $scope.branches=branches;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    };
+
+    $scope.getComposeFile = function(orgname, name, branch, path){
+        $scope.data.composefile = "";
+        API.getUserReposInfo(orgname, name, branch, path).success(function(data, status, headers, config){
             $scope.data.composefile = data;
         }).error(function(data, status, headers, config){
             console.log(data);
@@ -88,19 +121,20 @@ angular.module('registry.controllers', [])
     $scope.createNew = function(){
         var title = this.data.title;
         var stackfile = jsyaml.load(this.data.composefile);
+        var branch = this.data.branch;
         var path = this.data.path;
-        var tags = this.data.tags;
         var projectName = this.data.reponame;
-        var tagArray = buildValueArray(tags);
+        var organizationName = this.data.orgname;
 
         var form = {
             title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
             stackfile: stackfile,
+            branch: branch,
             path: path,
-            tags: tagArray,
-            name: projectName
-
+            name: projectName,
+            orgname: organizationName
         };
+
         API.saveFile(form).success(function(data, status, headers, config){
             $window.location.href = ('/registry');
         }).error(function(data, status, header, config){
