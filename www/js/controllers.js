@@ -11,6 +11,7 @@ angular.module('registry.controllers', [])
 
     API.getFiles().success(function(data, status, headers, config){
         $scope.files = data;
+        console.log(data);
     }).error(function(data, status, headers, config){
         console.log(data);
     });
@@ -57,6 +58,11 @@ angular.module('registry.controllers', [])
     $scope.getRepos = function(){
         var repos = [];
         $scope.repos = [];
+        var branches = [];
+        $scope.branches = [];
+        $scope.data.path = "";
+        $scope.data.composefile = "";
+
         API.getUserRepos($scope.data.orgname).success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
                 repos.push(value.name);
@@ -79,9 +85,24 @@ angular.module('registry.controllers', [])
         });
     };
 
-    $scope.getComposeFile = function(orgname, name, path){
+    $scope.getBranches = function(){
+        var branches = [];
+        $scope.branches = [];
+        $scope.data.path = "";
         $scope.data.composefile = "";
-        API.getUserReposInfo(orgname, name, path).success(function(data, status, headers, config){
+        API.getRepoBranches($scope.data.orgname, $scope.data.reponame).success(function(data, status, headers, config){
+            angular.forEach(data, function(value, key){
+                branches.push(value);
+            });
+            $scope.branches=branches;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    };
+
+    $scope.getComposeFile = function(orgname, name, branch, path){
+        $scope.data.composefile = "";
+        API.getUserReposInfo(orgname, name, branch, path).success(function(data, status, headers, config){
             $scope.data.composefile = data;
         }).error(function(data, status, headers, config){
             console.log(data);
@@ -100,16 +121,18 @@ angular.module('registry.controllers', [])
     $scope.createNew = function(){
         var title = this.data.title;
         var stackfile = jsyaml.load(this.data.composefile);
+        var branch = this.data.branch;
         var path = this.data.path;
         var projectName = this.data.reponame;
-
-
+        var organizationName = this.data.orgname;
 
         var form = {
             title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
             stackfile: stackfile,
+            branch: branch,
             path: path,
-            name: projectName
+            name: projectName,
+            orgname: organizationName
         };
 
         API.saveFile(form).success(function(data, status, headers, config){

@@ -42,15 +42,23 @@
                   </div>
                   <div class="form-group">
                     <label for="title">Repositories</label>
-                    <select ng-model="data.reponame">
+                    <select ng-model="data.reponame" ng-change="getBranches()">
                         <option ng-repeat="repo in repos track by $index" value ={{repo}}>
                             {{repo}}
                         </option>
                     </select>
                   </div>
                   <div class="form-group">
+                    <label for="title">Branches</label>
+                    <select ng-model="data.branch">
+                        <option ng-repeat="branch in branches track by $index" value ={{branch}}>
+                            {{branch}}
+                        </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label for="title">Path</label>
-                    <input type="text" class="form-control" id="title" placeholder="Path" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.path)">
+                    <input type="text" class="form-control" id="title" placeholder="Path" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
                   </div>
                   <div class="form-group">
                     <label for="compose-file">Compose File</label>

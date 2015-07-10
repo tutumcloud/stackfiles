@@ -63,9 +63,10 @@ module.exports = function(app) {
         var file = new File({
             title: req.body.params.form.title,
             stackfile: req.body.params.form.stackfile,
+            branch: req.body.params.form.branch,
             path : req.body.params.form.path,
-            user: req.user.username,
-            profileLink: req.user.profileUrl,
+            user: req.body.params.form.orgname,
+            profileLink: "https://github.com/"+req.body.params.form.orgname,
             projectName: req.body.params.form.name,
             tags: serviceTags,
             images: images

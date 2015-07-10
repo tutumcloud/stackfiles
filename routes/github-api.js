@@ -19,6 +19,21 @@ function listUserRepos(accessToken, username, callback){
     });
 }
 
+function listBranches(accessToken, username, reponame, callback){
+    var github = new Github({
+        token: accessToken
+    });
+
+    var repo = github.getRepo(username, reponame);
+    repo.listBranches(function(err, branches) {
+        if(err){
+            callback(err, null);
+        } else {
+            callback(null, branches);
+        }
+    });
+}
+
 function listOrgs(accessToken, callback){
     var github = new Github({
         token: accessToken
@@ -50,10 +65,10 @@ function listOrgRepos(accessToken, name, callback){
 }
 
 //Wrapper to get tutum.yml from repository
-function getYAML(username, path, repositoryName, callback){
+function getYAML(username, repositoryName, branch, path, callback){
     var github = new Github({});
     path = path.substr(1);
-    request.get("https://github.com/" + username + "/" + repositoryName + "/raw/master/" + path + "/tutum.yml", function(err, data){
+    request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/tutum.yml", function(err, data){
         if(err){
             callback(err, null);
         }
@@ -75,6 +90,23 @@ module.exports = function(app) {
 
     app.get('/api/v1/user', function(req, res){
         res.json(req.user);
+    });
+
+    //GET ORGS LIST AT CREATION
+    app.get('/api/v1/user/orgs', function(req, res){
+        User.findOne({username: req.user.username}, function(err, user){
+            if(err){
+                console.log(err);
+                res.redirect('/registry');
+            }
+            listOrgs(user.accessToken, function(err, orgs){
+                if(err){
+                    console.log(err);
+                } else {
+                    res.json(orgs);
+                }
+            });
+        });
     });
 
     //GET REPOS LIST AT CREATION
@@ -104,18 +136,20 @@ module.exports = function(app) {
         });
     });
 
-    //GET REPOS LIST AT CREATION
-    app.get('/api/v1/user/orgs', function(req, res){
+    //GET BRANCHES LIST AT CREATION
+    app.get('/api/v1/user/repos/branches', function(req, res){
+        var repositoryName = req.query.repo;
+        var organization = req.query.orgname;
         User.findOne({username: req.user.username}, function(err, user){
             if(err){
                 console.log(err);
                 res.redirect('/registry');
             }
-            listOrgs(user.accessToken, function(err, orgs){
+            listBranches(user.accessToken, organization, repositoryName, function(err, branches){
                 if(err){
                     console.log(err);
                 } else {
-                    res.json(orgs);
+                    res.json(branches);
                 }
             });
         });
@@ -126,7 +160,8 @@ module.exports = function(app) {
         var organization = req.body.params.orgname;
         var repositoryName = req.body.params.repo;
         var repositoryPath = req.body.params.path;
-        getYAML(organization, repositoryPath, repositoryName, function(err, yaml){
+        var branch = req.body.params.branch;
+        getYAML(organization, repositoryName, branch, repositoryPath, function(err, yaml){
             if(err){
                 console.log(err);
             } else {
@@ -144,7 +179,7 @@ module.exports = function(app) {
                 console.log(err);
                 res.redirect('/registry');
             }
-            getYAML(file.user, repositoryPath, repositoryName, function(err, yaml){
+            getYAML(file.user, repositoryName, file.branch, repositoryPath, function(err, yaml){
                 if(err){
                     console.log(err);
                 } else {

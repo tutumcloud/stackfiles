@@ -78,12 +78,23 @@ angular.module('registry.services', [])
             });
         },
 
-        getUserReposInfo: function(orgname, repo, path){
+        getRepoBranches: function(orgname, repo){
+            return $http.get('/api/v1/user/repos/branches', {
+                method: 'GET',
+                params: {
+                    orgname: orgname,
+                    repo: repo
+                }
+            });
+        },
+
+        getUserReposInfo: function(orgname, repo, branch, path){
             return $http.post('/api/v1/user/repos/new',{
                 method: 'GET',
                 params: {
                     orgname: orgname,
                     repo: repo,
+                    branch: branch,
                     path: path
                 }
             });
