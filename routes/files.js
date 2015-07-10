@@ -52,6 +52,14 @@ function allDone() {
 
 module.exports = function(app) {
     app.post('/api/v1/create', auth, function(req, res){
+        var serviceTags = [];
+        var images = [];
+
+        for(var key in req.body.params.form.stackfile){
+            serviceTags.push(key);
+            images.push(req.body.params.form.stackfile[key].image);
+        }
+
         var file = new File({
             title: req.body.params.form.title,
             stackfile: req.body.params.form.stackfile,
@@ -59,12 +67,13 @@ module.exports = function(app) {
             user: req.user.username,
             profileLink: req.user.profileUrl,
             projectName: req.body.params.form.name,
-            tags: req.body.params.form.tags
+            tags: serviceTags,
+            images: images
         });
 
         file.save(function(err, savedFile){
             if(err){
-                console.log(err);
+                res.json(err);
             }
             file.on('es-indexed', function(){
                 console.log('file indexed');
@@ -75,8 +84,11 @@ module.exports = function(app) {
 
     app.get('/api/v1/files', function(req, res){
         File.find({}, function(err, files){
-            if(err) console.log(err);
-            res.json(files);
+            if(err){
+                res.json(err);
+            } else {
+                res.json(files);
+            }
         });
     });
 
@@ -90,15 +102,18 @@ module.exports = function(app) {
     //CHANGE ROUTE
     app.delete('/api/v1/userfiles/:id', auth, function(req, res){
         File.findOne({_id: req.query.id, user: req.user.username}, function(err, file){
-            if(err) console.log(err);
-            file.remove(function(err, data){
-                if(err){
-                    res.json(err);
-                } else {
-                    reIndex(stream, count, total, done);
-                    res.json(data);
-                }
-            });
+            if(err){
+                res.json(err);
+            } else {
+                file.remove(function(err, data){
+                    if(err){
+                        res.json(err);
+                    } else {
+                        reIndex(stream, count, total, done);
+                        res.json(data);
+                    }
+                });
+            }
         });
     });
 
@@ -108,8 +123,11 @@ module.exports = function(app) {
                 query: req.query.term
             }
         }, function(err, data){
-            if(err) console.log(err);
-            res.json(data.hits.hits);
+            if(err){
+                res.json(err);
+            } else {
+                res.json(data.hits.hits);
+            }
         });
     });
 };

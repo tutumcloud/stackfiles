@@ -13,6 +13,11 @@ var schema = new mongoose.Schema({
         es_type:'string',
         es_indexed:true
     },
+    images: {
+        type: Array,
+        es_type:'string',
+        es_indexed: true
+    },
 });
 
 var env = process.env.NODE_ENV;

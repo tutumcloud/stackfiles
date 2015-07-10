@@ -45,15 +45,6 @@ angular.module('registry.controllers', [])
 })
 
 .controller('CreateController', function($scope, $window, API){
-    function buildValueArray(array){
-        var newArray = [];
-        angular.forEach(array, function(value, key){
-            newArray.push(value.text);
-        });
-        return newArray;
-    }
-
-    $scope.selectedValue = null;
     var repos = [];
 
     $scope.getRepos = function(){
@@ -89,18 +80,17 @@ angular.module('registry.controllers', [])
         var title = this.data.title;
         var stackfile = jsyaml.load(this.data.composefile);
         var path = this.data.path;
-        var tags = this.data.tags;
         var projectName = this.data.reponame;
-        var tagArray = buildValueArray(tags);
+
+
 
         var form = {
             title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
             stackfile: stackfile,
             path: path,
-            tags: tagArray,
             name: projectName
-
         };
+
         API.saveFile(form).success(function(data, status, headers, config){
             $window.location.href = ('/registry');
         }).error(function(data, status, header, config){
