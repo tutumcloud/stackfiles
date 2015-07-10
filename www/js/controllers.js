@@ -4,7 +4,7 @@ angular.module('registry.controllers', [])
 
 })
 
-.controller('RegistryController', function($scope, API){
+.controller('RegistryController', function($scope, $window,API){
     $scope.signin = function(){
         API.signin();
     };
@@ -44,11 +44,20 @@ angular.module('registry.controllers', [])
     });
 })
 
-.controller('CreateController', function($scope, $window, API){
-    var repos = [];
+.controller('CreateController', function($scope, $rootScope, $window, API){
+
+    var orgs = [];
+
+    API.getUser().success(function(data, status, headers, config){
+         $rootScope.setUser(data.username);
+    }).error(function(data, status, headers, config){
+        console.log(data);
+    });
 
     $scope.getRepos = function(){
-        API.getUserRepos().success(function(data, status, headers, config){
+        var repos = [];
+        $scope.repos = [];
+        API.getUserRepos($scope.data.orgname).success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
                 repos.push(value.name);
             });
@@ -58,9 +67,21 @@ angular.module('registry.controllers', [])
         });
     };
 
-    $scope.getComposeFile = function(name, path){
+    $scope.getOrgs = function(){
+        API.getUserOrgs().success(function(data, status, headers, config){
+            angular.forEach(data, function(value, key){
+                orgs.push(value.login);
+            });
+            orgs.push($rootScope.getUser());
+            $scope.orgs=orgs;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    };
+
+    $scope.getComposeFile = function(orgname, name, path){
         $scope.data.composefile = "";
-        API.getUserReposInfo(name, path).success(function(data, status, headers, config){
+        API.getUserReposInfo(orgname, name, path).success(function(data, status, headers, config){
             $scope.data.composefile = data;
         }).error(function(data, status, headers, config){
             console.log(data);

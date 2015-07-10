@@ -4,13 +4,43 @@ var User = require('../models/users.js');
 var File = require('../models/composeFiles.js');
 
 //Wrapper to get the list of repositories of the user
-function listRepos(accessToken, callback){
+function listUserRepos(accessToken, username, callback){
     var github = new Github({
       token: accessToken
     });
 
     var userGH = github.getUser();
-    userGH.repos(function(err, repos) {
+    userGH.userRepos(username, function(err, repos) {
+        if(err){
+            callback(err, null);
+        } else {
+            callback(null, repos);
+        }
+    });
+}
+
+function listOrgs(accessToken, callback){
+    var github = new Github({
+        token: accessToken
+    });
+
+    var userGH = github.getUser();
+    userGH.orgs(function(err, orgs){
+        if(err){
+            callback(err, null);
+        } else {
+            callback(null, orgs);
+        }
+    });
+}
+
+function listOrgRepos(accessToken, name, callback){
+    var github = new Github({
+      token: accessToken
+    });
+
+    var userGH = github.getUser();
+    userGH.orgRepos(name, function(err, repos) {
         if(err){
             callback(err, null);
         } else {
@@ -43,6 +73,10 @@ function getREADME(username, repositoryName, callback){
 
 module.exports = function(app) {
 
+    app.get('/api/v1/user', function(req, res){
+        res.json(req.user);
+    });
+
     //GET REPOS LIST AT CREATION
     app.get('/api/v1/user/repos', function(req, res){
         User.findOne({username: req.user.username}, function(err, user){
@@ -50,11 +84,38 @@ module.exports = function(app) {
                 console.log(err);
                 res.redirect('/registry');
             }
-            listRepos(user.accessToken, function(err, repos){
+            if(req.query.name == req.user.username){
+                listUserRepos(user.accessToken, user.username, function(err, repos){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        res.json(repos);
+                    }
+                });
+            } else {
+                listOrgRepos(user.accessToken, req.query.name, function(err, repos){
+                    if(err){
+                        console.log(err);
+                    } else {
+                        res.json(repos);
+                    }
+                });
+            }
+        });
+    });
+
+    //GET REPOS LIST AT CREATION
+    app.get('/api/v1/user/orgs', function(req, res){
+        User.findOne({username: req.user.username}, function(err, user){
+            if(err){
+                console.log(err);
+                res.redirect('/registry');
+            }
+            listOrgs(user.accessToken, function(err, orgs){
                 if(err){
                     console.log(err);
                 } else {
-                    res.json(repos);
+                    res.json(orgs);
                 }
             });
         });
@@ -62,20 +123,15 @@ module.exports = function(app) {
 
     //GET YAML FOR PREVIEW AT CREATION
     app.post('/api/v1/user/repos/new', function(req, res){
+        var organization = req.body.params.orgname;
         var repositoryName = req.body.params.repo;
         var repositoryPath = req.body.params.path;
-        User.findOne({username: req.user.username}, function(err, user){
+        getYAML(organization, repositoryPath, repositoryName, function(err, yaml){
             if(err){
                 console.log(err);
-                res.redirect('/registry');
+            } else {
+                res.send(yaml);
             }
-            getYAML(user.username, repositoryPath, repositoryName, function(err, yaml){
-                if(err){
-                    console.log(err);
-                } else {
-                    res.send(yaml);
-                }
-            });
         });
     });
 

@@ -33,8 +33,16 @@
                     <input type="text" class="form-control" id="title" placeholder="Title" ng-model="data.title">
                   </div>
                   <div class="form-group">
+                    <label for="title">Organisation</label>
+                    <select ng-model="data.orgname" ng-init="getOrgs()" ng-change="getRepos()">
+                        <option ng-repeat="org in orgs track by $index" value ={{org}}>
+                            {{org}}
+                        </option>
+                    </select>
+                  </div>
+                  <div class="form-group">
                     <label for="title">Repositories</label>
-                    <select ng-model="data.reponame" ng-init="getRepos()" >
+                    <select ng-model="data.reponame">
                         <option ng-repeat="repo in repos track by $index" value ={{repo}}>
                             {{repo}}
                         </option>
@@ -42,7 +50,7 @@
                   </div>
                   <div class="form-group">
                     <label for="title">Path</label>
-                    <input type="text" class="form-control" id="title" placeholder="Path" ng-model="data.path" ng-change="getComposeFile(data.reponame, data.path)">
+                    <input type="text" class="form-control" id="title" placeholder="Path" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.path)">
                   </div>
                   <div class="form-group">
                     <label for="compose-file">Compose File</label>

@@ -1,6 +1,14 @@
 angular.module('registry.services', [])
 
-.factory('API', function($http, $window){
+.factory('API', function($http, $window, $rootScope){
+    $rootScope.setUser = function (user) {
+        return $window.localStorage['user'] = user;
+    };
+
+    $rootScope.getUser = function () {
+        return $window.localStorage['user'];
+    };
+
      return {
          signin: function(){
              $window.location.href = ('/auth/github');
@@ -48,16 +56,33 @@ angular.module('registry.services', [])
                 }
             });
         },
-        getUserRepos: function(){
-            return $http.get('/api/v1/user/repos', {
+
+        getUser: function(){
+            return $http.get('/api/v1/user', {
                 method: 'GET'
             });
         },
 
-        getUserReposInfo: function(repo, path){
+        getUserRepos: function(name){
+            return $http.get('/api/v1/user/repos', {
+                method: 'GET',
+                params:{
+                    name: name
+                }
+            });
+        },
+
+        getUserOrgs: function(){
+            return $http.get('/api/v1/user/orgs', {
+                method: 'GET'
+            });
+        },
+
+        getUserReposInfo: function(orgname, repo, path){
             return $http.post('/api/v1/user/repos/new',{
                 method: 'GET',
                 params: {
+                    orgname: orgname,
                     repo: repo,
                     path: path
                 }

@@ -6,7 +6,7 @@ var schema = new mongoose.Schema({
     username: {type: String, index: {unique: true, dropDups: true}},
     profileUrl: {type: String},
     accessToken: {type: String},
-    files: [File]
+    stared: {type: String}
 });
 
 module.exports = mongoose.model('User', schema);
