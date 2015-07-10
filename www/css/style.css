@@ -21,6 +21,15 @@
 html{
     height: 100%;
     -webkit-font-smoothing: antialiased;
+    background-color: #FFFFFF;
+}
+
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
+    font-family: "Helvetica Neue";
+}
+
+a, a:hover{
+    color: #2196F3;
 }
 
 #hero-header{
@@ -57,6 +66,14 @@ html{
 #hero-header .content{
     text-align: center;
     padding-top: 100px;
+}
+
+.row{
+    background-color: #FFFFFF;
+}
+
+.label{
+    background-color: #FFFFFF!important;
 }
 
 /*MAIN PAGE COMPONENTS*/
@@ -187,6 +204,7 @@ html{
 
 .elem-bar h2 a{
     color: #FFFFFF;
+    font-weight: 300;
 }
 
 .elem-bar h2 a:hover{
@@ -195,13 +213,10 @@ html{
 }
 
 .elem-bar input.focus-bar{
-    width: 300px;
+    width: 20%;
     height: 30px;
     background: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid #ffffff;
+    border: none;
     color: white;
     font-size: 16px;
     font-weight: 500;
@@ -265,6 +280,45 @@ p.stack-user{
     text-align: center;
 }
 
+#create .stackfile pre{
+    height: 338px;
+    border: none;
+    border-radius: 2px;
+}
+
+.form-control:focus, .form-control.focus{
+    background-image: linear-gradient(#2196F3,#2196F3),linear-gradient(#d2d2d2,#d2d2d2);
+}
+
+.stackfile p{
+    color: #666666;
+    font-size: 12px;
+}
+
+.validation{
+    padding-top: 73px;
+}
+
+.validation .btn.boxed-btn.submit-btn{
+    color: #2196F3;
+    border-color: #2196F3;
+}
+
+.validation .btn.boxed-btn.submit-btn:hover{
+    color: #1D86DA;
+    border-color: #1D86DA;
+}
+
+.validation .btn.boxed-btn.cancel-btn{
+    color: #ef4336;
+    border-color: #ef4336;
+}
+
+.validation .btn.boxed-btn.cancel-btn:hover{
+    color: #ef4336;
+    border-color: #ef4336;
+}
+
 /*override tags css file*/
 tags-input .tags{
     -moz-appearance: none;
@@ -284,7 +338,7 @@ tags-input[disabled] .tags .tag-item{
 /*DETAIL COMPONENTS*/
 
 #detail {
-    padding: 100px;
+    padding: 110px 100px 120px 110px;
 }
 
 #detail h2 {
@@ -366,7 +420,7 @@ tags-input[disabled] .tags .tag-item{
 }
 
 #page-content-wrapper {
-    width: 100%;
+    width: 99%;
     position: absolute;
 }
 

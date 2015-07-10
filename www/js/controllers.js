@@ -112,9 +112,9 @@ angular.module('registry.controllers', [])
     };
 
     $scope.getComposeFile = function(orgname, name, branch, path){
-        $scope.data.composefile = "";
+        $scope.stackfile = "";
         API.getUserReposInfo(orgname, name, branch, path).success(function(data, status, headers, config){
-            $scope.data.composefile = data;
+            $scope.stackfile = data;
         }).error(function(data, status, headers, config){
             console.log(data);
         });
@@ -131,7 +131,7 @@ angular.module('registry.controllers', [])
 
     $scope.createNew = function(){
         var title = this.data.title;
-        var stackfile = jsyaml.load(this.data.composefile);
+        var stackfile = jsyaml.load($scope.stackfile);
         var branch = this.data.branch;
         var path = this.data.path;
         var projectName = this.data.reponame;
