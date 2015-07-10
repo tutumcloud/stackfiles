@@ -1,5 +1,19 @@
 angular.module('registry',['registry.controllers','registry.services','ngRoute','ngTagsInput','hc.marked'])
 
+.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngEnter);
+                });
+
+                event.preventDefault();
+            }
+        });
+    };
+})
+
 .config(['markedProvider', function(markedProvider) {
       markedProvider.setOptions({gfm: true});
 }])

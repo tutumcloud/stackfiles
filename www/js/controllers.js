@@ -1,17 +1,21 @@
 angular.module('registry.controllers', [])
 
-.controller('MainController', function($scope, API){
-
+.controller('MainController', function($scope, $location, Search){
+    $scope.search = function(){
+        if(this.data.search !== ""){
+            Search.setValue(this.data.search);
+            $location.path("/registry");
+        }
+    };
 })
 
-.controller('RegistryController', function($scope, $window,API){
+.controller('RegistryController', function($scope, $window, API, Search){
     $scope.signin = function(){
         API.signin();
     };
 
     API.getFiles().success(function(data, status, headers, config){
         $scope.files = data;
-        console.log(data);
     }).error(function(data, status, headers, config){
         console.log(data);
     });
@@ -23,6 +27,13 @@ angular.module('registry.controllers', [])
         }).error(function(data, status, headers, config){
             console.log(data);
         });
+    };
+
+    $scope.checkSearch = function(){
+        if(Search.getValue() !== ""){
+            $scope.data = Search.getValue();
+            $scope.searchFile(Search.getValue());
+        }
     };
 })
 
