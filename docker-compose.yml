@@ -22,4 +22,5 @@ registry:
   environment:
     - GITHUB_CLIENT_ID=**changeme**
     - GITHUB_CLIENT_SECRET=**changeme**
+    - CALLBACK_URL="**changeme"
     - NODE_ENV=production

@@ -7,6 +7,7 @@ var path = require('path'),
 var env = process.env.NODE_ENV;
 var GITHUB_CLIENT_ID = process.env.GITHUB_CLIENT_ID;
 var GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET;
+var CALLBACK_URL = process.env.CALLBACK_URL;
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -47,7 +48,7 @@ if (env == 'production'){
     passport.use(new GitHubStrategy({
         clientID: GITHUB_CLIENT_ID,
         clientSecret: GITHUB_CLIENT_SECRET,
-        callbackURL: "http://registry.stackfileio.admin.svc.tutum.us:8082/auth/github/callback"
+        callbackURL: CALLBACK_URL
         },
         function(accessToken, refreshToken, profile, done){
             var user = new User({
