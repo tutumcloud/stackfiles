@@ -121,4 +121,16 @@ angular.module('registry.services', [])
         }
 
      };
+})
+
+.factory('Search', function($rootScope){
+  var terms = {search: null};
+  return {
+      setValue: function(value){
+        terms = {search: value};
+      },
+      getValue: function(){
+        return terms;
+      }
+  };
 });

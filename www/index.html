@@ -12,7 +12,10 @@
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <!--Bower CSS paclages -->
         <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+        <link href="lib/bootstrap-material-design/dist/css/material.min.css" rel="stylesheet">
+        <link href="lib/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
         <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+
         <link rel="stylesheet" type="text/css" href="lib/ng-tags-input/ng-tags-input.min.css">
         <!-- CSS custom files -->
         <link rel="stylesheet" href="css/style.css">
@@ -34,6 +37,13 @@
     </head>
         <body ng-app="registry">
             <div ng-view></div>
-        </div>
+        <script src="lib/bootstrap-material-design/dist/js/ripples.min.js"></script>
+        <script src="lib/bootstrap-material-design/dist/js/material.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // This command is used to initialize some elements and make them work properly
+                $.material.init();
+            });
+        </script>
     </body>
 </html>

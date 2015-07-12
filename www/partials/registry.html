@@ -25,7 +25,7 @@
                 <div class="elem-bar">
                     <h2>Stacks</h2>
                     <i class="fa fa-search"></i>
-                    <input type="text" class="focus-bar" placeholder="" ng-model="data.search" ng-change="searchFile()">
+                    <input type="text" class="focus-bar" placeholder="" ng-model="data.search" ng-init="checkSearch()" ng-change="searchFile()">
                     <a class="btn boxed-btn submit-btn pull-right" ng-click="signin()"></i> Submit a Stackfile</a>
                 </div>
             </div>
