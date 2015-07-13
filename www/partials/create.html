@@ -47,7 +47,7 @@
                                 <option></option>
                             </select>
                         </div>
-                        <input type="text" class="create-form form-control" id="title" placeholder="Path" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
+                        <input type="text" class="create-form form-control" id="title" placeholder="Path" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch)" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
                     </div>
                 </div>
                 <div class="col-lg-6 col-lg-offset-1">
@@ -58,7 +58,7 @@
                     </div>
                     <div class="validation pull-right">
                         <a href="/registry" class="btn boxed-btn cancel-btn">Cancel</a>
-                        <button type="submit" class="btn boxed-btn submit-btn" ng-click="createNew()">Submit</button>
+                        <button type="submit" class="btn boxed-btn submit-btn" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch && !!data.path && !!data.title)" ng-click="createNew()">Submit</button>
                     </div>
                 </div>
             </div>

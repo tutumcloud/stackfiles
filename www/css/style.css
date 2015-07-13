@@ -90,6 +90,7 @@ a, a:hover{
 
 .btn.boxed-btn.github-btn:hover {
     color: #1D86DA;
+    background: #FFFFFF;
 }
 
 .btn.boxed-btn.browse-btn{
@@ -321,6 +322,7 @@ p.stack-user{
 
 .chosen-container-single .chosen-single{
     margin-top: 24px;
+    padding: 0;
     width: 180px;
     background-color: #f1f1f1;
     background-image: none;
@@ -333,7 +335,7 @@ p.stack-user{
 .chosen-container .chosen-drop{
     border: none;
     border-radius: 2px;
-    padding-top: 20px;
+    padding-top: 6px;
 }
 
 .chosen-container-active.chosen-with-drop .chosen-single{
