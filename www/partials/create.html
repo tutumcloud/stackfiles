@@ -4,8 +4,8 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-                <a href="http://tutum.co">
-                    <img src="img/tutum.png">
+                <a href="/">
+                    <img src="img/icon.svg">
                 </a>
             </li>
             <!--<li>
@@ -21,27 +21,28 @@
             <div id="section-title">
                 <h2><a href="/">Stackfiles.io</a></h2>
             </div>
-            <div class="col-lg-12 gradient">
+            <div class="col-lg-12 col-sm-12 gradient">
                 <div class="elem-bar">
                     <h2>Submit stackfile</h2>
                 </div>
             </div>
             <div id="detail" class="container-fluid">
-                <div class="col-lg-5">
+                <div class="col-lg-5 col-md-5 col-sm-12">
                     <div class="inputs">
+                        <hr>
                         <input type="text" class="form-control floating-label" id="title" placeholder="Stack name" ng-model="data.title">
                         <div class="select">
-                            <select chosen disable-search="true" data-placeholder="Organisations"
+                            <select chosen disable-search="false" data-placeholder="Organisations"
                             ng-model="data.orgname" ng-init="getOrgs()" ng-change="getRepos()" ng-options="org for org in orgs"
                             style="width:180px; margin-right:20px">
                                 <option></option>
                             </select>
-                            <select chosen disable-search="true" data-placeholder="Repositories"
+                            <select chosen disable-search="false" data-placeholder="Repositories"
                             ng-model="data.reponame" ng-change="getBranches()" ng-options="repo for repo in repos"
                             style="width:180px; margin-right:20px">
                                 <option></option>
                             </select>
-                            <select chosen disable-search="true" data-placeholder="Branches"
+                            <select chosen disable-search="false" data-placeholder="Branches"
                             ng-model="data.branch" ng-options="branch for branch in branches"
                             style="width:180px; margin-right:20px">
                                 <option></option>
@@ -50,7 +51,7 @@
                         <input type="text" class="create-form form-control" id="title" placeholder="Path" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch)" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
                     </div>
                 </div>
-                <div class="col-lg-6 col-lg-offset-1">
+                <div class="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1 col-sm-12">
                     <div class="stackfile">
                         <h4>Stackfile</h4>
                         <pre>{{stackfile}}</pre>
@@ -58,7 +59,7 @@
                     </div>
                     <div class="validation pull-right">
                         <a href="/registry" class="btn boxed-btn cancel-btn">Cancel</a>
-                        <button type="submit" class="btn boxed-btn submit-btn" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch && !!data.path && !!data.title)" ng-click="createNew()">Submit</button>
+                        <button type="submit" class="btn boxed-btn create-btn" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch && !!data.path && !!data.title)" ng-click="createNew()">Submit</button>
                     </div>
                 </div>
             </div>

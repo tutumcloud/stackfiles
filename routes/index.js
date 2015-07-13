@@ -82,19 +82,15 @@ module.exports = function(app) {
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
+    app.get('/404', function(req, res){
+        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+    });
+
     app.get('/registry', function(req, res){
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
     app.get('/registry/:id', function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
-    });
-
-    app.get('/mystack', auth, function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
-    });
-
-    app.get('/mystack/:id', auth, function(req, res){
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 

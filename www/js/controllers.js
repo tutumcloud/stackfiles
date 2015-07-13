@@ -17,7 +17,7 @@ angular.module('registry.controllers', [])
     API.getFiles().success(function(data, status, headers, config){
         $scope.files = data;
     }).error(function(data, status, headers, config){
-        console.log(data);
+        $scope.err = true;
     });
 
     $scope.searchFile = function(){
@@ -25,12 +25,12 @@ angular.module('registry.controllers', [])
         API.searchFile(term).success(function(data, status, headers, config){
             $scope.results = data;
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
     };
 
     $scope.checkSearch = function(){
-        if(Search.getValue() !== ""){
+        if(Search.getValue().search !== null){
             $scope.data = Search.getValue();
             $scope.searchFile(Search.getValue());
         }
@@ -40,29 +40,24 @@ angular.module('registry.controllers', [])
 .controller('RegistryDetailsController', function($scope, $rootScope, $window, $routeParams, API){
 
     $scope.user = $rootScope.getUser();
-
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
         $scope.data = data;
-        $scope.tags = data.tags;
-        API.getYAMLFile(data._id, data.projectName, data.path).success(function(data, status, headers, config){
-            $scope.composeFile = data;
+        API.getYAMLFile(data._id, data.projectName, data.path).success(function(yamlData, status, headers, config){
+            $scope.composeFile = yamlData;
+            $scope.loaded = true;
         }).error(function(data, status, headers, config){
-            $scope.composeFile = "Unable to fetch tutum.yml from Github repository";
-        });
-        API.getReadmeFile(data._id, data.projectName).success(function(data, status, headers, config){
-            $scope.readme = data;
-        }).error(function(data, status, headers, config){
-            $scope.readme = "Unable to fetch Readme.md from Github repository";
+            $scope.composeFile = "Unable to fetch tutum.yml from Github repository. Please select a repository that contains a file named tutum.yml";
+            $scope.loaded = true;
         });
     }).error(function(data, status, headers, config){
-        console.log(data);
+        window.location.href = ("/404");
     });
 
     $scope.deleteStackfile = function(id){
         API.deleteStackfile(id).success(function(data, status, headers, config){
             $window.location.href = ("/registry");
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
     };
 
@@ -75,7 +70,7 @@ angular.module('registry.controllers', [])
     API.getUser().success(function(data, status, headers, config){
          $rootScope.setUser(data.username);
     }).error(function(data, status, headers, config){
-        console.log(data);
+        $scope.err = true;
     });
 
     $scope.getRepos = function(){
@@ -92,7 +87,7 @@ angular.module('registry.controllers', [])
             });
             $scope.repos=repos;
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
     };
 
@@ -104,7 +99,7 @@ angular.module('registry.controllers', [])
             orgs.push($rootScope.getUser());
             $scope.orgs=orgs;
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
     };
 
@@ -119,7 +114,7 @@ angular.module('registry.controllers', [])
             });
             $scope.branches=branches;
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
     };
 
@@ -128,7 +123,7 @@ angular.module('registry.controllers', [])
         API.getUserReposInfo(orgname, name, branch, path).success(function(data, status, headers, config){
             $scope.stackfile = data;
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
     };
 
@@ -137,7 +132,7 @@ angular.module('registry.controllers', [])
         API.getReadmeFile(name).success(function(data, status, headers, config){
             $scope.data.composefile = data;
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
     };
 
@@ -161,7 +156,7 @@ angular.module('registry.controllers', [])
         API.saveFile(form).success(function(data, status, headers, config){
             $window.location.href = ('/registry');
         }).error(function(data, status, header, config){
-            console.log(data);
+            window.location.href = ("/404");
         });
     };
 });

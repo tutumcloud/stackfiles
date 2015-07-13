@@ -11,10 +11,11 @@ mongodb:
     - '27018:27017'
     - '28018:28017'
 registry:
-  image: 'r-test.tutum.co/admin/stackfileio:latest'
+  image: 'tutum.co/admin/stackfileio:latest'
   environment:
     - GITHUB_CLIENT_ID=**changeme**
     - GITHUB_CLIENT_SECRET=**changeme**
+    - CALLBACK_URL="**changeme"
     - NODE_ENV=production
   links:
     - elasticsearch

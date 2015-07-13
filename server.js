@@ -33,10 +33,23 @@ app.use(passport.session());
 
 app.use(express.static(__dirname + '/www'));
 
+app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+        message: err.message,
+        error: {}
+    });
+});
+
 app.listen(port, function(){
     console.log("Server is running on port " + port);
 });
 
+
 require('./routes/index.js')(app, db);
 require('./routes/files.js')(app, db);
 require('./routes/github-api.js')(app, db);
+
+app.get('*', function(req, res){
+    res.redirect('/404');
+});

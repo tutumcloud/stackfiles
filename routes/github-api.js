@@ -68,11 +68,20 @@ function listOrgRepos(accessToken, name, callback){
 function getYAML(username, repositoryName, branch, path, callback){
     var github = new Github({});
     path = path.substr(1);
+    var file = ["tutum.yml", "docker-compose.yml"];
     request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/tutum.yml", function(err, data){
         if(err){
-            callback(err, null);
+            request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/tutum.yml", function(err, data){
+                if(err){
+                    callback(err, null);
+                } else {
+                    callback(null, data.body);
+                }
+            });
+        } else {
+            callback(null, data.body);
         }
-        callback(null, data.body);
+
     });
 }
 
@@ -163,7 +172,7 @@ module.exports = function(app) {
         var branch = req.body.params.branch;
         getYAML(organization, repositoryName, branch, repositoryPath, function(err, yaml){
             if(err){
-                res.json(err);
+                res.redirect('/404');
             } else {
                 res.send(yaml);
             }
@@ -178,32 +187,15 @@ module.exports = function(app) {
             if(err){
                 res.json(err);
                 res.redirect('/registry');
+            } else {
+                getYAML(file.user, repositoryName, file.branch, repositoryPath, function(err, yaml){
+                    if(err){
+                        res.redirect('/404');
+                    } else {
+                        res.send(yaml);
+                    }
+                });
             }
-            getYAML(file.user, repositoryName, file.branch, repositoryPath, function(err, yaml){
-                if(err){
-                    res.json(err);
-                } else {
-                    res.send(yaml);
-                }
-            });
-        });
-    });
-
-    //GET README FROM REGISTRY
-    app.post('/api/v1/user/repos/readme', function(req, res){
-        var repositoryName = req.body.params.repo;
-        File.findOne({_id: req.body.params.id}, function(err, file){
-            if(err){
-                res.json(err);
-                res.redirect('/registry');
-            }
-            getREADME(file.user, repositoryName, function(err, file){
-                if(err){
-                    res.json(err);
-                } else {
-                    res.send(file);
-                }
-            });
         });
     });
 };

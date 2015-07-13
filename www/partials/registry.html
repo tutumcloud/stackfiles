@@ -4,8 +4,8 @@
   <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
           <li class="sidebar-brand">
-              <a href="http://tutum.co">
-                  <img src="img/tutum.png">
+              <a href="/">
+                  <img src="img/icon.svg">
               </a>
           </li>
           <!--<li>
@@ -24,30 +24,31 @@
             <div class="col-lg-12 gradient">
                 <div class="elem-bar">
                     <h2>Stacks</h2>
-                    <i class="fa fa-search"></i>
+                    <i class="fa fa-search" style="padding-left:10px;"></i>
                     <input type="text" class="focus-bar" placeholder="" ng-model="data.search" ng-init="checkSearch()" ng-change="searchFile()">
                     <a class="btn boxed-btn submit-btn pull-right" ng-click="signin()"></i> Submit a Stackfile</a>
                 </div>
             </div>
             <div class="container-fluid">
                 <div class="col-lg-11 content-list" ng-show="data.search.length">
-                    <table class="table">
+                    <table ng-show="results.length" class="table">
                         <tbody>
                             <tr ng-repeat="result in results" ng-class-odd="odd" ng-class-even="even" ng-hide="currentSection === 1">
-                                <td><a class="stack-name" href="/registry/{{result._id}}">{{result._source.title}}</a><p class="stack-services">{{results._source.tags.length}}</p><p class="stack-user">by {{result._source.user}}</p></td>
-                                <td><a class="btn boxed-btn deploy-btn" href="https://dashboard.tutum.co/stack/deploy/?repo={{result_source.profileLink+'/'+result_source.projectName}}" target="_blank">Deploy to Tutum</a></td>
-                                <td>*</td>
+                                <td><a class="stack-name" href="/registry/{{result._id}}">{{result.title}}</a><p class="stack-services">{{result.tags.length}} Services</p><p class="stack-user">by {{result.user}}</p></td>
+                                <td><a class="btn boxed-btn deploy-btn" href="https://dashboard.tutum.co/stack/deploy/?repo={{result.profileLink+'/'+result.projectName}}" target="_blank">Deploy to Tutum</a></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
+                    <div ng-hide="results.length" style="text-align: center">No result</div>
                 </div>
                 <div class="col-lg-11 content-list" ng-hide="data.search.length">
                     <table class="table">
                         <tbody>
                             <tr ng-repeat="file in files" ng-class-odd="odd" ng-class-even="even">
-                                <td><a class="stack-name" href="/registry/{{file._id}}">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services</p><p class="stack-user">by {{file.user}}</p></td>
+                                <td><a class="stack-name" href="/registry/{{file._id}}">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services</p><p class="stack-user">By {{file.user}}</p></td>
                                 <td><a class="btn boxed-btn deploy-btn" href="https://dashboard.tutum.co/stack/deploy/?repo={{file.profileLink+'/'+file.projectName}}" target="_blank">Deploy to Tutum</a></td>
-                                <td>*</td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>

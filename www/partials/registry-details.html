@@ -4,8 +4,8 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-                <a href="http://tutum.co">
-                    <img src="img/tutum.png">
+                <a href="/">
+                    <img src="img/icon.svg">
                 </a>
             </li>
             <!--<li>
@@ -21,14 +21,18 @@
             <div id="section-title">
                 <h2><a href="/">Stackfiles.io</a></h2>
             </div>
-            <div class="col-lg-12 gradient">
+            <div class="col-lg-12 col-sm-12 gradient">
                 <div class="elem-bar">
                     <h2><a href="/registry">Stacks</a> / {{data.title}}</h2>
                     <a class="btn boxed-btn submit-btn pull-right" href="https://dashboard.tutum.co/stack/deploy/?repo={{data.profileLink+'/'+data.projectName}}" target="_blank"> Deploy to Tutum</a>
                 </div>
             </div>
-
-            <div id="detail" class="container-fluid">
+            <div id="loading" ng-hide="loaded == true">
+                <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="path" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
+                </svg>
+            </div>
+            <div id="detail" class="container-fluid" ng-show="loaded == true">
                 <div class="col-lg-10">
                     <hr>
                     <div class="section">
