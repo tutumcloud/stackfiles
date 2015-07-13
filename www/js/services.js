@@ -39,9 +39,8 @@ angular.module('registry.services', [])
                  }
              });
          },
-        //CHANGE NAME
-         deleteUserFile: function(id){
-             return $http.delete('/api/v1/userfiles/' + id,{
+         deleteStackfile: function(id){
+             return $http.delete('/api/v1/files/' + id,{
                  method:'DELETE',
                  params: {
                      id: id

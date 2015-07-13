@@ -1,4 +1,4 @@
-angular.module('registry',['registry.controllers','registry.services','ngRoute','ngTagsInput','hc.marked'])
+angular.module('registry',['registry.controllers','registry.services','ngRoute','ngTagsInput','hc.marked','localytics.directives'])
 
 .directive('ngEnter', function () {
     return function (scope, element, attrs) {

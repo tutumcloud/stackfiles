@@ -101,7 +101,7 @@ module.exports = function(app) {
             }
             listOrgs(user.accessToken, function(err, orgs){
                 if(err){
-                    console.log(err);
+                    res.json(err);
                 } else {
                     res.json(orgs);
                 }
@@ -119,7 +119,7 @@ module.exports = function(app) {
             if(req.query.name == req.user.username){
                 listUserRepos(user.accessToken, user.username, function(err, repos){
                     if(err){
-                        console.log(err);
+                        res.json(err);
                     } else {
                         res.json(repos);
                     }
@@ -127,7 +127,7 @@ module.exports = function(app) {
             } else {
                 listOrgRepos(user.accessToken, req.query.name, function(err, repos){
                     if(err){
-                        console.log(err);
+                        res.json(err);
                     } else {
                         res.json(repos);
                     }
@@ -142,12 +142,12 @@ module.exports = function(app) {
         var organization = req.query.orgname;
         User.findOne({username: req.user.username}, function(err, user){
             if(err){
-                console.log(err);
+                res.json(err);
                 res.redirect('/registry');
             }
             listBranches(user.accessToken, organization, repositoryName, function(err, branches){
                 if(err){
-                    console.log(err);
+                    res.json(err);
                 } else {
                     res.json(branches);
                 }
@@ -163,7 +163,7 @@ module.exports = function(app) {
         var branch = req.body.params.branch;
         getYAML(organization, repositoryName, branch, repositoryPath, function(err, yaml){
             if(err){
-                console.log(err);
+                res.json(err);
             } else {
                 res.send(yaml);
             }
@@ -176,12 +176,12 @@ module.exports = function(app) {
         var repositoryPath = req.body.params.path;
         File.findOne({_id: req.body.params.id}, function(err, file){
             if(err){
-                console.log(err);
+                res.json(err);
                 res.redirect('/registry');
             }
             getYAML(file.user, repositoryName, file.branch, repositoryPath, function(err, yaml){
                 if(err){
-                    console.log(err);
+                    res.json(err);
                 } else {
                     res.send(yaml);
                 }
@@ -194,12 +194,12 @@ module.exports = function(app) {
         var repositoryName = req.body.params.repo;
         File.findOne({_id: req.body.params.id}, function(err, file){
             if(err){
-                console.log(err);
+                res.json(err);
                 res.redirect('/registry');
             }
             getREADME(file.user, repositoryName, function(err, file){
                 if(err){
-                    console.log(err);
+                    res.json(err);
                 } else {
                     res.send(file);
                 }

@@ -66,6 +66,7 @@ module.exports = function(app) {
             branch: req.body.params.form.branch,
             path : req.body.params.form.path,
             user: req.body.params.form.orgname,
+            author: req.user.username,
             profileLink: "https://github.com/"+req.body.params.form.orgname,
             projectName: req.body.params.form.name,
             tags: serviceTags,
@@ -100,9 +101,8 @@ module.exports = function(app) {
         });
     });
 
-    //CHANGE ROUTE
-    app.delete('/api/v1/userfiles/:id', auth, function(req, res){
-        File.findOne({_id: req.query.id, user: req.user.username}, function(err, file){
+    app.delete('/api/v1/files/:id', auth, function(req, res){
+        File.findOne({_id: req.query.id, author: req.user.username}, function(err, file){
             if(err){
                 res.json(err);
             } else {

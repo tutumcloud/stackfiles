@@ -9,7 +9,7 @@ angular.module('registry.controllers', [])
     };
 })
 
-.controller('RegistryController', function($scope, $window, API, Search){
+.controller('RegistryController', function($scope, API, Search){
     $scope.signin = function(){
         API.signin();
     };
@@ -37,7 +37,10 @@ angular.module('registry.controllers', [])
     };
 })
 
-.controller('RegistryDetailsController', function($scope, $routeParams, API){
+.controller('RegistryDetailsController', function($scope, $rootScope, $window, $routeParams, API){
+
+    $scope.user = $rootScope.getUser();
+
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
         $scope.data = data;
         $scope.tags = data.tags;
@@ -54,6 +57,15 @@ angular.module('registry.controllers', [])
     }).error(function(data, status, headers, config){
         console.log(data);
     });
+
+    $scope.deleteStackfile = function(id){
+        API.deleteStackfile(id).success(function(data, status, headers, config){
+            $window.location.href = ("/registry");
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+    };
+
 })
 
 .controller('CreateController', function($scope, $rootScope, $window, API){
