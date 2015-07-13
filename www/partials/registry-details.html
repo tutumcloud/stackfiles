@@ -19,7 +19,7 @@
     <div id="page-content-wrapper">
         <div class="row">
             <div id="section-title">
-                <h2><a href="/">Stackfile.io</a></h2>
+                <h2><a href="/">Stackfiles.io</a></h2>
             </div>
             <div class="col-lg-12 gradient">
                 <div class="elem-bar">
@@ -30,12 +30,6 @@
 
             <div id="detail" class="container-fluid">
                 <div class="col-lg-10">
-                    <h2>Details</h2>
-                    <hr>
-                    <div class="section">
-                        <div class="label">Stack name</div>
-                        <div class="content">{{data.title}}</div>
-                    </div>
                     <hr>
                     <div class="section">
                         <div class="label">Service tags</div>
@@ -52,6 +46,7 @@
                         </div>
                     </div>
                     <hr>
+                    <button class="btn boxed-btn danger-btn pull-right" ng-show="user==data.author" ng-click="deleteStackfile(data._id)">Delete</button>
                 </div>
             </div>
         </div>

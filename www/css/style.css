@@ -142,12 +142,13 @@ a, a:hover{
 /*MAIN APP COMPONENTS*/
 
 .btn.boxed-btn{
-    padding: 11px 8px 9px 8px;
+    padding: 11px 7px 9px 8px;
     font-size: 14px;
     font-weight: 500;
     border-radius: 0;
     border: 2px solid #FFFFFF;
     border-radius: 2px;
+    font-size: 14px;
     text-transform: uppercase;
 }
 
@@ -191,6 +192,11 @@ a, a:hover{
 
 .gradient .elem-bar{
     color: #FFFFFF;
+}
+
+.content-list{
+    margin: 0 auto !important;
+    float: none !important;
 }
 
 /*REGISTRY SCREEN COMPONENTS*/
@@ -244,7 +250,16 @@ a.stack-name:hover{
     text-decoration: none;
 }
 
+p.stack-services{
+    padding-top: 10px;
+    margin-bottom: 0px;
+    color: #666;
+    font-size: 14px;
+    font-weight: 400;
+}
+
 p.stack-user{
+    margin-top: 4px;
     color: #999;
     font-size: 12px;
     font-weight: 300;
@@ -261,6 +276,18 @@ p.stack-user{
     color: #1D86DA;
     border-color: #1D86DA;
 }
+
+.btn.boxed-btn.danger-btn{
+    margin-left: 5px;
+    color: #ef4336;
+    border-color: #ef4336;
+}
+
+.btn.boxed-btn.danger-btn:hover{
+    color: #ef4336;
+    border-color: #ef4336;
+}
+
 
 .tags{
     display: inline-block;
@@ -286,8 +313,79 @@ p.stack-user{
     border-radius: 2px;
 }
 
+/*OVERRIDE CHOSEN CSS START*/
+
+.select{
+    margin-top: 36px;
+}
+
+.chosen-container-single .chosen-single{
+    margin-top: 24px;
+    width: 180px;
+    background-color: #f1f1f1;
+    background-image: none;
+    border: none;
+    border-radius: 2px;
+    height: 56px;
+    box-shadow: none;
+}
+
+.chosen-container .chosen-drop{
+    border: none;
+    border-radius: 2px;
+    padding-top: 20px;
+}
+
+.chosen-container-active.chosen-with-drop .chosen-single{
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    border-radius: 2px;
+}
+
+.chosen-container-single .chosen-single span{
+    padding-top: 18px;
+    margin-right: 26px;
+    text-align: center;
+    color: #666666;
+    font-size: 16px;
+}
+
+.chosen-container-single .chosen-single div b{
+    margin-top: 18px;
+    margin-right: 16px;
+}
+
+.chosen-container .chosen-results li{
+    padding: 14px 116px 13px 16px;
+    color: #666666;
+    font-size: 14px;
+}
+
+.chosen-container .chosen-results li.highlighted{
+    background-color: #FFFFFF;
+    background-image: none;
+    color: #666666;
+}
+
+/*OVERRIDE CHOSEN CSS END*/
+
+.create-form{
+    margin-top: 90px;
+}
+
+.inputs{
+    width: 380px;
+}
+
 .form-control:focus, .form-control.focus{
     background-image: linear-gradient(#2196F3,#2196F3),linear-gradient(#d2d2d2,#d2d2d2);
+}
+
+.stackfile h4{
+    color: #666666;
+    font-size: 16px;
+    font-weight: 300;
 }
 
 .stackfile p{
@@ -338,7 +436,7 @@ tags-input[disabled] .tags .tag-item{
 /*DETAIL COMPONENTS*/
 
 #detail {
-    padding: 110px 100px 120px 110px;
+    padding: 130px 100px 120px 110px;
 }
 
 #detail h2 {

@@ -9,6 +9,7 @@
     "angular-marked": "~0.0.17",
     "font-awesome": "~4.3.0",
     "material-design-lite": "~1.0.0",
-    "bootstrap-material-design": "~0.3.0"
+    "bootstrap-material-design": "~0.3.0",
+    "angular-chosen-localytics": "~1.0.7"
   }
 }
