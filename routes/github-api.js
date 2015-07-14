@@ -71,7 +71,7 @@ function getYAML(username, repositoryName, branch, path, callback){
     var file = ["tutum.yml", "docker-compose.yml"];
     request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/tutum.yml", function(err, data){
         if(err){
-            request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/tutum.yml", function(err, data){
+            request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/docker-compose.yml", function(err, data){
                 if(err){
                     callback(err, null);
                 } else {

@@ -34,8 +34,8 @@
                     <table ng-show="results.length" class="table">
                         <tbody>
                             <tr ng-repeat="result in results" ng-class-odd="odd" ng-class-even="even" ng-hide="currentSection === 1">
-                                <td><a class="stack-name" href="/registry/{{result._id}}">{{result.title}}</a><p class="stack-services">{{result.tags.length}} Services</p><p class="stack-user">by {{result.user}}</p></td>
-                                <td><a class="btn boxed-btn deploy-btn" href="https://dashboard.tutum.co/stack/deploy/?repo={{result.profileLink+'/'+result.projectName}}" target="_blank">Deploy to Tutum</a></td>
+                                <td><a class="stack-name" href="/registry/{{result._id}}">{{result._source.title}}</a><p class="stack-services">{{result._source.tags.length}} Services</p><p class="stack-user">by {{result._source.user}}</p></td>
+                                <td><a class="btn boxed-btn deploy-btn" ng-click="deploy(result._id)" target="_blank">Deploy to Tutum</a></td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -47,7 +47,7 @@
                         <tbody>
                             <tr ng-repeat="file in files" ng-class-odd="odd" ng-class-even="even">
                                 <td><a class="stack-name" href="/registry/{{file._id}}">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services</p><p class="stack-user">By {{file.user}}</p></td>
-                                <td><a class="btn boxed-btn deploy-btn" href="https://dashboard.tutum.co/stack/deploy/?repo={{file.profileLink+'/'+file.projectName}}" target="_blank">Deploy to Tutum</a></td>
+                                <td><a class="btn boxed-btn deploy-btn" ng-click="deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
                                 <td></td>
                             </tr>
                         </tbody>
