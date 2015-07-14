@@ -119,12 +119,23 @@ module.exports = function(app) {
         });
     });
 
+
+    app.get("/api/v1/deploy/:id", function(req, res, next){
+        File.findOne({_id: req.params.id}, function(err, file){
+            if(err){
+                return next(err);
+            } else {
+                res.redirect('https://dashboard.tutum.co/stack/deploy/?repo='+file.profileLink+'/'+file.projectName);
+            }
+        });
+    });
+
     app.get("/api/v1/search", function(req, res, next){
         File.search({
             query_string:{
                 query: req.query.term
             }
-        },{hydrate:true, hydrateOptions: {select: 'title user tags profileLink projectName'}}, function(err, data){
+        }, function(err, data){
             if(err){
                 return next(err);
             }

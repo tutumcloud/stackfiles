@@ -9,9 +9,13 @@ angular.module('registry.controllers', [])
     };
 })
 
-.controller('RegistryController', function($scope, API, Search){
+.controller('RegistryController', function($scope, $window, API, Search){
     $scope.signin = function(){
         API.signin();
+    };
+
+    $scope.deploy = function(id){
+        window.location.href = ('/api/v1/deploy/'+id);
     };
 
     API.getFiles().success(function(data, status, headers, config){
@@ -122,15 +126,6 @@ angular.module('registry.controllers', [])
         $scope.stackfile = "";
         API.getUserReposInfo(orgname, name, branch, path).success(function(data, status, headers, config){
             $scope.stackfile = data;
-        }).error(function(data, status, headers, config){
-            $scope.err = true;
-        });
-    };
-
-    $scope.getReadme = function(name){
-        $scope.data.composefile = "";
-        API.getReadmeFile(name).success(function(data, status, headers, config){
-            $scope.data.composefile = data;
         }).error(function(data, status, headers, config){
             $scope.err = true;
         });
