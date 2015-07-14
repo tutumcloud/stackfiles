@@ -68,12 +68,11 @@ function listOrgRepos(accessToken, name, callback){
 function getYAML(username, repositoryName, branch, path, callback){
     var github = new Github({});
     path = path.substr(1);
-    var file = ["tutum.yml", "docker-compose.yml"];
     request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/tutum.yml", function(err, data){
-        if(err){
+        if(data.statusCode == 404){
             request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/docker-compose.yml", function(err, data){
-                if(err){
-                    callback(err, null);
+                if(data.statusCode == 404){
+                    callback("File not found", null);
                 } else {
                     callback(null, data.body);
                 }
@@ -172,7 +171,7 @@ module.exports = function(app) {
         var branch = req.body.params.branch;
         getYAML(organization, repositoryName, branch, repositoryPath, function(err, yaml){
             if(err){
-                res.redirect('/404');
+                res.send(err);
             } else {
                 res.send(yaml);
             }
@@ -186,7 +185,7 @@ module.exports = function(app) {
         File.findOne({_id: req.body.params.id}, function(err, file){
             if(err){
                 res.json(err);
-                res.redirect('/registry');
+                res.redirect('/404');
             } else {
                 getYAML(file.user, repositoryName, file.branch, repositoryPath, function(err, yaml){
                     if(err){
