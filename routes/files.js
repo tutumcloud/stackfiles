@@ -75,7 +75,7 @@ module.exports = function(app) {
 
         file.save(function(err, savedFile){
             if(err){
-                res.json(err);
+                res.send(err);
             }
             file.on('es-indexed', function(){
                 console.log('file indexed');
@@ -84,31 +84,32 @@ module.exports = function(app) {
         res.redirect('/registry/' + file._id);
     });
 
-    app.get('/api/v1/files', function(req, res){
+    app.get('/api/v1/files', function(req, res, next){
         File.find({}, function(err, files){
             if(err){
-                res.json(err);
-            } else {
-                res.json(files);
+                return nex(err);
             }
+            res.json(files);
         });
     });
 
-    app.get('/api/v1/files/:id', function(req, res){
+    app.get('/api/v1/files/:id', function(req, res, next){
         File.findOne({_id: req.query.id}, function(err, file){
-            if(err) console.log(err);
+            if(err){
+                return next(err);
+            }
             res.json(file);
         });
     });
 
-    app.delete('/api/v1/files/:id', auth, function(req, res){
+    app.delete('/api/v1/files/:id', auth, function(req, res, next){
         File.findOne({_id: req.query.id, author: req.user.username}, function(err, file){
             if(err){
-                res.json(err);
+                return next(err);
             } else {
-                file.remove(function(err, data){
+                file.remove(function(err, data, next){
                     if(err){
-                        res.json(err);
+                        return next(err);
                     } else {
                         reIndex(stream, count, total, done);
                         res.json(data);
@@ -118,17 +119,16 @@ module.exports = function(app) {
         });
     });
 
-    app.get("/api/v1/search", function(req, res){
+    app.get("/api/v1/search", function(req, res, next){
         File.search({
             query_string:{
                 query: req.query.term
             }
-        }, function(err, data){
+        },{hydrate:true, hydrateOptions: {select: 'title user tags profileLink projectName'}}, function(err, data){
             if(err){
-                res.json(err);
-            } else {
-                res.json(data.hits.hits);
+                return next(err);
             }
+            res.json(data.hits.hits);
         });
     });
 };

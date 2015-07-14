@@ -13,6 +13,11 @@ angular.module('registry.services', [])
          signin: function(){
              $window.location.href = ('/auth/github');
          },
+
+         redirectErr: function(){
+             $window.location.href = ('/404');
+         },
+
          saveFile: function(form){
              return $http.post('/api/v1/create', {
                  method: 'POST',
@@ -108,17 +113,7 @@ angular.module('registry.services', [])
                     path: path
                 }
             });
-        },
-        getReadmeFile: function(id, repo){
-            return $http.post('/api/v1/user/repos/readme',{
-                method: 'POST',
-                params: {
-                    id: id,
-                    repo: repo
-                }
-            });
         }
-
      };
 })
 

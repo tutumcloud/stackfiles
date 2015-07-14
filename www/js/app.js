@@ -1,4 +1,4 @@
-angular.module('registry',['registry.controllers','registry.services','ngRoute','ngTagsInput','hc.marked','localytics.directives'])
+angular.module('registry',['registry.controllers','registry.services','ngRoute','hc.marked','localytics.directives'])
 
 .directive('ngEnter', function () {
     return function (scope, element, attrs) {
@@ -7,7 +7,6 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
                 scope.$apply(function (){
                     scope.$eval(attrs.ngEnter);
                 });
-
                 event.preventDefault();
             }
         });
@@ -36,6 +35,9 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
       when('/create', {
         templateUrl: 'partials/create.html',
         controller: 'CreateController'
+      }).
+      when('/404', {
+         templateUrl: 'partials/404.html'
       }).
       otherwise({
         redirectTo: '/'
