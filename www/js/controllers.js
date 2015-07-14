@@ -50,12 +50,16 @@ angular.module('registry.controllers', [])
             $scope.composeFile = yamlData;
             $scope.loaded = true;
         }).error(function(data, status, headers, config){
-            $scope.composeFile = "Unable to fetch tutum.yml from Github repository. Please select a repository that contains a file named tutum.yml";
+            $scope.composeFile = "Unable to fetch tutum.yml from Github repository. Please select a repository that contains a tutum.yml or a docker-compose.yml file";
             $scope.loaded = true;
         });
     }).error(function(data, status, headers, config){
         window.location.href = ("/404");
     });
+
+    $scope.deploy = function(id){
+        window.location.href = ('/api/v1/deploy/'+id);
+    };
 
     $scope.deleteStackfile = function(id){
         API.deleteStackfile(id).success(function(data, status, headers, config){
@@ -125,8 +129,13 @@ angular.module('registry.controllers', [])
     $scope.getComposeFile = function(orgname, name, branch, path){
         $scope.stackfile = "";
         API.getUserReposInfo(orgname, name, branch, path).success(function(data, status, headers, config){
-            $scope.stackfile = data;
+            if(data === "File not found"){
+                $scope.stackfile = "Unable to fetch tutum.yml from Github repository. Please select a repository that contains a tutum.yml or a docker-compose.yml file";
+            } else {
+                $scope.stackfile = data;
+            }
         }).error(function(data, status, headers, config){
+            console.log(data);
             $scope.err = true;
         });
     };

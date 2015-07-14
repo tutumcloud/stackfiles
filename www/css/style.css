@@ -23,11 +23,11 @@ a, a:hover{
     	color-stop(0, #2196F3),
     	color-stop(1, #31ADBD)
     );
-    background-image: -o-linear-gradient(right, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: -moz-linear-gradient(right,#2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: -webkit-linear-gradient(right, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: -ms-linear-gradient(right, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: linear-gradient(to right, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background-image: -o-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background-image: -moz-linear-gradient(303deg,#2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background-image: -webkit-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background-image: -ms-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background-image: linear-gradient(to 303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
     margin: 0;
     color: white;
     height: 100vh;
@@ -276,11 +276,11 @@ a, a:hover{
 
 .gradient {
     height: 64px;
-    background-image: -o-linear-gradient(right, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: -moz-linear-gradient(right,#2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: -webkit-linear-gradient(right, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: -ms-linear-gradient(right, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: linear-gradient(to right, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background-image: -o-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background-image: -moz-linear-gradient(303deg,#2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background-image: -webkit-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background-image: -ms-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background-image: linear-gradient(to 303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
 }
 
 .gradient .elem-bar{

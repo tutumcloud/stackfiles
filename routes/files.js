@@ -8,6 +8,16 @@ var auth = function(req, res, next){
     res.redirect('/');
 };
 
+function tokenizer(name){
+    var newArray = [];
+    var array = name.split('');
+    newArray[0] = array[0];
+    for(var i = 1; i < array.length; i++){
+        newArray[i] = newArray[i-1]+array[i];
+    }
+    return newArray;
+}
+
 var stream = File.find().stream();
 var total = 0;
 var count = 0;
@@ -67,6 +77,7 @@ module.exports = function(app) {
             path : req.body.params.form.path,
             user: req.body.params.form.orgname,
             author: req.user.username,
+            token: tokenizer(req.body.params.form.title),
             profileLink: "https://github.com/"+req.body.params.form.orgname,
             projectName: req.body.params.form.name,
             tags: serviceTags,
