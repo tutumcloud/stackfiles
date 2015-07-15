@@ -113,8 +113,17 @@ module.exports = function(app) {
         });
     });
 
+    app.get('/api/v1/files/fav/:id', function(req, res, next){
+        File.findOneAndUpdate({ _id: req.params.id }, { $inc: { stars: 1 }}, function(err,file){
+            if(err){
+                return next(err);
+            }
+            res.send("Success");
+        });
+    });
+
     app.delete('/api/v1/files/:id', auth, function(req, res, next){
-        File.findOne({_id: req.query.id, author: req.user.username}, function(err, file){
+        File.findOne({_id: req.query.id, author: req.user.username},function(err, file){
             if(err){
                 return next(err);
             } else {
