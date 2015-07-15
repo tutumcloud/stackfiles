@@ -9,13 +9,27 @@ angular.module('registry.controllers', [])
     };
 })
 
-.controller('RegistryController', function($scope, $window, API, Search){
+.controller('RegistryController', function($scope, $rootScope, $window, API, Search){
+    $scope.user = $rootScope.getUser();
+    console.log($scope.user);
     $scope.signin = function(){
         API.signin();
     };
 
     $scope.deploy = function(id){
         window.location.href = ('/api/v1/deploy/'+id);
+    };
+
+    $scope.favorite = function(id){
+        API.favFile(id).success(function(data, status, headers, config){
+            //$scope.file.stars = $scope.file.stars +1; //effect change css star
+        }).error(function(data, status, headers, config){
+            $scope.err = true;
+        });
+    };
+
+    $scope.isFav = function(id){
+        $scope.validated = { stroke:'#FFC400', fill:'#FFC400' };
     };
 
     API.getFiles().success(function(data, status, headers, config){

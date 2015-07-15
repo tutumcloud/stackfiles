@@ -2,11 +2,11 @@ angular.module('registry.services', [])
 
 .factory('API', function($http, $window, $rootScope){
     $rootScope.setUser = function (user) {
-        return $window.localStorage['user'] = user;
+        return $window.sessionStorage['user'] = user;
     };
 
     $rootScope.getUser = function () {
-        return $window.localStorage['user'];
+        return $window.sessionStorage['user'];
     };
 
      return {
@@ -31,8 +31,14 @@ angular.module('registry.services', [])
              return http.get('/registry');
          },
 
+         favFile: function(id){
+            return $http.get('/api/v1/files/fav/' +id,{
+                method: 'GET'
+            });
+         },
+
          getFiles: function(){
-             return $http.get('/api/v1/files',{
+             return $http.get('/api/v1/files/',{
                  method: 'GET'
              });
          },

@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Lato:300,400,400italic);
+@import url(//fonts.googleapis.com/css?family=Lato:300,400,400italic);
 
 /*MAIN COMPONENTS*/
 html{
@@ -73,7 +73,7 @@ a, a:hover{
     width: 180px;
     font-size: 14px;
     font-weight: 400;
-    padding: 11px 42px 9px 21px!important;
+    padding: 11px 40px 9px 21px!important;
     margin-left: 20px;
 }
 
@@ -98,6 +98,9 @@ a, a:hover{
     border-radius: 2px;
     border: none;
     padding-left: 14px;
+    background: url('./../img/search.svg') transparent 350px center no-repeat;
+    background-size: 24px 24px;
+    background-color: #ffffff;
 }
 
 #hero-header input::-webkit-input-placeholder {
@@ -119,6 +122,10 @@ a, a:hover{
 	color: #2196F3;
     font-size: 12px;
     padding-top: 3px;
+}
+
+#hero-header .content img {
+    width: 16px;
 }
 
 #hero-header .footer{
@@ -257,12 +264,34 @@ a, a:hover{
     padding-right: 45px;
 }
 
+#section-title{
+    text-align: center;
+}
+
 #section-title h2{
+    display: inline-block;
+    margin-top: 12px;
     margin-bottom: 12px;
     color: #2196F3;
     font-size: 28px;
     font-weight: 300;
     text-align: center;
+}
+
+#section-title p.login{
+    margin-top: 19px;
+    margin-right: 180px;
+    color: #2196F3;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+#section-title a.login{
+    margin-top: 19px;
+    margin-right: 180px;
+    color: #2196F3;
+    font-size: 14px;
+    font-weight: 400;
 }
 
 #section-title h2 a{
@@ -276,11 +305,11 @@ a, a:hover{
 
 .gradient {
     height: 64px;
-    background-image: -o-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: -moz-linear-gradient(303deg,#2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: -webkit-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: -ms-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: linear-gradient(to 303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: -o-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: -moz-linear-gradient(303deg,#2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: -webkit-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: -ms-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: linear-gradient(to 303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
 }
 
 .gradient .elem-bar{
@@ -296,6 +325,7 @@ a, a:hover{
 /*REGISTRY SCREEN COMPONENTS*/
 .elem-bar h2{
     display: inline-block;
+    margin-top: 14px;
     padding-left: 50px;
     padding-right: 20px;
     font-weight: 300;
@@ -312,15 +342,23 @@ a, a:hover{
     text-decoration: none;
 }
 
-.elem-bar input.focus-bar{
-    width: 34%;
-    height: 30px;
-    padding-left: 10px;
+.elem-bar input.search-bar{
+    width: 60%;
+    height: 36px;
+    margin-top: 8px;
+    margin-bottom: 14px;
+    vertical-align:middle;
+    padding-left: 40px;
     background: none;
     border: none;
+    border-radius: 2px;
     color: white;
     font-size: 16px;
     font-weight: 500;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.50);
+    background: url('./../img/search_white.svg') transparent 14px center no-repeat;
+    background-color: rgba(255, 255, 255, 0.3);
+    background-size: 18px 18px;
 }
 
 .elem-bar a{
@@ -335,8 +373,23 @@ a, a:hover{
     border-top: 1px solid #f1f1f1;
 }
 
+td.main{
+    width: 60%;
+}
+
 td{
     height: 75px;
+}
+
+p.favorite-num{
+    position: relative;
+    top: -5px;
+    display: inline-block;
+    padding-left: 6px;
+    color: #cccccc;
+    font-size: 12px;
+    font-weight: 400;
+    font-style: italic;
 }
 
 a.stack-name{
@@ -658,11 +711,11 @@ p.stack-user{
 }
 
 #wrapper.toggled #sidebar-wrapper {
-    width: 150px;
+    width: 100px;
 }
 
 #page-content-wrapper {
-    width: 99%;
+    width: 98.9%;
     position: absolute;
 }
 
@@ -676,7 +729,7 @@ p.stack-user{
 .sidebar-nav {
     position: absolute;
     top: 0;
-    width: 150px;
+    width: 100px;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -711,7 +764,7 @@ p.stack-user{
 }
 
 .sidebar-nav > .sidebar-brand a {
-    display: inline-block;
+    display: flex;
     color: #999999;
 }
 
@@ -722,7 +775,7 @@ p.stack-user{
 
 @media(min-width:768px) {
     #wrapper {
-        padding-left: 120px;
+        padding-left: 100px;
     }
 
     #wrapper.toggled {
@@ -730,7 +783,7 @@ p.stack-user{
     }
 
     #sidebar-wrapper {
-        width: 120px;
+        width: 100px;
     }
 
     #wrapper.toggled #sidebar-wrapper {
