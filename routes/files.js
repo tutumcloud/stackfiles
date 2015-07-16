@@ -5,8 +5,11 @@ var yaml = require('js-yaml'),
     User = require('../models/users.js');
 
 var auth = function(req, res, next){
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/');
+    if (req.isAuthenticated()) {
+         return next();
+    } else {
+        res.redirect('/');
+    }
 };
 
 function tokenizer(name){
@@ -145,13 +148,21 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/api/v1/user/fav/:id', auth, function(req, res, next){
+    app.get('/api/v1/user/files', auth, function(req, res, next){
+        File.find({author: req.user.username}, function(err, files){
+            if(err){
+                return next(err);
+            }
+            res.json(files);
+        });
+    });
+
+    app.get('/api/v1/user/fav', auth, function(req, res, next){
         User.findOne({userId: req.user.id}, function(err, user){
             if(err){
                 return next(err);
             }
-            console.log()
-            res.json(user.favorites.indexOf(req.params.id) > -1);
+            res.json(user.favorites);
         });
     });
 
