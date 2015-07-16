@@ -90,6 +90,10 @@ module.exports = function(app) {
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
+    app.get('/mystacks', auth, function(req, res){
+        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+    });
+
     app.get('/registry/:id', function(req, res){
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
@@ -101,6 +105,6 @@ module.exports = function(app) {
     app.get('/auth/github', passport.authenticate('github', { scope: 'read:org' }));
 
     app.get('/auth/github/callback', passport.authenticate('github'), function(req, res) {
-        res.redirect('/create');
+        res.redirect('/registry');
     });
 };

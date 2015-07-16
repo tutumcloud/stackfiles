@@ -74,7 +74,6 @@ a, a:hover{
     font-size: 14px;
     font-weight: 400;
     padding: 11px 40px 9px 21px!important;
-    margin-left: 20px;
 }
 
 .btn.boxed-btn.github-btn:hover {
@@ -93,35 +92,34 @@ a, a:hover{
     margin-top: 23px;
     margin-bottom: 36px;
     width: 380px;
-    height: 32px;
+    height: 36px;
+    color: #ffffff;
+    font-size: 13px;
     font-weight: 400;
     border-radius: 2px;
     border: none;
-    padding-left: 14px;
-    background: url('./../img/search.svg') transparent 350px center no-repeat;
+    padding-left: 51px;
+    background: url('./../img/search_white.svg') transparent 17px center no-repeat;
     background-size: 24px 24px;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.20);
 }
 
 #hero-header input::-webkit-input-placeholder {
-	color: #2196F3;
-    font-size: 12px;
-    padding-top: 3px;
+	color: #ffffff;
+    font-size: 13px;
 }
 #hero-header input::-moz-placeholder {
-	color: #2196F3;
-    font-size: 12px;
-    padding-top: 3px;
+	color: #ffffff;
+    font-size: 13px;
 }
 #hero-header input:-moz-placeholder {   /* Older versions of Firefox */
-	color: #2196F3;
-    font-size: 12px;
-    padding-top: 3px;
+	color: #ffffff;
+    font-size: 13px;
 }
 #hero-header input:-ms-input-placeholder {
-	color: #2196F3;
-    font-size: 12px;
-    padding-top: 3px;
+	color: #ffffff;
+    font-size: 13px;
 }
 
 #hero-header .content img {
@@ -135,6 +133,11 @@ a, a:hover{
     bottom: 15px;
     font-size: 12px;
     font-weight: 400;
+}
+
+#hero-header .footer img{
+    width: 13px;
+    height: 12px;
 }
 
 /*REGISTRY COMPONENTS*/
@@ -249,14 +252,15 @@ a, a:hover{
 }
 
 .btn.boxed-btn{
-    padding: 11px 7px 9px 8px;
+    padding: 8px 8px 9px 8px;
     font-size: 14px;
     font-weight: 700;
     border-radius: 0;
     border: 2px solid #FFFFFF;
     border-radius: 2px;
-    font-size: 14px;
     text-transform: uppercase;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .col-lg-12{
@@ -292,6 +296,7 @@ a, a:hover{
     color: #2196F3;
     font-size: 14px;
     font-weight: 400;
+    cursor: pointer;
 }
 
 #section-title h2 a{
@@ -323,6 +328,10 @@ a, a:hover{
 }
 
 /*REGISTRY SCREEN COMPONENTS*/
+.elem-bar{
+    height: inherit;
+}
+
 .elem-bar h2{
     display: inline-block;
     margin-top: 14px;
@@ -355,14 +364,19 @@ a, a:hover{
     color: white;
     font-size: 16px;
     font-weight: 500;
-    box-shadow: 0 1px 1px 0 rgba(0,0,0,.50);
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.20);
     background: url('./../img/search_white.svg') transparent 14px center no-repeat;
     background-color: rgba(255, 255, 255, 0.3);
     background-size: 18px 18px;
 }
 
 .elem-bar a{
-    margin-top: 10px;
+    margin-top: 14px;
+}
+
+.elem-bar .star{
+    margin-right: 67px;
+    margin-top: 20px;
 }
 
 .btn.boxed-btn.submit-btn{
@@ -371,14 +385,14 @@ a, a:hover{
 
 .table>tbody>tr>td{
     border-top: 1px solid #f1f1f1;
+    padding-top: 19px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 14px;
 }
 
 td.main{
     width: 60%;
-}
-
-td{
-    height: 75px;
 }
 
 p.favorite-num{
@@ -393,6 +407,7 @@ p.favorite-num{
 }
 
 a.stack-name{
+    display: block;
     color: #666;
     font-size: 16px;
     font-weight: 700;
@@ -403,6 +418,7 @@ a.stack-name:hover{
 }
 
 p.stack-services{
+    display: inline-block;
     padding-top: 10px;
     margin-bottom: 0px;
     color: #666;
@@ -411,9 +427,11 @@ p.stack-services{
 }
 
 p.stack-user{
+    display: inline-block;
     margin-top: 4px;
+    padding-left: 10px;
     color: #999;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 300;
     font-style: italic;
 }
@@ -422,6 +440,11 @@ p.stack-user{
 .btn.boxed-btn.deploy-btn{
     color: #2196F3;
     border-color: #2196F3;
+}
+
+.btn.boxed-btn.embed-btn{
+    color: #00c8b4;
+    border-color: #00c8b4;
 }
 
 .btn.boxed-btn.deploy-btn:hover{
@@ -440,6 +463,20 @@ p.stack-user{
     border-color: #ef4336;
 }
 
+.star.btn-off{
+    cursor: pointer;
+}
+
+.star.btn-on{
+    pointer-events: none;
+    cursor: default;
+}
+
+svg.star.btn-on path{
+    stroke: #ffc400;
+    fill: #ffc400;
+
+}
 
 .tags{
     display: inline-block;
@@ -524,6 +561,7 @@ p.stack-user{
 
 .chosen-container-active.chosen-with-drop .chosen-single{
     background-image: none;
+    background-color: #cccccc;
     border: none;
     box-shadow: none;
     border-radius: 2px;
@@ -741,7 +779,7 @@ p.stack-user{
 }
 
 .sidebar-nav li a {
-    display: block;
+    display: inline-block;
     text-decoration: none;
     color: #999999;
 }
@@ -757,10 +795,20 @@ p.stack-user{
     text-decoration: none;
 }
 
-.sidebar-nav > .sidebar-brand img {
+.sidebar-nav > li img {
+    width: 24px;
+    height: 24px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.sidebar-nav > .sidebar-brand img.logo {
     width: 44px;
     height: 44px;
-    margin: 13px auto;
+    margin-top: 13px;
+    margin-bottom: 56px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .sidebar-nav > .sidebar-brand a {

@@ -1,11 +1,15 @@
 var yaml = require('js-yaml'),
     fs   = require('fs'),
     mongoosastic = require('mongoosastic'),
-    File = require('../models/composeFiles.js');
+    File = require('../models/composeFiles.js'),
+    User = require('../models/users.js');
 
 var auth = function(req, res, next){
-    if (req.isAuthenticated()) { return next(); }
-    res.redirect('/');
+    if (req.isAuthenticated()) {
+         return next();
+    } else {
+        res.redirect('/');
+    }
 };
 
 function tokenizer(name){
@@ -113,12 +117,17 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/api/v1/files/fav/:id', function(req, res, next){
+    app.get('/api/v1/files/fav/:id', auth, function(req, res, next){
         File.findOneAndUpdate({ _id: req.params.id }, { $inc: { stars: 1 }}, function(err,file){
             if(err){
                 return next(err);
             }
-            res.send("Success");
+            User.findOneAndUpdate({userId: req.user.id}, {$push: {favorites: req.params.id}}, {safe: true, upsert: true}, function(err, file){
+                if(err){
+                    return next(err);
+                }
+                res.send("Success");
+            });
         });
     });
 
@@ -136,6 +145,24 @@ module.exports = function(app) {
                     }
                 });
             }
+        });
+    });
+
+    app.get('/api/v1/user/files', auth, function(req, res, next){
+        File.find({author: req.user.username}, function(err, files){
+            if(err){
+                return next(err);
+            }
+            res.json(files);
+        });
+    });
+
+    app.get('/api/v1/user/fav', auth, function(req, res, next){
+        User.findOne({userId: req.user.id}, function(err, user){
+            if(err){
+                return next(err);
+            }
+            res.json(user.favorites);
         });
     });
 

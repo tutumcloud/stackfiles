@@ -37,6 +37,12 @@ angular.module('registry.services', [])
             });
          },
 
+         checkFav: function(){
+             return $http.get('/api/v1/user/fav', {
+                 method: 'GET'
+             });
+         },
+
          getFiles: function(){
              return $http.get('/api/v1/files/',{
                  method: 'GET'
@@ -48,6 +54,11 @@ angular.module('registry.services', [])
                  params: {
                      id: id
                  }
+             });
+         },
+         getUserFiles: function(){
+             return $http.get('/api/v1/user/files',{
+                 method: 'GET'
              });
          },
          deleteStackfile: function(id){

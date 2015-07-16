@@ -1,19 +1,80 @@
 angular.module('registry.controllers', [])
 
-.controller('MainController', function($scope, $location, Search){
+.controller('MainController', function($scope, $location, Search, API){
     $scope.search = function(){
         if(this.data.search !== ""){
             Search.setValue(this.data.search);
             $location.path("/registry");
         }
     };
+
+    $scope.submitStack = function(){
+        API.getUser().success(function(data, status, headers, config){
+             if(data.username !== undefined){
+                 window.location.href = ("/create");
+             } else {
+                 API.signin().success(function(data, status, headers, config){
+                      window.location.href = ("/create");
+                 });
+             }
+        }).error(function(data, status, headers, config){
+            window.location.href = ("/registry");
+        });
+    };
+})
+
+.controller('MyStackController', function($scope, $rootScope, API, Search){
+    API.getUser().success(function(data, status, headers, config){
+         if(data.username !== undefined){
+             $rootScope.setUser(data.username);
+             $scope.user = $rootScope.getUser();
+             API.getUserFiles().success(function(data, status, headers, config){
+                 $scope.files = data;
+                 $scope.loaded = true;
+             }).error(function(data, status, headers, config){
+                 $scope.err = true;
+                 $scope.loaded = true;
+             });
+         } else {
+             window.location.href = ("/registry");
+         }
+    }).error(function(data, status, headers, config){
+        $scope.err = true;
+    });
+})
+
+
+.controller('FavoriteController', function($scope, $rootScope, API, Search){
+
 })
 
 .controller('RegistryController', function($scope, $rootScope, $window, API, Search){
-    $scope.user = $rootScope.getUser();
-    console.log($scope.user);
+
+    API.getUser().success(function(data, status, headers, config){
+         if(data.username !== undefined){
+             $rootScope.setUser(data.username);
+             $scope.user = $rootScope.getUser();
+         }
+    }).error(function(data, status, headers, config){
+        $scope.err = true;
+    });
+
     $scope.signin = function(){
         API.signin();
+    };
+
+    $scope.submitStack = function(){
+        API.getUser().success(function(data, status, headers, config){
+             if(data.username !== undefined){
+                 window.location.href = ("/create");
+             } else {
+                 API.signin().success(function(data, status, headers, config){
+                      window.location.href = ("/create");
+                 });
+             }
+        }).error(function(data, status, headers, config){
+            $scope.err = true;
+        });
     };
 
     $scope.deploy = function(id){
@@ -21,21 +82,26 @@ angular.module('registry.controllers', [])
     };
 
     $scope.favorite = function(id){
-        API.favFile(id).success(function(data, status, headers, config){
-            //$scope.file.stars = $scope.file.stars +1; //effect change css star
-        }).error(function(data, status, headers, config){
-            $scope.err = true;
-        });
-    };
+        if($scope.user !== undefined){
+            API.favFile(id).success(function(data, status, headers, config){
 
-    $scope.isFav = function(id){
-        $scope.validated = { stroke:'#FFC400', fill:'#FFC400' };
+            }).error(function(data, status, headers, config){
+                $scope.err = true;
+            });
+        }
     };
 
     API.getFiles().success(function(data, status, headers, config){
         $scope.files = data;
+        $scope.loaded = true;
     }).error(function(data, status, headers, config){
         $scope.err = true;
+    });
+
+    API.checkFav().success(function(data, status, header, config){
+
+    }).error(function(data, status, headers, config){
+        console.log(data);
     });
 
     $scope.searchFile = function(){
@@ -91,6 +157,7 @@ angular.module('registry.controllers', [])
 
     API.getUser().success(function(data, status, headers, config){
          $rootScope.setUser(data.username);
+         $scope.user = $rootScope.getUser();
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });
