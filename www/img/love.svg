@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>- search icon copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="--search-icon-copy" sketch:type="MSArtboardGroup">
+            <g id="icon-fav" sketch:type="MSLayerGroup">
+                <path d="M0,0 L48,0 L48,48 L0,48 L0,0 Z" id="bounds" sketch:type="MSShapeGroup"></path>
+                <path d="M33,6 C29.52,6 26.18,7.62 24,10.18 C21.82,7.62 18.48,6 15,6 C8.84,6 4,10.84 4,17 C4,24.56 10.8,30.72 21.1,40.08 L24,42.7 L26.9,40.06 C37.2,30.72 44,24.56 44,17 C44,10.84 39.16,6 33,6 L33,6 Z M24.2,37.1 L24,37.3 L23.8,37.1 C14.28,28.48 8,22.78 8,17 C8,13 11,10 15,10 C18.08,10 21.08,11.98 22.14,14.72 L25.88,14.72 C26.92,11.98 29.92,10 33,10 C37,10 40,13 40,17 C40,22.78 33.72,28.48 24.2,37.1 L24.2,37.1 Z" id="Shape" fill="#FFFFFF" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+    </g>
+</svg>

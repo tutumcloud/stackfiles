@@ -93,7 +93,7 @@ a, a:hover{
     margin-top: 23px;
     margin-bottom: 36px;
     width: 380px;
-    height: 32px;
+    height: 36px;
     font-weight: 400;
     border-radius: 2px;
     border: none;
@@ -135,6 +135,11 @@ a, a:hover{
     bottom: 15px;
     font-size: 12px;
     font-weight: 400;
+}
+
+#hero-header .footer img{
+    width: 13px;
+    height: 12px;
 }
 
 /*REGISTRY COMPONENTS*/
@@ -249,13 +254,12 @@ a, a:hover{
 }
 
 .btn.boxed-btn{
-    padding: 11px 7px 9px 8px;
+    padding: 8px 6px 8px 9px;
     font-size: 14px;
     font-weight: 700;
     border-radius: 0;
     border: 2px solid #FFFFFF;
     border-radius: 2px;
-    font-size: 14px;
     text-transform: uppercase;
 }
 
@@ -362,7 +366,7 @@ a, a:hover{
 }
 
 .elem-bar a{
-    margin-top: 10px;
+    margin-top: 14px;
 }
 
 .btn.boxed-btn.submit-btn{
@@ -440,6 +444,9 @@ p.stack-user{
     border-color: #ef4336;
 }
 
+.star{
+    cursor: pointer;
+}
 
 .tags{
     display: inline-block;
@@ -524,6 +531,7 @@ p.stack-user{
 
 .chosen-container-active.chosen-with-drop .chosen-single{
     background-image: none;
+    background-color: #cccccc;
     border: none;
     box-shadow: none;
     border-radius: 2px;
@@ -741,7 +749,7 @@ p.stack-user{
 }
 
 .sidebar-nav li a {
-    display: block;
+    display: inline-block;
     text-decoration: none;
     color: #999999;
 }
@@ -757,10 +765,20 @@ p.stack-user{
     text-decoration: none;
 }
 
-.sidebar-nav > .sidebar-brand img {
+.sidebar-nav > li img {
+    width: 24px;
+    height: 24px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.sidebar-nav > .sidebar-brand img.logo {
     width: 44px;
     height: 44px;
-    margin: 13px auto;
+    margin-top: 13px;
+    margin-bottom: 56px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .sidebar-nav > .sidebar-brand a {

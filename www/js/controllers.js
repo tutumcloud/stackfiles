@@ -9,9 +9,20 @@ angular.module('registry.controllers', [])
     };
 })
 
+.controller('MyStackController', function($scope, $rootScope, API, Search){
+
+})
+
+
+.controller('FavoriteController', function($scope, $rootScope, API, Search){
+
+})
+
 .controller('RegistryController', function($scope, $rootScope, $window, API, Search){
     $scope.user = $rootScope.getUser();
-    console.log($scope.user);
+    $scope.IsClickEnable = true;
+
+
     $scope.signin = function(){
         API.signin();
     };
@@ -20,20 +31,31 @@ angular.module('registry.controllers', [])
         window.location.href = ('/api/v1/deploy/'+id);
     };
 
-    $scope.favorite = function(id){
-        API.favFile(id).success(function(data, status, headers, config){
-            //$scope.file.stars = $scope.file.stars +1; //effect change css star
-        }).error(function(data, status, headers, config){
-            $scope.err = true;
-        });
+    $scope.favorite = function(id, $index){
+        if($scope.user !== undefined){
+            console.log("FAV");
+            API.favFile(id).success(function(data, status, headers, config){
+                $scope.file.stars = $scope.file.stars + 1;
+                $scope.IsClickEnable = false;
+            }).error(function(data, status, headers, config){
+                $scope.err = true;
+            });
+        }
     };
 
     $scope.isFav = function(id){
-        $scope.validated = { stroke:'#FFC400', fill:'#FFC400' };
+        API.checkFav(id).success(function(data, status, header, config){
+            console.log(data)
+            //$scope.validated = { stroke:'#FFC400', fill:'#FFC400' };
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+
     };
 
     API.getFiles().success(function(data, status, headers, config){
         $scope.files = data;
+        $scope.loaded = true;
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });
@@ -91,6 +113,7 @@ angular.module('registry.controllers', [])
 
     API.getUser().success(function(data, status, headers, config){
          $rootScope.setUser(data.username);
+         $scope.user = $rootScope.getUser();
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });

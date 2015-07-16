@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>-stack </title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="-stack-" sketch:type="MSArtboardGroup" fill="#2196F3">
+            <g id="-icons-copy" sketch:type="MSLayerGroup" transform="translate(4.000000, 5.000000)">
+                <path d="M30.526,14.079 L40,9.651 L20,0 L0,9.651 L9.474,14.079 L0,18.65 L9.474,23.079 L0,27.65 L20,37 L40,27.65 L30.526,23.079 L40,18.65 L30.526,14.079 L30.526,14.079 Z M7.056,9.607 L20,3.361 L32.944,9.607 L27.008,12.381 L20,15.659 L12.991,12.383 L7.056,9.607 L7.056,9.607 Z M7.056,18.607 L13.013,15.733 L20,18.999 L26.988,15.733 L32.944,18.607 L20,24.658 L7.056,18.607 L7.056,18.607 Z M32.943,27.607 L20,33.658 L7.056,27.607 L13.012,24.733 L20,28 L26.988,24.733 L32.943,27.607 L32.943,27.607 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+        <rect id="Rectangle-287" sketch:type="MSShapeGroup" x="0" y="0" width="48" height="48"></rect>
+    </g>
+</svg>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>-star</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="-star" sketch:type="MSArtboardGroup">
+            <g id="star" sketch:type="MSLayerGroup">
+                <path d="M44,18.48 L29.62,17.24 L24,4 L18.38,17.26 L4,18.48 L14.92,27.94 L11.64,42 L24,34.54 L36.36,42 L33.1,27.94 L44,18.48 L44,18.48 Z M24,30.8 L16.48,35.34 L18.48,26.78 L11.84,21.02 L20.6,20.26 L24,12.2 L27.42,20.28 L36.18,21.04 L29.54,26.8 L31.54,35.36 L24,30.8 L24,30.8 Z" id="Shape" fill="#FFC400" sketch:type="MSShapeGroup"></path>
+                <path d="M0,0 L48,0 L48,48 L0,48 L0,0 Z" id="bounds" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+    </g>
+</svg>
