@@ -36,6 +36,10 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
         templateUrl: 'partials/create.html',
         controller: 'CreateController'
       }).
+      when('/mystacks', {
+        templateUrl: 'partials/mystacks.html',
+        controller: 'MyStackController'
+      }).
       when('/404', {
          templateUrl: 'partials/404.html'
       }).

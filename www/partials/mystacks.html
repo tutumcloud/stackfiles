@@ -1,0 +1,66 @@
+<div id="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+          <li class="sidebar-brand">
+              <a href="/">
+                  <img class="logo" src="img/icon.svg">
+              </a>
+          </li>
+          <li>
+              <a href="/registry"><img src="img/stacks.svg"></a>
+          </li>
+          <li>
+              <a href="/mystacks"><img src="img/my_stacks.svg"></a>
+          </li>
+          <li>
+              <a href="/#"><img src="img/star.svg"</a>
+          </li>
+      </ul>
+  </div>
+  <div id="page-content-wrapper">
+        <div class="row">
+            <div id="section-title">
+                <h2><a href="/">Stackfiles.io</a></h2>
+                <p class="pull-right login" ng-show="user!=undefined">{{user}}</p>
+                <a class="pull-right login" ng-click="signin();" ng-hide="user!=undefined">Login</a>
+            </div>
+            <div class="col-lg-12 gradient">
+                <div class="elem-bar">
+                    <h2>My Stacks</h2>
+                    <input type="text" class="search-bar" placeholder="" ng-model="data.search" ng-init="checkSearch()" ng-change="searchFile()">
+                    <a class="btn boxed-btn submit-btn pull-right" ng-click="submitStack()"></i> Submit a Stackfile</a>
+                </div>
+            </div>
+            <div id="loading" ng-hide="loaded == true">
+                <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="path" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
+                </svg>
+            </div>
+            <div class="container-fluid" ng-show="loaded == true">
+                <div class="col-lg-11 content-list" ng-show="data.search.length">
+                    <table ng-show="results.length" class="table">
+                        <tbody>
+                            <tr ng-repeat="result in results" ng-class-odd="odd" ng-class-even="even" ng-hide="currentSection === 1">
+                                <td class="main"><a class="stack-name" href="/registry/{{result._id}}">{{result._source.title}}</a><p class="stack-services">{{result._source.tags.length}} Services</p><p class="stack-user">by {{result._source.user}}</p></td>
+                                <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(result._id)" target="_blank">Deploy to Tutum</a></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div ng-hide="results.length" style="text-align: center">No result</div>
+                </div>
+                <div class="col-lg-11 content-list" ng-hide="data.search.length">
+                    <table class="table">
+                        <tbody>
+                            <tr ng-repeat="file in files" ng-class-odd="odd" ng-class-even="even">
+                                <td class="main"><a class="stack-name" href="/registry/{{file._id}}">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services <span class="stack-user">By {{file.user}}</span></p></td>
+                                <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
+                                <td style="vertical-align:middle"><a href="/registry"><img src="img/embed.svg" style="width:24px;"></a></td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
