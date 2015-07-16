@@ -1,16 +1,46 @@
 angular.module('registry.controllers', [])
 
-.controller('MainController', function($scope, $location, Search){
+.controller('MainController', function($scope, $location, Search, API){
     $scope.search = function(){
         if(this.data.search !== ""){
             Search.setValue(this.data.search);
             $location.path("/registry");
         }
     };
+
+    $scope.submitStack = function(){
+        API.getUser().success(function(data, status, headers, config){
+             if(data.username !== undefined){
+                 window.location.href = ("/create");
+             } else {
+                 API.signin().success(function(data, status, headers, config){
+                      window.location.href = ("/create");
+                 });
+             }
+        }).error(function(data, status, headers, config){
+            window.location.href = ("/registry");
+        });
+    };
 })
 
 .controller('MyStackController', function($scope, $rootScope, API, Search){
-
+    API.getUser().success(function(data, status, headers, config){
+         if(data.username !== undefined){
+             $rootScope.setUser(data.username);
+             $scope.user = $rootScope.getUser();
+             API.getUserFiles().success(function(data, status, headers, config){
+                 $scope.files = data;
+                 $scope.loaded = true;
+             }).error(function(data, status, headers, config){
+                 $scope.err = true;
+                 $scope.loaded = true;
+             });
+         } else {
+             window.location.href = ("/registry");
+         }
+    }).error(function(data, status, headers, config){
+        $scope.err = true;
+    });
 })
 
 
@@ -19,38 +49,46 @@ angular.module('registry.controllers', [])
 })
 
 .controller('RegistryController', function($scope, $rootScope, $window, API, Search){
-    $scope.user = $rootScope.getUser();
-    $scope.IsClickEnable = true;
 
+    API.getUser().success(function(data, status, headers, config){
+         if(data.username !== undefined){
+             $rootScope.setUser(data.username);
+             $scope.user = $rootScope.getUser();
+         }
+    }).error(function(data, status, headers, config){
+        $scope.err = true;
+    });
 
     $scope.signin = function(){
         API.signin();
+    };
+
+    $scope.submitStack = function(){
+        API.getUser().success(function(data, status, headers, config){
+             if(data.username !== undefined){
+                 window.location.href = ("/create");
+             } else {
+                 API.signin().success(function(data, status, headers, config){
+                      window.location.href = ("/create");
+                 });
+             }
+        }).error(function(data, status, headers, config){
+            $scope.err = true;
+        });
     };
 
     $scope.deploy = function(id){
         window.location.href = ('/api/v1/deploy/'+id);
     };
 
-    $scope.favorite = function(id, $index){
+    $scope.favorite = function(id){
         if($scope.user !== undefined){
-            console.log("FAV");
             API.favFile(id).success(function(data, status, headers, config){
-                $scope.file.stars = $scope.file.stars + 1;
-                $scope.IsClickEnable = false;
+
             }).error(function(data, status, headers, config){
                 $scope.err = true;
             });
         }
-    };
-
-    $scope.isFav = function(id){
-        API.checkFav(id).success(function(data, status, header, config){
-            console.log(data)
-            //$scope.validated = { stroke:'#FFC400', fill:'#FFC400' };
-        }).error(function(data, status, headers, config){
-            console.log(data);
-        });
-
     };
 
     API.getFiles().success(function(data, status, headers, config){
@@ -58,6 +96,12 @@ angular.module('registry.controllers', [])
         $scope.loaded = true;
     }).error(function(data, status, headers, config){
         $scope.err = true;
+    });
+
+    API.checkFav().success(function(data, status, header, config){
+
+    }).error(function(data, status, headers, config){
+        console.log(data);
     });
 
     $scope.searchFile = function(){
