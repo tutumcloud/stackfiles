@@ -23,8 +23,8 @@
         <div class="row">
             <div id="section-title">
                 <h2><a href="/">Stackfiles.io</a></h2>
-                <p class="pull-right login" ng-show="user!=undefined">{{user}}</p>
-                <a class="pull-right login" ng-click="signin('/registry');" ng-hide="user!=undefined">Login</a>
+                <p class="pull-right login" ng-show="user!='undefined'">{{user}}</p>
+                <a class="pull-right login" ng-click="signin('/registry');" ng-hide="user!='undefined'">Login</a>
             </div>
             <div class="col-lg-12 col-sm-12 gradient">
                 <div class="elem-bar">

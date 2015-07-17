@@ -14,7 +14,12 @@ angular.module('registry.controllers', [])
 })
 
 .controller('MyStackController', function($scope, $rootScope, API, Search){
-    $scope.user = $rootScope.getUser();
+    API.getUser().success(function(data, status, headers, config){
+         $rootScope.setUser(data.username);
+         $scope.user = $rootScope.getUser();
+    }).error(function(data, status, headers, config){
+        $scope.err = true;
+    });
 
      API.getUserFiles().success(function(data, status, headers, config){
          $scope.files = data;
@@ -23,6 +28,10 @@ angular.module('registry.controllers', [])
          $scope.err = true;
          $scope.loaded = true;
      });
+
+     $scope.signin = function(page){
+         API.signin(page);
+     };
 
     $scope.searchFile = function(){
         var term = this.data.search;
@@ -40,8 +49,13 @@ angular.module('registry.controllers', [])
 })
 
 .controller('RegistryController', function($scope, $rootScope, $window, API, Search){
-    $scope.loaded = false;
-    $scope.user = $rootScope.getUser();
+    API.getUser().success(function(data, status, headers, config){
+         $rootScope.setUser(data.username);
+         $scope.user = $rootScope.getUser();
+    }).error(function(data, status, headers, config){
+        $scope.err = true;
+    });
+
 
     $scope.signin = function(page){
         API.signin(page);
@@ -131,6 +145,10 @@ angular.module('registry.controllers', [])
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });
+
+    $scope.signin = function(page){
+        API.signin(page);
+    };
 
     $scope.getRepos = function(){
         var repos = [];

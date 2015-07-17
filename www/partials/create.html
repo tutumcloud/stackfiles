@@ -12,7 +12,7 @@
                 <a href="/registry"><img src="img/stacks.svg"></a>
             </li>
             <li>
-                <a href="signin('/mystacks')" style="cursor:pointer;"><img src="img/my_stacks.svg"></a>
+                <a ng-click="signin('/mystacks')" style="cursor:pointer;"><img src="img/my_stacks.svg"></a>
             </li>
             <li>
                 <a href="/#"><img src="img/star.svg"</a>
@@ -23,7 +23,7 @@
         <div id="create" class="row">
             <div id="section-title">
                 <h2><a href="/">Stackfiles.io</a></h2>
-                <p class="pull-right login" ng-show="user!=undefined">{{user}}</p>
+                <p class="pull-right login" ng-show="user!='undefined'">{{user}}</p>
             </div>
             <div class="col-lg-12 col-sm-12 gradient">
                 <div class="elem-bar">
