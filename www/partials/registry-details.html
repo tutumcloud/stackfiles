@@ -23,8 +23,8 @@
         <div class="row">
             <div id="section-title">
                 <h2><a href="/">Stackfiles.io</a></h2>
-                <p class="pull-right login" ng-show="user!=undefined">{{user}}</p>
-                <a class="pull-right login" ng-click="signin('/registry');" ng-hide="user!=undefined">Login</a>
+                <p class="pull-right login" ng-show="user!='undefined'">{{user}}</p>
+                <a class="pull-right login" ng-click="signin('/registry');" ng-hide="user!='undefined'">Login</a>
             </div>
             <div class="col-lg-12 col-sm-12 gradient">
                 <div class="elem-bar">
@@ -45,8 +45,8 @@
                     <circle class="path" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
                 </svg>
             </div>
-            <div id="detail" class="container-fluid" ng-show="loaded == true">
-                <div class="col-lg-10">
+            <div class="col-lg-12">
+                <div id="detail" class="container-fluid" ng-show="loaded == true">
                     <hr>
                     <div class="section">
                         <div class="label">Service tags</div>
