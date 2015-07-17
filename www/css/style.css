@@ -149,6 +149,10 @@ a, a:hover{
     padding-top: 200px;
 }
 
+.col-lg-11.content-list{
+    max-width: 980px;
+}
+
 .spinner {
   -webkit-animation: rotator 1.4s linear infinite;
           animation: rotator 1.4s linear infinite;
@@ -263,11 +267,6 @@ a, a:hover{
     margin-left: 10px;
 }
 
-.col-lg-12{
-    padding-left: 45px;
-    padding-right: 45px;
-}
-
 #section-title{
     text-align: center;
 }
@@ -330,15 +329,18 @@ a, a:hover{
 /*REGISTRY SCREEN COMPONENTS*/
 .elem-bar{
     height: inherit;
+    text-align: center;
+    margin: 0 auto;
+    max-width: 980px;
 }
 
 .elem-bar h2{
     display: inline-block;
     margin-top: 14px;
-    padding-left: 50px;
-    padding-right: 20px;
+    padding-right: 40px;
     font-weight: 300;
     font-size: 28px;
+    float: left;
 }
 
 .elem-bar h2 a{
@@ -354,8 +356,9 @@ a, a:hover{
 .elem-bar input.search-bar{
     width: 60%;
     height: 36px;
-    margin-top: 8px;
+    margin-top: 12px;
     margin-bottom: 14px;
+    margin-right: 41px;
     vertical-align:middle;
     padding-left: 40px;
     background: none;
@@ -515,6 +518,11 @@ svg.star.btn-on path{
     border-radius: 2px;
 }
 
+#detail-create {
+    padding-top: 80px;
+    max-width: 980px;
+}
+
 .inputs .form-control.floating-label::-webkit-input-placeholder {
     font-family: 'Lato', Arial, Helvetica, sans-serif;
     font-weight: 400;
@@ -651,7 +659,8 @@ svg.star.btn-on path{
 /*DETAIL COMPONENTS*/
 
 #detail {
-    padding: 120px 100px 120px 110px;
+    padding-top: 44px;
+    max-width: 780px;
 }
 
 #detail h2 {
@@ -682,15 +691,14 @@ svg.star.btn-on path{
 
 .section .stackfile{
     vertical-align: top;
-    width: 80%;
     display: inline-block;
 }
 
 .section .stackfile pre{
     border: none;
     border-radius: 0px;
-    width: 80%;
     height: 300px;
+    width: 516px;
 }
 
 .section .stackfile p{
