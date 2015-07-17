@@ -8,39 +8,30 @@ angular.module('registry.controllers', [])
         }
     };
 
-    $scope.submitStack = function(){
-        API.getUser().success(function(data, status, headers, config){
-             if(data.username !== undefined){
-                 window.location.href = ("/create");
-             } else {
-                 API.signin().success(function(data, status, headers, config){
-                      window.location.href = ("/create");
-                 });
-             }
-        }).error(function(data, status, headers, config){
-            window.location.href = ("/registry");
-        });
+    $scope.signin = function(page){
+        API.signin(page);
     };
 })
 
 .controller('MyStackController', function($scope, $rootScope, API, Search){
-    API.getUser().success(function(data, status, headers, config){
-         if(data.username !== undefined){
-             $rootScope.setUser(data.username);
-             $scope.user = $rootScope.getUser();
-             API.getUserFiles().success(function(data, status, headers, config){
-                 $scope.files = data;
-                 $scope.loaded = true;
-             }).error(function(data, status, headers, config){
-                 $scope.err = true;
-                 $scope.loaded = true;
-             });
-         } else {
-             window.location.href = ("/registry");
-         }
-    }).error(function(data, status, headers, config){
-        $scope.err = true;
-    });
+    $scope.user = $rootScope.getUser();
+
+     API.getUserFiles().success(function(data, status, headers, config){
+         $scope.files = data;
+         $scope.loaded = true;
+     }).error(function(data, status, headers, config){
+         $scope.err = true;
+         $scope.loaded = true;
+     });
+
+    $scope.searchFile = function(){
+        var term = this.data.search;
+        API.searchFile(term).success(function(data, status, headers, config){
+            $scope.results = data;
+        }).error(function(data, status, headers, config){
+            $scope.err = true;
+        });
+    };
 })
 
 
@@ -49,32 +40,11 @@ angular.module('registry.controllers', [])
 })
 
 .controller('RegistryController', function($scope, $rootScope, $window, API, Search){
+    $scope.loaded = false;
+    $scope.user = $rootScope.getUser();
 
-    API.getUser().success(function(data, status, headers, config){
-         if(data.username !== undefined){
-             $rootScope.setUser(data.username);
-             $scope.user = $rootScope.getUser();
-         }
-    }).error(function(data, status, headers, config){
-        $scope.err = true;
-    });
-
-    $scope.signin = function(){
-        API.signin();
-    };
-
-    $scope.submitStack = function(){
-        API.getUser().success(function(data, status, headers, config){
-             if(data.username !== undefined){
-                 window.location.href = ("/create");
-             } else {
-                 API.signin().success(function(data, status, headers, config){
-                      window.location.href = ("/create");
-                 });
-             }
-        }).error(function(data, status, headers, config){
-            $scope.err = true;
-        });
+    $scope.signin = function(page){
+        API.signin(page);
     };
 
     $scope.deploy = function(id){

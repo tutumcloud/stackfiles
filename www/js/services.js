@@ -10,8 +10,8 @@ angular.module('registry.services', [])
     };
 
      return {
-         signin: function(){
-             $window.location.href = ('/auth/github');
+         signin: function(page){
+             $window.location.href = ('/auth/github?redirect=' + page);
          },
 
          redirectErr: function(){
