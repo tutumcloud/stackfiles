@@ -102,9 +102,13 @@ module.exports = function(app) {
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
-    app.get('/auth/github', passport.authenticate('github', { scope: 'read:org' }));
+    app.get('/auth/github', function(req, res, next){
+        var redirect = req.query.redirect;
+        req.session.redirect = redirect;
+        passport.authenticate('github', { scope: 'read:org' })(req, res, next);
+    }, function(){});
 
     app.get('/auth/github/callback', passport.authenticate('github'), function(req, res) {
-        res.redirect('/registry');
+        res.redirect(req.session.redirect);
     });
 };
