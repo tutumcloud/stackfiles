@@ -162,7 +162,7 @@ module.exports = function(app) {
             if(err){
                 return next(err);
             }
-            res.json(user.favorites);
+            res.json(user.favorites.indexOf(req.query.id) > -1);
         });
     });
 

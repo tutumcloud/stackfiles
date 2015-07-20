@@ -27,7 +27,7 @@
             </div>
             <div class="col-lg-12 col-sm-12 gradient">
                 <div class="elem-bar">
-                    <h2>Submit stackfile</h2>
+                    <h2>Submit Stackfile</h2>
                 </div>
             </div>
             <div class="col-lg-12">
@@ -36,7 +36,7 @@
                         <div class="inputs">
                             <input type="text" class="form-control floating-label" id="title" placeholder="Stack name" ng-model="data.title">
                             <div class="select">
-                                <select chosen disable-search="false" data-placeholder="Organisations"
+                                <select chosen disable-search="false" data-placeholder="Organizations"
                                 ng-model="data.orgname" ng-init="getOrgs()" ng-change="getRepos()" ng-options="org for org in orgs"
                                 style="width:180px; margin-right:20px">
                                     <option></option>
@@ -59,7 +59,7 @@
                         <div class="stackfile">
                             <h4>Stackfile</h4>
                             <pre>{{stackfile}}</pre>
-                            <p>Not sure what a stackfile is? <a href="https://support.tutum.co/support/solutions/articles/5000583471">Click here to learn more</a></p>
+                            <p>Not sure what a stackfile is? <a href="https://support.tutum.co/support/solutions/articles/5000583471" target="_blank">Click here to learn more</a></p>
                         </div>
                         <div class="validation pull-right">
                             <a href="/registry" class="btn boxed-btn cancel-btn">Cancel</a>

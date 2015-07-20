@@ -94,7 +94,7 @@ angular.module('registry.controllers', [])
         window.location.href = ('/api/v1/deploy/'+id);
     };
 
-    $scope.favorite = function(id){
+    $scope.handleFile = function (id, selected) {
         if($scope.user !== undefined){
             API.favFile(id).success(function(data, status, headers, config){
 
@@ -102,6 +102,17 @@ angular.module('registry.controllers', [])
                 $scope.err = true;
             });
         }
+        console.log(id);
+        console.log(selected);
+    };
+
+    $scope.isFav = function(id){
+        API.checkFav(id).success(function(data, status, header, config){
+            console.log(data);
+            return data;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
     };
 
     API.getFiles().success(function(data, status, headers, config){
@@ -109,12 +120,6 @@ angular.module('registry.controllers', [])
         $scope.loaded = true;
     }).error(function(data, status, headers, config){
         $scope.err = true;
-    });
-
-    API.checkFav().success(function(data, status, header, config){
-
-    }).error(function(data, status, headers, config){
-        console.log(data);
     });
 
     $scope.searchFile = function(){
@@ -157,7 +162,7 @@ angular.module('registry.controllers', [])
 
     $scope.generateEmbed = function(id){
         API.getFileWithId(id).success(function(data, status, headers, config){
-            $scope.embedScript = '<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>' +
+            $scope.embedScript = '<div id="stackfile"></div><script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>' +
                                 '<script>var file=document.createElement("pre");$.get("http://staging.stackfiles.io/api/v1/user/repos/embed?user='+data.user+'&repository='+data.projectName+'&branch='+data.branch+'&path='+data.path+'").done(function(e){file.setAttribute("id","stack"),'+
                                 'file.setAttribute("style","border: 1px solid #cccccc; overflow: auto; display:inline-block; padding: 6px 6px 6px 6px;"),$("#stack").append(e)}),$(file).appendTo($("#stackfile"));</script>';
         }).error(function(data, status, headers, config){
