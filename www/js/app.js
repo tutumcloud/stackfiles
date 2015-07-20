@@ -54,6 +54,33 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
         }
     };
 })
+.directive('fav', function(){
+    return {
+        template: '<svg ng-click="toggle()" ng-class="{\'btn-off\':!isSelected, \'btn-on\':isSelected,}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">'+
+            '<g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">'+
+                '<g id="-star" sketch:type="MSArtboardGroup" fill="#f1f1f1">'+
+                    '<g id="star" sketch:type="MSLayerGroup" transform="translate(4.000000, 4.000000)">' +
+                        '<path d="M40,14.48 L25.62,13.24 L20,0 L14.38,13.26 L0,14.48 L10.92,23.94 L7.64,38 L20,30.54 L32.36,38 L29.1,23.94 L40,14.48 L40,14.48 Z M20,26.8 L12.48,31.34 L14.48,22.78 L7.84,17.02 L16.6,16.26 L20,8.2 L23.42,16.28 L32.18,17.04 L25.54,22.8 L27.54,31.36 L20,26.8 L20,26.8 Z" id="Shape" sketch:type="MSShapeGroup"></path>'+
+                    '</g>'+
+                '</g>' +
+            '</g>' +
+        '</svg>',
+        restrict: 'E',
+        scope: {
+            fid: '@',
+            isSelected: '=',
+            onSelect: '&'
+        },
+        link: function(scope, element, attributes){
+            scope.isSelected = false;
+            scope.toggle = function () {
+                scope.isSelected = !scope.isSelected;
+                scope.onSelect()(scope.fid,scope.isSelected);
+            };
+
+        }
+    };
+})
 
 .config(['uiZeroclipConfigProvider', function(uiZeroclipConfigProvider) {
 
