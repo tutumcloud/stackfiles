@@ -36,9 +36,15 @@ angular.module('registry.controllers', [])
 
      $scope.generateEmbed = function(id){
          API.getFileWithId(id).success(function(data, status, headers, config){
-             $scope.embedScript = '<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>' +
-                                 '<script>var file=document.createElement("pre");$.get("http://staging.stackfiles.io/api/v1/user/repos/embed?user='+data.user+'&repository='+data.projectName+'&branch='+data.branch+'&path='+data.path+'").done(function(e){file.setAttribute("id","stack"),'+
-                                 'file.setAttribute("style","border: 1px solid #cccccc; overflow: auto; display:inline-block; padding: 6px 6px 6px 6px;"),$("#stack").append(e)}),$(file).appendTo($("#stackfile"));</script>';
+             $scope.embedScript = '<div id="stackfile"></div><script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script><script>WebFontConfig={google:{families:["Lato::latin"]}},function(){var t=document.createElement("script");'+
+             't.src=("https:"==document.location.protocol?"https":"http")+"://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js",'+
+             't.type="text/javascript",t.async="true";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}();'+
+             'var file=document.createElement("pre");$.get("http://staging.stackfiles.io/api/v1/user/repos/embed?user='+data.user+'&repository='+data.projectName+'&branch='+data.branch+'&path='+data.path+'").done(function(t){file.setAttribute("id","stack");'+
+             'var e=document.createElement("p");e.setAttribute("style","padding: 15px 20px 15px 20px"),$(e).append(t),file.setAttribute("style","width: 516px; max-height: 500px; border: 1px solid #999999; border-radius: 2px;'+
+             '  overflow: auto; display:inline-block;");var p=document.createElement("div");p.setAttribute("style","font-family: \'Lato\'; font-size: 14px; margin-top: 40px; border-top: 1px solid #999999; height:54px; width: 100%;"),'+
+             '$("#stack").append($(e)),$(p).append("<p style=\'display: inline-block; padding: 20px 0px 18px 13px; margin: 0;\'>Stackfile hosted by </p><a href=\'http://tutum.co\' style=\'color: #2196F3; text-decoration: none;\'>Tutum</a><span><a style=\'float:right; padding: 6px 9px 6px 9px; line-height: 20px;'+
+             ' font-size: 14px; font-weight: 700; border-radius: 2px; border: 2px solid #FFFFFF; text-transform: uppercase; color: #2196F3; border-color: #2196F3; text-decoration: none; margin-top: 10px; margin-right: 18px;\''+
+             ' href=\'https://dashboard.tutum.co/stack/deploy/?repo='+ data.profileLink + '/' + data.projectName + '\'>Deploy to Tutum</a></span>"),$("#stack").append($(p))}),$(file).appendTo($("#stackfile"));</script>';
          }).error(function(data, status, headers, config){
              $scope.embedScript = 'Unable to generate the embed script. Please try again.';
          });
@@ -78,9 +84,15 @@ angular.module('registry.controllers', [])
 
     $scope.generateEmbed = function(id){
         API.getFileWithId(id).success(function(data, status, headers, config){
-            $scope.embedScript = '<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>' +
-                                '<script>var file=document.createElement("pre");$.get("http://staging.stackfiles.io/api/v1/user/repos/embed?user='+data.user+'&repository='+data.projectName+'&branch='+data.branch+'&path='+data.path+'").done(function(e){file.setAttribute("id","stack"),'+
-                                'file.setAttribute("style","border: 1px solid #cccccc; overflow: auto; display:inline-block; padding: 6px 6px 6px 6px;"),$("#stack").append(e)}),$(file).appendTo($("#stackfile"));</script>';
+            $scope.embedScript = '<div id="stackfile"></div><script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script><script>WebFontConfig={google:{families:["Lato::latin"]}},function(){var t=document.createElement("script");'+
+            't.src=("https:"==document.location.protocol?"https":"http")+"://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js",'+
+            't.type="text/javascript",t.async="true";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}();'+
+            'var file=document.createElement("pre");$.get("http://staging.stackfiles.io/api/v1/user/repos/embed?user='+data.user+'&repository='+data.projectName+'&branch='+data.branch+'&path='+data.path+'").done(function(t){file.setAttribute("id","stack");'+
+            'var e=document.createElement("p");e.setAttribute("style","padding: 15px 20px 15px 20px"),$(e).append(t),file.setAttribute("style","width: 516px; max-height: 500px; border: 1px solid #999999; border-radius: 2px;'+
+            '  overflow: auto; display:inline-block;");var p=document.createElement("div");p.setAttribute("style","font-family: \'Lato\'; font-size: 14px; margin-top: 40px; border-top: 1px solid #999999; height:54px; width: 100%;"),'+
+            '$("#stack").append($(e)),$(p).append("<p style=\'display: inline-block; padding: 20px 0px 18px 13px; margin: 0;\'>Stackfile hosted by </p><a href=\'http://tutum.co\' style=\'color: #2196F3; text-decoration: none;\'>Tutum</a><span><a style=\'float:right; padding: 6px 9px 6px 9px; line-height: 20px;'+
+            ' font-size: 14px; font-weight: 700; border-radius: 2px; border: 2px solid #FFFFFF; text-transform: uppercase; color: #2196F3; border-color: #2196F3; text-decoration: none; margin-top: 10px; margin-right: 18px;\''+
+            ' href=\'https://dashboard.tutum.co/stack/deploy/?repo='+ data.profileLink + '/' + data.projectName + '\'>Deploy to Tutum</a></span>"),$("#stack").append($(p))}),$(file).appendTo($("#stackfile"));</script>';
         }).error(function(data, status, headers, config){
             $scope.embedScript = 'Unable to generate the embed script. Please try again.';
         });
@@ -102,14 +114,14 @@ angular.module('registry.controllers', [])
                 $scope.err = true;
             });
         }
-        console.log(id);
-        console.log(selected);
     };
 
     $scope.isFav = function(id){
         API.checkFav(id).success(function(data, status, header, config){
             console.log(data);
-            return data;
+            if(data === true){
+                $scope.isSelected = true;
+            }
         }).error(function(data, status, headers, config){
             console.log(data);
         });
@@ -162,9 +174,15 @@ angular.module('registry.controllers', [])
 
     $scope.generateEmbed = function(id){
         API.getFileWithId(id).success(function(data, status, headers, config){
-            $scope.embedScript = '<div id="stackfile"></div><script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>' +
-                                '<script>var file=document.createElement("pre");$.get("http://staging.stackfiles.io/api/v1/user/repos/embed?user='+data.user+'&repository='+data.projectName+'&branch='+data.branch+'&path='+data.path+'").done(function(e){file.setAttribute("id","stack"),'+
-                                'file.setAttribute("style","border: 1px solid #cccccc; overflow: auto; display:inline-block; padding: 6px 6px 6px 6px;"),$("#stack").append(e)}),$(file).appendTo($("#stackfile"));</script>';
+            $scope.embedScript = '<div id="stackfile"></div><script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script><script>WebFontConfig={google:{families:["Lato::latin"]}},function(){var t=document.createElement("script");'+
+            't.src=("https:"==document.location.protocol?"https":"http")+"://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js",'+
+            't.type="text/javascript",t.async="true";var e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(t,e)}();'+
+            'var file=document.createElement("pre");$.get("http://staging.stackfiles.io/api/v1/user/repos/embed?user='+data.user+'&repository='+data.projectName+'&branch='+data.branch+'&path='+data.path+'").done(function(t){file.setAttribute("id","stack");'+
+            'var e=document.createElement("p");e.setAttribute("style","padding: 15px 20px 15px 20px"),$(e).append(t),file.setAttribute("style","width: 516px; max-height: 500px; border: 1px solid #999999; border-radius: 2px;'+
+            '  overflow: auto; display:inline-block;");var p=document.createElement("div");p.setAttribute("style","font-family: \'Lato\'; font-size: 14px; margin-top: 40px; border-top: 1px solid #999999; height:54px; width: 100%;"),'+
+            '$("#stack").append($(e)),$(p).append("<p style=\'display: inline-block; padding: 20px 0px 18px 13px; margin: 0;\'>Stackfile hosted by </p><a href=\'http://tutum.co\' style=\'color: #2196F3; text-decoration: none;\'>Tutum</a><span><a style=\'float:right; padding: 6px 9px 6px 9px; line-height: 20px;'+
+            ' font-size: 14px; font-weight: 700; border-radius: 2px; border: 2px solid #FFFFFF; text-transform: uppercase; color: #2196F3; border-color: #2196F3; text-decoration: none; margin-top: 10px; margin-right: 18px;\''+
+            ' href=\'https://dashboard.tutum.co/stack/deploy/?repo='+ data.profileLink + '/' + data.projectName + '\'>Deploy to Tutum</a></span>"),$("#stack").append($(p))}),$(file).appendTo($("#stackfile"));</script>';
         }).error(function(data, status, headers, config){
             $scope.embedScript = 'Unable to generate the embed script. Please try again.';
         });
