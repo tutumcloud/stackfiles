@@ -22,7 +22,7 @@
     <div id="page-content-wrapper">
         <div id="create" class="row">
             <div id="section-title">
-                <h2><a href="/">Stackfiles.io</a></h2>
+                <h2><a href="/registry">Stackfiles.io</a></h2>
                 <p class="pull-right login" ng-show="user!='undefined'">{{user}}</p>
             </div>
             <div class="col-lg-12 col-sm-12 gradient">
@@ -36,17 +36,17 @@
                         <div class="inputs">
                             <input type="text" class="form-control floating-label" id="title" placeholder="Stack name" ng-model="data.title">
                             <div class="select">
-                                <select chosen disable-search="false" data-placeholder="Organizations"
+                                <select chosen disable-search="false" data-placeholder="Organization"
                                 ng-model="data.orgname" ng-init="getOrgs()" ng-change="getRepos()" ng-options="org for org in orgs"
                                 style="width:180px; margin-right:20px">
                                     <option></option>
                                 </select>
-                                <select chosen disable-search="false" data-placeholder="Repositories"
+                                <select chosen disable-search="false" data-placeholder="Repository"
                                 ng-model="data.reponame" ng-change="getBranches()" ng-options="repo for repo in repos"
                                 style="width:180px; margin-right:20px">
                                     <option></option>
                                 </select>
-                                <select chosen disable-search="false" data-placeholder="Branches"
+                                <select chosen disable-search="false" data-placeholder="Branch"
                                 ng-model="data.branch" ng-options="branch for branch in branches"
                                 style="width:180px; margin-right:20px">
                                     <option></option>
