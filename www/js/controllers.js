@@ -148,7 +148,6 @@ angular.module('registry.controllers', [])
     };
     $scope.isSelected = function(file) {
         return $scope.favoriteList.indexOf(file._id) > -1;
-    };
 })
 
 .controller('RegistryDetailsController', function($scope, $rootScope, $window, $routeParams, API){
