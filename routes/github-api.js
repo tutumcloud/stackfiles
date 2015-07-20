@@ -197,4 +197,15 @@ module.exports = function(app) {
             }
         });
     });
+
+    app.get('/api/v1/user/repos/embed', function(req, res){
+        var user = req.query.user;
+        var repoName = req.query.repository;
+        var branch = req.query.branch;
+        var path = req.query.path;
+
+        getYAML(user, repoName, branch, path, function(err, file){
+            res.send(file);
+        });
+    });
 };
