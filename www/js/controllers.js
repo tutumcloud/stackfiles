@@ -106,16 +106,6 @@ angular.module('registry.controllers', [])
         window.location.href = ('/api/v1/deploy/'+id);
     };
 
-    $scope.handleFile = function (id, selected) {
-        if($scope.user !== undefined){
-            API.favFile(id).success(function(data, status, headers, config){
-
-            }).error(function(data, status, headers, config){
-                $scope.err = true;
-            });
-        }
-    };
-
     $scope.isFav = function(id){
         API.checkFav(id).success(function(data, status, header, config){
             console.log(data);
