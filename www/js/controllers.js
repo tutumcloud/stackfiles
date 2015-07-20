@@ -29,6 +29,21 @@ angular.module('registry.controllers', [])
          $scope.loaded = true;
      });
 
+     $scope.showModal = false;
+     $scope.toggleModal = function(){
+         $scope.showModal = !$scope.showModal;
+     };
+
+     $scope.generateEmbed = function(id){
+         API.getFileWithId(id).success(function(data, status, headers, config){
+             $scope.embedScript = '<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>' +
+                                 '<script>var file=document.createElement("pre");$.get("http://staging.stackfiles.io/api/v1/user/repos/embed?user='+data.user+'&repository='+data.projectName+'&branch='+data.branch+'&path='+data.path+'").done(function(e){file.setAttribute("id","stack"),'+
+                                 'file.setAttribute("style","border: 1px solid #cccccc; overflow: auto; display:inline-block; padding: 6px 6px 6px 6px;"),$("#stack").append(e)}),$(file).appendTo($("#stackfile"));</script>';
+         }).error(function(data, status, headers, config){
+             $scope.embedScript = 'Unable to generate the embed script. Please try again.';
+         });
+     };
+
      $scope.signin = function(page){
          API.signin(page);
      };
@@ -56,6 +71,20 @@ angular.module('registry.controllers', [])
         $scope.err = true;
     });
 
+    $scope.showModal = false;
+    $scope.toggleModal = function(){
+        $scope.showModal = !$scope.showModal;
+    };
+
+    $scope.generateEmbed = function(id){
+        API.getFileWithId(id).success(function(data, status, headers, config){
+            $scope.embedScript = '<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>' +
+                                '<script>var file=document.createElement("pre");$.get("http://staging.stackfiles.io/api/v1/user/repos/embed?user='+data.user+'&repository='+data.projectName+'&branch='+data.branch+'&path='+data.path+'").done(function(e){file.setAttribute("id","stack"),'+
+                                'file.setAttribute("style","border: 1px solid #cccccc; overflow: auto; display:inline-block; padding: 6px 6px 6px 6px;"),$("#stack").append(e)}),$(file).appendTo($("#stackfile"));</script>';
+        }).error(function(data, status, headers, config){
+            $scope.embedScript = 'Unable to generate the embed script. Please try again.';
+        });
+    };
 
     $scope.signin = function(page){
         API.signin(page);
@@ -120,6 +149,25 @@ angular.module('registry.controllers', [])
     }).error(function(data, status, headers, config){
         window.location.href = ("/404");
     });
+
+    $scope.showModal = false;
+    $scope.toggleModal = function(){
+        $scope.showModal = !$scope.showModal;
+    };
+
+    $scope.generateEmbed = function(id){
+        API.getFileWithId(id).success(function(data, status, headers, config){
+            $scope.embedScript = '<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>' +
+                                '<script>var file=document.createElement("pre");$.get("http://staging.stackfiles.io/api/v1/user/repos/embed?user='+data.user+'&repository='+data.projectName+'&branch='+data.branch+'&path='+data.path+'").done(function(e){file.setAttribute("id","stack"),'+
+                                'file.setAttribute("style","border: 1px solid #cccccc; overflow: auto; display:inline-block; padding: 6px 6px 6px 6px;"),$("#stack").append(e)}),$(file).appendTo($("#stackfile"));</script>';
+        }).error(function(data, status, headers, config){
+            $scope.embedScript = 'Unable to generate the embed script. Please try again.';
+        });
+    };
+
+    $scope.signin = function(page){
+        API.signin(page);
+    };
 
     $scope.deploy = function(id){
         window.location.href = ('/api/v1/deploy/'+id);

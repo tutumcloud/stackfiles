@@ -3,7 +3,7 @@
   <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
           <li class="sidebar-brand">
-              <a href="/">
+              <a href="/registry">
                   <img class="logo" src="img/icon.svg">
               </a>
           </li>
@@ -36,6 +36,16 @@
                     <circle class="path" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
                 </svg>
             </div>
+            <modal title="Embed" visible="showModal">
+                <p>You can embed a Stackfile in any text field that support Javascript, such as blog post. Click the clipboard icon next to the Embed Url to copy the embed code.</p>
+                <form role="form">
+                    <div class="form-group">
+                        <p>Embed Script</p>
+                        <input type="text" class="" id="embed" placeholder="script"  ng-model="embedScript" />
+                        <a ui-zeroclip zeroclip-model="embedScript"><img src="img/copy.svg"></a>
+                    </div>
+                </form>
+            </modal>
             <div class="container-fluid" ng-show="loaded == true">
                 <div class="col-lg-11 content-list" ng-show="data.search.length">
                     <table ng-show="results.length" class="table">
@@ -55,7 +65,7 @@
                             <tr ng-repeat="file in files" ng-class-odd="odd" ng-class-even="even">
                                 <td class="main"><a class="stack-name" href="/registry/{{file._id}}">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services <span class="stack-user">By {{file.user}}</span></p></td>
                                 <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
-                                <td style="vertical-align:middle"><a href="/registry"><img src="img/embed.svg" style="width:24px;"></a></td>
+                                <td style="vertical-align:middle"><a ng-click="toggleModal(); generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
                         </tbody>
                     </table>
                 </div>
