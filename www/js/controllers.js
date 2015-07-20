@@ -67,6 +67,13 @@ angular.module('registry.controllers', [])
     API.getUser().success(function(data, status, headers, config){
          $rootScope.setUser(data.username);
          $scope.user = $rootScope.getUser();
+
+         API.checkFav().success(function(data, status, header, config){
+            $scope.favoriteList = data;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });
@@ -106,14 +113,6 @@ angular.module('registry.controllers', [])
         console.log(selected);
     };
 
-    $scope.isFav = function(id){
-        API.checkFav(id).success(function(data, status, header, config){
-            console.log(data);
-            return data;
-        }).error(function(data, status, headers, config){
-            console.log(data);
-        });
-    };
 
     API.getFiles().success(function(data, status, headers, config){
         $scope.files = data;
@@ -136,6 +135,15 @@ angular.module('registry.controllers', [])
             $scope.data = Search.getValue();
             $scope.searchFile(Search.getValue());
         }
+    };
+
+    $scope.test = false;
+
+    $scope.toggleStatus = function(file) {
+        $scope.test = !$scope.test;
+    };
+    $scope.isSelected = function(file) {
+        return $scope.test;
     };
 })
 
