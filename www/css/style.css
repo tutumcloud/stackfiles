@@ -773,6 +773,7 @@ svg.star.btn-on path{
 /* Sidebar Styles */
 
 .sidebar-nav {
+    text-align: center;
     position: absolute;
     top: 0;
     width: 100px;
@@ -782,7 +783,6 @@ svg.star.btn-on path{
 }
 
 .sidebar-nav li {
-    text-indent: 20px;
     line-height: 40px;
 }
 
