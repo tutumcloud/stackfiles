@@ -29,7 +29,7 @@
             <div class="col-lg-12 col-sm-12 gradient">
                 <div class="elem-bar">
                     <h2><a href="/registry">Stacks</a> / {{data.title}}</h2>
-                    <svg class="star pull-right" ng-class="{'btn-off':!toggled, 'btn-on':toggled,}" ng-click="favorite(file._id, $index); toggled = !toggled;" width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                    <!--<svg ng-click="toggleStatus(data)" ng-class="{'btn-off':!isSelected(data), 'btn-on':isSelected(data)}" class="star pull-right"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                         <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
                             <g id="-star" sketch:type="MSArtboardGroup" fill="#f1f1f1">
                                 <g id="star" sketch:type="MSLayerGroup" transform="translate(4.000000, 4.000000)">
@@ -37,7 +37,7 @@
                                 </g>
                             </g>
                         </g>
-                    </svg>
+                    </svg>-->
                 </div>
             </div>
             <div id="loading" ng-hide="loaded == true">
@@ -69,7 +69,7 @@
                         <div class="label">Stackfile</div>
                         <div class="stackfile">
                             <pre>{{composeFile}}</pre>
-                            <p>Not sure what a stackfile is? <a href="https://support.tutum.co/support/solutions/articles/5000583471">Click here to learn more</a></p>
+                            <p>Not sure what a stackfile is? <a href="https://support.tutum.co/support/solutions/articles/5000583471" target="_blank">Click here to learn more</a></p>
                         </div>
                     </div>
                     <hr>

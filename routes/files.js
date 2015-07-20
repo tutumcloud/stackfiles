@@ -70,7 +70,7 @@ module.exports = function(app) {
         var images = [];
 
         for(var key in req.body.params.form.stackfile){
-            serviceTags.push(key);
+            serviceTags.push(tokenizer(key));
             images.push(req.body.params.form.stackfile[key].image);
         }
 

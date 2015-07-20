@@ -1,4 +1,4 @@
-angular.module('registry',['registry.controllers','registry.services','ngRoute','hc.marked','localytics.directives','zeroclipboard'])
+angular.module('registry',['registry.controllers','registry.services','ngRoute','infinite-scroll','hc.marked','localytics.directives','zeroclipboard'])
 
 .directive('ngEnter', function () {
     return function (scope, element, attrs) {

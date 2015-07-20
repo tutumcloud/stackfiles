@@ -64,18 +64,18 @@
                     <tbody>
                         <tr ng-repeat="file in files" ng-class-odd="odd" ng-class-even="even">
                             <td class="main"><a class="stack-name" href="/registry/{{file._id}}">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services</p><p class="stack-user">By {{file.user}}</p></td>
-                            <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
+                            <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account"><a class="btn boxed-btn deploy-btn" ng-click="deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
                             <td style="vertical-align:middle"><a ng-click="toggleModal(); generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
                             <td style="vertical-align:middle; padding-top:33px;">
-                                <svg class="star" ng-class="{'btn-off':!toggled, 'btn-on':toggled,}" ng-click="favorite(file._id, $index); toggled = !toggled;" width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-                                    <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                                        <g id="-star" sketch:type="MSArtboardGroup" fill="#f1f1f1">
-                                            <g id="star" sketch:type="MSLayerGroup" transform="translate(4.000000, 4.000000)">
-                                                <path d="M40,14.48 L25.62,13.24 L20,0 L14.38,13.26 L0,14.48 L10.92,23.94 L7.64,38 L20,30.54 L32.36,38 L29.1,23.94 L40,14.48 L40,14.48 Z M20,26.8 L12.48,31.34 L14.48,22.78 L7.84,17.02 L16.6,16.26 L20,8.2 L23.42,16.28 L32.18,17.04 L25.54,22.8 L27.54,31.36 L20,26.8 L20,26.8 Z" id="Shape" sketch:type="MSShapeGroup"></path>
-                                            </g>
-                                        </g>
-                                    </g>
-                                </svg><p class="favorite-num">{{file.stars}}</p>
+                              <svg ng-click="toggleStatus(file)" ng-class="{'btn-off':!isSelected(file), 'btn-on':isSelected(file)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                                  <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+                                      <g id="-star" sketch:type="MSArtboardGroup" fill="#f1f1f1">
+                                          <g id="star" sketch:type="MSLayerGroup" transform="translate(4.000000, 4.000000)">
+                                              <path d="M40,14.48 L25.62,13.24 L20,0 L14.38,13.26 L0,14.48 L10.92,23.94 L7.64,38 L20,30.54 L32.36,38 L29.1,23.94 L40,14.48 L40,14.48 Z M20,26.8 L12.48,31.34 L14.48,22.78 L7.84,17.02 L16.6,16.26 L20,8.2 L23.42,16.28 L32.18,17.04 L25.54,22.8 L27.54,31.36 L20,26.8 L20,26.8 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+                                          </g>
+                                      </g>
+                                  </g>
+                              </svg><p class="favorite-num">{{file.stars}}</p>
                             </td>
                         </tr>
                     </tbody>

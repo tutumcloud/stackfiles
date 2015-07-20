@@ -37,9 +37,12 @@ angular.module('registry.services', [])
             });
          },
 
-         checkFav: function(){
+         checkFav: function(id){
              return $http.get('/api/v1/user/fav', {
-                 method: 'GET'
+                 method: 'GET',
+                 params: {
+                     id: id
+                 }
              });
          },
 
