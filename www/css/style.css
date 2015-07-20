@@ -57,10 +57,6 @@ a, a:hover{
     padding-top: 100px;
 }
 
-.row{
-    background-color: #FFFFFF;
-}
-
 .label{
     background-color: #FFFFFF!important;
 }
@@ -256,7 +252,8 @@ a, a:hover{
 }
 
 .btn.boxed-btn{
-    padding: 5px 9px 7px 9px;
+    padding: 6px 9px 6px 9px;
+    line-height: 20px;
     font-size: 14px;
     font-weight: 700;
     border-radius: 0;
@@ -726,6 +723,78 @@ svg.star.btn-on path{
     }
 }
 
+/* MODAL */
+
+.modal-content{
+    background-color: #fafafa;
+}
+
+.modal-content .modal-header{
+    padding-top: 17px;
+    padding-left: 20px;
+}
+
+.modal-content .modal-body{
+    margin-top: 7px;
+    padding-left: 20px;
+    padding-right: 10px;
+}
+
+.modal-content .modal-body p{
+    font-size: 14px;
+    font-weight: 400;
+    color: #666666;
+}
+
+.modal-content .modal-body form{
+    margin-top: 41px;
+    margin-bottom: 0px;
+}
+
+.modal-content .modal-body form p{
+    margin-bottom: 11px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #666666;
+}
+
+.modal-content .modal-body form input{
+    display: inline-block;
+    height: 28px;
+    width: 516px;
+    padding-left: 9px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-family: 'Menlo';
+    font-size: 12px;
+    font-weight: 300;
+    color: #666666;
+    border: none;
+    border-radius: 2px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.20);
+}
+
+.modal-content .modal-body form a img{
+    display: inline-block;
+    width: 15px;
+    margin-left: 10px;
+}
+
+.modal-title{
+    font-size: 22px;
+    font-weight: 400;
+    color: #666666;
+}
+
+@media(min-width:768px)  {
+    .modal-dialog{
+        width: 580px;
+        height: 207px;
+        margin-top: 246px;
+    }
+}
+
 
 /*SIDEBAR*/
 #wrapper {
@@ -761,7 +830,7 @@ svg.star.btn-on path{
 }
 
 #page-content-wrapper {
-    width: 98.9%;
+    background-color: #FFFFFF;
     position: absolute;
 }
 

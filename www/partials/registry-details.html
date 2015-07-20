@@ -4,7 +4,7 @@
     <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
             <li class="sidebar-brand">
-                <a href="/">
+                <a href="/registry">
                     <img class="logo" src="img/icon.svg">
                 </a>
             </li>
@@ -45,6 +45,16 @@
                     <circle class="path" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
                 </svg>
             </div>
+            <modal title="Embed" visible="showModal">
+                <p>You can embed a Stackfile in any text field that support Javascript, such as blog post. Click the clipboard icon next to the Embed Url to copy the embed code.</p>
+                <form role="form">
+                    <div class="form-group">
+                        <p>Embed Script</p>
+                        <input type="text" class="" id="embed" placeholder="script"  ng-model="embedScript" />
+                        <a ui-zeroclip zeroclip-model="embedScript"><img src="img/copy.svg"></a>
+                    </div>
+                </form>
+            </modal>
             <div class="col-lg-12">
                 <div id="detail" class="container-fluid" ng-show="loaded == true">
                     <hr>
@@ -64,7 +74,7 @@
                     </div>
                     <hr>
                     <button class="btn boxed-btn deploy-btn pull-right" ng-click="deploy(data._id)">Deploy to Tutum</button>
-                    <button class="btn boxed-btn embed-btn pull-right" >Embed</button>
+                    <button class="btn boxed-btn embed-btn pull-right" ng-click="toggleModal(); generateEmbed(data._id);">Embed</button>
                     <button class="btn boxed-btn danger-btn pull-right" ng-show="user==data.author" ng-click="deleteStackfile(data._id)">Delete</button>
                 </div>
             </div>
