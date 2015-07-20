@@ -67,10 +67,12 @@ function allDone() {
 module.exports = function(app) {
     app.post('/api/v1/create', auth, function(req, res){
         var serviceTags = [];
+        var serviceToken = [];
         var images = [];
 
         for(var key in req.body.params.form.stackfile){
-            serviceTags.push(tokenizer(key));
+            serviceTags.push(key);
+            serviceToken.push(tokenizer(key));
             images.push(req.body.params.form.stackfile[key].image);
         }
 
@@ -81,7 +83,7 @@ module.exports = function(app) {
             path : req.body.params.form.path,
             user: req.body.params.form.orgname,
             author: req.user.username,
-            token: tokenizer(req.body.params.form.title),
+            token: tokenizer(req.body.params.form.title).concat(serviceToken),
             profileLink: "https://github.com/"+req.body.params.form.orgname,
             projectName: req.body.params.form.name,
             tags: serviceTags,

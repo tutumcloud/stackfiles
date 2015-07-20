@@ -156,11 +156,7 @@ angular.module('registry.controllers', [])
         API.checkFav().success(function(data, status, header, config){
            $scope.favoriteList = data;
         }).error(function(data, status, headers, config){
-<<<<<<< HEAD
 
-=======
-
->>>>>>> 7ae4aaa... working favorite feature
         });
     }).error(function(data, status, headers, config){
         window.location.href = ("/404");
