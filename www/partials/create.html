@@ -2,7 +2,7 @@
 
   <!-- Sidebar -->
     <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
+        <ul class="sidebar-nav" ng-controller="SessionController">
             <li class="sidebar-brand">
                 <a href="/registry">
                     <img class="logo" src="img/icon.svg">
@@ -15,17 +15,26 @@
                 <a ng-click="signin('/mystacks')" style="cursor:pointer;"><img src="img/my_stacks.svg"></a>
             </li>
             <li>
-                <a href="/#"><img src="img/star.svg"</a>
+                <a ng-click="signin('/favorites')" style="cursor:pointer;"><img src="img/star.svg"</a>
             </li>
         </ul>
     </div>
     <div id="page-content-wrapper">
         <div id="create" class="row">
-            <div id="section-title">
+            <div id="section-title" ng-controller="SessionController">
                 <h2><a href="/registry">Stackfiles.io</a></h2>
-                <p class="pull-right login" ng-show="user!='undefined'">{{user}}</p>
+                <div class="dropdown pull-right login">
+                  <button class="dropdown-toggle " ng-show="user!='undefined'" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {{user}}
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a ng-click="logout()" style="cursor: pointer;">Logout</a></li>
+                  </ul>
+                </div>
+                <a class="pull-right login" ng-click="signin('/registry');" ng-hide="user!='undefined'">Login</a>
             </div>
-            <div class="col-lg-12 col-sm-12 gradient">
+            <div class="col-lg-12 gradient">
                 <div class="elem-bar">
                     <h2>Submit Stackfile</h2>
                 </div>
@@ -33,6 +42,7 @@
             <div class="col-lg-12">
                 <div id="detail-create" class="container-fluid">
                     <div class="col-lg-5 col-md-5 col-sm-12">
+                        <form name="newRoleForm">
                         <div class="inputs">
                             <input type="text" class="form-control floating-label" id="title" placeholder="Stack name" ng-model="data.title">
                             <div class="select">
@@ -52,8 +62,9 @@
                                     <option></option>
                                 </select>
                             </div>
-                            <input type="text" class="create-form form-control" id="title" placeholder="Path" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch)" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
+                            <input type="text" class="create-form form-control floating-label" id="title" placeholder="Path" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch)" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
                         </div>
+                        </form>
                     </div>
                     <div class="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1 col-sm-12">
                         <div class="stackfile">

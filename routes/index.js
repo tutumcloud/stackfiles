@@ -94,6 +94,10 @@ module.exports = function(app) {
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
 
+    app.get('/favorites', auth, function(req, res){
+        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+    });
+
     app.get('/registry/:id', function(req, res){
         res.sendFile(path.resolve(__dirname + '/../www/index.html'));
     });
@@ -110,5 +114,14 @@ module.exports = function(app) {
 
     app.get('/auth/github/callback', passport.authenticate('github'), function(req, res) {
         res.redirect(req.session.redirect);
+    });
+
+    app.get('/auth/github/logout', function(req, res, next){
+        req.session.destroy(function (err) {
+            if (err) {
+                return next(err);
+            }
+        });
+        res.redirect('/');
     });
 };

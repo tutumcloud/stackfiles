@@ -12,6 +12,7 @@
     "angular-chosen-localytics": "~1.0.7",
     "zeroclipboard": "~2.2.0",
     "angular-zeroclipboard": "~0.4.3",
-    "ngInfiniteScroll": "~1.2.1"
+    "ngInfiniteScroll": "~1.2.1",
+    "arrive": "~2.2.0"
   }
 }
