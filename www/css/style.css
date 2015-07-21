@@ -538,8 +538,15 @@ svg.star.btn-on path{
     max-width: 980px;
 }
 
+#detail-create.container-fluid {
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
 .form-control-wrapper .form-control:focus~.floating-label{
-    color: #2196F3
+    color: #2196F3;
+    font-size: 13px;
+    font-weight: 400;
 }
 
 .inputs .form-control.floating-label::-webkit-input-placeholder {

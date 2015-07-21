@@ -2,7 +2,12 @@ angular.module('registry.controllers', [])
 
 .controller('SessionController', function($scope, $rootScope, API){
     $scope.signin = function(page){
-        API.signin(page);
+        if($rootScope.getUser() === "undefined"){
+            API.signin(page);
+        } else {
+            window.location.href = page;
+        }
+
     };
 
     $scope.logout = function(){
@@ -12,6 +17,37 @@ angular.module('registry.controllers', [])
         }).error(function(data, status, headers, config){
             console.log(data);
         });
+    };
+})
+
+.controller('FavController', function($scope, $rootScope, API){
+    $scope.favoriteList = [];
+
+    API.getUser().success(function(data, status, headers, config){
+         $rootScope.setUser(data.username);
+         $scope.user = $rootScope.getUser();
+
+         API.checkFav().success(function(data, status, header, config){
+            $scope.favoriteList = data;
+        }).error(function(data, status, headers, config){
+            console.log(data);
+        });
+
+    }).error(function(data, status, headers, config){
+        $scope.err = true;
+    });
+
+    $scope.toggleStatus = function(file) {
+        $scope.favoriteList.push(file._id);
+        API.favFile(file._id).success(function(data, status, headers, config){
+
+        }).error(function(data, status, headers, config){
+            $scope.err = true;
+        });
+    };
+
+    $scope.isSelected = function(file) {
+        return $scope.favoriteList.indexOf(file._id) > -1;
     };
 })
 
@@ -115,8 +151,6 @@ angular.module('registry.controllers', [])
 
 .controller('RegistryController', function($scope, $rootScope, $window, API, Search){
 
-    $scope.favoriteList = [];
-
     API.getUser().success(function(data, status, headers, config){
          $rootScope.setUser(data.username);
          $scope.user = $rootScope.getUser();
@@ -173,22 +207,10 @@ angular.module('registry.controllers', [])
         }
     };
 
-    $scope.toggleStatus = function(file) {
-        $scope.favoriteList.push(file._id);
-        API.favFile(file._id).success(function(data, status, headers, config){
-
-        }).error(function(data, status, headers, config){
-            $scope.err = true;
-        });
-    };
-    $scope.isSelected = function(file) {
-        return $scope.favoriteList.indexOf(file._id) > -1;
-    };
 })
 
 .controller('RegistryDetailsController', function($scope, $rootScope, $window, $routeParams, API){
 
-    $scope.favoriteList = [];
     $scope.user = $rootScope.getUser();
 
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){

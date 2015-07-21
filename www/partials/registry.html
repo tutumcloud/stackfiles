@@ -14,7 +14,7 @@
               <a ng-click="signin('/mystacks')" style="cursor:pointer;"><img src="img/my_stacks.svg"></a>
           </li>
           <li>
-              <a ng-click="signin('/favorites')"><img src="img/star.svg"</a>
+              <a ng-click="signin('/favorites')" style="cursor:pointer;"><img src="img/star.svg"</a>
           </li>
       </ul>
   </div>
@@ -50,9 +50,9 @@
             <p>You can embed a Stackfile in any text field that support Javascript, such as blog post. Click the clipboard icon next to the Embed Url to copy the embed code.</p>
             <form role="form">
                 <div class="form-group">
-                    <p>Embed Script</p>
-                    <input type="text" class="" id="embed" placeholder="script"  ng-model="embedScript" />
-                    <a ui-zeroclip zeroclip-model="embedScript"><img src="img/copy.svg"></a>
+                    <p>Embed Script <span class="pull-right" ng-show="copied">Copied!</span></p>
+                    <input type="text" onClick="this.setSelectionRange(0, this.value.length)" id="embed" placeholder="script"  ng-model="embedScript" />
+                    <a ui-zeroclip zeroclip-model="embedScript" zeroclip-copied="copied=true"><img src="img/copy.svg"></a>
                 </div>
             </form>
         </modal>
@@ -63,9 +63,9 @@
                         <tr ng-repeat="result in results" ng-class-odd="odd" ng-class-even="even" ng-hide="currentSection === 1">
                             <td class="main"><a class="stack-name" href="/registry/{{result._id}}">{{result._source.title}}</a><p class="stack-services">{{result._source.tags.length}} Services</p><p class="stack-user">by {{result._source.user}}</p></td>
                             <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(result._id)" target="_blank">Deploy to Tutum</a></td>
-                            <td style="vertical-align:middle"><a style="cursor:pointer;" ng-click="toggleModal(); generateEmbed(result._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
+                            <td style="vertical-align:middle" ><a style="cursor:pointer;" ng-click="toggleModal(); generateEmbed(result._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
                             <td style="vertical-align:middle; padding-top:25px;">
-                              <svg ng-click="toggleStatus(result);data.stars = data.stars+1;" ng-class="{'btn-off':!isSelected(result), 'btn-on':isSelected(result)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                              <svg ng-controller="FavController" ng-click="toggleStatus(result);data.stars = data.stars+1;" ng-class="{'btn-off':!isSelected(result), 'btn-on':isSelected(result)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                                   <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
                                       <g id="-star" sketch:type="MSArtboardGroup" fill="#f1f1f1">
                                           <g id="star" sketch:type="MSLayerGroup" transform="translate(4.000000, 4.000000)">
@@ -86,9 +86,9 @@
                         <tr ng-repeat="file in files" ng-class-odd="odd" ng-class-even="even">
                             <td class="main"><a class="stack-name" href="/registry/{{file._id}}">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services</p><p class="stack-user">By {{file.user}}</p></td>
                             <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account"><a class="btn boxed-btn deploy-btn" ng-click="deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
-                            <td style="vertical-align:middle"><a style="cursor:pointer;" ng-click="toggleModal(); generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
+                            <td style="vertical-align:middle"><a style="cursor:pointer;" data-toggle="tooltip" data-placement="top" title="Click here to get the embed script" ng-click="toggleModal(); generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
                             <td style="vertical-align:middle; padding-top:33px;">
-                              <svg ng-click="toggleStatus(file);file.stars = file.stars+1;" ng-class="{'btn-off':!isSelected(file), 'btn-on':isSelected(file)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                              <svg ng-controller="FavController" ng-click="toggleStatus(file);file.stars = file.stars+1;" ng-class="{'btn-off':!isSelected(file), 'btn-on':isSelected(file)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                                   <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
                                       <g id="-star" sketch:type="MSArtboardGroup" fill="#f1f1f1">
                                           <g id="star" sketch:type="MSLayerGroup" transform="translate(4.000000, 4.000000)">
