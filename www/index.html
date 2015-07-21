@@ -40,14 +40,21 @@
     </head>
     <body ng-app="registry">
         <div ng-view></div>
-        <script src="lib/bootstrap-material-design/dist/js/ripples.min.js"></script>
+        <script src="lib/arrive/src/arrive.js"></script>
         <script src="lib/bootstrap-material-design/dist/js/material.min.js"></script>
+        <script src="lib/bootstrap-material-design/dist/js/ripples.min.js"></script>
         <script>
             $(document).ready(function() {
-                $('[data-toggle="tooltip"]').tooltip();
-                // This command is used to initialize some elements and make them work properly
                 $.material.init();
+                $('[data-toggle="tooltip"]').tooltip();
             });
+            /*$(document).ready(function() {
+
+                $.material.input();
+
+                // This command is used to initialize some elements and make them work properly
+
+            });*/
         </script>
     </body>
 </html>

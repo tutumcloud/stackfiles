@@ -159,6 +159,21 @@ module.exports = function(app) {
         });
     });
 
+    app.get('/api/v1/user/favorites', auth, function(req, res, next){
+        User.findOne({userId: req.user.id}, function(err, user){
+            if(err){
+                return next(err);
+            }
+
+            File.find({'_id': { $in: user.favorites}}, function(err, files){
+                if(err){
+                    return next(err);
+                }
+                res.json(files);
+            });
+        });
+    });
+
     app.get('/api/v1/user/fav', auth, function(req, res, next){
         User.findOne({userId: req.user.id}, function(err, user){
             if(err){

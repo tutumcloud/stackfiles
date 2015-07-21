@@ -9,9 +9,19 @@ angular.module('registry.services', [])
         return $window.sessionStorage['user'];
     };
 
+    $rootScope.deleteUser = function() {
+        return $window.sessionStorage.removeItem('user');
+    };
+
      return {
          signin: function(page){
              $window.location.href = ('/auth/github?redirect=' + page);
+         },
+
+         logout: function(){
+             return $http.get('/auth/github/logout', {
+                 method: 'GET'
+             });
          },
 
          redirectErr: function(){
@@ -37,12 +47,9 @@ angular.module('registry.services', [])
             });
          },
 
-         checkFav: function(id){
+         checkFav: function(){
              return $http.get('/api/v1/user/fav', {
-                 method: 'GET',
-                 params: {
-                     id: id
-                 }
+                 method: 'GET'
              });
          },
 
@@ -64,6 +71,13 @@ angular.module('registry.services', [])
                  method: 'GET'
              });
          },
+
+         getUserFavorites: function(){
+             return $http.get('/api/v1/user/favorites',{
+                 method: 'GET'
+             });
+         },
+
          deleteStackfile: function(id){
              return $http.delete('/api/v1/files/' + id,{
                  method:'DELETE',

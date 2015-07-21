@@ -274,18 +274,12 @@ a, a:hover{
     color: #2196F3;
     font-size: 28px;
     font-weight: 300;
-    text-align: center;
-}
-
-#section-title p.login{
-    margin-top: 19px;
-    margin-right: 180px;
-    color: #2196F3;
-    font-size: 14px;
-    font-weight: 400;
 }
 
 #section-title a.login{
+    position: absolute;
+    top: 0;
+    right: 0;
     margin-top: 19px;
     margin-right: 180px;
     color: #2196F3;
@@ -294,11 +288,36 @@ a, a:hover{
     cursor: pointer;
 }
 
-#section-title h2 a{
+#section-title .dropdown.login{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 19px;
+    margin-right: 180px;
+    color: #2196F3;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+#section-title .dropdown.login .dropdown-toggle{
+    background-color: #FFFFFF;
+    border: none;
+}
+
+#section-title .dropdown.login .dropdown-menu{
+    border-radius: 2px;
+    min-width: 120px;
+    color: #2196F3;
+    font-size: 12px;
+
+}
+
+#section-title a{
     color: #2196F3;
 }
 
-#section-title h2 a:hover{
+#section-title a:hover{
     color: #1D86DA;
     text-decoration: none;
 }
@@ -352,7 +371,7 @@ a, a:hover{
 .elem-bar input.search-bar{
     width: 60%;
     height: 36px;
-    margin-top: 12px;
+    margin-top: 14px;
     margin-bottom: 14px;
     margin-right: 41px;
     vertical-align:middle;
@@ -519,24 +538,24 @@ svg.star.btn-on path{
     max-width: 980px;
 }
 
+.form-control-wrapper .form-control:focus~.floating-label{
+    color: #2196F3
+}
+
 .inputs .form-control.floating-label::-webkit-input-placeholder {
     font-family: 'Lato', Arial, Helvetica, sans-serif;
-    font-weight: 400;
 }
 
 .inputs .form-control.floating-label:-ms-input-placeholder {
     font-family: 'Lato', Arial, Helvetica, sans-serif;
-    font-weight: 400;
 }
 
 .inputs .form-control.floating-label:-moz-placeholder {
     font-family: 'Lato', Arial, Helvetica, sans-serif;
-    font-weight: 400;
 }
 
 .inputs .form-control.floating-label::-moz-placeholder {
     font-family: 'Lato', Arial, Helvetica, sans-serif;
-    font-weight: 400;
 }
 
 /*OVERRIDE CHOSEN CSS START*/
@@ -610,6 +629,7 @@ svg.star.btn-on path{
 
 .form-control{
     background-image: linear-gradient(#2196F3,#2196F3),linear-gradient(#f1f1f1,#f1f1f1);
+    font-weight: 400;
 }
 
 .form-control:focus, .form-control.focus{

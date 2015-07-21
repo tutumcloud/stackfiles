@@ -117,6 +117,10 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
         templateUrl: 'partials/mystacks.html',
         controller: 'MyStackController'
       }).
+      when('/favorites', {
+         templateUrl: 'partials/favorites.html',
+         controller: 'FavoriteController' 
+      }).
       when('/404', {
          templateUrl: 'partials/404.html'
       }).
