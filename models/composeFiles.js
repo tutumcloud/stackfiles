@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-    mongoosastic = require('mongoosastic');
+    mongoosastic = require('mongoosastic'),
+    mongoosePaginate = require('mongoose-paginate');
 
 var schema = new mongoose.Schema({
     title: {type: String, es_boost:2.0, es_indexed: true},
@@ -36,6 +37,7 @@ if (env == 'development'){
         '192.168.59.103:9200'
       ]
     });
+    schema.plugin(mongoosePaginate);
 }
 
 if (env == 'production'){
@@ -46,6 +48,7 @@ if (env == 'production'){
         host + ":" + port
       ]
     });
+    schema.plugin(mongoosePaginate);
 }
 
 module.exports = mongoose.model('File', schema);

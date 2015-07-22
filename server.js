@@ -1,4 +1,5 @@
 var express = require('express'),
+    paginate = require('express-paginate'),
     mongoose = require('mongoose'),
     mongoosastic = require('mongoosastic'),
     morgan  = require('morgan'),
@@ -37,6 +38,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(paginate.middleware(10, 50));
 app.use(express.static(__dirname + '/www'));
 
 app.listen(port, function(){

@@ -149,7 +149,17 @@ angular.module('registry.controllers', [])
    };
 })
 
-.controller('RegistryController', function($scope, $rootScope, $window, API, Search){
+.controller('RegistryController', function($scope, $rootScope, $window, API, Search, Loader){
+
+    $scope.files = new Loader();
+    $scope.loaded = true;
+
+    /*API.getFiles($scope.currentPage).success(function(data, status, headers, config){
+        $scope.files = data;
+        $scope.loaded = true;
+    }).error(function(data, status, headers, config){
+        $scope.err = true;
+    });*/
 
     API.getUser().success(function(data, status, headers, config){
          $rootScope.setUser(data.username);
@@ -183,13 +193,6 @@ angular.module('registry.controllers', [])
     $scope.deploy = function(id){
         window.location.href = ('/api/v1/deploy/'+id);
     };
-
-    API.getFiles().success(function(data, status, headers, config){
-        $scope.files = data;
-        $scope.loaded = true;
-    }).error(function(data, status, headers, config){
-        $scope.err = true;
-    });
 
     $scope.searchFile = function(){
         var term = this.data.search;
