@@ -53,11 +53,16 @@ angular.module('registry.services', [])
              });
          },
 
-         getFiles: function(){
+         getFiles: function(/*page*/){
              return $http.get('/api/v1/files/',{
-                 method: 'GET'
+                 method: 'GET',
+                 params: {
+                     /*page: page,*/
+                     limit: 5
+                 }
              });
          },
+
          getFileWithId: function(id){
              return $http.get('/api/v1/files/' + id,{
                  method: 'GET',
@@ -66,6 +71,7 @@ angular.module('registry.services', [])
                  }
              });
          },
+
          getUserFiles: function(){
              return $http.get('/api/v1/user/files',{
                  method: 'GET'
@@ -86,6 +92,7 @@ angular.module('registry.services', [])
                  }
              });
          },
+
         searchFile: function(term){
             return $http.get('/api/v1/search',{
                 method: 'GET',
