@@ -57,9 +57,9 @@
                 <p>You can embed a Stackfile in any text field that support Javascript, such as blog post. Click the clipboard icon next to the Embed Url to copy the embed code.</p>
                 <form role="form">
                     <div class="form-group">
-                        <p>Embed Script</p>
-                        <input type="text" class="" id="embed" placeholder="script"  ng-model="embedScript" />
-                        <a ui-zeroclip zeroclip-model="embedScript"><img src="img/copy.svg"></a>
+                        <p>Embed Script <span class="pull-right" ng-show="copied">Copied!</span></p>
+                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" id="embed" placeholder="script"  ng-model="embedScript" />
+                        <a ui-zeroclip zeroclip-model="embedScript" zeroclip-copied="copied=!copied"><img src="img/copy.svg"></a>
                     </div>
                 </form>
             </modal>

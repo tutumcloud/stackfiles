@@ -48,12 +48,12 @@
                             <div class="select">
                                 <select chosen disable-search="false" data-placeholder="Organization"
                                 ng-model="data.orgname" ng-init="getOrgs()" ng-change="getRepos()" ng-options="org for org in orgs"
-                                style="width:180px; margin-right:20px">
+                                style="width:180px;">
                                     <option></option>
                                 </select>
                                 <select chosen disable-search="false" data-placeholder="Repository"
                                 ng-model="data.reponame" ng-change="getBranches()" ng-options="repo for repo in repos"
-                                style="width:180px; margin-right:20px">
+                                style="width:180px;">
                                     <option></option>
                                 </select>
                                 <select chosen disable-search="false" data-placeholder="Branch"
