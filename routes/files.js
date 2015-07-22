@@ -128,9 +128,14 @@ module.exports = function(app) {
                 if(err){
                     return next(err);
                 }
-                res.send("Success");
             });
         });
+        File.findOne({ _id: req.params.id}, function(err, file){
+            file.index(function(err, res){
+                console.log("egads! I've been indexed!");
+            });
+        });
+        res.send("Success");
     });
 
     app.delete('/api/v1/files/:id', auth, function(req, res, next){
