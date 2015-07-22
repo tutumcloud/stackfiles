@@ -44,10 +44,10 @@
                     <div class="col-lg-5 col-md-5 col-sm-12">
                         <form name="newRoleForm">
                         <div class="inputs">
-                            <input type="text" class="form-control floating-label" id="title" placeholder="Stack name" ng-model="data.title">
+                            <input type="text" class="form-control floating-label" id="title" placeholder="Stack name" ng-change="getOrgs()" ng-model="data.title">
                             <div class="select">
                                 <select chosen disable-search="false" data-placeholder="Organization"
-                                ng-model="data.orgname" ng-init="getOrgs()" ng-change="getRepos()" ng-options="org for org in orgs"
+                                ng-model="data.orgname" ng-change="getRepos()" ng-options="org for org in orgs"
                                 style="width:180px;">
                                     <option></option>
                                 </select>

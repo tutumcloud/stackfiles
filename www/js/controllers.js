@@ -315,6 +315,7 @@ angular.module('registry.controllers', [])
     };
 
     $scope.getOrgs = function(){
+        var orgs = [];
         API.getUserOrgs().success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
                 orgs.push(value.login);

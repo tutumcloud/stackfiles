@@ -549,6 +549,11 @@ svg.star.btn-on path{
     font-weight: 400;
 }
 
+.form-control-wrapper .form-control:focus~.floating-label, .form-control-wrapper .form-control:not(.empty)~.floating-label{
+    top: -20px;
+    font-size: 13px;
+}
+
 .inputs .form-control.floating-label::-webkit-input-placeholder {
     font-family: 'Lato', Arial, Helvetica, sans-serif;
 }
