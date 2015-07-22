@@ -15,6 +15,10 @@ a, a:hover{
     color: #2196F3;
 }
 
+.row{
+    margin: 0;
+}
+
 #hero-header{
     background-image: -webkit-gradient(
     	linear,
@@ -939,7 +943,7 @@ svg.star.btn-on path{
     }
 
     #sidebar-wrapper {
-        width: 100px;
+        width: 101px;
     }
 
     #wrapper.toggled #sidebar-wrapper {
