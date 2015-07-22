@@ -53,11 +53,11 @@ angular.module('registry.services', [])
              });
          },
 
-         getFiles: function(/*page*/){
+         getFiles: function(page){
              return $http.get('/api/v1/files/',{
                  method: 'GET',
                  params: {
-                     /*page: page,*/
+                     page: page,
                      limit: 5
                  }
              });
@@ -156,6 +156,32 @@ angular.module('registry.services', [])
             });
         }
      };
+})
+
+.factory('Loader', function(API) {
+  var  Loader = function() {
+    this.items = [];
+    this.busy = false;
+    this.after = 1;
+  };
+
+  Loader.prototype.nextPage = function() {
+    if (this.busy) return;
+    this.busy = true;
+    var self = this;
+
+    return API.getFiles(this.after).success(function(data, status, headers, config){
+        var list = data;
+        for(var i = 0; i < list.length; i++){
+            self.items.push(list[i]);
+        }
+        self.after = self.after + 1;
+        self.busy = false;
+    }).error(function(data, status, headers, config){
+
+    });
+  };
+  return Loader;
 })
 
 .factory('Search', function($rootScope){

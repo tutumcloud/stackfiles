@@ -108,7 +108,7 @@ module.exports = function(app) {
             }
             res.json(files);
         });*/
-        File.paginate({}, {page: 1 /*req.query.page*/, limit: req.query.limit, sortBy : {stars: -1}}, function(err, files){
+        File.paginate({}, {page: req.query.page, limit: req.query.limit, sortBy : {stars: -1}}, function(err, files){
             if(err){
                 return next(err);
             }
