@@ -177,6 +177,7 @@ angular.module('registry.controllers', [])
 
     $scope.showModal = false;
     $scope.toggleModal = function(){
+        $scope.copyText= {status: 'notClicked'};
         $scope.showModal = !$scope.showModal;
     };
 

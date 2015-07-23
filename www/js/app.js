@@ -32,7 +32,6 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
         scope:true,
             link: function postLink(scope, element, attrs) {
             scope.title = attrs.title;
-
             scope.$watch(attrs.visible, function(value){
                 if(value === true)
                     $(element).modal('show');
@@ -119,7 +118,7 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
       }).
       when('/favorites', {
          templateUrl: 'partials/favorites.html',
-         controller: 'FavoriteController' 
+         controller: 'FavoriteController'
       }).
       when('/404', {
          templateUrl: 'partials/404.html'
