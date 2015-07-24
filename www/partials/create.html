@@ -42,28 +42,28 @@
             <div class="col-lg-12">
                 <div id="detail-create" class="container-fluid">
                     <div class="col-lg-5 col-md-5 col-sm-12">
-                        <form name="newRoleForm">
-                        <div class="inputs">
-                            <input type="text" class="form-control floating-label" id="title" placeholder="Stack name" ng-change="getOrgs()" ng-model="data.title">
-                            <div class="select">
-                                <select chosen disable-search="false" data-placeholder="Organization"
-                                ng-model="data.orgname" ng-change="getRepos()" ng-options="org for org in orgs"
-                                style="width:180px;">
-                                    <option></option>
-                                </select>
-                                <select chosen disable-search="false" data-placeholder="Repository"
-                                ng-model="data.reponame" ng-change="getBranches()" ng-options="repo for repo in repos"
-                                style="width:180px;">
-                                    <option></option>
-                                </select>
-                                <select chosen disable-search="false" data-placeholder="Branch"
-                                ng-model="data.branch" ng-options="branch for branch in branches"
-                                style="width:180px; margin-right:20px">
-                                    <option></option>
-                                </select>
+                        <form name="newStackfileForm">
+                            <div class="inputs">
+                                <input type="text" class="form-control floating-label" autofocus id="title" placeholder="Stack name"  ng-change="getOrgs()" ng-model="data.title">
+                                <div class="select">
+                                    <select chosen disable-search="false" ng-disabled="true" data-placeholder="Organization"
+                                    ng-model="data.orgname" ng-change="getRepos()" ng-options="org for org in orgs"
+                                    style="width:180px;">
+                                        <option></option>
+                                    </select>
+                                    <select chosen disable-search="false" data-placeholder="Repository"
+                                    ng-model="data.reponame" ng-change="getBranches()" ng-options="repo for repo in repos"
+                                    style="width:180px;">
+                                        <option></option>
+                                    </select>
+                                    <select chosen disable-search="false" data-placeholder="Branch"
+                                    ng-model="data.branch" ng-options="branch for branch in branches"
+                                    style="width:180px; margin-right:20px" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
+                                        <option></option>
+                                    </select>
+                                </div>
+                                <input type="text" class="create-form form-control floating-label" id="title" placeholder="Path" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch)" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
                             </div>
-                            <input type="text" class="create-form form-control floating-label" id="title" placeholder="Path" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch)" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
-                        </div>
                         </form>
                     </div>
                     <div class="col-lg-6 col-lg-offset-1 col-md-6 col-md-offset-1 col-sm-12">
