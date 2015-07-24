@@ -32,15 +32,15 @@ angular.module('registry.controllers', [])
         }).error(function(data, status, headers, config){
             console.log(data);
         });
-
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });
 
     $scope.toggleStatus = function(file) {
-        $scope.favoriteList.push(file._id);
         API.favFile(file._id).success(function(data, status, headers, config){
-
+            if($rootScope.getUser() != "undefined"){
+                $scope.favoriteList.push(file._id);
+            }
         }).error(function(data, status, headers, config){
             $scope.err = true;
         });
@@ -305,17 +305,20 @@ angular.module('registry.controllers', [])
     }
 
     $scope.getOrgs = function(){
+
+        if($scope.data.title.length > 0){
+            $scope.lock = false;
+        } else {
+            $scope.lock = true;
+        }
+
         var orgs = [];
         var repos = [];
         $scope.repos = [];
         var branches = [];
         $scope.branches = [];
         $scope.data.path = "/";
-        $scope.data.composefile = "";
-
-        if($scope.data.title.length > 0){
-            $scope.lock = false;
-        }
+        $scope.stackfile = "This window will refresh automatically after you filled the form.";
 
         API.getUserOrgs().success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
@@ -334,7 +337,7 @@ angular.module('registry.controllers', [])
         var branches = [];
         $scope.branches = [];
         $scope.data.path = "/";
-        $scope.data.composefile = "";
+        $scope.stackfile = "This window will refresh automatically after you filled the form.";
 
         API.getUserRepos($scope.data.orgname).success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
@@ -350,7 +353,7 @@ angular.module('registry.controllers', [])
         var branches = [];
         $scope.branches = [];
         $scope.data.path = "/";
-        $scope.data.composefile = "";
+        $scope.stackfile = "This window will refresh automatically after you filled the form.";
         API.getRepoBranches($scope.data.orgname, $scope.data.reponame).success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
                 branches.push(value);

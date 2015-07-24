@@ -9,13 +9,13 @@
                 </a>
             </li>
             <li>
-                <a href="/registry"><img src="img/stacks.svg"></a>
+                <a data-toggle="tooltip" data-placement="top" title="Registry" href="/registry"><img src="img/stacks.svg"></a>
             </li>
             <li>
-                <a ng-click="signin('/mystacks')" style="cursor:pointer;"><img src="img/my_stacks.svg"></a>
+                <a data-toggle="tooltip" data-placement="top" title="My Stacks" ng-click="signin('/mystacks')" style="cursor:pointer;"><img src="img/my_stacks.svg"></a>
             </li>
             <li>
-                <a ng-click="signin('/favorites')" style="cursor:pointer;"><img src="img/star.svg"</a>
+                <a data-toggle="tooltip" data-placement="top" title="Favorites" ng-click="signin('/favorites')" style="cursor:pointer;"><img src="img/star.svg"</a>
             </li>
         </ul>
     </div>
@@ -82,7 +82,7 @@
                     </div>
                     <hr>
                     <button class="btn boxed-btn deploy-btn pull-right" ng-click="deploy(data._id)">Deploy to Tutum</button>
-                    <button class="btn boxed-btn embed-btn pull-right" ng-click="toggleModal(); generateEmbed(data._id);">Embed</button>
+                    <button class="btn boxed-btn embed-btn pull-right" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account" ng-click="toggleModal(); generateEmbed(data._id);">Embed</button>
                     <button class="btn boxed-btn danger-btn pull-right" ng-show="user==data.author" ng-click="deleteStackfile(data._id)">Delete</button>
                 </div>
             </div>
