@@ -102,12 +102,6 @@ module.exports = function(app) {
     });
 
     app.get('/api/v1/files', function(req, res, next){
-        /*File.find({}, function(err, files){
-            if(err){
-                return nex(err);
-            }
-            res.json(files);
-        });*/
         File.paginate({}, {page: req.query.page, limit: req.query.limit, sortBy : {stars: -1}}, function(err, files){
             if(err){
                 return next(err);

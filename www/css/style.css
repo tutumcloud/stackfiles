@@ -269,18 +269,19 @@ a, a:hover{
 
 #section-title{
     text-align: center;
+    height: 64px;
 }
 
 #section-title h2{
     display: inline-block;
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 14px;
+    margin-bottom: 14px;
     color: #2196F3;
     font-size: 28px;
     font-weight: 300;
 }
 
-#section-title a.login{
+#section-title .login{
     position: absolute;
     top: 0;
     right: 0;
@@ -296,8 +297,8 @@ a, a:hover{
     position: absolute;
     top: 0;
     right: 0;
-    margin-top: 19px;
-    margin-right: 180px;
+    margin-top: 14px;
+    margin-right: 148px;
     color: #2196F3;
     font-size: 14px;
     font-weight: 400;
@@ -307,6 +308,7 @@ a, a:hover{
 #section-title .dropdown.login .dropdown-toggle{
     background-color: #FFFFFF;
     border: none;
+    margin-top: 5px;
 }
 
 #section-title .dropdown.login .dropdown-menu{
@@ -315,6 +317,12 @@ a, a:hover{
     color: #2196F3;
     font-size: 12px;
 
+}
+
+#section-title .avatar {
+    width: 36px;
+    border-radius: 36px;
+    margin-right: 12px;
 }
 
 #section-title a{
@@ -450,6 +458,16 @@ p.stack-services{
 }
 
 p.stack-user{
+    display: inline-block;
+    margin-top: 4px;
+    padding-left: 10px;
+    color: #999;
+    font-size: 14px;
+    font-weight: 300;
+    font-style: italic;
+}
+
+span.stack-user{
     display: inline-block;
     margin-top: 4px;
     padding-left: 10px;
@@ -666,7 +684,7 @@ svg.star.btn-on path{
 }
 
 .validation{
-    padding-top: 73px;
+    padding-top: 40px;
 }
 
 .validation .btn.boxed-btn.create-btn{
