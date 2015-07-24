@@ -47,6 +47,12 @@ angular.module('registry.services', [])
             });
          },
 
+         unFavFile: function(id){
+            return $http.get('/api/v1/files/unfav/' +id,{
+                method: 'GET'
+            });
+         },
+
          checkFav: function(){
              return $http.get('/api/v1/user/fav', {
                  method: 'GET'

@@ -138,6 +138,25 @@ module.exports = function(app) {
         res.send("Success");
     });
 
+    app.get('/api/v1/files/unfav/:id', auth, function(req, res, next){
+        File.findOneAndUpdate({ _id: req.params.id }, { $inc: { stars: -1 }}, function(err,file){
+            if(err){
+                return next(err);
+            }
+            User.findOneAndUpdate({userId: req.user.id}, {$pull: {favorites: req.params.id}}, {safe: true, upsert: true}, function(err, file){
+                if(err){
+                    return next(err);
+                }
+            });
+        });
+        File.findOne({ _id: req.params.id}, function(err, file){
+            file.index(function(err, res){
+                console.log("egads! I've been indexed!");
+            });
+        });
+        res.send("Success");
+    });
+
     app.delete('/api/v1/files/:id', auth, function(req, res, next){
         File.findOne({_id: req.query.id, author: req.user.username},function(err, file){
             if(err){

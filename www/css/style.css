@@ -413,12 +413,16 @@ a, a:hover{
     color: #FFFFFF;
 }
 
+.table>tbody>tr{
+    height: 91px;
+}
+
 .table>tbody>tr>td{
     border-top: 1px solid #f1f1f1;
     padding-top: 19px;
     padding-left: 8px;
     padding-right: 8px;
-    padding-bottom: 14px;
+    padding-bottom: 9px;
 }
 
 td.main{
@@ -507,15 +511,28 @@ span.stack-user{
     cursor: pointer;
 }
 
+.star.btn-off-unfav{
+    pointer-events: none;
+    cursor: default;
+}
+
 .star.btn-on{
     pointer-events: none;
     cursor: default;
 }
 
+.star.btn-on-unfav{
+    cursor: pointer;
+}
+
 svg.star.btn-on path{
     stroke: #ffc400;
     fill: #ffc400;
+}
 
+svg.star.btn-on-unfav path{
+    stroke: #ffc400;
+    fill: #ffc400;
 }
 
 .tags{
