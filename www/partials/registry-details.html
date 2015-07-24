@@ -23,16 +23,19 @@
         <div class="row">
             <div id="section-title" ng-controller="SessionController">
                 <h2><a href="/registry">Stackfiles.io</a></h2>
-                <div class="dropdown pull-right login">
-                  <button class="dropdown-toggle " ng-show="user!='undefined'" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    {{user}}
+                <div ng-show="logged" class="dropdown login">
+                    <button class="dropdown-toggle pull-right" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {{user}}
                     <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a ng-click="logout()" style="cursor: pointer;">Logout</a></li>
-                  </ul>
+                    </button>
+                    <img class="avatar pull-right" ng-if="logged" src="{{photo}}">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a ng-click="logout()" style="cursor: pointer;">Logout</a></li>
+                    </ul>
                 </div>
-                <a ng-controller="SessionController" class="pull-right login" ng-click="signin('/registry');" ng-hide="user!='undefined'">Login</a>
+                <div class="pull-right login"  ng-hide="logged">
+                    <a ng-click="signin('/registry');">Login</a>
+                </div>
             </div>
             <div class="col-lg-12 col-sm-12 gradient">
                 <div class="elem-bar">

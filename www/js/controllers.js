@@ -1,11 +1,22 @@
 angular.module('registry.controllers', [])
 
 .controller('SessionController', function($scope, $rootScope, API){
+    $scope.logged = false;
+    API.getUser().success(function(data, status, headers, config){
+
+         $rootScope.setUser(data.username);
+         $scope.logged = true;
+         $scope.user = $rootScope.getUser();
+         $scope.photo = data._json.avatar_url;
+    }).error(function(data, status, headers, config){
+        $scope.err = true;
+    });
+
     $scope.signin = function(page){
-        if($rootScope.getUser() === "undefined"){
-            API.signin(page);
-        } else {
+        if($rootScope.getUser() !== undefined){
             window.location.href = page;
+        } else {
+            API.signin(page);
         }
 
     };
@@ -66,14 +77,6 @@ angular.module('registry.controllers', [])
 })
 
 .controller('MyStackController', function($scope, $rootScope, API, Search){
-
-    API.getUser().success(function(data, status, headers, config){
-         $rootScope.setUser(data.username);
-         $scope.user = $rootScope.getUser();
-    }).error(function(data, status, headers, config){
-        $scope.err = true;
-    });
-
      API.getUserFiles().success(function(data, status, headers, config){
          $scope.files = data;
          $scope.loaded = true;
@@ -110,8 +113,7 @@ angular.module('registry.controllers', [])
 
 .controller('FavoriteController', function($scope, $rootScope, API, Search){
     API.getUser().success(function(data, status, headers, config){
-         $rootScope.setUser(data.username);
-         $scope.user = $rootScope.getUser();
+
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });
@@ -161,9 +163,6 @@ angular.module('registry.controllers', [])
     $scope.loaded = true;
 
     API.getUser().success(function(data, status, headers, config){
-         $rootScope.setUser(data.username);
-         $scope.user = $rootScope.getUser();
-
          API.checkFav().success(function(data, status, header, config){
             $scope.favoriteList = data;
         }).error(function(data, status, headers, config){
@@ -290,17 +289,6 @@ angular.module('registry.controllers', [])
 .controller('CreateController', function($scope, $rootScope, $window, API){
 
     var orgs = [];
-
-    API.getUser().success(function(data, status, headers, config){
-         $rootScope.setUser(data.username);
-         $scope.user = $rootScope.getUser();
-    }).error(function(data, status, headers, config){
-        $scope.err = true;
-    });
-
-    $scope.signin = function(page){
-        API.signin(page);
-    };
 
     $scope.logout = function(){
         $rootScope.deleteUser();

@@ -22,16 +22,19 @@
         <div class="row">
             <div id="section-title" ng-controller="SessionController">
                 <h2><a href="/registry">Stackfiles.io</a></h2>
-                <div class="dropdown pull-right login">
-                  <button class="dropdown-toggle " ng-show="user!='undefined'" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    {{user}}
+                <div ng-show="logged" class="dropdown login">
+                    <button class="dropdown-toggle pull-right" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        {{user}}
                     <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a ng-click="logout()" style="cursor: pointer;">Logout</a></li>
-                  </ul>
+                    </button>
+                    <img class="avatar pull-right" ng-if="logged" src="{{photo}}">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <li><a ng-click="logout()" style="cursor: pointer;">Logout</a></li>
+                    </ul>
                 </div>
-                <a class="pull-right login" ng-click="signin('/registry');" ng-hide="user!='undefined'">Login</a>
+                <div class="pull-right login"  ng-hide="logged">
+                    <a ng-click="signin('/registry');">Login</a>
+                </div>
             </div>
             <div class="col-lg-12 gradient">
                 <div class="elem-bar">
@@ -60,7 +63,7 @@
                     <table ng-show="results.length" class="table">
                         <tbody>
                             <tr ng-repeat="result in results" ng-class-odd="odd" ng-class-even="even" ng-hide="currentSection === 1">
-                                <td class="main"><a class="stack-name" href="/registry/{{result._id}}">{{result._source.title}}</a><p class="stack-services">{{result._source.tags.length}} Services</p><p class="stack-user">by {{result._source.user}}</p></td>
+                                <td class="main"><a class="stack-name" href="/registry/{{result._id}}">{{result._source.title}}</a><p class="stack-services">{{result._source.tags.length}} Services</p><p class="stack-user">By {{result._source.user}}</p></td>
                                 <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(result._id)" target="_blank">Deploy to Tutum</a></td>
                                 <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account"><a style="cursor:pointer;" ng-click="toggleModal(); generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
                                 <td style="vertical-align:middle; padding-top:33px;" data-toggle="tooltip" data-placement="top" title="Click here to favorite this stack">
