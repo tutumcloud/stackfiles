@@ -40,6 +40,7 @@ angular.module('registry.controllers', [])
 
          API.checkFav().success(function(data, status, header, config){
             $scope.favoriteList = data;
+            console.log($scope.favoriteList);
         }).error(function(data, status, headers, config){
             console.log(data);
         });
@@ -51,6 +52,17 @@ angular.module('registry.controllers', [])
         API.favFile(file._id).success(function(data, status, headers, config){
             if($rootScope.getUser() != "undefined"){
                 $scope.favoriteList.push(file._id);
+            }
+        }).error(function(data, status, headers, config){
+            $scope.err = true;
+        });
+    };
+
+    $scope.unToggleStatus = function(file) {
+        API.unFavFile(file._id).success(function(data, status, headers, config){
+            if($rootScope.getUser() != "undefined"){
+                var index = $scope.favoriteList.indexOf(file._id);
+                $scope.favoriteList.splice(index, 1);
             }
         }).error(function(data, status, headers, config){
             $scope.err = true;
