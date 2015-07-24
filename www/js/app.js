@@ -53,6 +53,18 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
         }
     };
 })
+
+.directive('autofocus', ['$timeout', function($timeout) {
+    return {
+        restrict: 'A',
+            link : function($scope, $element) {
+                $timeout(function() {
+                    $element[0].focus();
+            });
+        }
+    };
+}])
+
 .directive('fav', function(){
     return {
         template: '<svg ng-click="toggle()" ng-class="{\'btn-off\':!isSelected, \'btn-on\':isSelected,}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">'+
