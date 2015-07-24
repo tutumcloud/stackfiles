@@ -300,12 +300,40 @@ angular.module('registry.controllers', [])
         });
     };
 
+    $scope.lock = function(){
+        $scope.lock =true;
+    }
+
+    $scope.getOrgs = function(){
+        var orgs = [];
+        var repos = [];
+        $scope.repos = [];
+        var branches = [];
+        $scope.branches = [];
+        $scope.data.path = "/";
+        $scope.data.composefile = "";
+
+        if($scope.data.title.length > 0){
+            $scope.lock = false;
+        }
+
+        API.getUserOrgs().success(function(data, status, headers, config){
+            angular.forEach(data, function(value, key){
+                orgs.push(value.login);
+            });
+            orgs.push($rootScope.getUser());
+            $scope.orgs=orgs;
+        }).error(function(data, status, headers, config){
+            $scope.err = true;
+        });
+    };
+
     $scope.getRepos = function(){
         var repos = [];
         $scope.repos = [];
         var branches = [];
         $scope.branches = [];
-        $scope.data.path = "";
+        $scope.data.path = "/";
         $scope.data.composefile = "";
 
         API.getUserRepos($scope.data.orgname).success(function(data, status, headers, config){
@@ -318,23 +346,10 @@ angular.module('registry.controllers', [])
         });
     };
 
-    $scope.getOrgs = function(){
-        var orgs = [];
-        API.getUserOrgs().success(function(data, status, headers, config){
-            angular.forEach(data, function(value, key){
-                orgs.push(value.login);
-            });
-            orgs.push($rootScope.getUser());
-            $scope.orgs=orgs;
-        }).error(function(data, status, headers, config){
-            $scope.err = true;
-        });
-    };
-
     $scope.getBranches = function(){
         var branches = [];
         $scope.branches = [];
-        $scope.data.path = "";
+        $scope.data.path = "/";
         $scope.data.composefile = "";
         API.getRepoBranches($scope.data.orgname, $scope.data.reponame).success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
