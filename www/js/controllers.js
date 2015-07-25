@@ -40,7 +40,6 @@ angular.module('registry.controllers', [])
 
          API.checkFav().success(function(data, status, header, config){
             $scope.favoriteList = data;
-            console.log($scope.favoriteList);
         }).error(function(data, status, headers, config){
             console.log(data);
         });
@@ -158,6 +157,20 @@ angular.module('registry.controllers', [])
             $scope.embedScript = 'Unable to generate the embed script. Please try again.';
         });
     };
+
+    $scope.removeRow = function(file){
+		var index = -1;
+		for( var i = 0; i < $scope.files.length; i++ ) {
+			if( $scope.files[i]._id === file._id ) {
+				index = i;
+				break;
+			}
+		}
+		if( index === -1 ) {
+			alert( "Oops something went wrong" );
+		}
+		$scope.files.splice( index, 1 );
+	};
 
    $scope.searchFile = function(){
        var term = this.data.search;
@@ -311,10 +324,6 @@ angular.module('registry.controllers', [])
         });
     };
 
-    $scope.lock = function(){
-        $scope.lock =true;
-    }
-
     $scope.getOrgs = function(){
 
         if($scope.data.title.length > 0){
@@ -329,7 +338,7 @@ angular.module('registry.controllers', [])
         var branches = [];
         $scope.branches = [];
         $scope.data.path = "/";
-        $scope.stackfile = "This window will refresh automatically after you filled the form.";
+        $scope.stackfile = "Window will automatically refresh after filling form.";
 
         API.getUserOrgs().success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
@@ -348,7 +357,7 @@ angular.module('registry.controllers', [])
         var branches = [];
         $scope.branches = [];
         $scope.data.path = "/";
-        $scope.stackfile = "This window will refresh automatically after you filled the form.";
+        $scope.stackfile = "Window will automatically refresh after filling form.";
 
         API.getUserRepos($scope.data.orgname).success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
@@ -364,7 +373,7 @@ angular.module('registry.controllers', [])
         var branches = [];
         $scope.branches = [];
         $scope.data.path = "/";
-        $scope.stackfile = "This window will refresh automatically after you filled the form.";
+        $scope.stackfile = "Window will automatically refresh after filling form.";
         API.getRepoBranches($scope.data.orgname, $scope.data.reponame).success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
                 branches.push(value);
