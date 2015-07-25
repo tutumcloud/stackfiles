@@ -405,7 +405,8 @@ angular.module('registry.controllers', [])
             branch: branch,
             path: path,
             name: projectName,
-            orgname: organizationName
+            orgname: organizationName,
+            description: description
         };
 
         API.saveFile(form).success(function(data, status, headers, config){

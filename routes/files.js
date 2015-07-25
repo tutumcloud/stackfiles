@@ -65,6 +65,7 @@ function allDone() {
 }
 
 module.exports = function(app) {
+
     app.post('/api/v1/create', auth, function(req, res){
         var serviceTags = [];
         var serviceToken = [];
@@ -83,6 +84,7 @@ module.exports = function(app) {
             path : req.body.params.form.path,
             user: req.body.params.form.orgname,
             author: req.user.username,
+            description: req.body.params.form.description,
             token: tokenizer(req.body.params.form.title).concat(serviceToken),
             profileLink: "https://github.com/"+req.body.params.form.orgname,
             projectName: req.body.params.form.name,

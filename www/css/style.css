@@ -356,7 +356,6 @@ a, a:hover{
 /*REGISTRY SCREEN COMPONENTS*/
 .elem-bar{
     height: inherit;
-    text-align: center;
     margin: 0 auto;
     max-width: 980px;
 }
@@ -369,6 +368,13 @@ a, a:hover{
     float: left;
 }
 
+.elem-bar .stack-detail{
+    width: 60%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .elem-bar h2 a{
     color: #FFFFFF;
     font-weight: 300;
@@ -377,6 +383,13 @@ a, a:hover{
 .elem-bar h2 a:hover{
     color: #FFFFFF;
     text-decoration: none;
+}
+
+.elem-bar .search-container{
+    display: inline-block;
+    position: absolute;
+    width: 55%;
+    left: 20%;
 }
 
 .elem-bar input.search-bar{
@@ -449,11 +462,17 @@ p.favorite-num{
     font-style: italic;
 }
 
+
+
 a.stack-name{
+    width: 60%;
     display: block;
     color: #666;
     font-size: 16px;
     font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 a.stack-name:hover{
@@ -768,7 +787,7 @@ textarea.form-control{
 /*DETAIL COMPONENTS*/
 
 #detail {
-    padding-top: 44px;
+    padding-top: 16px;
     max-width: 780px;
 }
 
@@ -793,8 +812,11 @@ textarea.form-control{
 }
 
 .section .content{
+    vertical-align: top;
+    width: 70%;
     color: #666666;
     font-size: 14px;
+    font-weight: 400;
     display: inline-block;
 }
 
