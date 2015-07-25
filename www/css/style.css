@@ -368,7 +368,7 @@ a, a:hover{
 }
 
 .elem-bar h2{
-    width: 146px;
+    min-width: 146px;
     display: inline-block;
     margin-top: 14px;
     font-weight: 300;
