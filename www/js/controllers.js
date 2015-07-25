@@ -158,6 +158,20 @@ angular.module('registry.controllers', [])
         });
     };
 
+    $scope.removeRow = function(file){
+		var index = -1;
+		for( var i = 0; i < $scope.files.length; i++ ) {
+			if( $scope.files[i]._id === file._id ) {
+				index = i;
+				break;
+			}
+		}
+		if( index === -1 ) {
+			alert( "Oops something went wrong" );
+		}
+		$scope.files.splice( index, 1 );
+	};
+
    $scope.searchFile = function(){
        var term = this.data.search;
        API.searchFile(term).success(function(data, status, headers, config){
