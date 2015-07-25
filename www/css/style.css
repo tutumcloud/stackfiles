@@ -333,8 +333,15 @@ a, a:hover{
     text-decoration: none;
 }
 
+@media(max-width: 1200px){
+    #section-title .dropdown.login{
+        margin-right: 25px;
+    }
+}
+
 .gradient {
     height: 64px;
+    padding: 0;
     z-index: 2;
     background: -o-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
     background: -moz-linear-gradient(303deg,#2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
@@ -361,6 +368,7 @@ a, a:hover{
 }
 
 .elem-bar h2{
+    width: 146px;
     display: inline-block;
     margin-top: 14px;
     font-weight: 300;
@@ -387,9 +395,8 @@ a, a:hover{
 
 .elem-bar .search-container{
     display: inline-block;
-    position: absolute;
-    width: 55%;
-    left: 20%;
+    position: relative;
+    width: 65%;
 }
 
 .elem-bar input.search-bar{
@@ -397,6 +404,7 @@ a, a:hover{
     height: 36px;
     margin-top: 14px;
     margin-bottom: 14px;
+    margin-left: 30px;
     vertical-align:middle;
     padding-left: 40px;
     padding-right: 40px;
@@ -424,6 +432,21 @@ a, a:hover{
 
 .elem-bar a{
     margin-top: 14px;
+}
+
+@media(max-width: 1200px){
+    .gradient{
+        padding-left: 50px;
+        padding-right: 25px;
+    }
+
+    .elem-bar h2{
+        width: auto;
+    }
+
+    .elem-bar .search-container{
+        width: 60%;
+    }
 }
 
 .elem-bar .star{
