@@ -311,10 +311,6 @@ angular.module('registry.controllers', [])
         });
     };
 
-    $scope.lock = function(){
-        $scope.lock =true;
-    }
-
     $scope.getOrgs = function(){
 
         if($scope.data.title.length > 0){
@@ -329,7 +325,7 @@ angular.module('registry.controllers', [])
         var branches = [];
         $scope.branches = [];
         $scope.data.path = "/";
-        $scope.stackfile = "This window will refresh automatically after you filled the form.";
+        $scope.stackfile = "Window will automatically refresh after filling form.";
 
         API.getUserOrgs().success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
@@ -348,7 +344,7 @@ angular.module('registry.controllers', [])
         var branches = [];
         $scope.branches = [];
         $scope.data.path = "/";
-        $scope.stackfile = "This window will refresh automatically after you filled the form.";
+        $scope.stackfile = "Window will automatically refresh after filling form.";
 
         API.getUserRepos($scope.data.orgname).success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
@@ -364,7 +360,7 @@ angular.module('registry.controllers', [])
         var branches = [];
         $scope.branches = [];
         $scope.data.path = "/";
-        $scope.stackfile = "This window will refresh automatically after you filled the form.";
+        $scope.stackfile = "Window will automatically refresh after filling form.";
         API.getRepoBranches($scope.data.orgname, $scope.data.reponame).success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
                 branches.push(value);
