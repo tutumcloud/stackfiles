@@ -39,7 +39,12 @@
             <div class="col-lg-12 gradient">
                 <div class="elem-bar">
                     <h2>My Stacks</h2>
-                    <input type="text" class="search-bar" placeholder="" ng-model="data.search" ng-init="checkSearch()" ng-change="searchFile()">
+                    <div style="display: inline-block; width: 65%;">
+                        <input type="text" class="search-bar" placeholder="" ng-model="data.search" ng-init="checkSearch()" ng-change="searchFile()">
+                        <a class="clear-search">
+                            <span ng-click="data.search = ''">x</span>
+                        </a>
+                    </div>
                     <a ng-controller="SessionController" class="btn boxed-btn submit-btn pull-right" ng-click="signin('/create')"></i> Submit a Stackfile</a>
                 </div>
             </div>

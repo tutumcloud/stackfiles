@@ -364,7 +364,6 @@ a, a:hover{
 .elem-bar h2{
     display: inline-block;
     margin-top: 14px;
-    padding-right: 40px;
     font-weight: 300;
     font-size: 28px;
     float: left;
@@ -381,13 +380,13 @@ a, a:hover{
 }
 
 .elem-bar input.search-bar{
-    width: 60%;
+    width: 90%;
     height: 36px;
     margin-top: 14px;
     margin-bottom: 14px;
-    margin-right: 41px;
     vertical-align:middle;
     padding-left: 40px;
+    padding-right: 40px;
     background: none;
     border: none;
     border-radius: 2px;
@@ -398,6 +397,16 @@ a, a:hover{
     background: url('./../img/search_white.svg') transparent 14px center no-repeat;
     background-color: rgba(255, 255, 255, 0.3);
     background-size: 18px 18px;
+}
+
+.elem-bar .clear-search{
+    position: relative;
+    right: 25px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .elem-bar a{
