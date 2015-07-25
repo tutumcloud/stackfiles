@@ -9,6 +9,7 @@ var schema = new mongoose.Schema({
     path: {type: String},
     user: {type: String, es_indexed:true},
     author: {type: String},
+    description: {type: String},
     token: {
         type: Array,
         es_type: 'string',

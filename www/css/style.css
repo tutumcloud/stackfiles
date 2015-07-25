@@ -356,7 +356,6 @@ a, a:hover{
 /*REGISTRY SCREEN COMPONENTS*/
 .elem-bar{
     height: inherit;
-    text-align: center;
     margin: 0 auto;
     max-width: 980px;
 }
@@ -369,6 +368,13 @@ a, a:hover{
     float: left;
 }
 
+.elem-bar .stack-detail{
+    width: 60%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .elem-bar h2 a{
     color: #FFFFFF;
     font-weight: 300;
@@ -377,6 +383,13 @@ a, a:hover{
 .elem-bar h2 a:hover{
     color: #FFFFFF;
     text-decoration: none;
+}
+
+.elem-bar .search-container{
+    display: inline-block;
+    position: absolute;
+    width: 55%;
+    left: 20%;
 }
 
 .elem-bar input.search-bar{
@@ -449,11 +462,17 @@ p.favorite-num{
     font-style: italic;
 }
 
+
+
 a.stack-name{
+    width: 60%;
     display: block;
     color: #666;
     font-size: 16px;
     font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 a.stack-name:hover{
@@ -575,20 +594,49 @@ svg.star.btn-on-unfav path{
 
 /*CREATE SCREEN COMPONENTS*/
 
-#create .stackfile pre{
-    height: 338px;
-    border: none;
-    border-radius: 2px;
-}
-
 #detail-create {
-    padding-top: 80px;
+    padding-top: 70px;
     max-width: 980px;
 }
 
 #detail-create.container-fluid {
     padding-left: 0px;
     padding-right: 0px;
+}
+
+#create .timeline{
+    position: absolute;
+    height: 376px;
+}
+
+#create .inputs{
+    border-left: 1px solid #fafafa;
+    padding-left: 40px;
+}
+
+#create .stackfile{
+    margin-top: -28px;
+}
+
+#create .stackfile pre{
+    height: 364px;
+    border: none;
+    border-radius: 2px;
+}
+
+.bullet{
+    position: relative;
+    right: 10px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: #2196F3;
+    color: #FFFFFF;
+    font-weight: 400;
+    text-align: center;
+}
+
+textarea.form-control{
+    margin-top: 40px;
 }
 
 .form-control-wrapper .form-control:focus~.floating-label{
@@ -624,6 +672,10 @@ svg.star.btn-on-unfav path{
     margin-top: 36px;
 }
 
+.chosen-container{
+    display: block;
+}
+
 .chosen-container-single .chosen-single{
     margin-top: 24px;
     padding: 0;
@@ -632,7 +684,7 @@ svg.star.btn-on-unfav path{
     background-image: none;
     border: none;
     border-radius: 2px;
-    height: 56px;
+    height: 36px;
     box-shadow: none;
 }
 
@@ -651,7 +703,7 @@ svg.star.btn-on-unfav path{
 }
 
 .chosen-container-single .chosen-single span{
-    padding-top: 18px;
+    padding-top: 8px;
     margin-right: 26px;
     text-align: center;
     color: #666666;
@@ -660,7 +712,7 @@ svg.star.btn-on-unfav path{
 }
 
 .chosen-container-single .chosen-single div b{
-    margin-top: 18px;
+    margin-top: 8px;
     margin-right: 16px;
 }
 
@@ -680,7 +732,7 @@ svg.star.btn-on-unfav path{
 /*OVERRIDE CHOSEN CSS END*/
 
 .create-form{
-    margin-top: 90px;
+    margin-top: 48px;
 }
 
 .inputs{
@@ -735,7 +787,7 @@ svg.star.btn-on-unfav path{
 /*DETAIL COMPONENTS*/
 
 #detail {
-    padding-top: 44px;
+    padding-top: 16px;
     max-width: 780px;
 }
 
@@ -760,8 +812,11 @@ svg.star.btn-on-unfav path{
 }
 
 .section .content{
+    vertical-align: top;
+    width: 70%;
     color: #666666;
     font-size: 14px;
+    font-weight: 400;
     display: inline-block;
 }
 

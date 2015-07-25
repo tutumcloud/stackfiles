@@ -46,8 +46,13 @@
                 <div id="detail-create" class="container-fluid">
                     <div class="col-lg-5 col-md-5 col-sm-12">
                         <form name="newStackfileForm">
+                            <div class="timeline">
+                                <div class="bullet">1</div>
+                                <div class="bullet" style="margin-top: 130px;">2</div>
+                            </div>
                             <div class="inputs">
-                                <input type="text" class="form-control floating-label" autofocus id="title" placeholder="Stack name"  ng-change="getOrgs()" ng-model="data.title">
+                                <input type="text" class="form-control floating-label" autofocus id="title" ng-init="data.path = '/'; stackfile = 'Window will automatically refresh after filling form.'" placeholder="Stack name" ng-model="data.title">
+                                <textarea type="text" class="form-control floating-label" id="title" placeholder="Description"  ng-change="getOrgs()" ng-model="data.description"></textarea>
                                 <div class="select">
                                     <select chosen disable-search="false" ng-disabled="true" data-placeholder="Organization"
                                     ng-model="data.orgname" ng-change="getRepos()" ng-options="org for org in orgs"
@@ -65,7 +70,7 @@
                                         <option></option>
                                     </select>
                                 </div>
-                                <input type="text" class="create-form form-control floating-label" id="title" placeholder="Path" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch)" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
+                                <input type="text" class="create-form form-control floating-label" id="title" placeholder="Stackfile path" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch)" ng-model="data.path" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
                             </div>
                         </form>
                     </div>

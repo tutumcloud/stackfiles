@@ -325,19 +325,11 @@ angular.module('registry.controllers', [])
     };
 
     $scope.getOrgs = function(){
-
-        if($scope.data.title.length > 0){
-            $scope.lock = false;
-        } else {
-            $scope.lock = true;
-        }
-
         var orgs = [];
         var repos = [];
         $scope.repos = [];
         var branches = [];
         $scope.branches = [];
-        $scope.data.path = "/";
         $scope.stackfile = "Window will automatically refresh after filling form.";
 
         API.getUserOrgs().success(function(data, status, headers, config){
@@ -405,6 +397,7 @@ angular.module('registry.controllers', [])
         var path = this.data.path;
         var projectName = this.data.reponame;
         var organizationName = this.data.orgname;
+        var description = this.data.description;
 
         var form = {
             title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
@@ -412,7 +405,8 @@ angular.module('registry.controllers', [])
             branch: branch,
             path: path,
             name: projectName,
-            orgname: organizationName
+            orgname: organizationName,
+            description: description
         };
 
         API.saveFile(form).success(function(data, status, headers, config){
