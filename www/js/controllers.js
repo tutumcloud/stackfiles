@@ -26,7 +26,7 @@ angular.module('registry.controllers', [])
         API.logout().success(function(data, status, headers, config){
             window.location.href = ('/registry');
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
     };
 })
@@ -41,7 +41,7 @@ angular.module('registry.controllers', [])
          API.checkFav().success(function(data, status, header, config){
             $scope.favoriteList = data;
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
     }).error(function(data, status, headers, config){
         $scope.err = true;
@@ -124,7 +124,7 @@ angular.module('registry.controllers', [])
 
 .controller('FavoriteController', function($scope, $rootScope, API, Search){
     API.getUser().success(function(data, status, headers, config){
-
+        $scope.logged = true;
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });
@@ -191,9 +191,9 @@ angular.module('registry.controllers', [])
          API.checkFav().success(function(data, status, header, config){
             $scope.favoriteList = data;
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
-
+        $scope.logged = true;
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });
@@ -315,15 +315,6 @@ angular.module('registry.controllers', [])
 
     var orgs = [];
 
-    $scope.logout = function(){
-        $rootScope.deleteUser();
-        API.logout().success(function(data, status, headers, config){
-            window.location.href = ('/registry');
-        }).error(function(data, status, headers, config){
-            console.log(data);
-        });
-    };
-
     $scope.getOrgs = function(){
         var orgs = [];
         var repos = [];
@@ -366,14 +357,17 @@ angular.module('registry.controllers', [])
         $scope.branches = [];
         $scope.data.path = "/";
         $scope.stackfile = "Window will automatically refresh after filling form.";
-        API.getRepoBranches($scope.data.orgname, $scope.data.reponame).success(function(data, status, headers, config){
-            angular.forEach(data, function(value, key){
-                branches.push(value);
+        if($scope.data.reponame !== null){
+            API.getRepoBranches($scope.data.orgname, $scope.data.reponame).success(function(data, status, headers, config){
+                angular.forEach(data, function(value, key){
+                    branches.push(value);
+                });
+                $scope.branches=branches;
+            }).error(function(data, status, headers, config){
+                $scope.err = true;
             });
-            $scope.branches=branches;
-        }).error(function(data, status, headers, config){
-            $scope.err = true;
-        });
+        }
+
     };
 
     $scope.getComposeFile = function(orgname, name, branch, path){
@@ -385,13 +379,15 @@ angular.module('registry.controllers', [])
                 $scope.stackfile = data;
             }
         }).error(function(data, status, headers, config){
-            console.log(data);
             $scope.err = true;
         });
     };
 
     $scope.createNew = function(){
+
         var title = this.data.title;
+        console.log(title.replace(/[^a-zA-Z0-9]/g,''));
+        /*var title = this.data.title;
         var stackfile = jsyaml.load($scope.stackfile);
         var branch = this.data.branch;
         var path = this.data.path;
@@ -407,12 +403,12 @@ angular.module('registry.controllers', [])
             name: projectName,
             orgname: organizationName,
             description: description
-        };
+        }
 
         API.saveFile(form).success(function(data, status, headers, config){
             $window.location.href = ('/registry');
         }).error(function(data, status, header, config){
             window.location.href = ("/404");
-        });
+        });*/
     };
 });
