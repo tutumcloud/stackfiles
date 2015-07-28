@@ -315,14 +315,17 @@ angular.module('registry.controllers', [])
 
     var orgs = [];
 
+    $scope.initSelect = function(){
+        $scope.orgs = [];
+        $scope.repos = [];
+        $scope.branches = [];
+    };
+
     $scope.getOrgs = function(){
         var orgs = [];
         var repos = [];
-        $scope.repos = [];
         var branches = [];
-        $scope.branches = [];
         $scope.stackfile = "Window will automatically refresh after filling form.";
-
         API.getUserOrgs().success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
                 orgs.push(value.login);
@@ -336,13 +339,11 @@ angular.module('registry.controllers', [])
 
     $scope.getRepos = function(){
         var repos = [];
-        $scope.repos = [];
         var branches = [];
-        $scope.branches = [];
         $scope.data.path = "/";
         $scope.stackfile = "Window will automatically refresh after filling form.";
-
         API.getUserRepos($scope.data.orgname).success(function(data, status, headers, config){
+            $scope.repos = [];
             angular.forEach(data, function(value, key){
                 repos.push(value.name);
             });
@@ -354,10 +355,10 @@ angular.module('registry.controllers', [])
 
     $scope.getBranches = function(){
         var branches = [];
-        $scope.branches = [];
         $scope.data.path = "/";
         $scope.stackfile = "Window will automatically refresh after filling form.";
         if($scope.data.reponame !== null){
+            $scope.branches = [];
             API.getRepoBranches($scope.data.orgname, $scope.data.reponame).success(function(data, status, headers, config){
                 angular.forEach(data, function(value, key){
                     branches.push(value);
@@ -384,10 +385,7 @@ angular.module('registry.controllers', [])
     };
 
     $scope.createNew = function(){
-
         var title = this.data.title;
-        console.log(title.replace(/[^a-zA-Z0-9]/g,''));
-        /*var title = this.data.title;
         var stackfile = jsyaml.load($scope.stackfile);
         var branch = this.data.branch;
         var path = this.data.path;
@@ -396,19 +394,19 @@ angular.module('registry.controllers', [])
         var description = this.data.description;
 
         var form = {
-            title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
+            title: title.replace(/[^a-zA-Z0-9]/g,''),
             stackfile: stackfile,
             branch: branch,
             path: path,
             name: projectName,
             orgname: organizationName,
             description: description
-        }
+        };
 
         API.saveFile(form).success(function(data, status, headers, config){
             $window.location.href = ('/registry');
         }).error(function(data, status, header, config){
             window.location.href = ("/404");
-        });*/
+        });
     };
 });
