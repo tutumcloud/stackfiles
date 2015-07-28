@@ -140,6 +140,35 @@ a, a:hover{
     height: 12px;
 }
 
+.elem404{
+    display: inline-block;
+    text-align: left;
+    padding-top: 100px;
+}
+
+.elem404 p{
+    font-weight: 400;
+}
+
+.elem404 p a{
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.black-bar{
+    position: relative;
+    bottom: -15px;
+    height: 10px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.fix{
+    position:fixed;
+    bottom:0px;
+    left:30%;
+    width:20%;
+}
+
 /*REGISTRY COMPONENTS*/
 
 /*MAIN APP COMPONENTS*/
@@ -463,7 +492,8 @@ a, a:hover{
 }
 
 .table>tbody>tr>td{
-    border-top: 1px solid #f1f1f1;
+    border-top: none;
+    border-bottom: 1px solid #f1f1f1;
     padding-top: 19px;
     padding-left: 8px;
     padding-right: 8px;
