@@ -48,25 +48,25 @@
                         <form name="newStackfileForm">
                             <div class="timeline">
                                 <div class="bullet">1</div>
-                                <div class="bullet" style="margin-top: 130px;">2</div>
+                                <div class="bullet" style="margin-top: 150px;">2</div>
                             </div>
                             <div class="inputs">
                                 <input type="text" class="form-control floating-label" autofocus id="title" ng-init="data.path = '/'; stackfile = 'Window will automatically refresh after filling form.'" placeholder="Stack name" ng-model="data.title">
                                 <textarea type="text" class="form-control floating-label" id="title" placeholder="Description"  ng-change="getOrgs()" ng-model="data.description"></textarea>
                                 <div class="select">
                                     <select chosen disable-search="false" ng-disabled="true" data-placeholder="Organization"
-                                    ng-model="data.orgname" ng-change="getRepos()" ng-options="org for org in orgs"
+                                    ng-model="data.orgname" no-results-text="Loading" ng-change="getRepos()" ng-options="org for org in orgs"
                                     style="width:180px;">
                                         <option></option>
                                     </select>
                                     <select chosen disable-search="false" data-placeholder="Repository"
-                                    ng-model="data.reponame" ng-change="getBranches()" ng-options="repo for repo in repos"
+                                    ng-model="data.reponame" no-results-text="Loading" ng-change="getBranches()" ng-options="repo for repo in repos"
                                     style="width:180px;">
                                         <option></option>
                                     </select>
                                     <select chosen disable-search="false" data-placeholder="Branch"
                                     ng-model="data.branch" ng-options="branch for branch in branches"
-                                    style="width:180px; margin-right:20px" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
+                                    style="width:180px; margin-right:20px" no-results-text="Loading" ng-change="getComposeFile(data.orgname, data.reponame, data.branch, data.path)">
                                         <option></option>
                                     </select>
                                 </div>

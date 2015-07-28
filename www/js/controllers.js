@@ -26,7 +26,7 @@ angular.module('registry.controllers', [])
         API.logout().success(function(data, status, headers, config){
             window.location.href = ('/registry');
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
     };
 })
@@ -41,7 +41,7 @@ angular.module('registry.controllers', [])
          API.checkFav().success(function(data, status, header, config){
             $scope.favoriteList = data;
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
     }).error(function(data, status, headers, config){
         $scope.err = true;
@@ -124,7 +124,7 @@ angular.module('registry.controllers', [])
 
 .controller('FavoriteController', function($scope, $rootScope, API, Search){
     API.getUser().success(function(data, status, headers, config){
-
+        $scope.logged = true;
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });
@@ -191,9 +191,9 @@ angular.module('registry.controllers', [])
          API.checkFav().success(function(data, status, header, config){
             $scope.favoriteList = data;
         }).error(function(data, status, headers, config){
-            console.log(data);
+            $scope.err = true;
         });
-
+        $scope.logged = true;
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });
@@ -314,24 +314,12 @@ angular.module('registry.controllers', [])
 .controller('CreateController', function($scope, $rootScope, $window, API){
 
     var orgs = [];
-
-    $scope.logout = function(){
-        $rootScope.deleteUser();
-        API.logout().success(function(data, status, headers, config){
-            window.location.href = ('/registry');
-        }).error(function(data, status, headers, config){
-            console.log(data);
-        });
-    };
-
+    
     $scope.getOrgs = function(){
         var orgs = [];
         var repos = [];
-        $scope.repos = [];
         var branches = [];
-        $scope.branches = [];
         $scope.stackfile = "Window will automatically refresh after filling form.";
-
         API.getUserOrgs().success(function(data, status, headers, config){
             angular.forEach(data, function(value, key){
                 orgs.push(value.login);
@@ -345,13 +333,11 @@ angular.module('registry.controllers', [])
 
     $scope.getRepos = function(){
         var repos = [];
-        $scope.repos = [];
         var branches = [];
-        $scope.branches = [];
         $scope.data.path = "/";
         $scope.stackfile = "Window will automatically refresh after filling form.";
-
         API.getUserRepos($scope.data.orgname).success(function(data, status, headers, config){
+            $scope.repos = [];
             angular.forEach(data, function(value, key){
                 repos.push(value.name);
             });
@@ -363,17 +349,20 @@ angular.module('registry.controllers', [])
 
     $scope.getBranches = function(){
         var branches = [];
-        $scope.branches = [];
         $scope.data.path = "/";
         $scope.stackfile = "Window will automatically refresh after filling form.";
-        API.getRepoBranches($scope.data.orgname, $scope.data.reponame).success(function(data, status, headers, config){
-            angular.forEach(data, function(value, key){
-                branches.push(value);
+        if($scope.data.reponame !== null){
+            $scope.branches = [];
+            API.getRepoBranches($scope.data.orgname, $scope.data.reponame).success(function(data, status, headers, config){
+                angular.forEach(data, function(value, key){
+                    branches.push(value);
+                });
+                $scope.branches=branches;
+            }).error(function(data, status, headers, config){
+                $scope.err = true;
             });
-            $scope.branches=branches;
-        }).error(function(data, status, headers, config){
-            $scope.err = true;
-        });
+        }
+
     };
 
     $scope.getComposeFile = function(orgname, name, branch, path){
@@ -385,7 +374,6 @@ angular.module('registry.controllers', [])
                 $scope.stackfile = data;
             }
         }).error(function(data, status, headers, config){
-            console.log(data);
             $scope.err = true;
         });
     };
@@ -400,7 +388,7 @@ angular.module('registry.controllers', [])
         var description = this.data.description;
 
         var form = {
-            title: title.replace(/\(\(/g,'{{').replace(/\)\)/, '}}').replace(/'/g,'\''),
+            title: title.replace(/[^a-zA-Z0-9]/g,''),
             stackfile: stackfile,
             branch: branch,
             path: path,
