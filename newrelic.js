@@ -8,11 +8,10 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: ['My Application'],
+  app_name: ['Stackfiles'],
   /**
    * Your New Relic license key.
    */
-  license_key: 'license key here',
   logging: {
     /**
      * Level at which to log. 'trace' is most useful to New Relic when diagnosing
@@ -20,5 +19,7 @@ exports.config = {
      * production applications.
      */
     level: 'info'
-  }
-}
+  },
+  capture_params: true,
+  ignored_params: ['token', 'auth', 'sid']
+};

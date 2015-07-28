@@ -1,3 +1,5 @@
+require('newrelic');
+
 var express = require('express'),
     paginate = require('express-paginate'),
     mongoose = require('mongoose'),
