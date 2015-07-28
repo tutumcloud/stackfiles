@@ -26,6 +26,7 @@
     "mongoose": "^4.0.6",
     "mongoose-paginate": "^4.0.0",
     "morgan": "^1.6.0",
+    "newrelic": "^1.21.1",
     "open": "0.0.5",
     "passport": "^0.2.2",
     "passport-github": "^0.1.5",
