@@ -314,13 +314,7 @@ angular.module('registry.controllers', [])
 .controller('CreateController', function($scope, $rootScope, $window, API){
 
     var orgs = [];
-
-    $scope.initSelect = function(){
-        $scope.orgs = [];
-        $scope.repos = [];
-        $scope.branches = [];
-    };
-
+    
     $scope.getOrgs = function(){
         var orgs = [];
         var repos = [];
