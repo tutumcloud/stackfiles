@@ -1,5 +1,5 @@
 {
-  "name": "ComposeRegistry",
+  "name": "Stackfiles",
   "version": "1.0.0",
   "description": "Docker-Compose file registry ",
   "main": "server.js",
