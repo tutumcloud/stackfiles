@@ -82,7 +82,7 @@
                         </div>
                         <div class="validation pull-right">
                             <a href="/registry" class="btn boxed-btn cancel-btn">Cancel</a>
-                            <button type="submit" class="btn boxed-btn create-btn" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch && !!data.path && !!data.title)" ng-click="createNew()">Submit</button>
+                            <button type="submit" class="btn boxed-btn create-btn" ng-disabled="!(!!data.reponame && !!data.orgname  && !!data.branch && !!data.path && !!data.title ) || locked" ng-click="createNew()">Submit</button>
                         </div>
                     </div>
                 </div>

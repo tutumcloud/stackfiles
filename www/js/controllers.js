@@ -314,7 +314,7 @@ angular.module('registry.controllers', [])
 .controller('CreateController', function($scope, $rootScope, $window, API){
 
     var orgs = [];
-    
+
     $scope.getOrgs = function(){
         var orgs = [];
         var repos = [];
@@ -365,12 +365,17 @@ angular.module('registry.controllers', [])
 
     };
 
+    $scope.locked = false;
+
     $scope.getComposeFile = function(orgname, name, branch, path){
+
         $scope.stackfile = "";
         API.getUserReposInfo(orgname, name, branch, path).success(function(data, status, headers, config){
             if(data === "File not found"){
                 $scope.stackfile = "Unable to fetch tutum.yml from Github repository. Please select a repository that contains a tutum.yml or a docker-compose.yml file";
+                $scope.locked = true;
             } else {
+                $scope.locked = false;
                 $scope.stackfile = data;
             }
         }).error(function(data, status, headers, config){
@@ -388,7 +393,7 @@ angular.module('registry.controllers', [])
         var description = this.data.description;
 
         var form = {
-            title: title.replace(/[^a-zA-Z0-9]/g,''),
+            title: title.replace(/[^a-zA-Z0-9]/g,' '),
             stackfile: stackfile,
             branch: branch,
             path: path,

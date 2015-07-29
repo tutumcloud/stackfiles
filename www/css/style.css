@@ -391,6 +391,7 @@ a, a:hover{
 
 .elem-bar h2{
     min-width: 146px;
+    height: 21px;
     display: inline-block;
     margin-top: 14px;
     font-weight: 300;
