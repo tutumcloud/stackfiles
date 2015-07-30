@@ -166,13 +166,19 @@ angular.module('registry.services', [])
 
     return API.getFiles(this.after).success(function(data, status, headers, config){
         var list = data;
-        for(var i = 0; i < list.length; i++){
-            self.items.push(list[i]);
+        if(data.length === 0){
+            self.busy = true;
+            return;
+        } else {
+            for(var i = 0; i < list.length; i++){
+                self.items.push(list[i]);
+            }
+            self.after = self.after + 1;
+            self.busy = false;
         }
-        self.after = self.after + 1;
-        self.busy = false;
-    }).error(function(data, status, headers, config){
 
+    }).error(function(data, status, headers, config){
+        self.busy = false;
     });
   };
   return Loader;
