@@ -789,7 +789,9 @@ textarea.form-control{
 }
 
 .chosen-container .chosen-results li{
-    padding: 14px 116px 13px 16px;
+    padding-top: 14px;
+    padding-bottom: 13px;
+    padding-left: 16px;
     color: #666666;
     font-size: 14px;
     font-weight: 400;
