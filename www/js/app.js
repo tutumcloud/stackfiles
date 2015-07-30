@@ -109,7 +109,7 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
     $locationProvider.html5Mode(true);
     $routeProvider.
       when('/', {
-          templateUrl: 'partials/main.html',
+          templateUrl: 'index.html',
           controller: 'MainController'
       }).
       when('/registry', {

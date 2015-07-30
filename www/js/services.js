@@ -1,25 +1,13 @@
 angular.module('registry.services', [])
 
 .factory('API', function($http, $window, $rootScope){
-    $rootScope.setUser = function (user) {
-        return $window.sessionStorage['user'] = user;
-    };
-
-    $rootScope.getUser = function () {
-        return $window.sessionStorage['user'];
-    };
-
-    $rootScope.deleteUser = function() {
-        return $window.sessionStorage.removeItem('user');
-    };
-
      return {
          signin: function(page){
              $window.location.href = ('/auth/github?redirect=' + page);
          },
 
          logout: function(){
-             return $http.get('/auth/github/logout', {
+             return $http.get('/auth/logout', {
                  method: 'GET'
              });
          },

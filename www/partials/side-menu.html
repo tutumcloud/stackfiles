@@ -1,0 +1,18 @@
+<ul class="sidebar-nav" ng-controller="SessionController">
+    <li class="sidebar-brand">
+        <a href="/registry">
+            <img class="logo" src="img/icon.svg">
+        </a>
+    </li>
+    <li ng-class="getClass('/registry')">
+        <a href="/registry"><img src="img/stacks.svg"></a>
+    </li>
+    <li ng-class="getClass('/mystacks')">
+        <a title="My Stacks" href="/mystacks" ng-show="logged" style="cursor:pointer;"><img src="img/my_stacks.svg"></a>
+        <a title="My Stacks" ng-click="signin('/mystacks')" ng-hide="logged" style="cursor:pointer;"><img src="img/my_stacks.svg"></a>
+    </li>
+    <li ng-class="getClass('/favorites')">
+        <a title="Favorites" href="/favorites" ng-show="logged" style="cursor:pointer;"><img src="img/star.svg"></a>
+        <a title="Favorites" ng-click="signin('/favorites')" ng-hide="logged" style="cursor:pointer;"><img src="img/star.svg"></a>
+    </li>
+</ul>

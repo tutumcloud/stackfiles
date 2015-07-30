@@ -95,27 +95,27 @@ module.exports = function(app) {
     });
 
     app.get('/404', function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+        res.sendFile(path.resolve(__dirname + '/../www/404.html'));
     });
 
     app.get('/registry', function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+        res.sendFile(path.resolve(__dirname + '/../www/template.html'));
     });
 
     app.get('/mystacks', auth, function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+        res.sendFile(path.resolve(__dirname + '/../www/template.html'));
     });
 
     app.get('/favorites', auth, function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+        res.sendFile(path.resolve(__dirname + '/../www/template.html'));
     });
 
     app.get('/registry/:id', function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+        res.sendFile(path.resolve(__dirname + '/../www/template.html'));
     });
 
     app.get('/create', auth, function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../www/index.html'));
+        res.sendFile(path.resolve(__dirname + '/../www/template.html'));
     });
 
     app.get('/auth/github', function(req, res, next){
@@ -128,7 +128,7 @@ module.exports = function(app) {
         res.redirect(req.session.redirect);
     });
 
-    app.get('/auth/github/logout', function(req, res, next){
+    app.get('/auth/logout', function(req, res, next){
         req.session.destroy(function (err) {
             if (err) {
                 return next(err);

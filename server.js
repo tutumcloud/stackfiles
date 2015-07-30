@@ -10,6 +10,7 @@ var express = require('express'),
     passport = require('passport'),
     session = require('express-session'),
     methodOverride = require('method-override'),
+    randomstring = require("randomstring"),
     app = express();
 
 
@@ -30,7 +31,7 @@ var port = process.env.PORT || 4000;
 app.use(cookieParser());
 app.use(bodyParser());
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use(session({secret: 'secretsecretsecretsecret'}));
+app.use(session({secret: randomstring.generate(7), cookie: {maxAge: 2678400000}}));
 app.use(passport.initialize());
 app.use(passport.session());
 

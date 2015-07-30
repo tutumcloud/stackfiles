@@ -33,7 +33,6 @@ File.createMapping(function(err, mapping){
     console.log(err);
   } else {
     console.log('mapping created!');
-    console.log(mapping);
   }
 });
 
@@ -134,7 +133,10 @@ module.exports = function(app) {
         });
         File.findOne({ _id: req.params.id}, function(err, file){
             file.index(function(err, res){
-                console.log("egads! I've been indexed!");
+                if(err){
+                    console.log(req.params.id);
+                    console.log(err);
+                }
             });
         });
         res.send("Success");
@@ -153,7 +155,8 @@ module.exports = function(app) {
         });
         File.findOne({ _id: req.params.id}, function(err, file){
             file.index(function(err, res){
-                console.log("egads! I've been indexed!");
+                console.log(req.params.id);
+                console.log(err);
             });
         });
         res.send("Success");

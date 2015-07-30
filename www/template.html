@@ -39,26 +39,28 @@
         <base href="/">
     </head>
     <body ng-app="registry">
-        <div ng-controller="MainController" id="hero-header">
-            <div class="brand">
-                Stackfiles.io
-            </div>
-            <div class="container">
-                <div class="content">
-                    <h1>Find the perfect Stack for your next project</h1>
-                    <div class="subtitle">Getting a jumpstart using Docker is just a search away</div>
-                    <input  class="form-group search" placeholder="Try searching Python, Wordpress, Redis, MySQL, etc." ng-enter="search()" ng-model="data.search">
-                    <div>
-                        <a class="btn boxed-btn browse-btn" ng-click="goTo('/registry')">Browse</a>
-                        <a class="btn boxed-btn github-btn" ng-click="signin('/create')"><img src="img/github.svg"> Share my stack</a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer">
-                <img src="img/love.svg">
-                <p>Lovingly created by the team at Tutum</p>
+        <div id="wrapper">
+          <!-- Sidebar -->
+          <div id="sidebar-wrapper">
+              <div ng-include src="'partials/side-menu.html'"></div>
+          </div>
+        <div id="page-content-wrapper">
+            <div class="row">
+                <div ng-include src="'partials/top-bar.html'"></div>
+                <div ng-view></div>
             </div>
         </div>
+        <script src="lib/arrive/src/arrive.js"></script>
+        <script src="lib/bootstrap-material-design/dist/js/material.min.js"></script>
+        <script src="lib/bootstrap-material-design/dist/js/ripples.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $.material.options.autofill = true;
+                $.material.init();
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+        <!-- Start Google Analytics Code -->
         <script>
           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
