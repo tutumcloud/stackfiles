@@ -144,6 +144,11 @@ a, a:hover{
     font-weight: 400;
 }
 
+#hero-header .footer a{
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
 #hero-header .footer img{
     width: 13px;
     height: 12px;
@@ -584,6 +589,11 @@ span.stack-user{
 .btn.boxed-btn.danger-btn:hover{
     color: #ef4336;
     border-color: #ef4336;
+}
+
+.no-content{
+    font-size: 18px;
+    text-align: center;
 }
 
 a.delete-btn{
