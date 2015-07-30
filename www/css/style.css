@@ -490,7 +490,7 @@ a, a:hover{
 }
 
 .table>tbody>tr>td{
-    border-top: none;
+    border-top: 1px solid #f1f1f1;
     border-bottom: 1px solid #f1f1f1;
     padding-top: 19px;
     padding-left: 8px;
@@ -584,6 +584,15 @@ span.stack-user{
 .btn.boxed-btn.danger-btn:hover{
     color: #ef4336;
     border-color: #ef4336;
+}
+
+a.delete-btn{
+    margin-top: 20px;
+}
+
+a.delete-btn img{
+    width: 26px;
+    cursor: pointer;
 }
 
 .star.btn-off{
