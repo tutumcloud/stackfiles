@@ -50,7 +50,12 @@
         </table>
         <div ng-hide="results.length" style="text-align: center">No result</div>
     </div>
-    <div class="col-lg-11 content-list" ng-hide="data.search.length">
+    <div class="col-lg-11 content-list" ng-show="files.length == 0">
+        <div class="no-content">
+            <p>No Stackfiles favorited</p>
+        </div>
+    </div>
+    <div class="col-lg-11 content-list" ng-hide="data.search.length || files.length == 0"">
         <table class="table">
             <tbody>
                 <tr ng-repeat="file in files" ng-class-odd="odd" ng-class-even="even">
