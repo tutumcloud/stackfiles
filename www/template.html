@@ -42,24 +42,7 @@
         <div id="wrapper">
           <!-- Sidebar -->
           <div id="sidebar-wrapper">
-              <ul class="sidebar-nav" ng-controller="SessionController">
-                  <li class="sidebar-brand">
-                      <a href="/registry">
-                          <img class="logo" src="img/icon.svg">
-                      </a>
-                  </li>
-                  <li>
-                      <a data-toggle="tooltip" data-placement="top" title="Registry" href="/registry"><img src="img/stacks.svg"></a>
-                  </li>
-                  <li>
-                      <a data-toggle="tooltip" data-placement="top" title="My Stacks" href="/mystacks" ng-show="logged" style="cursor:pointer;"><img src="img/my_stacks.svg"></a>
-                      <a data-toggle="tooltip" data-placement="top" title="My Stacks" ng-click="signin('/mystacks')" ng-hide="logged" style="cursor:pointer;"><img src="img/my_stacks.svg"></a>
-                  </li>
-                  <li>
-                      <a data-toggle="tooltip" data-placement="top" title="Favorites" href="/favorites" ng-show="logged" style="cursor:pointer;"><img src="img/star.svg"></a>
-                      <a data-toggle="tooltip" data-placement="top" title="Favorites" ng-click="signin('/favorites')" ng-hide="logged" style="cursor:pointer;"><img src="img/star.svg"></a>
-                  </li>
-              </ul>
+              <div ng-include src="'partials/side-menu.html'"></div>
           </div>
         <div id="page-content-wrapper">
             <div class="row">

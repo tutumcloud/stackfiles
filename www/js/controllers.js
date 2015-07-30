@@ -1,6 +1,6 @@
 angular.module('registry.controllers', [])
 
-.controller('SessionController', function($scope, API){
+.controller('SessionController', function($scope, $location, API){
     $scope.logged = false;
     API.getUser().success(function(data, status, headers, config){
          $scope.logged = true;
@@ -20,6 +20,14 @@ angular.module('registry.controllers', [])
         }).error(function(data, status, headers, config){
             $scope.err = true;
         });
+    };
+
+    $scope.getClass = function(path) {
+        if ($location.path().substr(0, path.length) == path) {
+          return "selected";
+        } else {
+          return "";
+        }
     };
 })
 
