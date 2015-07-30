@@ -1,101 +1,50 @@
-<div id="wrapper">
-
-  <!-- Sidebar -->
-    <div id="sidebar-wrapper" ng-controller="SessionController">
-        <ul class="sidebar-nav">
-            <li class="sidebar-brand">
-                <a href="/registry">
-                    <img class="logo" src="img/icon.svg">
-                </a>
-            </li>
-            <li class="selected">
-                <a data-toggle="tooltip" data-placement="top" title="Registry" href="/registry"><img src="img/stacks.svg"></a>
-            </li>
-            <li>
-                <a data-toggle="tooltip" data-placement="top" title="My Stacks" ng-click="signin('/mystacks')" style="cursor:pointer;"><img src="img/my_stacks.svg"></a>
-            </li>
-            <li>
-                <a data-toggle="tooltip" data-placement="top" title="Favorites" ng-click="signin('/favorites')" style="cursor:pointer;"><img src="img/star.svg"</a>
-            </li>
-        </ul>
+<div class="col-lg-12 gradient">
+    <div class="elem-bar">
+        <h2><a href="/registry">Stacks</a> / {{data.title}}</h2>
+        <a class="delete-btn pull-right" ng-show="logged" ng-click="deleteStackfile(data._id)"><img src="img/delete.svg"></a>
     </div>
-    <div id="page-content-wrapper">
-        <div class="row">
-            <div id="section-title" ng-controller="SessionController">
-                <h2><a href="/registry">Stackfiles.io</a></h2>
-                <div ng-show="logged" class="dropdown login">
-                    <button class="dropdown-toggle pull-right" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        {{user}}
-                    <span class="caret"></span>
-                    </button>
-                    <img class="avatar pull-right" ng-if="logged" src="{{photo}}">
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a ng-click="logout()" style="cursor: pointer;">Logout</a></li>
-                    </ul>
-                </div>
-                <div class="pull-right login"  ng-hide="logged">
-                    <a ng-click="signin('/registry');">Login</a>
-                </div>
-            </div>
-            <div class="col-lg-12 col-sm-12 gradient">
-                <div class="elem-bar">
-                    <h2 class="stack-detail"><a href="/registry">Stacks</a> / {{data.title}}</h2>
-                    <a class="delete-btn pull-right" ng-show="user==data.author" ng-click="deleteStackfile(data._id)"><img src="img/delete.svg"></a>
-                    <!--<svg ng-click="toggleStatus(data)" ng-class="{'btn-off':!isSelected(data), 'btn-on':isSelected(data)}" class="star pull-right"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
-                        <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                            <g id="-star" sketch:type="MSArtboardGroup" fill="#f1f1f1">
-                                <g id="star" sketch:type="MSLayerGroup" transform="translate(4.000000, 4.000000)">
-                                    <path d="M40,14.48 L25.62,13.24 L20,0 L14.38,13.26 L0,14.48 L10.92,23.94 L7.64,38 L20,30.54 L32.36,38 L29.1,23.94 L40,14.48 L40,14.48 Z M20,26.8 L12.48,31.34 L14.48,22.78 L7.84,17.02 L16.6,16.26 L20,8.2 L23.42,16.28 L32.18,17.04 L25.54,22.8 L27.54,31.36 L20,26.8 L20,26.8 Z" id="Shape" sketch:type="MSShapeGroup"></path>
-                                </g>
-                            </g>
-                        </g>
-                    </svg>-->
-                </div>
-            </div>
-            <div id="loading" ng-hide="loaded == true">
-                <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                    <circle class="path" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
-                </svg>
-            </div>
-            <modal title="Embed" visible="showModal">
-                <p>You can embed a Stackfile in any text field that supports Javascript, such as a blog post. Copy the Embed Script below.</p>
-                <form role="form">
-                    <div class="form-group">
-                        <p>Embed Script <span class="pull-right" ng-show="copied">Copied!</span></p>
-                        <input type="text" onClick="this.setSelectionRange(0, this.value.length)" id="embed" placeholder="script"  ng-model="embedScript" />
-                        <a ui-zeroclip zeroclip-model="embedScript" zeroclip-copied="copied=!copied"><img src="img/copy.svg"></a>
-                    </div>
-                </form>
-            </modal>
-            <div class="col-lg-12">
-                <div id="detail" class="container-fluid" ng-show="loaded == true">
-                    <hr>
-                    <div class="section">
-                        <div class="label">Description</div>
-                        <div class="content">
-                            {{data.description}}
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="section">
-                        <div class="label">Service tags</div>
-                        <div class="tags" ng-repeat="tags in data.tags">
-                            <div class="grey-tag">{{tags}}</div>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="section">
-                        <div class="label">Stackfile</div>
-                        <div class="stackfile">
-                            <pre>{{composeFile}}</pre>
-                            <p>Not sure what a stackfile is? <a href="https://support.tutum.co/support/solutions/articles/5000583471" target="_blank">Click here to learn more</a></p>
-                        </div>
-                    </div>
-                    <hr>
-                    <button class="btn boxed-btn deploy-btn pull-right" ng-click="deploy(data._id)">Deploy to Tutum</button>
-                    <button class="btn boxed-btn embed-btn pull-right" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account" ng-click="toggleModal(); generateEmbed(data._id);">Embed</button>
-                </div>
+</div>
+<div id="loading" ng-hide="loaded == true">
+    <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+        <circle class="path" fill="none" stroke-width="4" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
+    </svg>
+</div>
+<modal title="Embed" visible="showModal">
+    <p>You can embed a Stackfile in any text field that supports Javascript, such as a blog post. Copy the Embed Script below.</p>
+    <form role="form">
+        <div class="form-group">
+            <p>Embed Script <span class="pull-right" ng-show="copied">Copied!</span></p>
+            <input type="text" onClick="this.setSelectionRange(0, this.value.length)" id="embed" placeholder="script"  ng-model="embedScript" />
+            <a ui-zeroclip zeroclip-model="embedScript" zeroclip-copied="copied=!copied"><img src="img/copy.svg"></a>
+        </div>
+    </form>
+</modal>
+<div class="col-lg-12">
+    <div id="detail" class="container-fluid" ng-show="loaded == true">
+        <hr>
+        <div class="section">
+            <div class="label">Description</div>
+            <div class="content">
+                {{data.description}}
             </div>
         </div>
+        <hr>
+        <div class="section">
+            <div class="label">Service tags</div>
+            <div class="tags" ng-repeat="tags in data.tags">
+                <div class="grey-tag">{{tags}}</div>
+            </div>
+        </div>
+        <hr>
+        <div class="section">
+            <div class="label">Stackfile</div>
+            <div class="stackfile">
+                <pre>{{composeFile}}</pre>
+                <p>Not sure what a stackfile is? <a href="https://support.tutum.co/support/solutions/articles/5000583471" target="_blank">Click here to learn more</a></p>
+            </div>
+        </div>
+        <hr>
+        <button class="btn boxed-btn deploy-btn pull-right" ng-click="deploy(data._id)">Deploy to Tutum</button>
+        <button class="btn boxed-btn embed-btn pull-right" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account" ng-click="toggleModal(); generateEmbed(data._id);">Embed</button>
     </div>
 </div>

@@ -1,28 +1,20 @@
 angular.module('registry.controllers', [])
 
-.controller('SessionController', function($scope, $rootScope, API){
+.controller('SessionController', function($scope, API){
     $scope.logged = false;
     API.getUser().success(function(data, status, headers, config){
-
-         $rootScope.setUser(data.username);
          $scope.logged = true;
-         $scope.user = $rootScope.getUser();
+         $scope.user = data.username;
          $scope.photo = data._json.avatar_url;
     }).error(function(data, status, headers, config){
         $scope.err = true;
     });
 
     $scope.signin = function(page){
-        if($rootScope.getUser() !== undefined){
-            window.location.href = page;
-        } else {
-            API.signin(page);
-        }
-
+        API.signin(page);
     };
 
     $scope.logout = function(){
-        $rootScope.deleteUser();
         API.logout().success(function(data, status, headers, config){
             window.location.href = ('/registry');
         }).error(function(data, status, headers, config){
@@ -31,13 +23,12 @@ angular.module('registry.controllers', [])
     };
 })
 
-.controller('FavController', function($scope, $rootScope, API){
+.controller('FavController', function($scope, API){
     $scope.favoriteList = [];
 
     API.getUser().success(function(data, status, headers, config){
-         $rootScope.setUser(data.username);
-         $scope.user = $rootScope.getUser();
-
+         $scope.user = data.username;
+         $scope.logged = true;
          API.checkFav().success(function(data, status, header, config){
             $scope.favoriteList = data;
         }).error(function(data, status, headers, config){
@@ -49,7 +40,7 @@ angular.module('registry.controllers', [])
 
     $scope.toggleStatus = function(file) {
         API.favFile(file._id).success(function(data, status, headers, config){
-            if($rootScope.getUser() != "undefined"){
+            if($scope.logged){
                 $scope.favoriteList.push(file._id);
             }
         }).error(function(data, status, headers, config){
@@ -59,7 +50,7 @@ angular.module('registry.controllers', [])
 
     $scope.unToggleStatus = function(file) {
         API.unFavFile(file._id).success(function(data, status, headers, config){
-            if($rootScope.getUser() != "undefined"){
+            if($scope.logged){
                 var index = $scope.favoriteList.indexOf(file._id);
                 $scope.favoriteList.splice(index, 1);
             }
@@ -73,13 +64,16 @@ angular.module('registry.controllers', [])
     };
 })
 
-.controller('MainController', function($scope, $location, Search, API){
-
+.controller('MainController', function($scope, $window, Search, API){
     $scope.search = function(){
         if(this.data.search !== ""){
-            Search.setValue(this.data.search);
-            $location.path("/registry");
+            $window.localStorage.search = this.data.search;
+            window.location.href = ("/registry");
         }
+    };
+
+    $scope.goTo = function(page){
+        window.location.href = ("/registry");
     };
 
     $scope.signin = function(page){
@@ -87,7 +81,7 @@ angular.module('registry.controllers', [])
     };
 })
 
-.controller('MyStackController', function($scope, $rootScope, API, Search){
+.controller('MyStackController', function($scope, API, Search){
      API.getUserFiles().success(function(data, status, headers, config){
          $scope.files = data;
          $scope.loaded = true;
@@ -122,7 +116,7 @@ angular.module('registry.controllers', [])
 })
 
 
-.controller('FavoriteController', function($scope, $rootScope, API, Search){
+.controller('FavoriteController', function($scope, API, Search){
     API.getUser().success(function(data, status, headers, config){
         $scope.logged = true;
     }).error(function(data, status, headers, config){
@@ -182,7 +176,7 @@ angular.module('registry.controllers', [])
    };
 })
 
-.controller('RegistryController', function($scope, $rootScope, $window, API, Search, Loader){
+.controller('RegistryController', function($scope, $window, API, Search, Loader){
 
     $scope.files = new Loader();
     $scope.loaded = true;
@@ -234,18 +228,20 @@ angular.module('registry.controllers', [])
     };
 
     $scope.checkSearch = function(){
-        if(Search.getValue().search !== null){
-            $scope.data = Search.getValue();
-            $scope.searchFile(Search.getValue());
+        if($window.localStorage.search !== undefined){
+            $scope.data = {search:$window.localStorage.search};
+            API.searchFile($window.localStorage.search).success(function(data, status, headers, config){
+                $scope.results = data;
+            }).error(function(data, status, headers, config){
+                $scope.err = true;
+            });
+            $window.localStorage.clear();
         }
     };
 
 })
 
-.controller('RegistryDetailsController', function($scope, $rootScope, $window, $routeParams, API){
-
-    $scope.user = $rootScope.getUser();
-
+.controller('RegistryDetailsController', function($scope, $window, $routeParams, API){
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
         $scope.data = data;
         API.getYAMLFile(data._id, data.projectName, data.path).success(function(yamlData, status, headers, config){
@@ -255,13 +251,20 @@ angular.module('registry.controllers', [])
             $scope.composeFile = "Unable to fetch tutum.yml from Github repository. Please select a repository that contains a tutum.yml or a docker-compose.yml file";
             $scope.loaded = true;
         });
-        API.checkFav().success(function(data, status, header, config){
-           $scope.favoriteList = data;
-        }).error(function(data, status, headers, config){
-
-        });
     }).error(function(data, status, headers, config){
         window.location.href = ("/404");
+    });
+
+    API.getUser().success(function(data, status, headers, config){
+        /*API.checkFav().success(function(data, status, header, config){
+            $scope.favoriteList = data;
+        }).error(function(data, status, headers, config){
+            $scope.err = true;
+        });*/
+        $scope.user = data.username;
+        $scope.logged = true;
+    }).error(function(data, status, headers, config){
+        $scope.err = true;
     });
 
     $scope.showModal = false;
@@ -311,9 +314,14 @@ angular.module('registry.controllers', [])
 
 })
 
-.controller('CreateController', function($scope, $rootScope, $window, API){
-
+.controller('CreateController', function($scope, $window, API){
     var orgs = [];
+    API.getUser().success(function(data, status, headers, config){
+        $scope.user = data.username;
+        $scope.logged = true;
+    }).error(function(data, status, headers, config){
+        $scope.err = true;
+    });
 
     $scope.getOrgs = function(){
         var orgs = [];
@@ -324,7 +332,7 @@ angular.module('registry.controllers', [])
             angular.forEach(data, function(value, key){
                 orgs.push(value.login);
             });
-            orgs.push($rootScope.getUser());
+            orgs.push($scope.user);
             $scope.orgs=orgs;
         }).error(function(data, status, headers, config){
             $scope.err = true;

@@ -664,22 +664,22 @@ svg.star.btn-on-unfav path{
     padding-right: 0px;
 }
 
-#create .timeline{
+#detail-create .timeline{
     position: absolute;
     margin-top: -20px;
     height: 396px;
 }
 
-#create .inputs{
+#detail-create .inputs{
     border-left: 1px solid #fafafa;
     padding-left: 40px;
 }
 
-#create .stackfile{
+#detail-create .stackfile{
     margin-top: -28px;
 }
 
-#create .stackfile pre{
+#detail-create .stackfile pre{
     padding: 20px;
     height: 364px;
     border: none;
