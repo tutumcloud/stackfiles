@@ -60,13 +60,25 @@ a, a:hover{
 
 /*MAIN PAGE COMPONENTS*/
 
+.btn.boxed-btn{
+    padding: 6px 9px 6px 9px;
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border: 2px solid #FFFFFF;
+    border-radius: 2px;
+    text-transform: uppercase;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
 .btn.boxed-btn.github-btn {
     background: #FFFFFF;
     color: #2196F3;
     width: 180px;
     font-size: 14px;
     font-weight: 400;
-    padding: 11px 40px 9px 21px!important;
+    padding: 6px 40px 6px 21px!important;
 }
 
 .btn.boxed-btn.github-btn:hover {
@@ -77,7 +89,7 @@ a, a:hover{
 .btn.boxed-btn.browse-btn{
     color: #FFFFFF;
     width: 180px;
-    padding: 11px 60px 9px 60px!important;
+    padding: 6px 60px 6px 60px!important;
 }
 
 #hero-header input.search{
@@ -100,18 +112,22 @@ a, a:hover{
 
 #hero-header input::-webkit-input-placeholder {
 	color: #ffffff;
+    opacity: 0.5;
     font-size: 13px;
 }
 #hero-header input::-moz-placeholder {
 	color: #ffffff;
+    opacity: 0.5;
     font-size: 13px;
 }
 #hero-header input:-moz-placeholder {   /* Older versions of Firefox */
 	color: #ffffff;
+    opacity: 0.5;
     font-size: 13px;
 }
 #hero-header input:-ms-input-placeholder {
 	color: #ffffff;
+    opacity: 0.5;
     font-size: 13px;
 }
 
@@ -277,18 +293,6 @@ a, a:hover{
   }
 }
 
-.btn.boxed-btn{
-    padding: 6px 9px 6px 9px;
-    line-height: 20px;
-    font-size: 14px;
-    font-weight: 700;
-    border: 2px solid #FFFFFF;
-    border-radius: 2px;
-    text-transform: uppercase;
-    margin-right: 10px;
-    margin-left: 10px;
-}
-
 #section-title{
     text-align: center;
     height: 64px;
@@ -391,7 +395,7 @@ a, a:hover{
 
 .elem-bar h2{
     min-width: 146px;
-    height: 21px;
+    height: 35px;
     display: inline-block;
     margin-top: 14px;
     font-weight: 300;
@@ -667,6 +671,7 @@ svg.star.btn-on-unfav path{
 }
 
 #create .stackfile pre{
+    padding: 20px;
     height: 364px;
     border: none;
     border-radius: 2px;
@@ -725,7 +730,7 @@ textarea.form-control{
 }
 
 .chosen-container-single .chosen-single{
-    margin-top: 24px;
+    margin-top: 20px;
     padding: 0;
     width: 180px;
     background-color: #f1f1f1;
@@ -751,7 +756,7 @@ textarea.form-control{
 }
 
 .chosen-container-single .chosen-single span{
-    padding-top: 8px;
+    padding-top: 6px;
     margin-right: 26px;
     text-align: center;
     color: #666666;
@@ -761,7 +766,7 @@ textarea.form-control{
 
 .chosen-container-single .chosen-single div b{
     margin-top: 8px;
-    margin-right: 16px;
+    margin-right: 20px;
 }
 
 .chosen-container .chosen-results li{
@@ -875,6 +880,7 @@ textarea.form-control{
 
 .section .stackfile pre{
     border: none;
+    padding: 20px;
     border-radius: 0px;
     height: 300px;
     width: 516px;
@@ -901,6 +907,7 @@ textarea.form-control{
         width: 100%;
     }
     .section .stackfile pre{
+        padding: 10px;
         width: 100%;
     }
 }

@@ -27,3 +27,5 @@
 {"v":0,"level":50,"name":"newrelic","hostname":"MacBookAir","pid":89662,"time":"2015-07-29T08:32:40.907Z","msg":"New Relic for Node.js halted startup due to an error:"}
 {"v":0,"level":50,"name":"newrelic","hostname":"MacBookAir","pid":89677,"time":"2015-07-29T08:35:26.035Z","msg":"A valid account license key cannot be found. Has a license key been specified in the agent configuration file or via the NEW_RELIC_LICENSE_KEY environment variable?"}
 {"v":0,"level":50,"name":"newrelic","hostname":"MacBookAir","pid":89677,"time":"2015-07-29T08:35:27.901Z","msg":"New Relic for Node.js halted startup due to an error:"}
+{"v":0,"level":50,"name":"newrelic","hostname":"MacBookAir","pid":98578,"time":"2015-07-30T09:37:28.358Z","msg":"A valid account license key cannot be found. Has a license key been specified in the agent configuration file or via the NEW_RELIC_LICENSE_KEY environment variable?"}
+{"v":0,"level":50,"name":"newrelic","hostname":"MacBookAir","pid":98578,"time":"2015-07-30T09:37:30.089Z","msg":"New Relic for Node.js halted startup due to an error:"}
