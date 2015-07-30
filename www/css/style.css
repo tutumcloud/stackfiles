@@ -1061,6 +1061,10 @@ textarea.form-control{
     text-decoration: none;
 }
 
+.sidebar-nav li.selected {
+    border-left: 2px solid #2196F3;
+}
+
 .sidebar-nav > li img {
     width: 24px;
     height: 24px;
