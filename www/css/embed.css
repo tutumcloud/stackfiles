@@ -1,0 +1,49 @@
+@import url(//fonts.googleapis.com/css?family=Lato:300,400,400italic);
+
+.pre-stackfile{
+    width: 516px;
+    max-height: 500px;
+    border: 1px solid #999999;
+    border-radius: 2px;
+    overflow: auto;
+    display:inline-block;
+}
+
+.pre-stackfile p{
+    padding: 15px 20px 15px 20px;
+}
+
+.footer-stackfile{
+    font-family: 'Lato';
+    font-size: 14px;
+    margin-top: 40px;
+    border-top: 1px solid #999999;
+    height:54px;
+    width: 100%;
+}
+
+.footer-stackfile p{
+    display: inline-block;
+    padding: 20px 0px 18px 13px;
+    margin: 0;
+}
+
+.footer-stackfile a{
+    color: #2196F3;
+    text-decoration: none;
+}
+
+.footer-stackfile a.boxed-btn{
+    float:right;
+    padding: 6px 9px 6px 9px;
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 2px;
+    border: 2px solid #2196F3;
+    text-transform: uppercase;
+    color: #2196F3;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-right: 18px;
+}

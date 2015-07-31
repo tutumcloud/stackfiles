@@ -56,7 +56,12 @@
             <a class="btn boxed-btn deploy-btn" href="/create">Submit Stackfile</a>
         </div>
     </div>
-    <div class="col-lg-11 content-list" ng-hide="data.search.length || files.length == 0">
+    <div class="col-lg-11 content-list" ng-show="err == true">
+        <div class="no-content">
+            <p>Oops! Something bad happened!</p>
+        </div>
+    </div>
+    <div class="col-lg-11 content-list" ng-hide="data.search.length || files.length == 0 || err == true">
         <table class="table">
             <tbody>
                 <tr ng-repeat="file in files" ng-class-odd="odd" ng-class-even="even">
