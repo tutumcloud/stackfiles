@@ -1,6 +1,11 @@
 angular.module('registry.services', [])
 
 .factory('API', function($http, $window, $rootScope){
+     var session = {
+         logged: false,
+         user: null
+     };
+
      return {
          signin: function(page){
              $window.location.href = ('/auth/github?redirect=' + page);
@@ -182,16 +187,4 @@ angular.module('registry.services', [])
     });
   };
   return Loader;
-})
-
-.factory('Search', function($rootScope){
-  var terms = {search: null};
-  return {
-      setValue: function(value){
-        terms = {search: value};
-      },
-      getValue: function(){
-        return terms;
-      }
-  };
 });
