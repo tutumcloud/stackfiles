@@ -19,8 +19,13 @@
         </div>
     </form>
 </modal>
+<div class="col-lg-12 content-list" ng-show="err == true">
+    <div class="no-content">
+        <p>Oops! Something bad happened!</p>
+    </div>
+</div>
 <div class="col-lg-12">
-    <div id="detail" class="container-fluid" ng-show="loaded == true">
+    <div id="detail" class="container-fluid" ng-show="loaded == true && err != true">
         <hr>
         <div class="section">
             <div class="label">Description</div>
