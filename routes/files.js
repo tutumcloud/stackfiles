@@ -131,6 +131,8 @@ module.exports = function(app) {
     app.get('/embed/file/:id', function(req, res, next){
         var jsFile = '';
         var id = req.params.id.substring(0, req.params.id.length-3);
+
+        console.log(id);
         File.findOne({_id: id}, function(err, file){
             if(err){
                 return next(err);
