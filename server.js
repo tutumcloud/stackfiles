@@ -13,7 +13,6 @@ var express = require('express'),
     randomstring = require("randomstring"),
     app = express();
 
-
 var env = process.env.NODE_ENV;
 if (env == 'development'){
     console.log("Using dev DB");

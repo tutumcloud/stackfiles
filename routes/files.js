@@ -1,8 +1,12 @@
 var yaml = require('js-yaml'),
     fs   = require('fs'),
     mongoosastic = require('mongoosastic'),
+    request = require('request'),
+    path = require('path'),
     File = require('../models/composeFiles.js'),
     User = require('../models/users.js');
+
+var BASE_URL = process.env.BASE_URL;
 
 var auth = function(req, res, next){
     if (req.isAuthenticated()) {
@@ -117,6 +121,37 @@ module.exports = function(app) {
                 return next(err);
             }
             res.json(file);
+        });
+    });
+
+    app.get('/embed/embed.css', function(req, res, next){
+        res.sendFile(path.resolve(__dirname + '/../www/css/embed.css'));
+    });
+
+    app.get('/embed/file/:id', function(req, res, next){
+        var jsFile = '';
+        var id = req.params.id.substring(0, req.params.id.length-3);
+        File.findOne({_id: id}, function(err, file){
+            if(err){
+                return next(err);
+            }
+
+            var options = {
+              url: BASE_URL+'/api/v1/user/repos/embed?user='+file.user+'&repository='+file.projectName+'&branch='+file.branch+'&path='+file.path,
+              headers: {
+                'Content-Type': 'text/plain'
+              }
+            };
+
+            request.get(options, function(err, data){
+                res.setHeader('content-type', 'text/javascript');
+                //res.setHeader('');
+                jsFile = 'document.write("<link rel=\'stylesheet\' href=\''+ BASE_URL +'/embed/embed.css\'>");' +
+                'document.write("<div id=\'stackfile\'><pre class=\'pre-stackfile\'><p>'+data.body.replace(/(?:\r\n|\r|\n)/g, '\\n')+'</p><div class=\'footer-stackfile\'>'+
+                '<p>Stackfile hosted by </p><a href=\'https://tutum.co\'>Tutum</a><span><a class=\'boxed-btn\' '+
+                'href=\'https://dashboard.tutum.co/stack/deploy/?repo='+ file.profileLink + '/' + file.projectName + '\' target=\'blank\'>Deploy to Tutum</a></span></div></pre></div>")';
+                res.end(jsFile);
+            });
         });
     });
 
