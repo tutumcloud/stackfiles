@@ -22,6 +22,7 @@ registry:
   environment:
     - GITHUB_CLIENT_ID=**changeme**
     - GITHUB_CLIENT_SECRET=**changeme**
-    - CALLBACK_URL="**changeme"
+    - CALLBACK_URL="**changeme**"
+    - SENTRY_DSN="**changeme**"
     - NODE_ENV=production
     - BASE_URL=https://staging.stackfiles.io/
