@@ -1,8 +1,10 @@
 angular.module('registry.controllers', [])
 
-.controller('SessionController', function($scope, $location, API){
+.controller('SessionController', function($scope, $rootScope, $location, API){
     $scope.logged = false;
     API.getUser().success(function(data, status, headers, config){
+         $rootScope.logged = true;
+         $rootScope.user = data.username;
          $scope.logged = true;
          $scope.user = data.username;
          $scope.photo = data._json.avatar_url;
@@ -31,20 +33,18 @@ angular.module('registry.controllers', [])
     };
 })
 
-.controller('FavController', function($scope, API){
+.controller('FavController', function($scope, $rootScope, API){
     $scope.favoriteList = [];
 
-    API.getUser().success(function(data, status, headers, config){
-         $scope.user = data.username;
-         $scope.logged = true;
-         API.checkFav().success(function(data, status, header, config){
+    if($rootScope.logged){
+        $scope.user = $rootScope.user;
+        $scope.logged = $rootScope.logged;
+        API.checkFav().success(function(data, status, header, config){
             $scope.favoriteList = data;
         }).error(function(data, status, headers, config){
             $scope.err = true;
         });
-    }).error(function(data, status, headers, config){
-        $scope.err = true;
-    });
+    }
 
     $scope.toggleStatus = function(file) {
         API.favFile(file._id).success(function(data, status, headers, config){
@@ -72,7 +72,7 @@ angular.module('registry.controllers', [])
     };
 })
 
-.controller('MainController', function($scope, $window, Search, API){
+.controller('MainController', function($scope, $window, API){
     $scope.search = function(){
         if(this.data.search !== ""){
             $window.localStorage.search = this.data.search;
@@ -89,7 +89,10 @@ angular.module('registry.controllers', [])
     };
 })
 
-.controller('MyStackController', function($scope, API, Search){
+.controller('MyStackController', function($scope, API){
+
+     $scope.logged = true;
+
      API.getUserFiles().success(function(data, status, headers, config){
          $scope.files = data;
          $scope.loaded = true;
@@ -124,12 +127,11 @@ angular.module('registry.controllers', [])
 })
 
 
-.controller('FavoriteController', function($scope, API, Search){
-    API.getUser().success(function(data, status, headers, config){
-        $scope.logged = true;
-    }).error(function(data, status, headers, config){
-        $scope.err = true;
-    });
+.controller('FavoriteController', function($scope, $rootScope, API){
+
+    if($rootScope.logged){
+        $scope.logged = $rootScope.logged;
+    }
 
     API.getUserFavorites().success(function(data, status, headers, config){
         $scope.files = data;
@@ -184,21 +186,20 @@ angular.module('registry.controllers', [])
    };
 })
 
-.controller('RegistryController', function($scope, $window, API, Search, Loader){
+.controller('RegistryController', function($scope, $rootScope, $window, API, Loader){
 
     $scope.files = new Loader();
     $scope.loaded = true;
 
-    API.getUser().success(function(data, status, headers, config){
-         API.checkFav().success(function(data, status, header, config){
-            $scope.favoriteList = data;
-        }).error(function(data, status, headers, config){
-            $scope.err = true;
-        });
-        $scope.logged = true;
-    }).error(function(data, status, headers, config){
-        $scope.err = true;
-    });
+    if($rootScope.logged === true){
+        API.checkFav().success(function(data, status, header, config){
+           $scope.favoriteList = data;
+       }).error(function(data, status, headers, config){
+           $scope.err = true;
+       });
+       $scope.logged = true;
+    }
+
 
     $scope.showModal = false;
     $scope.toggleModal = function(){
@@ -249,7 +250,7 @@ angular.module('registry.controllers', [])
 
 })
 
-.controller('RegistryDetailsController', function($scope, $window, $routeParams, API){
+.controller('RegistryDetailsController', function($scope, $rootScope, $window, $routeParams, API){
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
         $scope.data = data;
         API.getYAMLFile(data._id, data.projectName, data.path).success(function(yamlData, status, headers, config){
@@ -263,17 +264,10 @@ angular.module('registry.controllers', [])
         window.location.href = ("/404");
     });
 
-    API.getUser().success(function(data, status, headers, config){
-        /*API.checkFav().success(function(data, status, header, config){
-            $scope.favoriteList = data;
-        }).error(function(data, status, headers, config){
-            $scope.err = true;
-        });*/
-        $scope.user = data.username;
-        $scope.logged = true;
-    }).error(function(data, status, headers, config){
-        $scope.err = true;
-    });
+    if($rootScope.logged){
+        $scope.user = $rootScope.user;
+        $scope.logged = $rootScope.logged;
+    }
 
     $scope.showModal = false;
     $scope.toggleModal = function(){
@@ -322,14 +316,13 @@ angular.module('registry.controllers', [])
 
 })
 
-.controller('CreateController', function($scope, $window, API){
+.controller('CreateController', function($scope, $rootScope, $window, API){
     var orgs = [];
-    API.getUser().success(function(data, status, headers, config){
-        $scope.user = data.username;
-        $scope.logged = true;
-    }).error(function(data, status, headers, config){
-        $scope.err = true;
-    });
+
+    if($rootScope.logged){
+        $scope.user = $rootScope.user;
+        $scope.logged = $rootScope.logged;
+    }
 
     $scope.getOrgs = function(){
         var orgs = [];
