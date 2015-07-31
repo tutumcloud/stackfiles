@@ -171,15 +171,17 @@ angular.module('registry.controllers', [])
 .controller('RegistryController', function($scope, $rootScope, $window, API, Loader){
 
     $scope.files = new Loader();
-    $scope.loaded = true;
 
     if($rootScope.logged === true){
         API.checkFav().success(function(data, status, header, config){
-           $scope.favoriteList = data;
-       }).error(function(data, status, headers, config){
-           $scope.err = true;
-       });
-       $scope.logged = true;
+            $scope.favoriteList = data;
+            $scope.loaded = true;
+        }).error(function(data, status, headers, config){
+            $scope.err = true;
+        });
+        $scope.logged = true;
+    } else {
+        $scope.loaded = true;
     }
 
 
