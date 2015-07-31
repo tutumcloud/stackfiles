@@ -73,7 +73,7 @@ function escapeHtml(unsafe) {
          .replace(/</g, "&lt;")
          .replace(/>/g, "&gt;")
          .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;")
+         .replace(/\'/g, "&#039;")
          .replace(/(?:\r\n|\r|\n)/g, '\\n');
  }
 
