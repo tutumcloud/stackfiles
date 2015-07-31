@@ -107,7 +107,7 @@ angular.module('registry.controllers', [])
      };
 
      $scope.generateEmbed = function(id){
-         $scope.embedScript = '<script src="'+window.location.protocol+'//'+window.location.hostname+'/embed/file/55bb3396f91fa897146e2a2f.js"></script>';
+         $scope.embedScript = '<script src="'+window.location.protocol+'//'+window.location.hostname+'/embed/file/'+id+'.js"></script>';
      };
 
     $scope.searchFile = function(){
@@ -141,7 +141,7 @@ angular.module('registry.controllers', [])
     };
 
     $scope.generateEmbed = function(id){
-        $scope.embedScript = '<script src="'+window.location.protocol+'//'+window.location.hostname+'/embed/file/55bb3396f91fa897146e2a2f.js"></script>';
+        $scope.embedScript = '<script src="'+window.location.protocol+'//'+window.location.hostname+'/embed/file/'+id+'.js"></script>';
     };
 
     $scope.removeRow = function(file){
@@ -190,7 +190,7 @@ angular.module('registry.controllers', [])
     };
 
     $scope.generateEmbed = function(id){
-        $scope.embedScript = '<script src="'+window.location.protocol+'//'+window.location.hostname+'/embed/file/55bb3396f91fa897146e2a2f.js"></script>';
+        $scope.embedScript = '<script src="'+window.location.protocol+'//'+window.location.hostname+'/embed/file/'+id+'.js"></script>';
     };
 
     $scope.deploy = function(id){
@@ -245,7 +245,7 @@ angular.module('registry.controllers', [])
     };
 
     $scope.generateEmbed = function(id){
-        $scope.embedScript = '<script src="'+window.location.protocol+'//'+window.location.hostname+'/embed/file/55bb3396f91fa897146e2a2f.js"></script>';
+        $scope.embedScript = '<script src="'+window.location.protocol+'//'+window.location.hostname+'/embed/file/'+id+'.js"></script>';
     };
 
     $scope.deploy = function(id){
