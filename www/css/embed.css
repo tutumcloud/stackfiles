@@ -5,11 +5,13 @@
     max-height: 500px;
     border: 1px solid #999999;
     border-radius: 2px;
-    overflow: auto;
     display:inline-block;
 }
 
-.pre-stackfile p{
+.pre-stackfile p.stack{
+    width: 88%;
+    max-height: 300px;
+    overflow: auto;
     padding: 15px 20px 15px 20px;
 }
 
