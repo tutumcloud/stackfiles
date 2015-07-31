@@ -67,6 +67,16 @@ function allDone() {
   process.exit(0);
 }
 
+function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;")
+         .replace(/(?:\r\n|\r|\n)/g, '\\n');
+ }
+
 module.exports = function(app) {
 
     app.post('/api/v1/create', auth, function(req, res){
@@ -131,7 +141,7 @@ module.exports = function(app) {
     app.get('/embed/file/:id', function(req, res, next){
         var jsFile = '';
         var id = req.params.id.substring(0, req.params.id.length-3);
-        
+
         File.findOne({_id: id}, function(err, file){
             if(err){
                 return next(err);
@@ -146,9 +156,9 @@ module.exports = function(app) {
 
             request.get(options, function(err, data){
                 res.setHeader('content-type', 'text/javascript');
-                //res.setHeader('');
+                res.setHeader('cache-control', 'public, max-age=300, s-maxage=300');
                 jsFile = "document.write('<link rel=\"stylesheet\" href=\""+ BASE_URL +"/embed/embed.css\">');" +
-                "document.write('<div id=\"stackfile\"><pre class=\"pre-stackfile\"><p>"+data.body.replace(/(?:\r\n|\r|\n)/g, '\\n')+"</p><div class=\"footer-stackfile\">"+
+                "document.write('<div id=\"stackfile\"><pre class=\"pre-stackfile\"><p>"+escapeHtml(data.body)+"</p><div class=\"footer-stackfile\">"+
                 "<p>Stackfile hosted by </p><a href=\"https://tutum.co\">Tutum</a><span><a class=\"boxed-btn\" "+
                 "href=\"https://dashboard.tutum.co/stack/deploy/?repo="+ file.profileLink + "/" + file.projectName + "\" target=\"blank\">Deploy to Tutum</a></span></div></pre></div>')";
                 res.end(jsFile);
