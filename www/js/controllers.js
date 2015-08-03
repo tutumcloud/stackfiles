@@ -101,6 +101,10 @@ angular.module('registry.controllers', [])
          $scope.loaded = true;
      });
 
+     $scope.deploy = function(id){
+         window.location.href = ('/api/v1/deploy/'+id);
+     };
+
      $scope.showModal = false;
      $scope.toggleModal = function(){
          $scope.showModal = !$scope.showModal;
@@ -134,6 +138,10 @@ angular.module('registry.controllers', [])
         $scope.err = true;
         $scope.loaded = true;
     });
+
+    $scope.deploy = function(id){
+        window.location.href = ('/api/v1/deploy/'+id);
+    };
 
     $scope.showModal = false;
     $scope.toggleModal = function(){
