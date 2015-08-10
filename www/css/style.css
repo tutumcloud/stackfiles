@@ -402,6 +402,7 @@ a, a:hover{
     min-width: 146px;
     height: 35px;
     display: inline-block;
+    padding-left: 15px;
     margin-top: 14px;
     font-weight: 300;
     font-size: 28px;
@@ -942,6 +943,7 @@ textarea.form-control{
 .modal-content .modal-header{
     padding-top: 17px;
     padding-left: 20px;
+    padding-right: 20px;
 }
 
 .modal-content .modal-body{
@@ -1093,7 +1095,7 @@ textarea.form-control{
 .sidebar-nav > li img {
     width: 24px;
     height: 24px;
-    margin: 20px auto;
+    margin: 14px auto;
     text-align: center;
 }
 
