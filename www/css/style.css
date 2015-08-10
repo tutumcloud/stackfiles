@@ -1082,6 +1082,10 @@ textarea.form-control{
     text-decoration: none;
 }
 
+.sidebar-nav li {
+    border-left: 2px solid #FFFFFF;
+}
+
 .sidebar-nav li.selected {
     border-left: 2px solid #2196F3;
 }
