@@ -1098,10 +1098,11 @@ textarea.form-control{
 
 .sidebar-nav li.selected a svg path{
   fill: #2196F3;
-}
 
+}
 .sidebar-nav li.selected a.star svg path{
   fill: #FFAB40;
+
 }
 
 .sidebar-nav > .sidebar-brand img.logo {
