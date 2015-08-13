@@ -624,6 +624,11 @@ a.delete-btn img{
     cursor: pointer;
 }
 
+svg.star.btn-off:hover path{
+  stroke: #ffc400;
+  fill: #ffc400;
+}
+
 svg.star.btn-on path{
     stroke: #ffc400;
     fill: #ffc400;
@@ -1098,11 +1103,18 @@ textarea.form-control{
 
 .sidebar-nav li.selected a svg path{
   fill: #2196F3;
-
 }
+
+.sidebar-nav li a:hover svg path{
+  fill: #2196F3;
+}
+
+.sidebar-nav li a.star:hover svg path{
+  fill: #FFAB40;
+}
+
 .sidebar-nav li.selected a.star svg path{
   fill: #FFAB40;
-
 }
 
 .sidebar-nav > .sidebar-brand img.logo {
