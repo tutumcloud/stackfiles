@@ -19,7 +19,7 @@ var SENTRY_DSN = process.env.SENTRY_DSN;
 
 if (env == 'development'){
     console.log("Using dev DB");
-    var db = mongoose.connect('mongodb://192.168.59.103:27018');
+    var db = mongoose.connect('mongodb://192.168.59.100:27018');
 }
 
 if (env == 'production'){
