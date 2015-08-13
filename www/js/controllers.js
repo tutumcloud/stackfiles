@@ -46,6 +46,12 @@ angular.module('registry.controllers', [])
         });
     }
 
+    $scope.increment = function(file){
+      if($rootScope.logged){
+        file.stars = file.stars +1;
+      }
+    };
+
     $scope.toggleStatus = function(file) {
         API.favFile(file._id).success(function(data, status, headers, config){
             if($scope.logged){
