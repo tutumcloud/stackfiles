@@ -154,14 +154,43 @@ a, a:hover{
     height: 12px;
 }
 
+#header-404{
+    background: -o-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: -moz-linear-gradient(303deg,#2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: -webkit-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: -ms-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: linear-gradient(to 303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    margin: 0;
+    color: white;
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+}
+
+#header-404 .footer{
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: 15px;
+    font-size: 12px;
+    font-weight: 400;
+}
+
 .elem404{
     display: inline-block;
     text-align: left;
     padding-top: 100px;
 }
 
+.elem404 h1{
+    font-size: 36px;
+    font-weight: 300;
+}
+
 .elem404 p{
-    font-weight: 400;
+    font-size: 28px;
+    font-weight: 300;
 }
 
 .elem404 p a{
@@ -180,7 +209,7 @@ a, a:hover{
     position:fixed;
     bottom:0px;
     left:30%;
-    width:20%;
+    width:225px;
 }
 
 /*REGISTRY COMPONENTS*/
