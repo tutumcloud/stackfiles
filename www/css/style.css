@@ -462,7 +462,7 @@ a, a:hover{
 }
 
 .elem-bar input.search-bar{
-    width: 90%;
+    width: 85%;
     height: 36px;
     margin-top: 14px;
     margin-bottom: 14px;
@@ -496,7 +496,7 @@ a, a:hover{
     margin-top: 14px;
 }
 
-@media(max-width: 1200px){
+@media(max-width: 1000px){
     .gradient{
         padding-left: 50px;
         padding-right: 25px;
@@ -507,7 +507,7 @@ a, a:hover{
     }
 
     .elem-bar .search-container{
-        width: 60%;
+        width: 45%;
     }
 }
 
