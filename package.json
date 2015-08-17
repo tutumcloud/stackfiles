@@ -31,6 +31,7 @@
     "passport": "^0.2.2",
     "passport-github": "^0.1.5",
     "randomstring": "^1.0.7",
+    "raven": "^0.8.1",
     "request": "^2.58.0",
     "supervisor": "^0.7.0"
   }

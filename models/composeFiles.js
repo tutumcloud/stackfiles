@@ -35,7 +35,7 @@ if (env == 'development'){
     console.log("Using dev ES");
     schema.plugin(mongoosastic, {
       hosts: [
-        '192.168.59.103:9200'
+        '192.168.59.100:9200'
       ]
     });
     schema.plugin(mongoosePaginate);

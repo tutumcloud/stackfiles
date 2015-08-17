@@ -46,6 +46,12 @@ angular.module('registry.controllers', [])
         });
     }
 
+    $scope.increment = function(file){
+      if($rootScope.logged){
+        file.stars = file.stars +1;
+      }
+    };
+
     $scope.toggleStatus = function(file) {
         API.favFile(file._id).success(function(data, status, headers, config){
             if($scope.logged){
@@ -101,6 +107,10 @@ angular.module('registry.controllers', [])
          $scope.loaded = true;
      });
 
+     $scope.deploy = function(id){
+         window.location.href = ('/api/v1/deploy/'+id);
+     };
+
      $scope.showModal = false;
      $scope.toggleModal = function(){
          $scope.showModal = !$scope.showModal;
@@ -134,6 +144,10 @@ angular.module('registry.controllers', [])
         $scope.err = true;
         $scope.loaded = true;
     });
+
+    $scope.deploy = function(id){
+        window.location.href = ('/api/v1/deploy/'+id);
+    };
 
     $scope.showModal = false;
     $scope.toggleModal = function(){
@@ -171,15 +185,17 @@ angular.module('registry.controllers', [])
 .controller('RegistryController', function($scope, $rootScope, $window, API, Loader){
 
     $scope.files = new Loader();
-    $scope.loaded = true;
 
     if($rootScope.logged === true){
         API.checkFav().success(function(data, status, header, config){
-           $scope.favoriteList = data;
-       }).error(function(data, status, headers, config){
-           $scope.err = true;
-       });
-       $scope.logged = true;
+            $scope.favoriteList = data;
+            $scope.loaded = true;
+        }).error(function(data, status, headers, config){
+            $scope.err = true;
+        });
+        $scope.logged = true;
+    } else {
+        $scope.loaded = true;
     }
 
 

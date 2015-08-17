@@ -72,8 +72,8 @@ function escapeHtml(unsafe) {
          .replace(/&/g, "&amp;")
          .replace(/</g, "&lt;")
          .replace(/>/g, "&gt;")
+         .replace(/'/g, "&#039;")
          .replace(/"/g, "&quot;")
-         .replace(/\'/g, "&#039;")
          .replace(/(?:\r\n|\r|\n)/g, '\\n');
  }
 
@@ -158,7 +158,7 @@ module.exports = function(app) {
                 res.setHeader('content-type', 'text/javascript');
                 res.setHeader('cache-control', 'public, max-age=300, s-maxage=300');
                 jsFile = "document.write('<link rel=\"stylesheet\" href=\""+ BASE_URL +"/embed/embed.css\">');" +
-                "document.write('<div id=\"stackfile\"><pre class=\"pre-stackfile\"><p>"+escapeHtml(data.body)+"</p><div class=\"footer-stackfile\">"+
+                "document.write('<div id=\"stackfile\"><pre class=\"pre-stackfile\"><p class=\"stack\">"+escapeHtml(data.body)+"</p><div class=\"footer-stackfile\">"+
                 "<p>Stackfile hosted by </p><a href=\"https://tutum.co\">Tutum</a><span><a class=\"boxed-btn\" "+
                 "href=\"https://dashboard.tutum.co/stack/deploy/?repo="+ file.profileLink + "/" + file.projectName + "\" target=\"blank\">Deploy to Tutum</a></span></div></pre></div>')";
                 res.end(jsFile);
