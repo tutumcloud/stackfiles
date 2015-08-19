@@ -20,11 +20,7 @@ a, a:hover{
 }
 
 #hero-header{
-    background-image: url("./../img/bg.png"), -o-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: url("./../img/bg.png"), -moz-linear-gradient(303deg,#2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: url("./../img/bg.png"), -webkit-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: url("./../img/bg.png"), -ms-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background-image: url("./../img/bg.png"), linear-gradient(to 303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: #2196F3 url("./../img/bg.png");
     margin: 0;
     color: white;
     height: 100vh;
@@ -155,11 +151,7 @@ a, a:hover{
 }
 
 #header-404{
-    background: -o-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background: -moz-linear-gradient(303deg,#2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background: -webkit-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background: -ms-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background: linear-gradient(to 303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: #2196F3;
     margin: 0;
     color: white;
     height: 100vh;
@@ -403,11 +395,7 @@ a, a:hover{
     height: 64px;
     padding: 0;
     z-index: 2;
-    background: -o-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background: -moz-linear-gradient(303deg,#2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background: -webkit-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background: -ms-linear-gradient(303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
-    background: linear-gradient(to 303deg, #2196F3 9%, #15A4D7 54%, #0AB3BC 100%, #00BFA5 100%);
+    background: #2196F3;
 }
 
 .gradient .elem-bar{
@@ -1130,6 +1118,15 @@ textarea.form-control{
     border-left: 4px solid #2196F3;
 }
 
+.sidebar-nav > .sidebar-brand svg {
+    width: 44px;
+    height: 44px;
+    margin-top: 13px;
+    margin-bottom: 56px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .sidebar-nav li.selected a svg path{
   fill: #2196F3;
 }
@@ -1146,24 +1143,6 @@ textarea.form-control{
   fill: #FFAB40;
 }
 
-.sidebar-nav > .sidebar-brand img.logo {
-    width: 44px;
-    height: 44px;
-    margin-top: 13px;
-    margin-bottom: 56px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.sidebar-nav > .sidebar-brand a {
-    display: flex;
-    color: #999999;
-}
-
-.sidebar-nav > .sidebar-brand a:hover {
-    color: #fff;
-    background: none;
-}
 
 @media(min-width:768px) {
     #wrapper {
