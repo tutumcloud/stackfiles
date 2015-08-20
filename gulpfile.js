@@ -5,6 +5,8 @@ var gulp = require('gulp');
 var connect = require('gulp-connect');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
+var ngAnnotate = require('gulp-ng-annotate');
+var concat = require('gulp-concat');
 var minifyCSS = require('gulp-minify-css');
 var nodemon = require('gulp-nodemon');
 var plumber = require('gulp-plumber');
@@ -14,7 +16,7 @@ var browserSync = require('browser-sync');
 
 // tasks
 gulp.task('lint', ['clean'], function() {
-  gulp.src(['./src/**/*.js', '!./src/lib/**'])
+  gulp.src(['./server.js', './routes/*.js', './models/*.js', './src/**/*.js', '!./src/lib/**', '!./src/js/main.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'));
@@ -27,15 +29,17 @@ gulp.task('minify-css', function() {
   var opts = {comments:true,spare:true};
   gulp.src(['./src/**/*.css', '!./src/lib/**'])
     .pipe(minifyCSS(opts))
-    .pipe(gulp.dest('./dist/'));
+    .pipe(gulp.dest('dist/'));
 });
 gulp.task('minify-js', function() {
-  gulp.src(['./src/**/*.js', '!./src/lib/**'])
+  gulp.src(['./src/js/app.js', './src/js/services.js', './src/js/controllers.js', './src/js/assets/*.js','!./src/lib/**'])
+    .pipe(concat('main.js'))
     .pipe(uglify({
       // inSourceMap:
       // outSourceMap: "src.js.map"
     }))
-    .pipe(gulp.dest('./dist/'));
+    .pipe(ngAnnotate())
+    .pipe(gulp.dest('dist/js/'));
 });
 gulp.task('copy-bower-components', function () {
   gulp.src('./src/lib/**')

@@ -78,13 +78,13 @@ angular.module('registry.controllers', [])
     };
 }])
 
-.controller('MainController', ['$scope', '$window', 'API', function($scope, $window, API){
-    $scope.search = function(){
+.controller('MainController', ['$scope', 'API', function($scope, API){
+    /*$scope.search = function(){
         if(this.data.search !== ""){
             $window.localStorage.search = this.data.search;
             window.location.href = ("/registry");
         }
-    };
+    };*/
 
     $scope.goTo = function(page){
         window.location.href = ("/registry");

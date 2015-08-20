@@ -112,30 +112,30 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
           templateUrl: 'index.html',
           controller: 'MainController'
       }).
-      when('/registry', {
+      when('/registry/', {
         templateUrl: 'partials/registry.html',
         controller: 'RegistryController'
       }).
-      when('/registry/:registryId', {
+      when('/registry/:registryId/', {
         templateUrl: 'partials/registry-details.html',
         controller: 'RegistryDetailsController'
       }).
-      when('/create', {
+      when('/create/', {
         templateUrl: 'partials/create.html',
         controller: 'CreateController'
       }).
-      when('/mystacks', {
+      when('/mystacks/', {
         templateUrl: 'partials/mystacks.html',
         controller: 'MyStackController'
       }).
-      when('/favorites', {
+      when('/favorites/', {
          templateUrl: 'partials/favorites.html',
          controller: 'FavoriteController'
       }).
       when('/404', {
-         templateUrl: 'partials/404.html'
+         templateUrl: '404.html'
       }).
       otherwise({
-        redirectTo: '/'
+        redirectTo: '/404'
       });
 }]);
