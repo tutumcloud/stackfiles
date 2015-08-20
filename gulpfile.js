@@ -6,10 +6,11 @@ var connect = require('gulp-connect');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-minify-css');
-var clean = require('gulp-clean');
 var nodemon = require('gulp-nodemon');
 var plumber = require('gulp-plumber');
 var shell = require('gulp-shell');
+var notify = require('gulp-notify');
+var browserSync = require('browser-sync');
 
 // tasks
 gulp.task('lint', ['clean'], function() {
@@ -18,10 +19,7 @@ gulp.task('lint', ['clean'], function() {
     .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'));
 });
-/*gulp.task('clean', function() {
-    gulp.src('./dist/**')
-      .pipe(clean());
-});*/
+
 gulp.task('clean', shell.task([
   'rm -r ./dist/**'
 ]));
@@ -52,19 +50,41 @@ gulp.task('copy-img-files', function () {
     .pipe(gulp.dest('dist/img'));
 });
 
-gulp.task('connectDist', function () {
-  nodemon({
-    script: 'server.js',
-    ext: 'js html',
-    env: { 'NODE_ENV': 'development' }
-  });
+gulp.task('browser-sync', ['nodemon'], function() {
+	browserSync.init(null, {
+		proxy: "http://localhost:4000",
+        files: ["./src/**/*.*"],
+        browser: "google chrome",
+        port: 7000,
+	});
 });
 
-// default task
-gulp.task('default',
-  ['lint', 'minify-css', 'minify-js', 'copy-img-files', 'copy-html-files', 'copy-bower-components', 'connectDist']
-);
+gulp.task('nodemon', function (cb) {
+	var started = false;
+
+	return nodemon({
+    script: 'server.js',
+    env: { 'NODE_ENV': 'development' }
+	}).on('start', function () {
+		if (!started) {
+			cb();
+			started = true;
+		}
+	});
+});
+
+gulp.task('watch', function(){
+  gulp.watch('./src/**/*.html', ['copy-html-files', 'copy-img-files']);
+  gulp.watch('./src/**/*.js', ['minify-js']);
+  gulp.watch('./src/**/*.css', ['minify-css']);
+});
+
 // build task
 gulp.task('build',
   ['lint', 'minify-css', 'minify-js', 'copy-img-files', 'copy-html-files', 'copy-bower-components']
+);
+
+// default task
+gulp.task('default',
+  ['build', 'browser-sync', 'watch']
 );

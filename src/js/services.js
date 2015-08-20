@@ -1,6 +1,6 @@
 angular.module('registry.services', [])
 
-.factory('API', function($http, $window, $rootScope){
+.factory('API', ['$http', '$window', '$rootScope', function($http, $window, $rootScope){
      var session = {
          logged: false,
          user: null
@@ -155,9 +155,9 @@ angular.module('registry.services', [])
             });
         }
      };
-})
+}])
 
-.factory('Loader', function(API) {
+.factory('Loader', ['API', function(API) {
   var  Loader = function() {
     this.items = [];
     this.busy = false;
@@ -187,4 +187,4 @@ angular.module('registry.services', [])
     });
   };
   return Loader;
-});
+}]);

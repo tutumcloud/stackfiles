@@ -33,7 +33,7 @@ angular.module('registry.controllers', [])
     };
 }])
 
-.controller('FavController', function($scope, $rootScope, API){
+.controller('FavController', ['$scope', '$rootScope', 'API', function($scope, $rootScope, API){
     $scope.favoriteList = [];
 
     if($rootScope.logged){
@@ -76,9 +76,9 @@ angular.module('registry.controllers', [])
     $scope.isSelected = function(file) {
         return $scope.favoriteList.indexOf(file._id) > -1;
     };
-})
+}])
 
-.controller('MainController', function($scope, $window, API){
+.controller('MainController', ['$scope', '$window', 'API', function($scope, $window, API){
     $scope.search = function(){
         if(this.data.search !== ""){
             $window.localStorage.search = this.data.search;
@@ -93,9 +93,9 @@ angular.module('registry.controllers', [])
     $scope.signin = function(page){
         API.signin(page);
     };
-})
+}])
 
-.controller('MyStackController', function($scope, API){
+.controller('MyStackController', ['$scope', 'API', function($scope, API){
 
      $scope.logged = true;
 
@@ -128,10 +128,10 @@ angular.module('registry.controllers', [])
             $scope.err = true;
         });
     };
-})
+}])
 
 
-.controller('FavoriteController', function($scope, $rootScope, API){
+.controller('FavoriteController', ['$scope', '$rootScope', 'API', function($scope, $rootScope, API){
 
     if($rootScope.logged){
         $scope.logged = $rootScope.logged;
@@ -180,9 +180,9 @@ angular.module('registry.controllers', [])
            $scope.err = true;
        });
    };
-})
+}])
 
-.controller('RegistryController', function($scope, $rootScope, $window, API, Loader){
+.controller('RegistryController', ['$scope', '$rootScope', '$window', 'API', 'Loader', function($scope, $rootScope, $window, API, Loader){
 
     $scope.files = new Loader();
 
@@ -234,9 +234,9 @@ angular.module('registry.controllers', [])
         }
     };
 
-})
+}])
 
-.controller('RegistryDetailsController', function($scope, $rootScope, $window, $routeParams, API){
+.controller('RegistryDetailsController', ['$scope', '$rootScope', '$window', '$routeParams', 'API', function($scope, $rootScope, $window, $routeParams, API){
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
         $scope.data = data;
         API.getYAMLFile(data._id, data.projectName, data.path).success(function(yamlData, status, headers, config){
@@ -288,9 +288,9 @@ angular.module('registry.controllers', [])
         });
     };
 
-})
+}])
 
-.controller('CreateController', function($scope, $rootScope, $window, API){
+.controller('CreateController', ['$scope', '$rootScope', '$window', 'API', function($scope, $rootScope, $window, API){
     var orgs = [];
 
     if($rootScope.logged){
@@ -391,4 +391,4 @@ angular.module('registry.controllers', [])
             window.location.href = ("/404");
         });
     };
-});
+}]);
