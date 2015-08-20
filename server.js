@@ -46,7 +46,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(paginate.middleware(10, 50));
-app.use(express.static(__dirname + '/www'));
+app.use(express.static(__dirname + '/dist'));
 
 app.listen(port, function(){
     console.log("Server is running on port " + port);

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="44px" height="44px"
+	 viewBox="0 0 44 44" enable-background="new 0 0 44 44" xml:space="preserve">
+<title>Icon 44x44</title>
+<desc>Created with Sketch.</desc>
+<g id="Stackfiles.io" sketch:type="MSPage">
+	<g id="Icon-44x44" sketch:type="MSArtboardGroup">
+		<g id="Oval-4-Copy">
+			<g sketch:type="MSShapeGroup">
+				<path id="path-2" fill="#2196F3" d="M22,44C9.85,44,0,34.15,0,22S9.85,0,22,0s22,9.85,22,22S34.15,44,22,44L22,44L22,44z"/>
+			</g>
+			<g>
+				
+					<linearGradient id="path-2_2_" gradientUnits="userSpaceOnUse" x1="-268.7412" y1="433.3945" x2="-268.7412" y2="432.428" gradientTransform="matrix(44 0 0 -44 11846.625 19070.5625)">
+					<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0.5"/>
+					<stop  offset="1" style="stop-color:#000000;stop-opacity:0.5"/>
+				</linearGradient>
+				<path id="path-2_1_" fill="url(#path-2_2_)" fill-opacity="0.2" d="M22,44C9.85,44,0,34.15,0,22S9.85,0,22,0s22,9.85,22,22
+					S34.15,44,22,44L22,44L22,44z"/>
+			</g>
+		</g>
+		<path id="Shape" sketch:type="MSShapeGroup" opacity="0.5" fill="#FFFFFF" enable-background="new    " d="M11.717,25.632
+			L22,30.536l10.283-4.904L22,20.569L11.717,25.632z M22,17.844l15.889,7.822L22,33.244L6.111,25.666L22,17.844L22,17.844z"/>
+		<g id="Oval-4-Copy-3">
+			<g sketch:type="MSShapeGroup">
+				<path id="path-4" fill="none" d="M36.471,38.527c-3.871,3.393-8.941,5.448-14.493,5.448c-1.268,0-2.511-0.107-3.721-0.313
+					L6.111,18.822L22,11L36.471,38.527z"/>
+			</g>
+			<g>
+				
+					<linearGradient id="path-4_2_" gradientUnits="userSpaceOnUse" x1="-265.3896" y1="428.9766" x2="-266.2066" y2="430.2701" gradientTransform="matrix(30.3598 0 0 -32.9754 8094.8867 14203.166)">
+					<stop  offset="0" style="stop-color:#FFFFFF;stop-opacity:0"/>
+					<stop  offset="1" style="stop-color:#000000"/>
+				</linearGradient>
+				<path id="path-4_1_" fill="url(#path-4_2_)" fill-opacity="0.2" d="M36.471,38.527c-3.871,3.393-8.941,5.448-14.493,5.448
+					c-1.268,0-2.511-0.107-3.721-0.313L6.111,18.822L22,11L36.471,38.527z"/>
+			</g>
+		</g>
+		<path id="Rectangle-236" sketch:type="MSShapeGroup" fill="#FFFFFF" d="M22,11l15.889,7.822L22,26.4L6.111,18.822L22,11z"/>
+		<g id="Oval-4-Copy-6" opacity="0.2">
+			<g sketch:type="MSShapeGroup">
+				<path id="path-5" fill="#FFFFFF" d="M43.994,22.5C43.998,22.334,44,22.167,44,22C44,9.85,34.15,0,22,0S0,9.85,0,22
+					c0,0.167,0.002,0.334,0.005,0.5C0.271,10.581,10.017,1,22,1C33.982,1,43.729,10.581,43.994,22.5L43.994,22.5z"/>
+			</g>
+			<g>
+				<path id="path-5_1_" fill="none" d="M43.994,22.5C43.998,22.334,44,22.167,44,22C44,9.85,34.15,0,22,0S0,9.85,0,22
+					c0,0.167,0.002,0.334,0.005,0.5C0.271,10.581,10.017,1,22,1C33.982,1,43.729,10.581,43.994,22.5L43.994,22.5z"/>
+			</g>
+		</g>
+		<g id="Oval-4-Copy-8">
+			<g sketch:type="MSShapeGroup">
+				<path id="path-6" fill="#1C77C0" d="M43.994,21.5C43.998,21.666,44,21.833,44,22c0,12.15-9.85,22-22,22S0,34.15,0,22
+					c0-0.167,0.002-0.334,0.005-0.5C0.271,33.42,10.017,43,22,43C33.982,43,43.729,33.42,43.994,21.5L43.994,21.5z"/>
+			</g>
+			<g>
+				<path id="path-6_1_" fill="none" d="M43.994,21.5C43.998,21.666,44,21.833,44,22c0,12.15-9.85,22-22,22S0,34.15,0,22
+					c0-0.167,0.002-0.334,0.005-0.5C0.271,33.42,10.017,43,22,43C33.982,43,43.729,33.42,43.994,21.5L43.994,21.5z"/>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>
