@@ -13,6 +13,7 @@
     "zeroclipboard": "~2.2.0",
     "angular-zeroclipboard": "~0.4.3",
     "ngInfiniteScroll": "~1.2.1",
-    "arrive": "~2.2.0"
+    "arrive": "~2.2.0",
+    "angular-ui-router": "~0.2.15"
   }
 }
