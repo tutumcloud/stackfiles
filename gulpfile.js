@@ -8,6 +8,7 @@ var uglify = require('gulp-uglify');
 var ngAnnotate = require('gulp-ng-annotate');
 var concat = require('gulp-concat');
 var minifyCSS = require('gulp-minify-css');
+var minifyHTML = require('gulp-minify-html');
 var nodemon = require('gulp-nodemon');
 var plumber = require('gulp-plumber');
 var shell = require('gulp-shell');
@@ -41,6 +42,13 @@ gulp.task('minify-js', function() {
     .pipe(ngAnnotate())
     .pipe(gulp.dest('dist/js/'));
 });
+
+gulp.task('minify-html', function() {
+  gulp.src('./src/**/*.html')
+    .pipe(minifyHTML())
+    .pipe(gulp.dest('dist/'));
+});
+
 gulp.task('copy-bower-components', function () {
   gulp.src('./src/lib/**')
     .pipe(gulp.dest('dist/lib'));
@@ -85,7 +93,7 @@ gulp.task('watch', function(){
 
 // build task
 gulp.task('build',
-  ['lint', 'minify-css', 'minify-js', 'copy-img-files', 'copy-html-files', 'copy-bower-components']
+  ['lint', 'minify-html', 'minify-css', 'minify-js', 'copy-img-files', 'copy-html-files', 'copy-bower-components']
 );
 
 // default task
