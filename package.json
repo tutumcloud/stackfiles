@@ -4,6 +4,7 @@
   "description": "Docker-Compose file registry ",
   "main": "server.js",
   "scripts": {
+    "start": "npm install && gulp",
     "test": "echo \"Test passed\""
   },
   "keywords": [
