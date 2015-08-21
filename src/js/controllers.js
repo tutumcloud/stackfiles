@@ -237,6 +237,7 @@ angular.module('registry.controllers', [])
 }])
 
 .controller('RegistryDetailsController', ['$scope', '$rootScope', '$window', '$routeParams', 'API', function($scope, $rootScope, $window, $routeParams, API){
+    console.log('hello detail');
     API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
         $scope.data = data;
         API.getYAMLFile(data._id, data.projectName, data.path).success(function(yamlData, status, headers, config){

@@ -52,6 +52,6 @@ app.listen(port, function(){
     console.log("Server is running on port " + port);
 });
 
-require('./routes/index.js')(app, db);
 require('./routes/files.js')(app, db);
 require('./routes/github-api.js')(app, db);
+require('./routes/index.js')(app, db);

@@ -21,7 +21,7 @@ if (env == 'development'){
     passport.use(new GitHubStrategy({
         clientID: GITHUB_CLIENT_ID,
         clientSecret: GITHUB_CLIENT_SECRET,
-        callbackURL: "http://localhost:4000/auth/github/callback"
+        callbackURL: "http://localhost:7000/auth/github/callback"
         },
         function(accessToken, refreshToken, profile, done) {
             var user = new User({
@@ -90,8 +90,33 @@ var auth = function(req, res, next){
 
 module.exports = function(app) {
 
-    app.get('/', function(req, res){
+    app.get('/auth/github', function(req, res, next){
+        var redirect = req.query.redirect;
+        req.session.redirect = redirect;
+        passport.authenticate('github', { scope: 'read:org' })(req, res, next);
+    }, function(){});
+
+    app.get('/auth/github/callback', passport.authenticate('github'), function(req, res) {
+        res.redirect('/#/'+req.session.redirect);
+    });
+
+    app.get('/auth/logout', function(req, res, next){
+        req.session.destroy(function (err) {
+            if (err) {
+                return next(err);
+            }
+        });
+        res.redirect('/');
+    });
+
+    app.get('*', function(req, res){
         res.sendFile(path.resolve(__dirname + '/../dist/index.html'));
+    });
+
+    /*
+    app.get('#/', function(req, res){
+        console.log('test');
+        res.sendFile(path.resolve(__dirname + '/../dist/template.html'));
     });
 
     app.get('/404', function(req, res){
@@ -116,24 +141,5 @@ module.exports = function(app) {
 
     app.get('/create', auth, function(req, res){
         res.sendFile(path.resolve(__dirname + '/../dist/template.html'));
-    });
-
-    app.get('/auth/github', function(req, res, next){
-        var redirect = req.query.redirect;
-        req.session.redirect = redirect;
-        passport.authenticate('github', { scope: 'read:org' })(req, res, next);
-    }, function(){});
-
-    app.get('/auth/github/callback', passport.authenticate('github'), function(req, res) {
-        res.redirect(req.session.redirect);
-    });
-
-    app.get('/auth/logout', function(req, res, next){
-        req.session.destroy(function (err) {
-            if (err) {
-                return next(err);
-            }
-        });
-        res.redirect('/');
-    });
+    });*/
 };

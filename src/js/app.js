@@ -1,4 +1,4 @@
-angular.module('registry',['registry.controllers','registry.services','ngRoute','infinite-scroll','hc.marked','localytics.directives','zeroclipboard'])
+angular.module('registry',['registry.controllers','registry.services','ui.router','ngRoute','infinite-scroll','hc.marked','localytics.directives','zeroclipboard'])
 
 .directive('ngEnter', function () {
     return function (scope, element, attrs) {
@@ -105,37 +105,49 @@ angular.module('registry',['registry.controllers','registry.services','ngRoute',
       markedProvider.setOptions({gfm: true});
 }])
 
-.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
-    $locationProvider.html5Mode(true);
-    $routeProvider.
-      when('/', {
-          templateUrl: 'index.html',
-          controller: 'MainController'
+.config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider.when('', '/');
+    //$urlRouterProvider.otherwise("/registry");
+
+    $stateProvider.
+      state('landing', {
+          url: '/',
+          views: {
+            full: {
+              templateUrl: 'partials/landingpage.html',
+              controller: 'MainController'
+            }
+          }
       }).
-      when('/registry/', {
-        templateUrl: 'partials/registry.html',
-        controller: 'RegistryController'
+      state('registry', {
+        url: '/registry',
+        views: {
+          top: {
+            templateUrl: 'partials/top-bar.html'
+          },
+          side: {
+            templateUrl: 'partials/side-menu.html'
+          },
+          content: {
+            templateUrl: 'partials/registry.html',
+            controller: 'RegistryController'
+          }
+        }
       }).
-      when('/registry/:registryId/', {
-        templateUrl: 'partials/registry-details.html',
-        controller: 'RegistryDetailsController'
-      }).
-      when('/create/', {
-        templateUrl: 'partials/create.html',
-        controller: 'CreateController'
-      }).
-      when('/mystacks/', {
-        templateUrl: 'partials/mystacks.html',
-        controller: 'MyStackController'
-      }).
-      when('/favorites/', {
-         templateUrl: 'partials/favorites.html',
-         controller: 'FavoriteController'
-      }).
-      when('/404', {
-         templateUrl: '404.html'
-      }).
-      otherwise({
-        redirectTo: '/404'
+      state('registry.detail', {
+        url:'/:id',
+        views: {
+          top: {
+            templateUrl: 'partials/top-bar.html'
+          },
+          side: {
+            templateUrl: 'partials/side-menu.html'
+          },
+          content: {
+            templateUrl: 'partials/registry.detail.html',
+            controller: 'RegistryDetailsController'
+          }
+        }
       });
 }]);
