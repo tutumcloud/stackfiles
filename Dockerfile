@@ -4,7 +4,8 @@ ADD . /app
 
 WORKDIR /app
 
-RUN npm install
+RUN npm install -g gulp
+RUN npm start
 
 ENV PORT 80
 EXPOSE 80
