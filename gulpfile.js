@@ -86,7 +86,7 @@ gulp.task('nodemon', function (cb) {
 });
 
 gulp.task('watch', function(){
-  gulp.watch('./src/**/*.html', ['copy-html-files', 'copy-img-files']);
+  gulp.watch('./src/**/*.html', ['minify-html', 'copy-html-files', 'copy-img-files']);
   gulp.watch('./src/**/*.js', ['minify-js']);
   gulp.watch('./src/**/*.css', ['minify-css']);
 });

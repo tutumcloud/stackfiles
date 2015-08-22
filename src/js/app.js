@@ -108,7 +108,7 @@ angular.module('registry',['registry.controllers','registry.services','ui.router
 .config(["$stateProvider", "$urlRouterProvider", function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.when('', '/');
-    //$urlRouterProvider.otherwise("/registry");
+    $urlRouterProvider.otherwise("/404");
 
     $stateProvider.
       state('landing', {

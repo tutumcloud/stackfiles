@@ -1110,6 +1110,10 @@ textarea.form-control{
     border-left: 4px solid #FFFFFF;
 }
 
+.sidebar-nav li:hover {
+    border-left: 4px solid #2196F3;
+}
+
 .sidebar-nav li a svg{
     margin-top: 10px;
 }

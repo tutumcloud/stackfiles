@@ -1,6 +1,6 @@
 angular.module('registry.controllers', [])
 
-.controller('SessionController',['$scope', '$rootScope', '$location', 'API', function($scope, $rootScope, $location, API){
+.controller('SessionController',['$scope', '$rootScope', '$state', '$location', 'API', function($scope, $rootScope, $state, $location, API){
     $scope.logged = false;
     API.getUser().success(function(data, status, headers, config){
          $rootScope.logged = true;
@@ -18,7 +18,7 @@ angular.module('registry.controllers', [])
 
     $scope.logout = function(){
         API.logout().success(function(data, status, headers, config){
-            window.location.href = ('registry');
+            $state.go($state.current, {}, {reload: true});
         }).error(function(data, status, headers, config){
             $scope.err = true;
         });
@@ -78,16 +78,16 @@ angular.module('registry.controllers', [])
     };
 }])
 
-.controller('MainController', ['$scope', '$window', 'API', function($scope, $window, API){
+.controller('MainController', ['$scope', '$state', 'API', function($scope, $state, API){
     $scope.search = function(){
         if(this.data.search !== ""){
             $window.localStorage.search = this.data.search;
-            window.location.href = ("/registry");
+            $state.go("registry");
         }
     };
 
     $scope.goTo = function(page){
-        window.location.href = ("/registry");
+        $state.go("registry");
     };
 
     $scope.signin = function(page){

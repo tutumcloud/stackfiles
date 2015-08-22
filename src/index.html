@@ -4,12 +4,11 @@
         <meta charset="utf-8">
         <title>stackfiles.io</title>
         <base href="/index.html">
-        <meta name = "viewport" content = "width=device-width, initial-scale = 1.0">
-        <meta name="keywords" content="docker-compose, docker, stack">
-        <meta name="author" content="Maxime Heckel">
+        <meta name="viewport" content="width=device-width, initial-scale = 1.0">
+        <meta name="keywords" content="tutum, docker-compose, docker, stack">
+        <meta name="author" content="Tutum">
         <meta name="robots" content="{{page.index}}INDEX,{{page.follow}}FOLLOW" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-        <link rel="icon" href="icon.png" type="image/x-icon">
         <!--Bower CSS paclages -->
         <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
         <link href="lib/bootstrap-material-design/dist/css/material.min.css" rel="stylesheet">
@@ -42,11 +41,12 @@
         <div id="sidebar-wrapper">
             <div ui-view name="side"></div>
         </div>
-      <div id="page-content-wrapper">
-          <div class="row">
-              <div ui-view name="top"></div>
-              <div ui-view name="content"></div>
-          </div>
+        <div id="page-content-wrapper">
+            <div class="row">
+                <div ui-view name="top"></div>
+                <div ui-view name="content"></div>
+            </div>
+        </div>
       </div>
       <script src="lib/arrive/src/arrive.js"></script>
       <script src="lib/bootstrap-material-design/dist/js/material.min.js"></script>
