@@ -7,8 +7,8 @@
                 <span ng-click="data.search = ''">x</span>
             </a>
         </div>
-        <a ng-controller="SessionController" class="btn boxed-btn submit-btn pull-right" ng-hide="logged" ng-click="signin('/create')"></i> Submit a Stackfile</a>
-        <a class="btn boxed-btn submit-btn pull-right" ng-show="logged" href="/create"></i> Submit a Stackfile</a>
+        <a ng-controller="SessionController" class="btn boxed-btn submit-btn pull-right" ng-hide="logged" ng-click="signin('create')"></i> Submit a Stackfile</a>
+        <a class="btn boxed-btn submit-btn pull-right" ng-show="logged" ui-sref="create"></i> Submit a Stackfile</a>
     </div>
 </div>
 <div id="loading" ng-hide="loaded == true">
@@ -31,7 +31,7 @@
         <table ng-show="results.length" class="table">
             <tbody>
                 <tr ng-repeat="result in results" ng-class-odd="odd" ng-class-even="even" ng-hide="currentSection === 1">
-                    <td class="main"><a class="stack-name" ui-sref=".detail({id: result._id})">{{result._source.title}}</a><p class="stack-services">{{result._source.tags.length}} Services<span class="stack-user">By {{result._source.user}}</span></p></td>
+                    <td class="main"><a class="stack-name" ui-sref="detail({id: result._id})">{{result._source.title}}</a><p class="stack-services">{{result._source.tags.length}} Services<span class="stack-user">By {{result._source.user}}</span></p></td>
                     <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(result._id)" target="_blank">Deploy to Tutum</a></td>
                     <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to get the embed script"><a style="cursor:pointer;" ng-click="toggleModal(); generateEmbed(result._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
                     <td style="vertical-align:middle; padding-top:33px;" data-toggle="tooltip" data-placement="top" title="Click here to favorite this stack">
@@ -59,7 +59,7 @@
         <table class="table">
             <tbody infinite-scroll="files.nextPage()" infinite-scroll-disabled='files.busy' infinite-scroll-distance='0'>
                 <tr ng-repeat="file in files.items" ng-class-odd="odd" ng-class-even="even">
-                    <td class="main"><a class="stack-name" ui-sref=".detail({id: file._id})">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services <span class="stack-user">By {{file.user}}</span></p></td>
+                    <td class="main"><a class="stack-name" ui-sref="detail({id: file._id})">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services <span class="stack-user">By {{file.user}}</span></p></td>
                     <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
                     <td style="vertical-align:middle"><a style="cursor:pointer;" data-toggle="tooltip" data-placement="top" title="Click here to get the embed script" ng-click="toggleModal(); generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
                     <td style="vertical-align:middle; padding-top:33px;" data-toggle="tooltip" data-placement="top" title="Click here to favorite this stack">

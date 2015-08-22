@@ -18,7 +18,7 @@ angular.module('registry.controllers', [])
 
     $scope.logout = function(){
         API.logout().success(function(data, status, headers, config){
-            window.location.href = ('/registry');
+            window.location.href = ('registry');
         }).error(function(data, status, headers, config){
             $scope.err = true;
         });
@@ -166,9 +166,6 @@ angular.module('registry.controllers', [])
 				break;
 			}
 		}
-		if( index === -1 ) {
-			alert( "Oops something went wrong" );
-		}
 		$scope.files.splice( index, 1 );
 	};
 
@@ -236,9 +233,8 @@ angular.module('registry.controllers', [])
 
 }])
 
-.controller('RegistryDetailsController', ['$scope', '$rootScope', '$window', '$routeParams', 'API', function($scope, $rootScope, $window, $routeParams, API){
-    console.log('hello detail');
-    API.getFileWithId($routeParams.registryId).success(function(data, status, headers, config){
+.controller('RegistryDetailsController', ['$scope', '$rootScope', '$state','$window', '$stateParams', 'API', function($scope, $rootScope, $state, $window, $stateParams, API){
+    API.getFileWithId($stateParams.id).success(function(data, status, headers, config){
         $scope.data = data;
         API.getYAMLFile(data._id, data.projectName, data.path).success(function(yamlData, status, headers, config){
             $scope.composeFile = yamlData;
@@ -248,7 +244,7 @@ angular.module('registry.controllers', [])
             $scope.loaded = true;
         });
     }).error(function(data, status, headers, config){
-        window.location.href = ("/404");
+        $state.go("404");
     });
 
     if($rootScope.logged){
@@ -283,7 +279,7 @@ angular.module('registry.controllers', [])
 
     $scope.deleteStackfile = function(id){
         API.deleteStackfile(id).success(function(data, status, headers, config){
-            $window.location.href = ("/registry");
+            $state.go('registry');
         }).error(function(data, status, headers, config){
             $scope.err = true;
         });
@@ -291,7 +287,7 @@ angular.module('registry.controllers', [])
 
 }])
 
-.controller('CreateController', ['$scope', '$rootScope', '$window', 'API', function($scope, $rootScope, $window, API){
+.controller('CreateController', ['$scope', '$rootScope', '$state', '$window', 'API', function($scope, $rootScope, $state, $window, API){
     var orgs = [];
 
     if($rootScope.logged){
@@ -387,7 +383,7 @@ angular.module('registry.controllers', [])
         };
 
         API.saveFile(form).success(function(data, status, headers, config){
-            $window.location.href = ('/registry');
+            $state.go('registry');
         }).error(function(data, status, header, config){
             window.location.href = ("/404");
         });

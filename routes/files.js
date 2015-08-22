@@ -180,7 +180,6 @@ module.exports = function(app) {
         File.findOne({ _id: req.params.id}, function(err, file){
             file.index(function(err, res){
                 if(err){
-                    console.log(req.params.id);
                     console.log(err);
                 }
             });
@@ -201,7 +200,6 @@ module.exports = function(app) {
         });
         File.findOne({ _id: req.params.id}, function(err, file){
             file.index(function(err, res){
-                console.log(req.params.id);
                 console.log(err);
             });
         });

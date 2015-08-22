@@ -135,8 +135,8 @@ angular.module('registry',['registry.controllers','registry.services','ui.router
           }
         }
       }).
-      state('registry.detail', {
-        url:'/:id',
+      state('detail', {
+        url:'/registry/:id',
         views: {
           top: {
             templateUrl: 'partials/top-bar.html'
@@ -147,6 +147,59 @@ angular.module('registry',['registry.controllers','registry.services','ui.router
           content: {
             templateUrl: 'partials/registry.detail.html',
             controller: 'RegistryDetailsController'
+          }
+        }
+      }).
+      state('mystacks', {
+        url:'/mystacks',
+        views: {
+          top: {
+            templateUrl: 'partials/top-bar.html'
+          },
+          side: {
+            templateUrl: 'partials/side-menu.html'
+          },
+          content: {
+            templateUrl: 'partials/mystacks.html',
+            controller: 'MyStackController'
+          }
+        }
+      }).
+      state('favorites', {
+        url:'/favorites',
+        views: {
+          top: {
+            templateUrl: 'partials/top-bar.html'
+          },
+          side: {
+            templateUrl: 'partials/side-menu.html'
+          },
+          content: {
+            templateUrl: 'partials/favorites.html',
+            controller: 'FavoriteController'
+          }
+        }
+      }).
+      state('create', {
+        url:'/create',
+        views: {
+          top: {
+            templateUrl: 'partials/top-bar.html'
+          },
+          side: {
+            templateUrl: 'partials/side-menu.html'
+          },
+          content: {
+            templateUrl: 'partials/create.html',
+            controller: 'CreateController'
+          }
+        }
+      }).
+      state('404', {
+        url:'/404',
+        views: {
+          full: {
+            templateUrl: 'partials/404.html'
           }
         }
       });

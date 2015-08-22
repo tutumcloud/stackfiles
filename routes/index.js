@@ -112,34 +112,4 @@ module.exports = function(app) {
     app.get('*', function(req, res){
         res.sendFile(path.resolve(__dirname + '/../dist/index.html'));
     });
-
-    /*
-    app.get('#/', function(req, res){
-        console.log('test');
-        res.sendFile(path.resolve(__dirname + '/../dist/template.html'));
-    });
-
-    app.get('/404', function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../dist/404.html'));
-    });
-
-    app.get('/registry', function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../dist/template.html'));
-    });
-
-    app.get('/mystacks', auth, function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../dist/template.html'));
-    });
-
-    app.get('/favorites', auth, function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../dist/template.html'));
-    });
-
-    app.get('/registry/:id', function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../dist/template.html'));
-    });
-
-    app.get('/create', auth, function(req, res){
-        res.sendFile(path.resolve(__dirname + '/../dist/template.html'));
-    });*/
 };
