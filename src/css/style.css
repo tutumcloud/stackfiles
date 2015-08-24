@@ -1114,12 +1114,29 @@ textarea.form-control{
     border-left: 4px solid #2196F3;
 }
 
-.sidebar-nav li a svg{
-    margin-top: 10px;
+.sidebar-nav li:hover a svg path{
+  fill: #2196F3;
 }
+
+.sidebar-nav li.selected a svg path{
+  fill: #2196F3;
+}
+
+.sidebar-nav li:hover a.star svg path{
+  fill: #FFAB40;
+}
+
+.sidebar-nav li.selected a.star svg path{
+  fill: #FFAB40;
+}
+
 
 .sidebar-nav li.selected {
     border-left: 4px solid #2196F3;
+}
+
+.sidebar-nav li a svg{
+    margin-top: 10px;
 }
 
 .sidebar-nav > .sidebar-brand svg {
@@ -1130,23 +1147,6 @@ textarea.form-control{
     margin-left: auto;
     margin-right: auto;
 }
-
-.sidebar-nav li.selected a svg path{
-  fill: #2196F3;
-}
-
-.sidebar-nav li a:hover svg path{
-  fill: #2196F3;
-}
-
-.sidebar-nav li a.star:hover svg path{
-  fill: #FFAB40;
-}
-
-.sidebar-nav li.selected a.star svg path{
-  fill: #FFAB40;
-}
-
 
 @media(min-width:768px) {
     #wrapper {
