@@ -1,0 +1,5 @@
+class RegistryService {
+
+}
+
+export { RegistryService };

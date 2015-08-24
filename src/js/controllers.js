@@ -86,10 +86,6 @@ angular.module('registry.controllers', [])
         }
     };
 
-    $scope.goTo = function(page){
-        $state.go("registry");
-    };
-
     $scope.signin = function(page){
         API.signin(page);
     };

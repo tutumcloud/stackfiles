@@ -1,4 +1,4 @@
-<div ng-controller="MainController" id="hero-header">
+<div ng-controller="landingController as l" id="hero-header">
     <div class="container">
         <div class="content">
             <svg width="140" height="123" viewBox="0 0 140 123" xmlns="http://www.w3.org/2000/svg">
@@ -13,7 +13,7 @@
             <input  class="form-group search" placeholder="Try searching Python, Wordpress, Redis, MySQL, etc." ng-enter="search()" ng-model="data.search">
             <div>
                 <a class="btn boxed-btn browse-btn" ui-sref="registry">Browse</a>
-                <a class="btn boxed-btn github-btn" ng-click="signin('create')"><img src="img/github.svg"> Share my stack</a>
+                <a class="btn boxed-btn github-btn" ng-click="l.signin('create')"><img src="img/github.svg"> Share my stack</a>
             </div>
         </div>
     </div>

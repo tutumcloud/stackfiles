@@ -5,7 +5,8 @@ var gulp = require('gulp');
 var connect = require('gulp-connect');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
-var babel = require('gulp-babel');
+var babelify = require('babelify');
+var browserify = require('browserify');
 var ngAnnotate = require('gulp-ng-annotate');
 var concat = require('gulp-concat');
 var minifyCSS = require('gulp-minify-css');
@@ -15,10 +16,11 @@ var plumber = require('gulp-plumber');
 var shell = require('gulp-shell');
 var notify = require('gulp-notify');
 var browserSync = require('browser-sync');
+var source = require('vinyl-source-stream');
 
 // tasks
 gulp.task('lint', ['clean'], function() {
-  gulp.src(['./server.js', './routes/*.js', './models/*.js', './src/**/*.js', '!./src/lib/**', '!./src/js/main.js'])
+  gulp.src(['./src/**/*.js', '!./src/lib/**', '!./src/js/assets/js-yaml.min.js', '!./src/js/main.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'));
@@ -34,15 +36,14 @@ gulp.task('minify-css', function() {
     .pipe(gulp.dest('dist/'));
 });
 gulp.task('minify-js', function() {
-  gulp.src(['./src/js/app.js', './src/js/services.js', './src/js/controllers.js', './src/js/assets/*.js','!./src/lib/**'])
-    .pipe(babel())
-    .pipe(concat('main.js'))
-    .pipe(uglify({
-      // inSourceMap:
-      // outSourceMap: "src.js.map"
-    }))
-    .pipe(ngAnnotate())
-    .pipe(gulp.dest('dist/js/'));
+  browserify({
+      entries: './src/app/app.js',
+      debug: true
+    })
+    .transform(babelify)
+    .bundle()
+    .pipe(source('main.js'))
+    .pipe(gulp.dest('./dist/app/'));
 });
 
 gulp.task('minify-html', function() {

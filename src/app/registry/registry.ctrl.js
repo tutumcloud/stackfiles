@@ -1,0 +1,5 @@
+class RegistryController{
+
+}
+
+export { RegistryController };
