@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var connect = require('gulp-connect');
 var jshint = require('gulp-jshint');
 var uglify = require('gulp-uglify');
+var babel = require('gulp-babel');
 var ngAnnotate = require('gulp-ng-annotate');
 var concat = require('gulp-concat');
 var minifyCSS = require('gulp-minify-css');
@@ -34,6 +35,7 @@ gulp.task('minify-css', function() {
 });
 gulp.task('minify-js', function() {
   gulp.src(['./src/js/app.js', './src/js/services.js', './src/js/controllers.js', './src/js/assets/*.js','!./src/lib/**'])
+    .pipe(babel())
     .pipe(concat('main.js'))
     .pipe(uglify({
       // inSourceMap:
