@@ -1,11 +1,12 @@
 class SessionController{
-  constructor($scope, $rootScope, $state, $location, sessionFactory){
+  constructor($scope, $rootScope, $state, $location, $window, sessionFactory){
     this.sessionFactory = sessionFactory;
     this.init();
     this.$scope = $scope;
     this.$rootScope = $rootScope;
     this.$state = $state;
     this.$location = $location;
+    this.$window = $window;
   }
 
   init(){
@@ -24,8 +25,12 @@ class SessionController{
 
   logout(){
     this.sessionFactory.logout().then((data, status, headers, config) => {
-      console.log('hello');
-      this.$state.go(this.$state.current, {}, {reload: true});
+      this.$state.transitionTo(this.$state.current, {}, {
+          reload: true,
+          inherit: false,
+          notify: true
+      });
+      this.$window.location.reload();
     });
   }
 
@@ -38,6 +43,6 @@ class SessionController{
   }
 }
 
-SessionController.$inject = ['$scope', '$rootScope', '$state', '$location', 'sessionFactory'];
+SessionController.$inject = ['$scope', '$rootScope', '$state', '$location', '$window', 'sessionFactory'];
 
 export { SessionController };

@@ -106,7 +106,7 @@ module.exports = function(app) {
                 return next(err);
             }
         });
-        res.redirect('/');
+        next();
     });
 
     app.get('*', function(req, res){

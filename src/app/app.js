@@ -2,7 +2,7 @@ import * as LandingModule from './landing/landing.module';
 import * as SessionModule from './session/session.module';
 import * as RegistryModule from './registry/registry.module';
 
-angular.module('stackfiles', ['ui.router'])
+angular.module('stackfiles', ['ui.router','infinite-scroll','hc.marked','localytics.directives','zeroclipboard'])
 
 .factory('landingFactory', LandingModule.svc)
 .controller('landingController', LandingModule.ctrl)
@@ -10,6 +10,7 @@ angular.module('stackfiles', ['ui.router'])
 .factory('sessionFactory', SessionModule.svc)
 .controller('sessionController', SessionModule.ctrl)
 
+.factory('registryLoader', RegistryModule.loader)
 .factory('registryFactory', RegistryModule.svc)
 .controller('registryController', RegistryModule.ctrl)
 
@@ -38,8 +39,15 @@ angular.module('stackfiles', ['ui.router'])
             templateUrl: 'partials/side-menu.html'
           },
           content: {
-            templateUrl: 'partials/registry.html',
-            controller: 'RegistryController'
+            templateUrl: 'partials/registry.html'
+          }
+        }
+      }).
+      state('404', {
+        url:'/404',
+        views: {
+          full: {
+            templateUrl: 'partials/404.html'
           }
         }
       });
