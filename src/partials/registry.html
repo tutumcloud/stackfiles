@@ -55,10 +55,10 @@
             <p>Oops! Something bad happened!</p>
         </div>
     </div>
-    <div class="col-lg-11 content-list" ng-hide="data.search.length || err == true">
+    <div ng-controller="registryController as r" class="col-lg-11 content-list" ng-hide="data.search.length || err == true">
         <table class="table">
             <tbody infinite-scroll="files.nextPage()" infinite-scroll-disabled='files.busy' infinite-scroll-distance='0'>
-                <tr ng-repeat="file in files.items" ng-class-odd="odd" ng-class-even="even">
+                <tr ng-repeat="file in r.files.items" ng-class-odd="odd" ng-class-even="even">
                     <td class="main"><a class="stack-name" ui-sref="detail({id: file._id})">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services <span class="stack-user">By {{file.user}}</span></p></td>
                     <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
                     <td style="vertical-align:middle"><a style="cursor:pointer;" data-toggle="tooltip" data-placement="top" title="Click here to get the embed script" ng-click="toggleModal(); generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>

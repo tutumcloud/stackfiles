@@ -1,9 +1,17 @@
 import * as LandingModule from './landing/landing.module';
+import * as SessionModule from './session/session.module';
+import * as RegistryModule from './registry/registry.module';
 
 angular.module('stackfiles', ['ui.router'])
 
 .factory('landingFactory', LandingModule.svc)
 .controller('landingController', LandingModule.ctrl)
+
+.factory('sessionFactory', SessionModule.svc)
+.controller('sessionController', SessionModule.ctrl)
+
+.factory('registryFactory', RegistryModule.svc)
+.controller('registryController', RegistryModule.ctrl)
 
 .config(["$stateProvider", "$urlRouterProvider", ($stateProvider, $urlRouterProvider) => {
 
