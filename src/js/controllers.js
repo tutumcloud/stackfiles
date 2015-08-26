@@ -223,7 +223,6 @@ angular.module('registry.controllers', [])
             }).error(function(data, status, headers, config){
                 $scope.err = true;
             });
-            $window.localStorage.clear();
         }
     };
 

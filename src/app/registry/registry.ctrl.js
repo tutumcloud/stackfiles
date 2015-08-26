@@ -1,5 +1,5 @@
 class RegistryController{
-  constructor($scope, $rootScope, $window, registryFactory, registryLoader) {
+  constructor($scope, $rootScope, $window, registryFactory, registryLoader){
     this.registryFactory = registryFactory;
     this.registryLoader = registryLoader;
     this.$scope = $scope;
@@ -8,7 +8,7 @@ class RegistryController{
     this.init();
   }
 
-  init() {
+  init(){
     this.files = this.registryLoader;
     this.$scope.loaded = true;
   }

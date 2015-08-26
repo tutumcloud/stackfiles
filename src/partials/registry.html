@@ -35,8 +35,8 @@
                       <td class="main"><a class="stack-name" ui-sref="detail({id: result._id})">{{result._source.title}}</a><p class="stack-services">{{result._source.tags.length}} Services<span class="stack-user">By {{result._source.user}}</span></p></td>
                       <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="r.deploy(result._id)" target="_blank">Deploy to Tutum</a></td>
                       <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to get the embed script"><a style="cursor:pointer;" ng-click="r.toggleModal(); r.generateEmbed(result._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
-                      <td style="vertical-align:middle; padding-top:33px;" data-toggle="tooltip" data-placement="top" title="Click here to favorite this stack">
-                        <!--<svg ng-controller="FavController" ng-click="toggleStatus(result); increment(results._source)" ng-class="{'btn-off':!isSelected(result), 'btn-on':isSelected(result)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                      <td style="vertical-align:middle; padding-top:33px;" data-toggle="tooltip" data-placement="top" title="Click here to favorite this stack" ng-controller="favController as f">
+                        <svg ng-click="f.toggleStatus(result); f.increment(results._source);" ng-class="{'btn-off':!f.isSelected(result), 'btn-on':f.isSelected(result)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                             <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
                                 <g id="-star" sketch:type="MSArtboardGroup" fill="#FFF3CC">
                                     <g id="star" sketch:type="MSLayerGroup" transform="translate(4.000000, 4.000000)">
@@ -45,7 +45,7 @@
                                 </g>
                             </g>
                         </svg><p class="favorite-num">{{result._source.stars}}</p>
-                      </td>-->
+                      </td>
                   </tr>
               </tbody>
           </table>
@@ -63,8 +63,8 @@
                       <td class="main"><a class="stack-name" ui-sref="detail({id: file._id})">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services <span class="stack-user">By {{file.user}}</span></p></td>
                       <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="r.deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
                       <td style="vertical-align:middle"><a style="cursor:pointer;" data-toggle="tooltip" data-placement="top" title="Click here to get the embed script" ng-click="r.toggleModal(); r.generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
-                      <td style="vertical-align:middle; padding-top:33px;" data-toggle="tooltip" data-placement="top" title="Click here to favorite this stack">
-                        <!--<svg ng-controller="FavController" ng-click="toggleStatus(file); increment(file)" ng-class="{'btn-off':!isSelected(file), 'btn-on':isSelected(file)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+                      <td style="vertical-align:middle; padding-top:33px;" data-toggle="tooltip" data-placement="top" title="Click here to favorite this stack" ng-controller="favController as f">
+                        <svg ng-click="f.toggleStatus(file); f.increment(file);" ng-class="{'btn-off':!f.isSelected(file), 'btn-on':f.isSelected(file)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                             <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
                                 <g id="-star" sketch:type="MSArtboardGroup" fill="#FFF3CC">
                                     <g id="star" sketch:type="MSLayerGroup" transform="translate(4.000000, 4.000000)">
@@ -72,7 +72,7 @@
                                     </g>
                                 </g>
                             </g>
-                        </svg><p class="favorite-num">{{file.stars}}</p>-->
+                        </svg><p class="favorite-num">{{file.stars}}</p>
                       </td>
                   </tr>
               </tbody>

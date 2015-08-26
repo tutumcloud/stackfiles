@@ -1,14 +1,18 @@
 import * as LandingModule from './landing/landing.module';
 import * as SessionModule from './session/session.module';
+import * as FavModule from './favmodule/favmodule.module.js';
 import * as RegistryModule from './registry/registry.module';
 
-angular.module('stackfiles', ['ui.router','infinite-scroll','hc.marked','localytics.directives','zeroclipboard'])
+angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directives','zeroclipboard'])
 
 .factory('landingFactory', LandingModule.svc)
 .controller('landingController', LandingModule.ctrl)
 
 .factory('sessionFactory', SessionModule.svc)
 .controller('sessionController', SessionModule.ctrl)
+
+.factory('favFactory', FavModule.svc)
+.controller('favController', FavModule.ctrl)
 
 .factory('registryLoader', RegistryModule.loader)
 .factory('registryFactory', RegistryModule.svc)
