@@ -1,7 +1,8 @@
 import * as LandingModule from './landing/landing.module';
 import * as SessionModule from './session/session.module';
-import * as FavModule from './favmodule/favmodule.module.js';
+import * as FavModule from './favmodule/favmodule.module';
 import * as RegistryModule from './registry/registry.module';
+import * as MyStacksModule from './mystacks/mystacks.module';
 
 angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directives','zeroclipboard'])
 
@@ -17,6 +18,9 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
 .factory('registryLoader', RegistryModule.loader)
 .factory('registryFactory', RegistryModule.svc)
 .controller('registryController', RegistryModule.ctrl)
+
+.factory('mystacksFactory', MyStacksModule.svc)
+.controller('mystacksController', MyStacksModule.ctrl)
 
 .config(["$stateProvider", "$urlRouterProvider", ($stateProvider, $urlRouterProvider) => {
 
@@ -44,6 +48,20 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
           },
           content: {
             templateUrl: 'partials/registry.html'
+          }
+        }
+      }).
+      state('mystacks', {
+        url:'/mystacks',
+        views: {
+          top: {
+            templateUrl: 'partials/top-bar.html'
+          },
+          side: {
+            templateUrl: 'partials/side-menu.html'
+          },
+          content: {
+            templateUrl: 'partials/mystacks.html',
           }
         }
       }).
