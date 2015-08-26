@@ -21,7 +21,6 @@ class MyStackService {
   static factory($http){
     return new MyStackService($http);
   }
-
 }
 
 MyStackService.factory.$inject = ['$http'];

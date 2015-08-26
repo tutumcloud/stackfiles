@@ -4,6 +4,7 @@ import * as FavModule from './favmodule/favmodule.module';
 import * as RegistryModule from './registry/registry.module';
 import * as MyStacksModule from './mystacks/mystacks.module';
 import * as FavoritesModule from './favorites/favorites.module';
+import * as CreateModule from './create/create.module';
 
 angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directives','zeroclipboard'])
 
@@ -25,6 +26,9 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
 
 .factory('favoritesFactory', FavoritesModule.svc)
 .controller('favoritesController', FavoritesModule.ctrl)
+
+.factory('createFactory', CreateModule.svc)
+.controller('createController', CreateModule.ctrl)
 
 .config(["$stateProvider", "$urlRouterProvider", ($stateProvider, $urlRouterProvider) => {
 
