@@ -19,31 +19,43 @@ var browserSync = require('browser-sync');
 var source = require('vinyl-source-stream');
 
 // tasks
-gulp.task('lint', ['clean'], function() {
-  gulp.src(['./src/**/*.js', '!./src/lib/**', '!./src/js/assets/js-yaml.min.js', '!./src/js/main.js'])
+/*gulp.task('lint', ['clean'], function() {
+  gulp.src(['!./src/app/assets/js-yaml.min.js', '!./src/app/angular.js'])
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
     .pipe(jshint.reporter('fail'));
-});
+});*/
 
 gulp.task('clean', shell.task([
   'rm -r ./dist/**'
 ]));
+
 gulp.task('minify-css', function() {
   var opts = {comments:true,spare:true};
   gulp.src(['./src/**/*.css', '!./src/lib/**'])
     .pipe(minifyCSS(opts))
     .pipe(gulp.dest('dist/'));
 });
-gulp.task('minify-js', function() {
+
+gulp.task('compile', function() {
   browserify({
       entries: './src/app/app.js',
       debug: true
     })
     .transform(babelify)
     .bundle()
-    .pipe(source('main.js'))
-    .pipe(gulp.dest('./dist/app/'));
+    .pipe(source('app.min.js'))
+    .pipe(gulp.dest('./src/app/'));
+});
+
+gulp.task('minify-js', ['compile'], function() {
+  gulp.src(['./src/app/assets/*.js','./src/app/app.min.js'])
+    .pipe(concat('main.js'))
+    /*.pipe(uglify({
+      // inSourceMap:
+      // outSourceMap: "src.js.map"
+    }))*/
+    .pipe(gulp.dest('dist/app/'));
 });
 
 gulp.task('minify-html', function() {
@@ -90,13 +102,13 @@ gulp.task('nodemon', function (cb) {
 
 gulp.task('watch', function(){
   gulp.watch('./src/**/*.html', ['minify-html', 'copy-html-files', 'copy-img-files']);
-  gulp.watch('./src/**/*.js', ['minify-js']);
+  gulp.watch(['./src/app/**/*.js', '!./src/app/app.min.js'], ['minify-js']);
   gulp.watch('./src/**/*.css', ['minify-css']);
 });
 
 // build task
 gulp.task('build',
-  ['lint', 'minify-html', 'minify-css', 'minify-js', 'copy-img-files', 'copy-html-files', 'copy-bower-components']
+  ['clean', 'minify-html', 'minify-css', 'minify-js', 'copy-img-files', 'copy-html-files', 'copy-bower-components']
 );
 
 // default task

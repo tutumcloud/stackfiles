@@ -190,8 +190,7 @@ angular.module('registry',['registry.controllers','registry.services','ui.router
             templateUrl: 'partials/side-menu.html'
           },
           content: {
-            templateUrl: 'partials/create.html',
-            controller: 'CreateController'
+            templateUrl: 'partials/create.html'
           }
         }
       }).

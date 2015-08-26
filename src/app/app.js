@@ -83,6 +83,20 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
           }
         }
       }).
+      state('create', {
+        url:'/create',
+        views: {
+          top: {
+            templateUrl: 'partials/top-bar.html'
+          },
+          side: {
+            templateUrl: 'partials/side-menu.html'
+          },
+          content: {
+            templateUrl: 'partials/create.html'
+          }
+        }
+      }).
       state('404', {
         url:'/404',
         views: {
