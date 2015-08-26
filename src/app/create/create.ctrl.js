@@ -17,7 +17,6 @@ class CreateController{
   }
 
   getOrgs(){
-    console.log('orgs');
     var orgs = [];
     var repos = [];
     var branches = [];
@@ -34,7 +33,6 @@ class CreateController{
   }
 
   getRepos(){
-    console.log('repos');
     var repos = [];
     var branches = [];
     this.data.path = "/";
@@ -50,7 +48,6 @@ class CreateController{
   }
 
   getBranches(){
-    console.log('branches');
     var branches = [];
     this.data.path = "/";
     this.$scope.stackfile = "Window will automatically refresh after filling form.";
@@ -76,6 +73,30 @@ class CreateController{
         this.$scope.locked = false;
         this.$scope.stackfile = data;
       }
+    });
+  }
+
+  createNew(){
+    var title = this.data.title;
+    var stackfile = jsyaml.load(this.$scope.stackfile);
+    var branch = this.data.branch;
+    var path = this.data.path;
+    var projectName = this.data.reponame;
+    var organizationName = this.data.orgname;
+    var description = this.data.description;
+
+    var form = {
+        title: title.replace(/[^a-zA-Z0-9]/g,' '),
+        stackfile: stackfile,
+        branch: branch,
+        path: path,
+        name: projectName,
+        orgname: organizationName,
+        description: description
+    };
+
+    this.createFactory.saveFile(form).then(() => {
+      this.$state.go('registry');
     });
   }
 }

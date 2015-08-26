@@ -44,7 +44,7 @@
               </div>
               <div class="validation pull-right">
                   <a ui-sref="registry" class="btn boxed-btn cancel-btn">Cancel</a>
-                  <button type="submit" class="btn boxed-btn create-btn" ng-disabled="!(!!c.data.reponame && !!c.data.orgname  && !!c.data.branch && !!data.path && !!c.data.title ) || locked" ng-click="createNew()">Submit</button>
+                  <button type="submit" class="btn boxed-btn create-btn" ng-disabled="!(!!c.data.reponame && !!c.data.orgname  && !!c.data.branch && !!c.data.path && !!c.data.title ) || locked" ng-click="c.createNew()">Submit</button>
               </div>
           </div>
       </div>
