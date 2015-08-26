@@ -3,6 +3,7 @@ import * as SessionModule from './session/session.module';
 import * as FavModule from './favmodule/favmodule.module';
 import * as RegistryModule from './registry/registry.module';
 import * as MyStacksModule from './mystacks/mystacks.module';
+import * as FavoritesModule from './favorites/favorites.module';
 
 angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directives','zeroclipboard'])
 
@@ -21,6 +22,9 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
 
 .factory('mystacksFactory', MyStacksModule.svc)
 .controller('mystacksController', MyStacksModule.ctrl)
+
+.factory('favoritesFactory', FavoritesModule.svc)
+.controller('favoritesController', FavoritesModule.ctrl)
 
 .config(["$stateProvider", "$urlRouterProvider", ($stateProvider, $urlRouterProvider) => {
 
@@ -62,6 +66,20 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
           },
           content: {
             templateUrl: 'partials/mystacks.html',
+          }
+        }
+      }).
+      state('favorites', {
+        url:'/favorites',
+        views: {
+          top: {
+            templateUrl: 'partials/top-bar.html'
+          },
+          side: {
+            templateUrl: 'partials/side-menu.html'
+          },
+          content: {
+            templateUrl: 'partials/favorites.html'
           }
         }
       }).

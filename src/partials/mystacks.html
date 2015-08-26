@@ -61,7 +61,7 @@
               <p>Oops! Something bad happened!</p>
           </div>
       </div>
-      <div class="col-lg-11 content-list" ng-hide="m.data.search || m.files.length == 0">
+      <div class="col-lg-11 content-list" ng-hide="m.data.search || m.files.length == 0 || err == true">
           <table class="table">
               <tbody>
                   <tr ng-repeat="file in m.files" ng-class-odd="odd" ng-class-even="even">

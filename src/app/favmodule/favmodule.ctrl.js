@@ -33,7 +33,7 @@ class FavController{
   }
 
   unToggleStatus(file){
-    this.favFactory(file._id).then(() => {
+    this.favFactory.unFavFile(file._id).then(() => {
       if(this.$scope.logged){
         var index = this.$scope.favoriteList.indexOf(file._id);
         this.$scope.favoriteList.splice(index, 1);

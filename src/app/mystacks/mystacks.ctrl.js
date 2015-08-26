@@ -25,7 +25,7 @@ class MyStackController {
     window.location.href = ('/api/v1/deploy/'+id);
   }
 
-  searchFile(term){
+  searchFile(){
     var term = this.data.search;
     this.mystacksFactory.searchFile(term).then(results => {
       this.results = results;
