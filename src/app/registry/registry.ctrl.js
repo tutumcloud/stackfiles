@@ -1,14 +1,16 @@
 class RegistryController{
-  constructor($scope, $rootScope, $window, registryFactory, registryLoader){
+  constructor($scope, $rootScope, $state, $window, registryFactory, registryLoader){
     this.registryFactory = registryFactory;
     this.registryLoader = registryLoader;
     this.$scope = $scope;
     this.$rootScope = $rootScope;
+    this.$state = $state;
     this.$window = $window;
     this.init();
   }
 
   init(){
+    console.log('Called');
     this.files = this.registryLoader;
     this.$scope.loaded = true;
   }
@@ -45,6 +47,6 @@ class RegistryController{
 
 }
 
-RegistryController.$inject = ['$scope', '$rootScope', '$window','registryFactory', 'registryLoader'];
+RegistryController.$inject = ['$scope', '$rootScope', '$state', '$window','registryFactory', 'registryLoader'];
 
 export { RegistryController };

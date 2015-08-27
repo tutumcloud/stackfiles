@@ -5,6 +5,7 @@ import * as RegistryModule from './registry/registry.module';
 import * as MyStacksModule from './mystacks/mystacks.module';
 import * as FavoritesModule from './favorites/favorites.module';
 import * as CreateModule from './create/create.module';
+import * as DetailModule from './detail/detail.module';
 
 angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directives','zeroclipboard'])
 
@@ -30,6 +31,9 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
 .factory('createFactory', CreateModule.svc)
 .controller('createController', CreateModule.ctrl)
 
+.factory('detailFactory', DetailModule.svc)
+.controller('detailController', DetailModule.ctrl)
+
 .config(["$stateProvider", "$urlRouterProvider", ($stateProvider, $urlRouterProvider) => {
 
     $urlRouterProvider.when('', '/');
@@ -47,6 +51,7 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
       }).
       state('registry', {
         url: '/registry',
+        cache: false,
         views: {
           top: {
             templateUrl: 'partials/top-bar.html'
@@ -59,8 +64,24 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
           }
         }
       }).
+      state('detail', {
+        url:'/registry/:id',
+        cache: false,
+        views: {
+          top: {
+            templateUrl: 'partials/top-bar.html'
+          },
+          side: {
+            templateUrl: 'partials/side-menu.html'
+          },
+          content: {
+            templateUrl: 'partials/registry.detail.html'
+          }
+        }
+      }).
       state('mystacks', {
         url:'/mystacks',
+        cache: false,
         views: {
           top: {
             templateUrl: 'partials/top-bar.html'
@@ -75,6 +96,7 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
       }).
       state('favorites', {
         url:'/favorites',
+        cache: false,
         views: {
           top: {
             templateUrl: 'partials/top-bar.html'
