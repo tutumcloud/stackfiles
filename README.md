@@ -15,7 +15,7 @@ Stackfile registry
 
 Follow the following instruction to run the project in dev mode:
 
-First, in the project folder, run `npm install` to install all the Node.JS dependencies, then `bower install` to install the assets.
+First, in the project folder, run `npm install -g gulp bower && npm install` to install all the Node.JS dependencies, then `bower install` to install the assets.
 
 Set the following environment variables:
 
@@ -24,11 +24,10 @@ Set the following environment variables:
 - GITHUB_CLIENT_SECRET=yourgithubclientsecret
 
 Run `docker-compose -f docker-compose.dev.yml up`
-Run `node server.js`
+Run `gulp`
 
 #####Note
-By default the mongodb database dev IP is set to 192.168.59.103 in the project.
-
+By default the mongodb database dev IP is set to 192.168.59.100 in the project.
 
 To run the project in production mode:
 
