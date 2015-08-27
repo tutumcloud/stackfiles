@@ -60,7 +60,8 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
             templateUrl: 'partials/side-menu.html'
           },
           content: {
-            templateUrl: 'partials/registry.html'
+            templateUrl: 'partials/registry.html',
+            controller: 'registryController as r'
           }
         }
       }).

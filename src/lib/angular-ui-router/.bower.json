@@ -28,6 +28,6 @@
     "commit": "805e69bae319e922e4d3265b7ef565058aaff850"
   },
   "_source": "git://github.com/angular-ui/ui-router.git",
-  "_target": "~0.2.15",
+  "_target": "~0.2.5",
   "_originalSource": "angular-ui-router"
 }

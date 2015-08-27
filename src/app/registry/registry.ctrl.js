@@ -11,7 +11,7 @@ class RegistryController{
 
   init(){
     console.log('Called');
-    this.files = this.registryLoader;
+    this.$scope.files = this.registryLoader;
     this.$scope.loaded = true;
   }
 
