@@ -1,6 +1,7 @@
 import * as LandingModule from './landing/landing.module';
 import * as SessionModule from './session/session.module';
 import * as FavModule from './favmodule/favmodule.module';
+import * as CommonModule from './commons/common.module.js';
 import * as RegistryModule from './registry/registry.module';
 import * as MyStacksModule from './mystacks/mystacks.module';
 import * as FavoritesModule from './favorites/favorites.module';
@@ -17,6 +18,9 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
 
 .factory('favFactory', FavModule.svc)
 .controller('favController', FavModule.ctrl)
+
+.factory('commonFactory', CommonModule.svc)
+.controller('commonController', CommonModule.ctrl)
 
 .factory('registryLoader', RegistryModule.loader)
 .factory('registryFactory', RegistryModule.svc)
@@ -76,7 +80,8 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
             templateUrl: 'partials/side-menu.html'
           },
           content: {
-            templateUrl: 'partials/registry.detail.html'
+            templateUrl: 'partials/registry.detail.html',
+            controller: 'detailController as d'
           }
         }
       }).
@@ -92,6 +97,7 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
           },
           content: {
             templateUrl: 'partials/mystacks.html',
+            controller: 'mystacksController as m'
           }
         }
       }).
@@ -106,7 +112,8 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
             templateUrl: 'partials/side-menu.html'
           },
           content: {
-            templateUrl: 'partials/favorites.html'
+            templateUrl: 'partials/favorites.html',
+            controller: 'favoritesController as fc'
           }
         }
       }).
@@ -132,6 +139,17 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
           }
         }
       });
+
+      function authenticate($q, $rootScope, $state, $timeout) {
+      if ($rootScope.logged) {
+        // Resolve the promise successfully
+        return $q.when();
+      } else {
+        $state.go('registry');
+        // Reject the authentication promise to prevent the state from loading
+        return $q.reject();
+      }
+    }
 }])
 
 .directive('ngEnter', function () {

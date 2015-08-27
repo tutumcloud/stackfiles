@@ -1,11 +1,11 @@
-<div ng-controller="favoritesController as fc">
+<div ng-controller="commonController as com">
   <div class="col-lg-12 gradient">
       <div class="elem-bar">
           <h2>Favorites</h2>
           <div class="search-container">
-              <input type="text" class="search-bar" placeholder="" ng-model="fc.data.search" ng-init="fc.checkSearch()" ng-change="fc.searchFile()">
+              <input type="text" class="search-bar" placeholder="" ng-model="com.data.search" ng-change="com.searchFile()">
               <a class="clear-search">
-                  <span ng-click="fc.data.search = ''">x</span>
+                  <span ng-click="com.data.search = ''">x</span>
               </a>
           </div>
           <a ng-controller="sessionController as s" class="btn boxed-btn submit-btn pull-right" ng-hide="logged" ng-click="s.signin('create')"></i> Submit a Stackfile</a>
@@ -28,13 +28,13 @@
       </form>
   </modal>
   <div class="container-fluid" ng-show="loaded == true">
-      <div class="col-lg-11 content-list" ng-show="fc.data.search">
-          <table ng-show="fc.results.length" class="table">
+      <div class="col-lg-11 content-list" ng-show="com.data.search">
+          <table ng-show="com.results.length" class="table">
               <tbody>
-                  <tr ng-repeat="result in fc.results" ng-class-odd="odd" ng-class-even="even" ng-hide="currentSection === 1">
+                  <tr ng-repeat="result in com.results" ng-class-odd="odd" ng-class-even="even" ng-hide="currentSection === 1">
                       <td class="main"><a class="stack-name" ui-sref="detail({id: result._id})">{{result._source.title}}</a><p class="stack-services">{{result._source.tags.length}} Services<span class="stack-user">By {{result._source.user}}</span></p></td>
-                      <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="fc.deploy(result._id)" target="_blank">Deploy to Tutum</a></td>
-                      <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account"><a style="cursor:pointer;" ng-click="fc.toggleModal(); fc.generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
+                      <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="com.deploy(result._id)" target="_blank">Deploy to Tutum</a></td>
+                      <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account"><a style="cursor:pointer;" ng-click="com.toggleModal(); com.generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
                       <td style="vertical-align:middle; padding-top:33px;" data-toggle="tooltip" data-placement="top" title="Click here to favorite this stack" ng-controller="favController as f">
                         <svg ng-click="f.toggleStatus(result); f.increment(results._source);" ng-class="{'btn-off':!f.isSelected(result), 'btn-on':f.isSelected(result)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                             <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
@@ -49,7 +49,7 @@
                   </tr>
               </tbody>
           </table>
-          <div ng-hide="fc.results.length > 0" style="text-align: center">No result</div>
+          <div ng-hide="com.results.length > 0" style="text-align: center">No result</div>
       </div>
       <div class="col-lg-11 content-list" ng-show="fc.files.length == 0">
           <div class="no-content">
@@ -61,13 +61,13 @@
               <p>Oops! Something bad happened!</p>
           </div>
       </div>
-      <div class="col-lg-11 content-list" ng-hide="fc.data.search || fc.files.length == 0 || err == true">
+      <div class="col-lg-11 content-list" ng-hide="com.data.search || fc.files.length == 0 || err == true">
           <table class="table">
               <tbody>
                   <tr ng-repeat="file in fc.files" ng-class-odd="odd" ng-class-even="even">
                       <td class="main"><a class="stack-name" ui-sref="detail({id: file._id})">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services <span class="stack-user">By {{file.user}}</span></p></td>
-                      <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="fc.deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
-                      <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account"><a style="cursor:pointer;" ng-click="fc.toggleModal(); fc.generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
+                      <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="com.deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
+                      <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account"><a style="cursor:pointer;" ng-click="com.toggleModal(); com.generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
                       <td style="vertical-align:middle; padding-top:33px;" data-toggle="tooltip" data-placement="top" title="Click here to favorite this stack" ng-controller="favController as f">
                         <svg ng-click="f.unToggleStatus(file); fc.removeRow(file);" ng-class="{'btn-off-unfav':!f.isSelected(file), 'btn-on-unfav':f.isSelected(file)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
                             <g id="Stackfiles.io" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">

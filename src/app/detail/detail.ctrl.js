@@ -15,25 +15,17 @@ class DetailController{
      this.$scope.logged = this.$rootScope.logged;
    }
 
-   this.detailFactory.getFileWithId(this.$stateParams.id).then(data => {
-     this.data = data;
-     this.detailFactory.getYAMLFile(data._id, data.projectName, data.path).then(yamlData => {
-       this.composeFile = yamlData;
-       this.$scope.loaded = true;
-     });
+   this.detailFactory.getFileWithId(this.$stateParams.id).then(r => {
+     this.data = r.data;
+     if(r.status < 300){
+       this.detailFactory.getYAMLFile(r.data._id, r.data.projectName, r.data.path).then(yamlData => {
+         this.composeFile = yamlData;
+         this.$scope.loaded = true;
+       });
+     }
+   }, () => {
+     this.$state.go('404');
    });
- }
-
- toggleModal(){
-   this.$scope.showModal = !this.$scope.showModal;
- }
-
- generateEmbed(id){
-   this.$scope.embedScript = '<script src="'+window.location.protocol+'//'+window.location.hostname+'/embed/file/'+id+'.js"></script>';
- }
-
- deploy(id){
-   window.location.href = ('/api/v1/deploy/'+id);
  }
 
  deleteStackfile(id){

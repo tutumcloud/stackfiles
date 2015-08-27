@@ -23,6 +23,8 @@ class Loader {
         self.after = self.after + 1;
         self.busy = false;
       }
+    }, () => {
+      self.items = [];
     });
   }
 

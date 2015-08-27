@@ -9,7 +9,7 @@ class DetailService{
       params: {
         id: id
       }
-    }).then(r => r.data);
+    }).then(r => r);
   }
 
   getYAMLFile(id, repo, path){

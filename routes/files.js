@@ -107,7 +107,7 @@ module.exports = function(app) {
 
         file.save(function(err, savedFile){
             if(err){
-                res.send(err);
+                res.statusCode = 500;
             }
             file.on('es-indexed', function(){
                 console.log('file indexed');
@@ -119,7 +119,7 @@ module.exports = function(app) {
     app.get('/api/v1/files', function(req, res, next){
         File.paginate({}, {page: req.query.page, limit: req.query.limit, sortBy : {stars: -1}}, function(err, files){
             if(err){
-                return next(err);
+                res.statusCode = 500;
             }
             res.json(files);
         });
@@ -128,7 +128,7 @@ module.exports = function(app) {
     app.get('/api/v1/files/:id', function(req, res, next){
         File.findOne({_id: req.query.id}, function(err, file){
             if(err){
-                return next(err);
+                res.statusCode = 404;
             }
             res.json(file);
         });
@@ -144,7 +144,7 @@ module.exports = function(app) {
 
         File.findOne({_id: id}, function(err, file){
             if(err){
-                return next(err);
+                res.statusCode = 404;
             }
 
             var options = {
@@ -169,7 +169,8 @@ module.exports = function(app) {
     app.get('/api/v1/files/fav/:id', auth, function(req, res, next){
         File.findOneAndUpdate({ _id: req.params.id }, { $inc: { stars: 1 }}, function(err,file){
             if(err){
-                return next(err);
+              res.statusCode = 404;
+              return;
             }
             User.findOneAndUpdate({userId: req.user.id}, {$push: {favorites: req.params.id}}, {safe: true, upsert: true}, function(err, file){
                 if(err){
@@ -190,7 +191,8 @@ module.exports = function(app) {
     app.get('/api/v1/files/unfav/:id', auth, function(req, res, next){
         File.findOneAndUpdate({ _id: req.params.id }, { $inc: { stars: -1 }}, function(err,file){
             if(err){
-                return next(err);
+                res.statusCode = 404;
+                return;
             }
             User.findOneAndUpdate({userId: req.user.id}, {$pull: {favorites: req.params.id}}, {safe: true, upsert: true}, function(err, file){
                 if(err){
@@ -228,7 +230,7 @@ module.exports = function(app) {
     app.get('/api/v1/user/files', auth, function(req, res, next){
         File.find({author: req.user.username}, function(err, files){
             if(err){
-                return next(err);
+                res.statusCode = 500;
             }
             res.json(files);
         });
@@ -237,7 +239,7 @@ module.exports = function(app) {
     app.get('/api/v1/user/favorites', auth, function(req, res, next){
         User.findOne({userId: req.user.id}, function(err, user){
             if(err){
-                return next(err);
+                res.statusCode = 500;
             }
 
             File.find({'_id': { $in: user.favorites}}, function(err, files){
@@ -252,7 +254,7 @@ module.exports = function(app) {
     app.get('/api/v1/user/fav', auth, function(req, res, next){
         User.findOne({userId: req.user.id}, function(err, user){
             if(err){
-                return next(err);
+                res.statusCode = 500;
             }
             res.json(user.favorites);
         });

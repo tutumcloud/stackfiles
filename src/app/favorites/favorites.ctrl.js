@@ -13,19 +13,6 @@ class FavoriteController{
     });
   }
 
-  toggleModal(){
-    this.$scope.copyText = {status: 'notClicked'};
-    this.$scope.showModal = !this.$scope.showModal;
-  }
-
-  generateEmbed(id){
-    this.$scope.embedScript = '<script src="'+window.location.protocol+'//'+window.location.hostname+'/embed/file/'+id+'.js"></script>';
-  }
-
-  deploy(id){
-    window.location.href = ('/api/v1/deploy/'+id);
-  }
-
   removeRow(file){
     var index = -1;
 		for( var i = 0; i < this.files.length; i++ ) {
@@ -35,13 +22,6 @@ class FavoriteController{
 			}
 		}
 		this.files.splice( index, 1 );
-  }
-
-  searchFile(){
-    var term = this.data.search;
-    this.favoritesFactory.searchFile(term).then(results => {
-      this.results = results;
-    });
   }
 }
 

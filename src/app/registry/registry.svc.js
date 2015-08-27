@@ -13,15 +13,6 @@ class RegistryService {
     }).then(r => r.data);
   }
 
-  searchFile(term){
-    return this.$http.get('/api/v1/search', {
-      method: 'GET',
-      params: {
-        term: term
-      }
-    }).then(r => r.data);
-  }
-
   static factory($http){
     return new RegistryService($http);
   }
