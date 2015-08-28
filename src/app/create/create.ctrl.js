@@ -96,7 +96,8 @@ class CreateController{
     };
 
     this.createFactory.saveFile(form).then(() => {
-      this.$state.go('mystacks', {}, { reload: true, inherit: false, notify: true });
+      //this.$state.go('mystacks', {}, { reload: true, inherit: false, notify: true });
+      this.$window.location.href = ('/#/registry');
     });
   }
 }

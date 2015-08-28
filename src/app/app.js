@@ -22,7 +22,6 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
 .factory('commonFactory', CommonModule.svc)
 .controller('commonController', CommonModule.ctrl)
 
-.factory('registryLoader', RegistryModule.loader)
 .factory('registryFactory', RegistryModule.svc)
 .controller('registryController', RegistryModule.ctrl)
 
@@ -140,7 +139,7 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
         }
       });
 
-      function authenticate($q, $rootScope, $state, $timeout) {
+      /*function authenticate($q, $rootScope, $state, $timeout) {
       if ($rootScope.logged) {
         // Resolve the promise successfully
         return $q.when();
@@ -149,7 +148,37 @@ angular.module('stackfiles', ['ui.router','infinite-scroll','localytics.directiv
         // Reject the authentication promise to prevent the state from loading
         return $q.reject();
       }
-    }
+    }*/
+}])
+
+.factory('Loader', ['registryFactory', function(registryFactory){
+  var  Loader = function() {
+    this.items = [];
+    this.busy = false;
+    this.after = 1;
+  };
+
+  Loader.prototype.nextPage = function() {
+    if (this.busy) return;
+    this.busy = true;
+    var self = this;
+
+    return registryFactory.getFiles(this.after).then(function(data, status, headers, config){
+        var list = data;
+        if(data.length === 0){
+            self.busy = true;
+            return;
+        } else {
+            for(var i = 0; i < list.length; i++){
+                self.items.push(list[i]);
+            }
+            self.after = self.after + 1;
+            self.busy = false;
+        }
+
+    });
+  };
+  return Loader;
 }])
 
 .directive('ngEnter', function () {

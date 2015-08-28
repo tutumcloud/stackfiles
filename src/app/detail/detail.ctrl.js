@@ -30,7 +30,7 @@ class DetailController{
 
  deleteStackfile(id){
    this.detailFactory.deleteStackfile(id).then(() => {
-     this.$state.go('mystacks', {}, { reload: true, inherit: false, notify: true });
+     this.$state.go('registry', {}, { reload: true, inherit: false, notify: true });
    });
  }
 }
