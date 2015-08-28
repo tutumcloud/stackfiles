@@ -64,7 +64,7 @@
       <div class="col-lg-11 content-list" ng-hide="com.data.search || fc.files.length == 0 || err == true">
           <table class="table">
               <tbody>
-                  <tr ng-repeat="file in fc.files" ng-class-odd="odd" ng-class-even="even">
+                  <tr ng-repeat="file in fc.files track by $index" ng-class-odd="odd" ng-class-even="even">
                       <td class="main"><a class="stack-name" ui-sref="detail({id: file._id})">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services <span class="stack-user">By {{file.user}}</span></p></td>
                       <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="com.deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
                       <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account"><a style="cursor:pointer;" ng-click="com.toggleModal(); com.generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>

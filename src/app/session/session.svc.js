@@ -11,7 +11,7 @@ class SessionService {
   getUser(){
     return this.$http.get('/api/v1/user', {
       method: 'GET'
-    }).then(r => r.data);
+    }).then(r => r);
   }
 
   logout(){

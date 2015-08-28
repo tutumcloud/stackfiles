@@ -97,6 +97,7 @@ function getREADME(username, repositoryName, callback){
 module.exports = function(app) {
 
     app.get('/api/v1/user', function(req, res){
+        console.log(req.user);
         if(req.user !== undefined){
             res.json(req.user);
         } else {

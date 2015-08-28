@@ -85,7 +85,7 @@ if (env == 'production'){
 
 var auth = function(req, res, next){
     if (req.isAuthenticated()) { return next(); }
-    res.redirect('/registry');
+    res.redirect('/#/registry');
 };
 
 module.exports = function(app) {
