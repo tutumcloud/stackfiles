@@ -68,7 +68,19 @@ function listOrgRepos(accessToken, name, callback){
 function getYAML(username, repositoryName, branch, path, callback){
     var github = new Github({});
     path = path.substr(1);
-    request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/tutum.yml", function(err, data){
+
+    var headers = {
+      'Content-Type':     'text/x-yaml; charset=utf-8'
+    };
+
+    var options = {
+      url: "https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/tutum.yml",
+      method: 'GET',
+      headers: headers
+    };
+
+
+    request.get(options, function(err, data){
         if(data.statusCode == 404){
             request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/docker-compose.yml", function(err, data){
                 if(data.statusCode == 404){
@@ -178,7 +190,8 @@ module.exports = function(app) {
             if(err){
                 res.send(err);
             } else {
-                res.send(yaml);
+                res.writeHead(200, {'Content-Type': 'text/x-yaml; charset=utf-8'});
+                res.end(yaml);
             }
         });
     });
@@ -196,7 +209,8 @@ module.exports = function(app) {
                     if(err){
                         res.redirect('/404');
                     } else {
-                        res.send(yaml);
+                        res.writeHead(200, {'Content-Type': 'text/x-yaml; charset=utf-8'});
+                        res.end(yaml);
                     }
                 });
             }
@@ -210,7 +224,12 @@ module.exports = function(app) {
         var path = req.query.path;
 
         getYAML(user, repoName, branch, path, function(err, file){
-            res.send(file);
+            if(err){
+              res.end('Unable to fetch stackfile');
+            } else {
+              res.writeHead(200, {'Content-Type': 'text/x-yaml; charset=utf-8'});
+              res.end(file);
+            }
         });
     });
 };
