@@ -150,7 +150,7 @@ module.exports = function(app) {
             var options = {
               url: BASE_URL+'/api/v1/user/repos/embed?user='+file.user+'&repository='+file.projectName+'&branch='+file.branch+'&path='+file.path,
               headers: {
-                'Content-Type': 'text/plain'
+                'Content-Type':'text/x-yaml; charset=utf-8'
               }
             };
 

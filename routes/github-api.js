@@ -224,7 +224,12 @@ module.exports = function(app) {
         var path = req.query.path;
 
         getYAML(user, repoName, branch, path, function(err, file){
-            res.send(file);
+            if(err){
+              res.end('Unable to fetch stackfile');
+            } else {
+              res.writeHead(200, {'Content-Type': 'text/x-yaml; charset=utf-8'});
+              res.end(file);
+            }
         });
     });
 };
