@@ -1029,6 +1029,23 @@ textarea.form-control{
     }
 }
 
+/*SYNTAX HIGHLIGHTING */
+.pun, .pln{
+  color: #666666;
+}
+
+.str, .lit{
+  color: #00c8b4;
+}
+
+.kwd{
+  color: #2196F3;
+}
+
+.com{
+  color: #2196F3;
+  font-style: normal;
+}
 
 /*SIDEBAR*/
 #wrapper {
