@@ -45,9 +45,8 @@ if (env == 'production'){
     var host = process.env.ELASTICSEARCH_PORT_9200_TCP_ADDR;
     var port = process.env.ELASTICSEARCH_PORT_9200_TCP_PORT;
     schema.plugin(mongoosastic, {
-      hosts: [
-        host + ":" + port
-      ]
+        host: host,
+        auth: process.env.ELASTICSEARCH_USER + ':' + process.env.ELASTICSEARCH_PASS
     });
     schema.plugin(mongoosePaginate);
 }
