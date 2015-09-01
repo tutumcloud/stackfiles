@@ -11,3 +11,6 @@ elasticsearch:
     ports:
       - "9200:9200"
       - "9300:9300"
+    environment:
+      - ELASTICSEARCH_USER=admin
+      - ELASTICSEARCH_PASS=test
