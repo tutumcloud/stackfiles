@@ -17,9 +17,24 @@ var express = require('express'),
 var env = process.env.NODE_ENV;
 var SENTRY_DSN = process.env.SENTRY_DSN;
 
+var onOpen = function () {
+	db.db.s.databaseName = 'tutum';
+};
+
+var onError = function(err) {
+	console.log('Connection to mongodb for queries failed', err);
+};
+
+var onClose = function() {
+	console.log('Mongodb queries closed');
+};
+
 if (env == 'development'){
     console.log("Using dev DB");
-    var db = mongoose.connect('mongodb://192.168.59.100:27018');
+    var db = mongoose.createConnection('mongodb://admin:test@192.168.59.100:27018');
+    db.once('open', onOpen);
+    db.once('close', onClose);
+    db.on('error', onError);
 }
 
 if (env == 'production'){

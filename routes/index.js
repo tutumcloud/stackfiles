@@ -32,6 +32,9 @@ if (env == 'development'){
             });
 
             User.find({userId : profile.id}, function (err, docs) {
+                if(err){
+                  console.log(err);
+                }
                 if (docs.length){
                     User.update({userId : profile.id}, {accessToken: accessToken}, function(err, numberAffected, rawResponse) {
                         if(err){
@@ -121,7 +124,7 @@ module.exports = function(app) {
     app.get('/auth/github', function(req, res, next){
         var redirect = req.query.redirect;
         req.session.redirect = redirect;
-        passport.authenticate('github', { scope: 'read:org' })(req, res, next);
+        passport.authenticate('github', { scope: 'read:org' })(req, res);
     }, function(){});
 
     app.get('/auth/github/callback', passport.authenticate('github'), function(req, res) {

@@ -2,6 +2,7 @@ mongodb:
   image: tutum/mongodb:3.0
   environment:
     - OPLOG_SIZE=1
+    - MONGODB_PASS=test
   ports:
     - "27018:27017"
     - "28018:28017"
