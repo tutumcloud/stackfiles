@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
-var File = require('./composeFiles.js');
+    File = require('./composeFiles.js'),
+    db = require('../server.js');
 
 var schema = new mongoose.Schema({
     userId: {type: String},
@@ -12,4 +13,4 @@ var schema = new mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model('User', schema);
+module.exports = db.model('User', schema);

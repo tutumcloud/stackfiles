@@ -30,7 +30,6 @@ if (env == 'development'){
             profileUrl: profile.profileUrl,
             accessToken: accessToken
             });
-
             User.find({userId : profile.id}, function (err, docs) {
                 if(err){
                   console.log(err);

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose'),
     mongoosastic = require('mongoosastic'),
-    mongoosePaginate = require('mongoose-paginate');
+    mongoosePaginate = require('mongoose-paginate'),
+    db = require('../server.js');
 
 var schema = new mongoose.Schema({
     title: {type: String, es_boost:2.0, es_indexed: true},
@@ -52,4 +53,4 @@ if (env == 'production'){
     schema.plugin(mongoosePaginate);
 }
 
-module.exports = mongoose.model('File', schema);
+module.exports = db.model('File', schema);
