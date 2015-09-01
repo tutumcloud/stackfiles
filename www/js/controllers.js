@@ -121,7 +121,7 @@ angular.module('registry.controllers', [])
      };
 
     $scope.searchFile = function(){
-        var term = this.data.search;
+        var term = this.data.search.replace(/[^a-zA-Z0-9]/g,' ');
         API.searchFile(term).success(function(data, status, headers, config){
             $scope.results = data;
         }).error(function(data, status, headers, config){
@@ -173,7 +173,7 @@ angular.module('registry.controllers', [])
 	};
 
    $scope.searchFile = function(){
-       var term = this.data.search;
+       var term = this.data.search.replace(/[^a-zA-Z0-9]/g,' ');
        API.searchFile(term).success(function(data, status, headers, config){
            $scope.results = data;
        }).error(function(data, status, headers, config){
@@ -214,7 +214,7 @@ angular.module('registry.controllers', [])
     };
 
     $scope.searchFile = function(){
-        var term = this.data.search;
+        var term = this.data.search.replace(/[^a-zA-Z0-9]/g,' ');
         API.searchFile(term).success(function(data, status, headers, config){
             $scope.results = data;
         }).error(function(data, status, headers, config){
@@ -225,7 +225,7 @@ angular.module('registry.controllers', [])
     $scope.checkSearch = function(){
         if($window.localStorage.search !== undefined){
             $scope.data = {search:$window.localStorage.search};
-            API.searchFile($window.localStorage.search).success(function(data, status, headers, config){
+            API.searchFile($window.localStorage.search.replace(/[^a-zA-Z0-9]/g,' ')).success(function(data, status, headers, config){
                 $scope.results = data;
             }).error(function(data, status, headers, config){
                 $scope.err = true;
