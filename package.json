@@ -29,7 +29,7 @@
     "newrelic": "^1.21.1",
     "open": "0.0.5",
     "passport": "^0.2.2",
-    "passport-github": "^0.1.5",
+    "passport-github2": "^0.1.9",
     "randomstring": "^1.0.7",
     "raven": "^0.8.1",
     "request": "^2.58.0",
