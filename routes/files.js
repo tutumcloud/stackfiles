@@ -41,7 +41,10 @@ File.createMapping(function(err, mapping){
 });
 
 function reIndex(stream, count, total, done){
+    console.log('reIndexing');
   stream.on('data', function(doc){
+    console.log('reIndexing1');
+    console.log(doc);
     total++;
     count++;
     doc.index(function() {
@@ -51,6 +54,7 @@ function reIndex(stream, count, total, done){
   });
 
   stream.on('close', function() {
+    console.log('reIndexing1');
     done = true;
     allDone();
   });
@@ -227,19 +231,17 @@ module.exports = function(app) {
     });
 
     app.delete('/api/v1/files/:id', auth, function(req, res, next){
-        File.findOne({_id: req.query.id, author: req.user.username},function(err, file){
-            if(err){
-                return next(err);
-            } else {
-                file.remove(function(err, data, next){
-                    if(err){
-                        return next(err);
-                    } else {
-                        reIndex(stream, count, total, done);
-                        res.json(data);
-                    }
-                });
-            }
+        File.find({_id: req.query.id, author: req.user.username}).remove(function(err, data){
+          if(err){
+            return next(err);
+          }
+          File.esTruncate(function(err, data) {
+              if(err){
+                  return next(err);
+              }
+          });
+          File.synchronize();
+          next();
         });
     });
 

@@ -284,7 +284,7 @@ angular.module('registry.controllers', [])
         API.deleteStackfile(id).success(function(data, status, headers, config){
             $window.location.href = ("/registry");
         }).error(function(data, status, headers, config){
-            $scope.err = true;
+            $window.location.href = ("/registry");
         });
     };
 
