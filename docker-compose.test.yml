@@ -5,14 +5,14 @@ sut:
     - elasticsearch
   command: npm test
 mongodb:
-  image: mongo:latest
+  image: tutum/mongodb:3.0
   environment:
     - OPLOG_SIZE=1
   ports:
     - "27018:27017"
     - "28018:28017"
 elasticsearch:
-    image: elasticsearch:latest
+    image: tutum/elasticsearch:latest
     ports:
       - "9200:9200"
       - "9300:9300"
