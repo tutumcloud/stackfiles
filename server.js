@@ -15,7 +15,9 @@ var express = require('express'),
     app = express();
 
 var env = process.env.NODE_ENV;
+var pass = process.env.MONGODB_PASS;
 var SENTRY_DSN = process.env.SENTRY_DSN;
+var db;
 
 var onOpen = function () {
 	db.db.s.databaseName = 'tutum';
@@ -40,10 +42,14 @@ if (env == 'development'){
 if (env == 'production'){
     var port = process.env.MONGODB_PORT_27017_TCP_PORT;
     var host = process.env.MONGODB_PORT_27017_TCP_ADDR;
-    var db = mongoose.connect('mongodb://' + host + ':' + port);
+    var db = mongoose.createConnection('mongodb://admin:'+ pass + '@' + host + ':' + port);
+    db.once('open', onOpen);
+    db.once('close', onClose);
+    db.on('error', onError);
 }
 
 var port = process.env.PORT || 4000;
+module.exports = db;
 
 app.use(raven.middleware.express.requestHandler(SENTRY_DSN));
 app.use(raven.middleware.express.errorHandler(SENTRY_DSN));

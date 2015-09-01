@@ -11,6 +11,9 @@ elasticsearch:
     ports:
       - "9200:9200"
       - "9300:9300"
+    environment:
+      - ELASTICSEARCH_USER=admin
+      - ELASTICSEARCH_PASS=test
 registry:
   build: .
   links:
@@ -23,7 +26,9 @@ registry:
   environment:
     - GITHUB_CLIENT_ID=**changeme**
     - GITHUB_CLIENT_SECRET=**changeme**
-    - CALLBACK_URL="**changeme**"
-    - SENTRY_DSN="**changeme**"
+    - CALLBACK_URL=**changeme**
     - NODE_ENV=production
-    - BASE_URL=https://staging.stackfiles.io/
+    - MONGODB_PASS=test
+    - BASE_URL=**changeme**
+    - ELASTICSEARCH_USER=admin
+    - ELASTICSEARCH_PASS=test

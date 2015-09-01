@@ -167,14 +167,26 @@ module.exports = function(app) {
     });
 
     app.get('/api/v1/files/fav/:id', auth, function(req, res, next){
-        File.findOneAndUpdate({ _id: req.params.id }, { $inc: { stars: 1 }}, function(err,file){
+        File.findById(req.params.id, function(err, file){
             if(err){
                 return next(err);
             }
-            User.findOneAndUpdate({userId: req.user.id}, {$push: {favorites: req.params.id}}, {safe: true, upsert: true}, function(err, file){
+            file.stars = file.stars + 1;
+            file.save(function(err){
+              if(err){
+                console.log(err);
+              }
+            });
+            User.findOne({userId: req.user.id}, function(err, file){
+              if(err){
+                  return next(err);
+              }
+              file.favorites.push(req.params.id);
+              file.save(function(err){
                 if(err){
-                    return next(err);
+                  console.log(err);
                 }
+              });
             });
         });
         File.findOne({ _id: req.params.id}, function(err, file){
@@ -189,20 +201,26 @@ module.exports = function(app) {
     });
 
     app.get('/api/v1/files/unfav/:id', auth, function(req, res, next){
-        File.findOneAndUpdate({ _id: req.params.id }, { $inc: { stars: -1 }}, function(err,file){
+        File.findById(req.params.id, function(err, file){
             if(err){
                 return next(err);
             }
-            User.findOneAndUpdate({userId: req.user.id}, {$pull: {favorites: req.params.id}}, {safe: true, upsert: true}, function(err, file){
-                if(err){
-                    return next(err);
-                }
-            });
-        });
-        File.findOne({ _id: req.params.id}, function(err, file){
-            file.index(function(err, res){
-                console.log(req.params.id);
+            file.stars = file.stars - 1;
+            file.save(function(err){
+              if(err){
                 console.log(err);
+              }
+            });
+            User.findOne({userId: req.user.id}, function(err, file){
+              if(err){
+                  return next(err);
+              }
+              file.favorites.pop(req.params.id);
+              file.save(function(err){
+                if(err){
+                  console.log(err);
+                }
+              });
             });
         });
         res.send("Success");
