@@ -51,7 +51,7 @@
         <div ng-hide="results.length" style="text-align: center">No result</div>
     </div>
     <div class="col-lg-11 content-list" ng-show="files.length == 0">
-        <div class="no-content">
+        <div class="no-content" ng-hide="data.search.length">
             <p>No Stackfiles favorited</p>
         </div>
     </div>

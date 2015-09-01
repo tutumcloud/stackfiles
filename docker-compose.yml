@@ -2,7 +2,7 @@ mongodb:
   image: tutum/mongodb:3.0
   environment:
     - OPLOG_SIZE=1
-    - MONGODB_PASS=**changeme**
+    - MONGODB_PASS=test
   ports:
     - "27018:27017"
     - "28018:28017"
@@ -11,6 +11,9 @@ elasticsearch:
     ports:
       - "9200:9200"
       - "9300:9300"
+    environment:
+      - ELASTICSEARCH_USER=admin
+      - ELASTICSEARCH_PASS=test
 registry:
   build: .
   links:
@@ -24,7 +27,8 @@ registry:
     - GITHUB_CLIENT_ID=**changeme**
     - GITHUB_CLIENT_SECRET=**changeme**
     - CALLBACK_URL=**changeme**
-    - SENTRY_DSN="**changeme**"
-    - NODE_ENV=**changeme**
-    - MONGODB_PASS=**changeme**
+    - NODE_ENV=production
+    - MONGODB_PASS=test
     - BASE_URL=**changeme**
+    - ELASTICSEARCH_USER=admin
+    - ELASTICSEARCH_PASS=test
