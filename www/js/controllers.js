@@ -41,7 +41,6 @@ angular.module('registry.controllers', [])
         $scope.logged = $rootScope.logged;
         API.checkFav().success(function(data, status, header, config){
             $scope.favoriteList = data;
-            console.log(data);
         }).error(function(data, status, headers, config){
             $scope.err = true;
         });
