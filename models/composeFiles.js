@@ -28,7 +28,7 @@ var schema = new mongoose.Schema({
         es_type:'string',
         es_indexed: true
     },
-    stars: {type: Number, default: 0, es_indexed: true},
+    stars: {type: Number, default: 0, es_indexed: true, es_type:'integer'},
 });
 
 var env = process.env.NODE_ENV;

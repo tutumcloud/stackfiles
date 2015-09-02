@@ -215,12 +215,13 @@ module.exports = function(app) {
                 console.log(err);
               }
             });
-            User.findOne({userId: req.user.id}, function(err, file){
+            User.find({userId: req.user.id}, function(err, file){
               if(err){
                   return next(err);
               }
-              file.favorites.pop(req.params.id);
-              file.save(function(err){
+              var index =file[0].favorites.indexOf(req.params.id);
+              file[0].favorites.splice(index, 1);
+              file[0].save(function(err){
                 if(err){
                   console.log(err);
                 }
@@ -241,7 +242,7 @@ module.exports = function(app) {
               }
           });
           File.synchronize();
-          next();
+          res.send('success');
         });
     });
 

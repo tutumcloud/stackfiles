@@ -64,10 +64,8 @@ angular.module('registry.controllers', [])
 
     $scope.unToggleStatus = function(file) {
         API.unFavFile(file._id).success(function(data, status, headers, config){
-            if($scope.logged){
-                var index = $scope.favoriteList.indexOf(file._id);
-                $scope.favoriteList.splice(index, 1);
-            }
+          var index = $scope.favoriteList.indexOf(file._id);
+          $scope.favoriteList.splice(index, 1);
         }).error(function(data, status, headers, config){
             $scope.err = true;
         });
