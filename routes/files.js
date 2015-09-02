@@ -285,7 +285,7 @@ module.exports = function(app) {
             if(err){
                 return next(err);
             } else {
-                res.redirect('https://dashboard.tutum.co/stack/deploy/?repo='+file.profileLink+'/'+file.projectName);
+                res.redirect('https://dashboard.tutum.co/stack/deploy/?repo='+file.profileLink+'/'+file.projectName+'/tree/'+file.branch+'/'+ file.path.substr(1));
             }
         });
     });
