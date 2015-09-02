@@ -1,6 +1,6 @@
 var path = require('path'),
     passport = require('passport'),
-    GitHubStrategy = require('passport-github').Strategy,
+    GitHubStrategy = require('passport-github2').Strategy,
     Github = require("github-api"),
     User = require('../models/users.js');
 
@@ -123,7 +123,7 @@ module.exports = function(app) {
     app.get('/auth/github', function(req, res, next){
         var redirect = req.query.redirect;
         req.session.redirect = redirect;
-        passport.authenticate('github', { scope: 'read:org' })(req, res);
+        passport.authenticate('github', { scope: ['read:org', 'user:email'] })(req, res);
     }, function(){});
 
     app.get('/auth/github/callback', passport.authenticate('github'), function(req, res) {

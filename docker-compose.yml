@@ -27,8 +27,9 @@ registry:
     - GITHUB_CLIENT_ID=**changeme**
     - GITHUB_CLIENT_SECRET=**changeme**
     - CALLBACK_URL=**changeme**
-    - NODE_ENV=production
-    - MONGODB_PASS=test
+    - SENTRY_DSN="**changeme**"
+    - NODE_ENV=**changeme**
+    - MONGODB_PASS=**changeme**
     - BASE_URL=**changeme**
     - ELASTICSEARCH_USER=admin
     - ELASTICSEARCH_PASS=test
