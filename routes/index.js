@@ -21,7 +21,8 @@ if (env == 'development'){
     passport.use(new GitHubStrategy({
         clientID: GITHUB_CLIENT_ID,
         clientSecret: GITHUB_CLIENT_SECRET,
-        callbackURL: "http://localhost:4000/auth/github/callback"
+        callbackURL: "http://localhost:4000/auth/github/callback",
+        userAgent: 'stackfiles.io'
         },
         function(accessToken, refreshToken, profile, done) {
             var user = new User({
@@ -56,7 +57,8 @@ if (env == 'production'){
     passport.use(new GitHubStrategy({
         clientID: GITHUB_CLIENT_ID,
         clientSecret: GITHUB_CLIENT_SECRET,
-        callbackURL: CALLBACK_URL
+        callbackURL: CALLBACK_URL,
+        userAgent: 'stackfiles.io'
         },
         function(accessToken, refreshToken, profile, done){
             var user = new User({
