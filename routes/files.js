@@ -123,7 +123,7 @@ module.exports = function(app) {
     app.get('/api/v1/files', function(req, res, next){
         File.paginate({}, {page: req.query.page, limit: req.query.limit, sortBy : {stars: -1}}, function(err, files){
             if(err){
-                return next(err);
+              return next(new Error(err));
             }
             res.json(files);
         });
@@ -132,7 +132,7 @@ module.exports = function(app) {
     app.get('/api/v1/files/:id', function(req, res, next){
         File.findOne({_id: req.query.id}, function(err, file){
             if(err){
-                return next(err);
+                return next(new Error(err));
             }
             res.json(file);
         });
@@ -148,7 +148,7 @@ module.exports = function(app) {
 
         File.findOne({_id: id}, function(err, file){
             if(err){
-                return next(err);
+              return next(new Error(err));
             }
 
             var options = {
@@ -178,7 +178,7 @@ module.exports = function(app) {
             file.stars = file.stars + 1;
             file.save(function(err){
               if(err){
-                console.log(err);
+                return next(new Error(err));
               }
             });
             User.findOne({userId: req.user.id}, function(err, file){
@@ -188,7 +188,7 @@ module.exports = function(app) {
               file.favorites.push(req.params.id);
               file.save(function(err){
                 if(err){
-                  console.log(err);
+                  return next(new Error(err));
                 }
               });
             });
@@ -197,7 +197,7 @@ module.exports = function(app) {
             file.index(function(err, res){
                 if(err){
                     console.log(req.params.id);
-                    console.log(err);
+                    return next(new Error(err));
                 }
             });
         });
@@ -212,7 +212,7 @@ module.exports = function(app) {
             file.stars = file.stars - 1;
             file.save(function(err){
               if(err){
-                console.log(err);
+                return next(new Error(err));
               }
             });
             User.find({userId: req.user.id}, function(err, file){
@@ -223,7 +223,7 @@ module.exports = function(app) {
               file[0].favorites.splice(index, 1);
               file[0].save(function(err){
                 if(err){
-                  console.log(err);
+                  return next(new Error(err));
                 }
               });
             });
@@ -238,7 +238,7 @@ module.exports = function(app) {
           }
           File.esTruncate(function(err, data) {
               if(err){
-                  return next(err);
+                  return next(new Error(err));
               }
           });
           File.synchronize();
@@ -249,7 +249,7 @@ module.exports = function(app) {
     app.get('/api/v1/user/files', auth, function(req, res, next){
         File.find({author: req.user.username}, function(err, files){
             if(err){
-                return next(err);
+                return next(new Error(err));
             }
             res.json(files);
         });
@@ -258,12 +258,12 @@ module.exports = function(app) {
     app.get('/api/v1/user/favorites', auth, function(req, res, next){
         User.findOne({userId: req.user.id}, function(err, user){
             if(err){
-                return next(err);
+                return next(new Error(err));
             }
 
             File.find({'_id': { $in: user.favorites}}, function(err, files){
                 if(err){
-                    return next(err);
+                    return next(new Error(err));
                 }
                 res.json(files);
             });
@@ -273,7 +273,7 @@ module.exports = function(app) {
     app.get('/api/v1/user/fav', auth, function(req, res, next){
         User.findOne({userId: req.user.id}, function(err, user){
             if(err){
-                return next(err);
+                return next(new Error(err));
             }
             res.json(user.favorites);
         });
@@ -283,7 +283,7 @@ module.exports = function(app) {
     app.get("/api/v1/deploy/:id", function(req, res, next){
         File.findOne({_id: req.params.id}, function(err, file){
             if(err){
-                return next(err);
+                return next(new Error(err));
             } else {
                 res.redirect('https://dashboard.tutum.co/stack/deploy/?repo='+file.profileLink+'/'+file.projectName+'/tree/'+file.branch+'/'+ file.path.substr(1));
             }
@@ -297,7 +297,7 @@ module.exports = function(app) {
             }
         }, function(err, data){
             if(err){
-                return next(err);
+                return next(new Error(err));
             }
             res.json(data.hits.hits);
         });

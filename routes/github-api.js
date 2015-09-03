@@ -121,8 +121,7 @@ module.exports = function(app) {
     app.get('/api/v1/user/orgs', function(req, res){
         User.findOne({username: req.user.username}, function(err, user){
             if(err){
-                console.log(err);
-                res.redirect('/registry');
+                return next(new Error(err));
             }
             listOrgs(user.accessToken, function(err, orgs){
                 if(err){
@@ -138,8 +137,7 @@ module.exports = function(app) {
     app.get('/api/v1/user/repos', function(req, res){
         User.findOne({username: req.user.username}, function(err, user){
             if(err){
-                console.log(err);
-                res.redirect('/registry');
+                return next(new Error(err));
             }
             if(req.query.name == req.user.username){
                 listUserRepos(user.accessToken, user.username, function(err, repos){
@@ -167,8 +165,7 @@ module.exports = function(app) {
         var organization = req.query.orgname;
         User.findOne({username: req.user.username}, function(err, user){
             if(err){
-                res.json(err);
-                res.redirect('/registry');
+                return next(new Error(err));
             }
             listBranches(user.accessToken, organization, repositoryName, function(err, branches){
                 if(err){
@@ -202,7 +199,7 @@ module.exports = function(app) {
         var repositoryPath = req.body.params.path;
         File.findOne({_id: req.body.params.id}, function(err, file){
             if(err){
-                res.json(err);
+                res.json(new Error(err));
                 res.redirect('/404');
             } else {
                 getYAML(file.user, repositoryName, file.branch, repositoryPath, function(err, yaml){

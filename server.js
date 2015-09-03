@@ -51,8 +51,6 @@ if (env == 'production'){
 var port = process.env.PORT || 4000;
 module.exports = db;
 
-app.use(raven.middleware.express.requestHandler(SENTRY_DSN));
-app.use(raven.middleware.express.errorHandler(SENTRY_DSN));
 app.use(cookieParser());
 app.use(bodyParser());
 app.use(methodOverride('X-HTTP-Method-Override'));
@@ -69,9 +67,6 @@ app.use(function(req, res, next) {
 app.use(paginate.middleware(10, 50));
 app.use(express.static(__dirname + '/www'));
 
-app.listen(port, function(){
-    console.log("Server is running on port " + port);
-});
 
 require('./routes/index.js')(app, db);
 require('./routes/files.js')(app, db);
@@ -79,4 +74,10 @@ require('./routes/github-api.js')(app, db);
 
 app.get('*', function(req, res){
     res.redirect('/404');
+});
+
+app.use(raven.middleware.express(SENTRY_DSN));
+
+app.listen(port, function(){
+    console.log("Server is running on port " + port);
 });
