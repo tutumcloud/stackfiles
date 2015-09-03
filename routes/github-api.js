@@ -204,7 +204,7 @@ module.exports = function(app) {
             } else {
                 getYAML(file.user, repositoryName, file.branch, repositoryPath, function(err, yaml){
                     if(err){
-                        res.redirect('/404');
+                        res.send('"Unable to fetch stackfile from Github. The file might have been moved or the repository deleted by its owner."');
                     } else {
                         res.writeHead(200, {'Content-Type': 'text/x-yaml; charset=utf-8'});
                         res.end(yaml);

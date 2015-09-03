@@ -1030,7 +1030,7 @@ textarea.form-control{
 }
 
 /*SYNTAX HIGHLIGHTING */
-.pun, .pln{
+.pun, .pln, .typ{
   color: #666666;
 }
 
