@@ -9,6 +9,7 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     passport = require('passport'),
     session = require('express-session'),
+    MongoStore = require('connect-mongo')(session),
     methodOverride = require('method-override'),
     randomstring = require("randomstring"),
     raven = require('raven'),
@@ -54,7 +55,13 @@ module.exports = db;
 app.use(cookieParser());
 app.use(bodyParser());
 app.use(methodOverride('X-HTTP-Method-Override'));
-app.use(session({secret: randomstring.generate(7), cookie: {maxAge: 2678400000}}));
+app.use(session({
+    secret: randomstring.generate(7),
+    cookie : {
+      maxAge: 2678400000
+    },
+    store: new MongoStore({ mongooseConnection: db })
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 
