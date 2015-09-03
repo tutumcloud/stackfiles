@@ -125,6 +125,10 @@ module.exports = function(app) {
         res.sendFile(path.resolve(__dirname + '/../www/template.html'));
     });
 
+    app.get('/status', function(req, res){
+        res.sendStatus(200);
+    });
+
     app.get('/auth/github', function(req, res, next){
         var redirect = req.query.redirect;
         req.session.redirect = redirect;
