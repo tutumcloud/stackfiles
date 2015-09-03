@@ -1,4 +1,4 @@
-@import url(//fonts.googleapis.com/css?family=Lato:300,400,400italic);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,300,400italic);
 
 /*MAIN COMPONENTS*/
 html{
@@ -8,11 +8,11 @@ html{
 }
 
 body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
-    font-family: 'Lato';
+    font-family: 'Open Sans';
 }
 
 a, a:hover{
-    color: #2196F3;
+    color: #1AAAF8;
 }
 
 .row{
@@ -20,7 +20,7 @@ a, a:hover{
 }
 
 #hero-header{
-    background: #2196F3 url("./../img/bg.png");
+    background: #1AAAF8 url("./../img/bg.png");
     margin: 0;
     color: white;
     height: 100vh;
@@ -30,12 +30,12 @@ a, a:hover{
 }
 
 #hero-header h1{
-    font-size: 40px;
+    font-size: 36px;
     font-weight: 300;
 }
 
 #hero-header .subtitle{
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 300;
 }
 
@@ -63,22 +63,20 @@ a, a:hover{
     font-weight: 700;
     border: 2px solid #FFFFFF;
     border-radius: 2px;
-    text-transform: uppercase;
+    text-transform: none;
     margin-right: 10px;
     margin-left: 10px;
 }
 
 .btn.boxed-btn.github-btn {
     background: #FFFFFF;
-    color: #2196F3;
+    color: #1AAAF8;
     width: 180px;
-    font-size: 14px;
-    font-weight: 400;
-    padding: 6px 40px 6px 21px!important;
+    padding: 6px 40px 6px 28px!important;
 }
 
 .btn.boxed-btn.github-btn:hover {
-    color: #1D86DA;
+    color: #1488C6;
     background: #FFFFFF;
 }
 
@@ -89,7 +87,7 @@ a, a:hover{
 }
 
 #hero-header input.search{
-    color: #2196F3;
+    color: #1AAAF8;
     margin-top: 23px;
     margin-bottom: 36px;
     width: 380px;
@@ -151,7 +149,7 @@ a, a:hover{
 }
 
 #header-404{
-    background: #2196F3;
+    background: #1AAAF8;
     margin: 0;
     color: white;
     height: 100vh;
@@ -181,7 +179,7 @@ a, a:hover{
 }
 
 .elem404 p{
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 300;
 }
 
@@ -214,6 +212,9 @@ a, a:hover{
 }
 
 .col-lg-11.content-list{
+    padding-top: 45px;
+    margin: 0 auto !important;
+    float: none !important;
     max-width: 980px;
 }
 
@@ -255,10 +256,10 @@ a, a:hover{
 
 @-webkit-keyframes colors {
   0% {
-    stroke: #2196f3;
+    stroke: #1AAAF8;
   }
   25% {
-    stroke: #2196f3;
+    stroke: #1AAAF8;
   }
   50% {
     stroke: #15a4d7;
@@ -267,16 +268,16 @@ a, a:hover{
     stroke: #0ab3bc;
   }
   100% {
-    stroke: #00bfa5;
+    stroke: #00CBCA;
   }
 }
 
 @keyframes colors {
   0% {
-    stroke: #2196f3;
+    stroke: #1AAAF8;
   }
   25% {
-    stroke: #2196f3;
+    stroke: #1AAAF8;
   }
   50% {
     stroke: #15a4d7;
@@ -285,7 +286,7 @@ a, a:hover{
     stroke: #0ab3bc;
   }
   100% {
-    stroke: #00bfa5;
+    stroke: #00CBCA;
   }
 }
 @-webkit-keyframes dash {
@@ -324,22 +325,27 @@ a, a:hover{
     height: 64px;
 }
 
+#section-title .col-lg-11{
+    max-width: 980px;
+    margin: 0 auto!important;
+    float: none!important;
+}
+
 #section-title h2{
     display: inline-block;
     margin-top: 14px;
     margin-bottom: 14px;
-    color: #2196F3;
-    font-size: 28px;
+    margin-right: 100px;
+    color: #1AAAF8;
+    font-size: 24px;
     font-weight: 300;
 }
 
 #section-title .login{
-    position: absolute;
     top: 0;
     right: 0;
     margin-top: 19px;
-    margin-right: 180px;
-    color: #2196F3;
+    color: #1AAAF8;
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
@@ -350,8 +356,7 @@ a, a:hover{
     top: 0;
     right: 0;
     margin-top: 14px;
-    margin-right: 148px;
-    color: #2196F3;
+    color: #1AAAF8;
     font-size: 14px;
     font-weight: 400;
     cursor: pointer;
@@ -365,9 +370,14 @@ a, a:hover{
 
 #section-title .dropdown.login .dropdown-menu{
     border-radius: 2px;
-    color: #2196F3;
+    color: #1AAAF8;
     font-size: 12px;
+}
 
+@media(max-width:1100px) {
+    #section-title .dropdown.login{
+        margin-right: 50px;
+    }
 }
 
 #section-title .avatar {
@@ -377,11 +387,11 @@ a, a:hover{
 }
 
 #section-title a{
-    color: #2196F3;
+    color: #1AAAF8;
 }
 
 #section-title a:hover{
-    color: #1D86DA;
+    color: #1488C6;
     text-decoration: none;
 }
 
@@ -395,7 +405,7 @@ a, a:hover{
     height: 64px;
     padding: 0;
     z-index: 2;
-    background: #2196F3;
+    background: #1AAAF8;
 }
 
 .gradient .elem-bar{
@@ -403,9 +413,7 @@ a, a:hover{
 }
 
 .content-list{
-    padding-top: 45px;
-    margin: 0 auto !important;
-    float: none !important;
+
 }
 
 /*REGISTRY SCREEN COMPONENTS*/
@@ -416,13 +424,14 @@ a, a:hover{
 }
 
 .elem-bar h2{
-    min-width: 146px;
+    min-width: 115px;
     height: 35px;
     display: inline-block;
     padding-left: 15px;
-    margin-top: 14px;
-    font-weight: 300;
-    font-size: 28px;
+    margin-top: 17px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 28px;
     float: left;
 }
 
@@ -435,7 +444,6 @@ a, a:hover{
 
 .elem-bar h2 a{
     color: #FFFFFF;
-    font-weight: 300;
 }
 
 .elem-bar h2 a:hover{
@@ -450,11 +458,11 @@ a, a:hover{
 }
 
 .elem-bar input.search-bar{
-    width: 85%;
+    width: 90%;
     height: 36px;
     margin-top: 14px;
     margin-bottom: 14px;
-    margin-left: 30px;
+    margin-left: 40px;
     vertical-align:middle;
     padding-left: 40px;
     padding-right: 40px;
@@ -508,13 +516,17 @@ a, a:hover{
     color: #FFFFFF;
 }
 
+.table{
+  margin-top: 50px;
+}
+
 .table>tbody>tr{
     height: 91px;
 }
 
 .table>tbody>tr>td{
-    border-top: 1px solid #f1f1f1;
-    border-bottom: 1px solid #f1f1f1;
+    border-top: 1px solid #E0E4E7;
+    border-bottom: 1px solid #E0E4E7;
     padding-top: 19px;
     padding-left: 8px;
     padding-right: 8px;
@@ -530,7 +542,7 @@ p.favorite-num{
     top: -5px;
     display: inline-block;
     padding-left: 6px;
-    color: #cccccc;
+    color: #445D6E;
     font-size: 12px;
     font-weight: 400;
     font-style: italic;
@@ -541,7 +553,7 @@ p.favorite-num{
 a.stack-name{
     width: 60%;
     display: block;
-    color: #666;
+    color: #254356;
     font-size: 16px;
     font-weight: 700;
     white-space: nowrap;
@@ -557,7 +569,7 @@ p.stack-services{
     display: inline-block;
     padding-top: 10px;
     margin-bottom: 0px;
-    color: #666;
+    color: #254356;
     font-size: 14px;
     font-weight: 400;
 }
@@ -566,7 +578,7 @@ p.stack-user{
     display: inline-block;
     margin-top: 4px;
     padding-left: 10px;
-    color: #999;
+    color: #445D6E;
     font-size: 14px;
     font-weight: 300;
     font-style: italic;
@@ -576,7 +588,7 @@ span.stack-user{
     display: inline-block;
     margin-top: 4px;
     padding-left: 10px;
-    color: #999;
+    color: #445D6E;
     font-size: 14px;
     font-weight: 300;
     font-style: italic;
@@ -584,8 +596,8 @@ span.stack-user{
 
 
 .btn.boxed-btn.deploy-btn{
-    color: #2196F3;
-    border-color: #2196F3;
+    color: #1AAAF8;
+    border-color: #1AAAF8;
 }
 
 .btn.boxed-btn.embed-btn{
@@ -594,8 +606,8 @@ span.stack-user{
 }
 
 .btn.boxed-btn.deploy-btn:hover{
-    color: #1D86DA;
-    border-color: #1D86DA;
+    color: #1488C6;
+    border-color: #1488C6;
 }
 
 .btn.boxed-btn.danger-btn{
@@ -610,8 +622,13 @@ span.stack-user{
 }
 
 .no-content{
-    font-size: 18px;
+    margin-top: 50px;
+    color: #C0C9CE;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
     text-align: center;
+    padding-right: 100px;
 }
 
 a.delete-btn{
@@ -642,18 +659,18 @@ a.delete-btn img{
 }
 
 svg.star.btn-off:hover path{
-  stroke: #ffc400;
-  fill: #ffc400;
+  stroke: #FFC400;
+  fill: #FFC400;
 }
 
 svg.star.btn-on path{
-    stroke: #ffc400;
-    fill: #ffc400;
+    stroke: #FFC400;
+    fill: #FFC400;
 }
 
 svg.star.btn-on-unfav path{
-    stroke: #ffc400;
-    fill: #ffc400;
+    stroke: #FFC400;
+    fill: #FFC400;
 }
 
 .tags{
@@ -662,8 +679,8 @@ svg.star.btn-on-unfav path{
 }
 
 .grey-tag{
-    background-color: #F1F1F1;
-    color: #999;
+    background-color: #E0E4E7;
+    color: #254356;
     padding: 3px 6px 3px 6px;
     border-radius: 4px;
     font-size: 12px;
@@ -679,8 +696,8 @@ svg.star.btn-on-unfav path{
 @media(max-width:488px) {
     .btn.boxed-btn.submit-btn{
         margin-top: 20px;
-        border-color: #2196F3;
-        color: #2196F3;
+        border-color: #1AAAF8;
+        color: #1AAAF8;
         z-index: 2;
     }
 }
@@ -704,7 +721,7 @@ svg.star.btn-on-unfav path{
 }
 
 #detail-create .inputs{
-    border-left: 1px solid #fafafa;
+    border-left: 1px solid #F7F8F9;
     padding-left: 40px;
 }
 
@@ -724,7 +741,7 @@ svg.star.btn-on-unfav path{
     right: 10px;
     width: 20px;
     border-radius: 50%;
-    background-color: #2196F3;
+    background-color: #1AAAF8;
     color: #FFFFFF;
     font-weight: 400;
     text-align: center;
@@ -734,8 +751,12 @@ textarea.form-control{
     margin-top: 40px;
 }
 
+.form-control-wrapper .floating-label{
+  font-weight: 400;
+}
+
 .form-control-wrapper .form-control:focus~.floating-label{
-    color: #2196F3;
+    color: #1AAAF8;
     font-size: 13px;
     font-weight: 400;
 }
@@ -746,19 +767,19 @@ textarea.form-control{
 }
 
 .inputs .form-control.floating-label::-webkit-input-placeholder {
-    font-family: 'Lato', Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
 .inputs .form-control.floating-label:-ms-input-placeholder {
-    font-family: 'Lato', Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
 .inputs .form-control.floating-label:-moz-placeholder {
-    font-family: 'Lato', Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
 .inputs .form-control.floating-label::-moz-placeholder {
-    font-family: 'Lato', Arial, Helvetica, sans-serif;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
 }
 
 /*OVERRIDE CHOSEN CSS START*/
@@ -775,7 +796,7 @@ textarea.form-control{
     margin-top: 20px;
     padding: 0;
     width: 180px;
-    background-color: #f1f1f1;
+    background-color: #E0E4E7;
     background-image: none;
     border: none;
     border-radius: 2px;
@@ -791,7 +812,7 @@ textarea.form-control{
 
 .chosen-container-active.chosen-with-drop .chosen-single{
     background-image: none;
-    background-color: #cccccc;
+    background-color: #C0C9CE;
     border: none;
     box-shadow: none;
     border-radius: 2px;
@@ -801,7 +822,7 @@ textarea.form-control{
     padding-top: 6px;
     margin-right: 26px;
     text-align: center;
-    color: #666666;
+    color: #254356;
     font-size: 16px;
     font-weight: 400;
 }
@@ -815,7 +836,7 @@ textarea.form-control{
     padding-top: 14px;
     padding-bottom: 13px;
     padding-left: 16px;
-    color: #666666;
+    color: #254356;
     font-size: 14px;
     font-weight: 400;
 }
@@ -823,7 +844,7 @@ textarea.form-control{
 .chosen-container .chosen-results li.highlighted{
     background-color: #FFFFFF;
     background-image: none;
-    color: #666666;
+    color: #254356;
 }
 
 /*OVERRIDE CHOSEN CSS END*/
@@ -837,22 +858,22 @@ textarea.form-control{
 }
 
 .form-control{
-    background-image: linear-gradient(#2196F3,#2196F3),linear-gradient(#f1f1f1,#f1f1f1);
+    background-image: linear-gradient(#1AAAF8,#1AAAF8),linear-gradient(#E0E4E7,#E0E4E7);
     font-weight: 400;
 }
 
 .form-control:focus, .form-control.focus{
-    background-image: linear-gradient(#2196F3,#2196F3),linear-gradient(#f1f1f1,#f1f1f1);
+    background-image: linear-gradient(#1AAAF8,#1AAAF8),linear-gradient(#E0E4E7,#E0E4E7);
 }
 
 .stackfile h4{
-    color: #666666;
-    font-size: 16px;
+    color: #254356;
+    font-size: 20px;
     font-weight: 400;
 }
 
 .stackfile p{
-    color: #666666;
+    color: #254356;
     font-size: 12px;
     font-weight: 400;
 }
@@ -861,14 +882,29 @@ textarea.form-control{
     padding-top: 40px;
 }
 
+.validation .btn.boxed-btn{
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.validation .btn.boxed-btn.create-btn[disabled]{
+    color: rgba(33, 150, 243, 0.5);
+    border-color: rgba(33, 150, 243, 0.5);
+}
+
+.validation .btn.boxed-btn.create-btn[disabled]:hover{
+    color: rgba(33, 150, 243, 0.5);
+    border-color: rgba(33, 150, 243, 0.5);
+}
+
 .validation .btn.boxed-btn.create-btn{
-    color: #2196F3;
-    border-color: #2196F3;
+    color: #1AAAF8;
+    border-color: #1AAAF8;
 }
 
 .validation .btn.boxed-btn.create-btn:hover{
-    color: #1D86DA;
-    border-color: #1D86DA;
+    color: #1488C6;
+    border-color: #1488C6;
 }
 
 .validation .btn.boxed-btn.cancel-btn{
@@ -889,12 +925,13 @@ textarea.form-control{
 }
 
 #detail h2 {
-    color: #666666;
-    font-size: 24px;
+    color: #254356;
+    font-size: 22px;
     font-weight: 300;
 }
 
 #detail hr{
+    border-color: #E0E4E7;
     margin-top: 28px;
     margin-bottom: 28px;
 }
@@ -902,7 +939,7 @@ textarea.form-control{
 .section .label{
     padding-left: 0;
     padding-right: 74px;
-    color: #CCCCCC;
+    color: #445D6E;
     font-size: 12px;
     text-transform: uppercase;
     display: inline-block;
@@ -911,7 +948,7 @@ textarea.form-control{
 .section .content{
     vertical-align: top;
     width: 70%;
-    color: #666666;
+    color: #254356;
     font-size: 14px;
     font-weight: 400;
     display: inline-block;
@@ -931,7 +968,7 @@ textarea.form-control{
 }
 
 .section .stackfile p{
-    color: #666666;
+    color: #254356;
     font-size: 12px;
     font-weight: 400;
 }
@@ -959,7 +996,7 @@ textarea.form-control{
 /* MODAL */
 
 .modal-content{
-    background-color: #fafafa;
+    background-color: #F7F8F9;
 }
 
 .modal-content .modal-header{
@@ -977,7 +1014,7 @@ textarea.form-control{
 .modal-content .modal-body p{
     font-size: 14px;
     font-weight: 400;
-    color: #666666;
+    color: #254356;
 }
 
 .modal-content .modal-body form{
@@ -989,7 +1026,7 @@ textarea.form-control{
     margin-bottom: 11px;
     font-size: 12px;
     font-weight: 400;
-    color: #666666;
+    color: #254356;
 }
 
 .modal-content .modal-body form input{
@@ -1002,7 +1039,7 @@ textarea.form-control{
     font-family: 'Menlo';
     font-size: 12px;
     font-weight: 300;
-    color: #666666;
+    color: #254356;
     border: none;
     border-radius: 2px;
     background-color: #ffffff;
@@ -1018,7 +1055,7 @@ textarea.form-control{
 .modal-title{
     font-size: 22px;
     font-weight: 400;
-    color: #666666;
+    color: #254356;
 }
 
 @media(min-width:768px)  {
@@ -1031,7 +1068,7 @@ textarea.form-control{
 
 /*SYNTAX HIGHLIGHTING */
 .pun, .pln, .typ{
-  color: #666666;
+  color: #254356;
 }
 
 .str, .lit{
@@ -1039,11 +1076,11 @@ textarea.form-control{
 }
 
 .kwd{
-  color: #2196F3;
+  color: #1AAAF8;
 }
 
 .com{
-  color: #2196F3;
+  color: #1AAAF8;
   font-style: normal;
 }
 
@@ -1069,7 +1106,7 @@ textarea.form-control{
     margin-left: -250px;
     overflow-y: auto;
     background: #FFFFFF;
-    border-right: 1px solid #f1f1f1;
+    border-right: 1px solid #E0E4E7;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -1109,7 +1146,7 @@ textarea.form-control{
 .sidebar-nav li a {
     display: inline-block;
     text-decoration: none;
-    color: #999999;
+    color: #445D6E;
 }
 
 .sidebar-nav li a:hover {
@@ -1128,28 +1165,28 @@ textarea.form-control{
 }
 
 .sidebar-nav li:hover {
-    border-left: 4px solid #2196F3;
+    border-left: 4px solid #1AAAF8;
 }
 
 .sidebar-nav li:hover a svg path{
-  fill: #2196F3;
+  fill: #1AAAF8;
 }
 
 .sidebar-nav li.selected a svg path{
-  fill: #2196F3;
+  fill: #1AAAF8;
 }
 
 .sidebar-nav li:hover a.star svg path{
-  fill: #FFAB40;
+  fill: #FFC400;
 }
 
 .sidebar-nav li.selected a.star svg path{
-  fill: #FFAB40;
+  fill: #FFC400;
 }
 
 
 .sidebar-nav li.selected {
-    border-left: 4px solid #2196F3;
+    border-left: 4px solid #1AAAF8;
 }
 
 .sidebar-nav li a svg{
