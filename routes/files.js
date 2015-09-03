@@ -130,7 +130,7 @@ module.exports = function(app) {
     });
 
     app.get('/api/v1/files/:id', function(req, res, next){
-        File.findOne({_id: req.query.id}, function(err, file){
+        File.findOne({_id: req.params.id}, function(err, file){
             if(err){
                 return next(new Error(err));
             }
@@ -232,7 +232,7 @@ module.exports = function(app) {
     });
 
     app.delete('/api/v1/files/:id', auth, function(req, res, next){
-        File.find({_id: req.query.id, author: req.user.username}).remove(function(err, data){
+        File.find({_id: req.params.id, author: req.user.username}).remove(function(err, data){
           if(err){
             return next(err);
           }
