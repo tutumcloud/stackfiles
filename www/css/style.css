@@ -211,10 +211,13 @@ a, a:hover{
     padding-top: 200px;
 }
 
+.container-fluid{
+  clear: both;
+}
+
 .col-lg-11.content-list{
-    padding-top: 45px;
-    margin: 0 auto !important;
-    float: none !important;
+    float: none;
+    margin: 0px auto !important;
     max-width: 980px;
 }
 
@@ -404,16 +407,11 @@ a, a:hover{
 .gradient {
     height: 64px;
     padding: 0;
-    z-index: 2;
     background: #1AAAF8;
 }
 
 .gradient .elem-bar{
     color: #FFFFFF;
-}
-
-.content-list{
-
 }
 
 /*REGISTRY SCREEN COMPONENTS*/
@@ -517,7 +515,7 @@ a, a:hover{
 }
 
 .table{
-  margin-top: 50px;
+    margin-top: 25px;
 }
 
 .table>tbody>tr{
