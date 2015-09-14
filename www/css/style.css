@@ -1,4 +1,5 @@
 @import url(//fonts.googleapis.com/css?family=Open+Sans:400,700,300,400italic);
+@import url(//fonts.googleapis.com/css?family=Ubuntu+Mono);
 
 /*MAIN COMPONENTS*/
 html{
@@ -11,8 +12,15 @@ body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4{
     font-family: 'Open Sans';
 }
 
-a, a:hover{
+a, a:hover, a:focus{
     color: #1AAAF8;
+    text-decoration: none;
+}
+
+pre code{
+  color: #445D6E;
+  font-family: 'Ubuntu Mono';
+  font-size: 14px;
 }
 
 .row{
@@ -30,18 +38,13 @@ a, a:hover{
 }
 
 #hero-header h1{
-    font-size: 36px;
-    font-weight: 300;
+    font-size: 28px;
+    font-weight: 400;
 }
 
 #hero-header .subtitle{
+    margin-top: 13px;
     font-size: 20px;
-    font-weight: 300;
-}
-
-#hero-header .brand{
-    padding: 20px 50px 20px 50px;
-    font-size: 18px;
     font-weight: 400;
 }
 
@@ -72,7 +75,7 @@ a, a:hover{
     background: #FFFFFF;
     color: #1AAAF8;
     width: 180px;
-    padding: 6px 40px 6px 28px!important;
+    padding: 6px 40px 6px 26px!important;
 }
 
 .btn.boxed-btn.github-btn:hover {
@@ -88,8 +91,8 @@ a, a:hover{
 
 #hero-header input.search{
     color: #1AAAF8;
-    margin-top: 23px;
-    margin-bottom: 36px;
+    margin-top: 30px;
+    margin-bottom: 32px;
     width: 380px;
     height: 36px;
     color: #ffffff;
@@ -336,18 +339,16 @@ a, a:hover{
 
 #section-title h2{
     display: inline-block;
-    margin-top: 14px;
-    margin-bottom: 14px;
-    margin-right: 100px;
+    margin-top: 19px;
     color: #1AAAF8;
-    font-size: 24px;
-    font-weight: 300;
+    font-size: 22px;
+    font-weight: 400;
 }
 
 #section-title .login{
     top: 0;
     right: 0;
-    margin-top: 19px;
+    margin-top: 22px;
     color: #1AAAF8;
     font-size: 14px;
     font-weight: 400;
@@ -369,6 +370,10 @@ a, a:hover{
     background-color: #FFFFFF;
     border: none;
     margin-top: 5px;
+}
+
+#section-title .dropdown.login span.caret{
+    margin-left: 8px;
 }
 
 #section-title .dropdown.login .dropdown-menu{
@@ -427,7 +432,7 @@ a, a:hover{
     display: inline-block;
     padding-left: 15px;
     margin-top: 17px;
-    font-size: 20px;
+    font-size: 22px;
     font-weight: 400;
     line-height: 28px;
     float: left;
@@ -523,12 +528,12 @@ a, a:hover{
 }
 
 .table>tbody>tr>td{
-    border-top: 1px solid #E0E4E7;
-    border-bottom: 1px solid #E0E4E7;
+    border-top: 1px solid #F7F8F9;
+    border-bottom: 1px solid #F7F8F9;
     padding-top: 19px;
     padding-left: 8px;
     padding-right: 8px;
-    padding-bottom: 9px;
+    padding-bottom: 19px;
 }
 
 td.main{
@@ -540,10 +545,9 @@ p.favorite-num{
     top: -5px;
     display: inline-block;
     padding-left: 6px;
-    color: #445D6E;
+    color: #C0C9CE;
     font-size: 12px;
     font-weight: 400;
-    font-style: italic;
 }
 
 
@@ -551,9 +555,9 @@ p.favorite-num{
 a.stack-name{
     width: 60%;
     display: block;
-    color: #254356;
+    color: #445D6E;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 400;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -567,44 +571,45 @@ p.stack-services{
     display: inline-block;
     padding-top: 10px;
     margin-bottom: 0px;
-    color: #254356;
+    color: #8F9EA8;
     font-size: 14px;
     font-weight: 400;
-}
-
-p.stack-user{
-    display: inline-block;
-    margin-top: 4px;
-    padding-left: 10px;
-    color: #445D6E;
-    font-size: 14px;
-    font-weight: 300;
-    font-style: italic;
 }
 
 span.stack-user{
     display: inline-block;
     margin-top: 4px;
     padding-left: 10px;
-    color: #445D6E;
+    color: #C0C9CE;
     font-size: 14px;
-    font-weight: 300;
+    font-weight: 400;
     font-style: italic;
 }
-
 
 .btn.boxed-btn.deploy-btn{
     color: #1AAAF8;
     border-color: #1AAAF8;
 }
 
+.btn.boxed-btn.deploy-btn.full{
+    color: #FFFFFF;
+    background-color: #1AAAF8;
+    border-color: #1AAAF8;
+}
+
 .btn.boxed-btn.embed-btn{
-    color: #00c8b4;
-    border-color: #00c8b4;
+    color: #1AAAF8;
+    border-color: #1AAAF8;
 }
 
 .btn.boxed-btn.deploy-btn:hover{
-    color: #1488C6;
+    color: #1AAAF8;
+    border-color: #1AAAF8;
+}
+
+.btn.boxed-btn.deploy-btn.full:hover{
+    color: #FFFFFF;
+    background-color: #1488C6;
     border-color: #1488C6;
 }
 
@@ -678,10 +683,10 @@ svg.star.btn-on-unfav path{
 
 .grey-tag{
     background-color: #E0E4E7;
-    color: #254356;
+    color: #8F9EA8;
     padding: 3px 6px 3px 6px;
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
 }
 
@@ -732,6 +737,9 @@ svg.star.btn-on-unfav path{
     height: 364px;
     border: none;
     border-radius: 2px;
+    font-family: 'Ubuntu Mono';
+    font-size: 14px;
+    background-color: #F7F8F9;
 }
 
 .bullet{
@@ -750,6 +758,8 @@ textarea.form-control{
 }
 
 .form-control-wrapper .floating-label{
+  color: #C0C9CE;
+  font-size: 16px;
   font-weight: 400;
 }
 
@@ -818,8 +828,8 @@ textarea.form-control{
 
 .chosen-container-single .chosen-single span{
     padding-top: 6px;
-    margin-right: 26px;
-    text-align: center;
+    margin-left: 25px;
+    text-align: left;
     color: #254356;
     font-size: 16px;
     font-weight: 400;
@@ -857,7 +867,9 @@ textarea.form-control{
 
 .form-control{
     background-image: linear-gradient(#1AAAF8,#1AAAF8),linear-gradient(#E0E4E7,#E0E4E7);
+    color: #445D6E;
     font-weight: 400;
+    font-size: 16px;
 }
 
 .form-control:focus, .form-control.focus{
@@ -866,14 +878,21 @@ textarea.form-control{
 
 .stackfile h4{
     color: #254356;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 400;
 }
 
 .stackfile p{
-    color: #254356;
+    color: #8F9EA8;
     font-size: 12px;
     font-weight: 400;
+}
+
+.stackfile a{
+  color: #8F9EA8;
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: underline;
 }
 
 .validation{
@@ -885,29 +904,33 @@ textarea.form-control{
   margin-right: 4px;
 }
 
+.validation .btn.boxed-btn.create-btn{
+    color: #FFFFFF;
+    background-color: #1AAAF8;
+    border-color: #1AAAF8;
+    width: 88px;
+}
+
 .validation .btn.boxed-btn.create-btn[disabled]{
-    color: rgba(33, 150, 243, 0.5);
-    border-color: rgba(33, 150, 243, 0.5);
+    background-color: rgba(33, 150, 243, 0.5);
+    border-color: rgba(33, 150, 243, 0.1);
 }
 
 .validation .btn.boxed-btn.create-btn[disabled]:hover{
-    color: rgba(33, 150, 243, 0.5);
-    border-color: rgba(33, 150, 243, 0.5);
-}
-
-.validation .btn.boxed-btn.create-btn{
-    color: #1AAAF8;
-    border-color: #1AAAF8;
+    background-color: rgba(33, 150, 243, 0.5);
+    border-color: rgba(33, 150, 243, 0.1);
 }
 
 .validation .btn.boxed-btn.create-btn:hover{
-    color: #1488C6;
+    color: #FFFFFF;
+    background-color: #1488C6;
     border-color: #1488C6;
 }
 
 .validation .btn.boxed-btn.cancel-btn{
     color: #ef4336;
     border-color: #ef4336;
+    width: 88px;
 }
 
 .validation .btn.boxed-btn.cancel-btn:hover{
@@ -930,15 +953,16 @@ textarea.form-control{
 
 #detail hr{
     border-color: #E0E4E7;
-    margin-top: 28px;
-    margin-bottom: 28px;
+    margin-top: 35px;
+    margin-bottom: 19px;
 }
 
 .section .label{
     padding-left: 0;
     padding-right: 74px;
-    color: #445D6E;
+    color: #8F9EA8;
     font-size: 12px;
+    font-weight: 400;
     text-transform: uppercase;
     display: inline-block;
 }
@@ -963,12 +987,20 @@ textarea.form-control{
     border-radius: 0px;
     height: 300px;
     width: 516px;
+    background-color: #F7F8F9;
 }
 
 .section .stackfile p{
-    color: #254356;
+    color: #8F9EA8;
     font-size: 12px;
     font-weight: 400;
+}
+
+.section .stackfile a{
+    color: #8F9EA8;
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: underline;
 }
 
 @media(max-width:1200px) {
