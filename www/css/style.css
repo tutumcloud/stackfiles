@@ -222,6 +222,8 @@ pre code{
     float: none;
     margin: 0px auto !important;
     max-width: 980px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 
 .spinner {
@@ -333,6 +335,7 @@ pre code{
 
 #section-title .col-lg-11{
     max-width: 980px;
+    width: 100%;
     margin: 0 auto!important;
     float: none!important;
 }
@@ -346,6 +349,7 @@ pre code{
 }
 
 #section-title .login{
+    position: absolute;
     top: 0;
     right: 0;
     margin-top: 22px;
@@ -423,14 +427,14 @@ pre code{
 .elem-bar{
     height: inherit;
     margin: 0 auto;
-    max-width: 980px;
+    max-width: 990px;
 }
 
 .elem-bar h2{
-    min-width: 115px;
+    min-width: 120px;
     height: 35px;
     display: inline-block;
-    padding-left: 15px;
+    padding-left: 5px;
     margin-top: 17px;
     font-size: 22px;
     font-weight: 400;
@@ -457,7 +461,7 @@ pre code{
 .elem-bar .search-container{
     display: inline-block;
     position: relative;
-    width: 63%;
+    width: 704px;
 }
 
 .elem-bar input.search-bar{
@@ -465,11 +469,10 @@ pre code{
     height: 36px;
     margin-top: 14px;
     margin-bottom: 14px;
-    margin-left: 40px;
+    margin-left: 45px;
     vertical-align:middle;
     padding-left: 40px;
     padding-right: 40px;
-    background: none;
     border: none;
     border-radius: 2px;
     color: white;
@@ -495,7 +498,7 @@ pre code{
     margin-top: 14px;
 }
 
-@media(max-width: 1000px){
+@media(max-width: 1080px){
     .gradient{
         padding-left: 50px;
         padding-right: 25px;
@@ -506,8 +509,13 @@ pre code{
     }
 
     .elem-bar .search-container{
-        width: 45%;
+        width: 60%;
     }
+
+    .elem-bar input.search-bar{
+      width: 80%;
+    }
+
 }
 
 .elem-bar .star{
@@ -517,10 +525,11 @@ pre code{
 
 .btn.boxed-btn.submit-btn{
     color: #FFFFFF;
+    margin-right: 4px;
 }
 
 .table{
-    margin-top: 25px;
+    margin-top: 32px;
 }
 
 .table>tbody>tr{
@@ -595,11 +604,16 @@ span.stack-user{
     color: #FFFFFF;
     background-color: #1AAAF8;
     border-color: #1AAAF8;
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
 .btn.boxed-btn.embed-btn{
     color: #1AAAF8;
     border-color: #1AAAF8;
+    width: 88px;
+    margin-left: 4px;
+    margin-right: 4px;
 }
 
 .btn.boxed-btn.deploy-btn:hover{
@@ -737,6 +751,7 @@ svg.star.btn-on-unfav path{
     height: 364px;
     border: none;
     border-radius: 2px;
+    color: #254356;
     font-family: 'Ubuntu Mono';
     font-size: 14px;
     background-color: #F7F8F9;
