@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
     File = require('./composeFiles.js'),
     db = require('../server.js');
 

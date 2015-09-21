@@ -64,10 +64,7 @@ angular.module('registry.services', [])
 
          getFileWithId: function(id){
              return $http.get('/api/v1/files/' + id,{
-                 method: 'GET',
-                 params: {
-                     id: id
-                 }
+                 method: 'GET'
              });
          },
 
@@ -85,10 +82,7 @@ angular.module('registry.services', [])
 
          deleteStackfile: function(id){
              return $http.delete('/api/v1/files/' + id,{
-                 method:'DELETE',
-                 params: {
-                     id: id
-                 }
+                 method:'DELETE'
              });
          },
 

@@ -31,20 +31,23 @@ if (env == 'development'){
             profileUrl: profile.profileUrl,
             accessToken: accessToken
             });
-            User.find({userId : profile.id}, function (err, docs) {
+            User.find({userId : profile.id}, function (err, docs, next) {
                 if(err){
-                  console.log(err);
+                  return next(new Error(err));
                 }
                 if (docs.length){
                     User.update({userId : profile.id}, {accessToken: accessToken}, function(err, numberAffected, rawResponse) {
                         if(err){
-                            console.log(err);
+                            return next(new Error(err));
                         } else {
                             done(null, profile);
                         }
                     });
                 }else{
                     user.save(function(err){
+                        if(err){
+                          return next(new Error(err));
+                        }
                         done(null, profile);
                     });
                 }
@@ -68,11 +71,11 @@ if (env == 'production'){
             accessToken: accessToken
             });
 
-            User.find({userId : profile.id}, function (err, docs) {
+            User.find({userId : profile.id}, function (err, docs, next) {
                 if (docs.length){
                     User.update({userId : profile.id}, {accessToken: accessToken}, function(err, numberAffected, rawResponse) {
                         if(err){
-                            console.log(err);
+                            return next(new Error(err));
                         } else {
                             done(null, profile);
                         }
@@ -122,6 +125,10 @@ module.exports = function(app) {
         res.sendFile(path.resolve(__dirname + '/../www/template.html'));
     });
 
+    app.get('/status', function(req, res){
+        res.sendStatus(200);
+    });
+
     app.get('/auth/github', function(req, res, next){
         var redirect = req.query.redirect;
         req.session.redirect = redirect;
@@ -135,7 +142,7 @@ module.exports = function(app) {
     app.get('/auth/logout', function(req, res, next){
         req.session.destroy(function (err) {
             if (err) {
-                return next(err);
+                return next(new Error(err));
             }
         });
         res.redirect('/');
