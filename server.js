@@ -85,6 +85,22 @@ app.get('*', function(req, res){
 
 app.use(raven.middleware.express(SENTRY_DSN));
 
-app.listen(port, function(){
+var server = app.listen(port, function(){
     console.log("Server is running on port " + port);
 });
+
+function gracefulShutdown(){
+  console.log("Received kill signal, shutting down gracefully");
+  server.close(function(){
+    console.log("Closing remaining connections ...");
+    process.exit()
+  });
+
+  setTimeout(function() {
+    console.error("ERROR: Could not close connections in time! Forcefully shutting down!");
+    process.exit()
+  }, 10 * 1000);
+};
+
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
