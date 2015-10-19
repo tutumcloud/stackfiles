@@ -22,6 +22,32 @@ type GithubResponseItem struct {
 	Url string `json:"url"`
 }
 
+type GithubOwner struct {
+	Login    string `json:"login"`
+	HTML_url string `json:"html_url"`
+}
+
+type GithubRepoDetails struct {
+	Name           string      `json:"name"`
+	Owner          GithubOwner `json:"owner"`
+	Private        bool        `json:"private"`
+	HTML_url       string      `json:"html_url"`
+	Description    string      `json:"description"`
+	Contents_url   string      `json:"contents_url"`
+	Homepage       string      `json:"homepage"`
+	Default_branch string      `json:"default_branch"`
+}
+
+type GithubRepoFilesList struct {
+	Items []GithubRepoFile
+}
+
+type GithubRepoFile struct {
+	Name         string `json:"name"`
+	Path         string `json:"path"`
+	Download_url string `json:"download_url"`
+}
+
 type Link struct {
 	Next bool
 	Last string
@@ -47,7 +73,6 @@ func httpCaller(request string) ([]byte, http.Header, error) {
 	}
 
 	if res.StatusCode > 300 {
-		log.Println("Unexpected Status Code ", res.StatusCode)
 		log.Fatal("Unexpected Status Code ", res)
 	}
 
@@ -214,6 +239,25 @@ Loop:
 }
 
 func main() {
-	results := githubSearch("docker-compose")
-	log.Println(results)
+
+	var response GithubRepoDetails
+
+	body, _, err := httpCaller("https://api.github.com/repos/shipyard/shipyard")
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	err = json.Unmarshal(body, &response)
+	if err != nil {
+		log.Println(err)
+	}
+
+	content, _, err := httpCaller(strings.TrimSuffix(response.Contents_url, "{+path}"))
+	if err != nil {
+		log.Println(err)
+	}
+
+	log.Println(string(content))
+
 }
