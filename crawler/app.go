@@ -28,6 +28,10 @@ type Link struct {
 	Url  string
 }
 
+/*
+	Classic http caller function that returns the body and the header of a request
+	if successful
+*/
 func httpCaller(request string) ([]byte, http.Header, error) {
 	res, err := http.Get(request)
 
@@ -51,8 +55,18 @@ func httpCaller(request string) ([]byte, http.Header, error) {
 }
 
 func checkRemainingRequest(header http.Header) int {
+
+	/*
+		Checking the remaining requests to avoid API throttling
+	*/
+
 	remaining := header["X-Ratelimit-Remaining"][0]
 	if remaining == "0" {
+
+		/*
+			If limit is reached, we check the reset time
+			(which is divided because it's too long) and return it
+		*/
 		resetTime, _ := strconv.Atoi(header["X-Ratelimit-Reset"][0])
 		return resetTime / 10000000
 	}
@@ -63,7 +77,13 @@ func getLinkDetails(headerArray http.Header) (Link, error) {
 	var newLink Link
 
 	if len(headerArray) != 0 {
+
+		/*
+			The first element of the Link section of the header contains
+			the "next" page link if present
+		*/
 		links := strings.Split(headerArray["Link"][0], ",")
+
 		rel := strings.Split(links[0], ";")[1]
 		rel = strings.Split(rel, "=")[1]
 		rel = strings.TrimPrefix(rel, `"`)
@@ -73,6 +93,9 @@ func getLinkDetails(headerArray http.Header) (Link, error) {
 		lastlink := ""
 
 		if rel == "next" {
+			/*
+				Removing "<" and ">" characters from the links
+			*/
 			nextlink = strings.Split(links[0], ";")[0]
 			nextlink = strings.TrimPrefix(nextlink, "<")
 			nextlink = strings.TrimSuffix(nextlink, ">")
@@ -95,9 +118,16 @@ func getLinkDetails(headerArray http.Header) (Link, error) {
 	return newLink, err
 }
 
-func GithubSearch(term string) GithubResponseList {
+func githubSearch(term string) GithubResponseList {
+
+	//Current response
 	var response GithubResponseList
+	//Final response that will be returned by the function
 	var finalResponse GithubResponseList
+
+	/*
+		First data fetching round
+	*/
 	body, header, err := httpCaller("https://api.github.com/search/repositories?q=" + term + "&sort=stars&order=desc")
 
 	if err != nil {
@@ -113,9 +143,12 @@ func GithubSearch(term string) GithubResponseList {
 
 	finalResponse = response
 
+	/*
+		Loop through pagination
+	*/
 Loop:
 	for {
-		log.Println("Loading Data...")
+		log.Println("Loading Data...") //This should be replaced by a progress bar
 		currentURL := link.Url
 
 		if link.Next == true {
@@ -126,6 +159,11 @@ Loop:
 				log.Println(err)
 			}
 
+			/*
+				Managing Github's API throttling by getting the remaining number of requests allowed
+				and the limit reset time. As the reset time is really long (about 16 days) we'll
+				divide it during development.
+			*/
 			resetTime := checkRemainingRequest(header)
 
 			if resetTime != 0 {
@@ -141,16 +179,28 @@ Loop:
 					log.Println(err)
 				}
 
+				/*
+					Appending the newly feteched JSON to the existing response.
+				*/
 				finalResponse.Items = append(finalResponse.Items, nextResponse.Items...)
-				response = nextResponse
 
 			} else {
+				/*
+					If there is an error while getting the link details, we reset
+					the values of the link object so we try to fetch those data again.
+				*/
 				link.Url = currentURL
 				link.Next = true
 			}
 
+			/*
+				Extra sleep time to avoid throttling.
+			*/
 			time.Sleep(5 * time.Second)
 
+			/*
+				If last page is reached we stop the loop
+			*/
 			if currentURL == link.Last {
 				break Loop
 			}
@@ -164,6 +214,6 @@ Loop:
 }
 
 func main() {
-	results := GithubSearch("docker-compose")
+	results := githubSearch("docker-compose")
 	log.Println(results)
 }
