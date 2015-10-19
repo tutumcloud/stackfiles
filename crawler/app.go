@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -16,13 +17,14 @@ type GithubResponseList struct {
 
 type GithubResponseItem struct {
 	//Id        int    `json:"id"`
-	Name string `json:"name"`
+	//Name      string `json:"name"`
 	//Full_name string `json:"full_name"`
 	Url string `json:"url"`
 }
 
 type Link struct {
 	Next bool
+	Last string
 	Url  string
 }
 
@@ -48,7 +50,16 @@ func httpCaller(request string) ([]byte, http.Header, error) {
 	return body, res.Header, nil
 }
 
-func getLink(headerArray http.Header) (Link, error) {
+func checkRemainingRequest(header http.Header) int {
+	remaining := header["X-Ratelimit-Remaining"][0]
+	if remaining == "0" {
+		resetTime, _ := strconv.Atoi(header["X-Ratelimit-Reset"][0])
+		return resetTime / 10000000
+	}
+	return 0
+}
+
+func getLinkDetails(headerArray http.Header) (Link, error) {
 	var newLink Link
 
 	if len(headerArray) != 0 {
@@ -59,14 +70,20 @@ func getLink(headerArray http.Header) (Link, error) {
 		rel = strings.TrimSuffix(rel, `"`)
 
 		nextlink := ""
+		lastlink := ""
 
 		if rel == "next" {
 			nextlink = strings.Split(links[0], ";")[0]
 			nextlink = strings.TrimPrefix(nextlink, "<")
 			nextlink = strings.TrimSuffix(nextlink, ">")
 
+			lastlink = strings.Split(links[1], ";")[0]
+			lastlink = strings.TrimPrefix(lastlink, " <")
+			lastlink = strings.TrimSuffix(lastlink, ">")
+
 			newLink.Next = true
 			newLink.Url = nextlink
+			newLink.Last = lastlink
 
 		}
 
@@ -78,11 +95,10 @@ func getLink(headerArray http.Header) (Link, error) {
 	return newLink, err
 }
 
-func main() {
-
+func GithubSearch(term string) GithubResponseList {
 	var response GithubResponseList
 	var finalResponse GithubResponseList
-	body, header, err := httpCaller("https://api.github.com/search/repositories?q=docker-compose&sort=stars&order=desc")
+	body, header, err := httpCaller("https://api.github.com/search/repositories?q=" + term + "&sort=stars&order=desc")
 
 	if err != nil {
 		log.Println(err)
@@ -93,13 +109,15 @@ func main() {
 		log.Println(err)
 	}
 
-	link, _ := getLink(header)
+	link, _ := getLinkDetails(header)
 
 	finalResponse = response
 
 Loop:
 	for {
+		log.Println("Loading Data...")
 		currentURL := link.Url
+
 		if link.Next == true {
 			var nextResponse GithubResponseList
 			body, header, err := httpCaller(currentURL)
@@ -108,18 +126,20 @@ Loop:
 				log.Println(err)
 			}
 
-			link, err = getLink(header)
+			resetTime := checkRemainingRequest(header)
+
+			if resetTime != 0 {
+				log.Printf("Waiting %d seconds", resetTime)
+				time.Sleep(time.Duration(resetTime) * time.Second)
+			}
+
+			link, err = getLinkDetails(header)
 
 			if err == nil {
-
-				log.Println(link.Url)
-
 				err = json.Unmarshal(body, &nextResponse)
 				if err != nil {
 					log.Println(err)
 				}
-
-				log.Println(finalResponse)
 
 				finalResponse.Items = append(finalResponse.Items, nextResponse.Items...)
 				response = nextResponse
@@ -129,10 +149,21 @@ Loop:
 				link.Next = true
 			}
 
-			time.Sleep(10 * time.Second)
+			time.Sleep(5 * time.Second)
+
+			if currentURL == link.Last {
+				break Loop
+			}
 
 		} else {
 			break Loop
 		}
 	}
+
+	return finalResponse
+}
+
+func main() {
+	results := GithubSearch("docker-compose")
+	log.Println(results)
 }
