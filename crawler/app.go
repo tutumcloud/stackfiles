@@ -114,13 +114,16 @@ Loop:
 
 				log.Println(link.Url)
 
-				err = json.Unmarshal(body, &response)
+				err = json.Unmarshal(body, &nextResponse)
 				if err != nil {
 					log.Println(err)
 				}
 
+				log.Println(finalResponse)
+
 				finalResponse.Items = append(finalResponse.Items, nextResponse.Items...)
 				response = nextResponse
+
 			} else {
 				link.Url = currentURL
 				link.Next = true
