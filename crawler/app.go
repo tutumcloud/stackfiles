@@ -252,11 +252,32 @@ Loop:
 	return finalResponse
 }
 
-func checkRepository(link string, c chan GithubRepoFile) {
+func YamlToJson() {
+
+}
+
+func Tokeniser() {
+
+}
+
+func Taging() {
+
+}
+
+func checkRepository(link string, c chan StackfileDBEntry) {
+	var dbEntry StackfileDBEntry
+
 	var response GithubRepoDetails
 	var fileList []GithubRepoFile
 
-	body, _, err := httpCaller(link)
+	body, header, err := httpCaller(link)
+
+	resetTime := checkRemainingRequest(header)
+
+	if resetTime != 0 {
+		log.Printf("Waiting %d seconds", resetTime)
+		time.Sleep(time.Duration(resetTime) * time.Second)
+	}
 
 	if err != nil {
 		log.Println(err)
@@ -266,32 +287,57 @@ func checkRepository(link string, c chan GithubRepoFile) {
 	if err != nil {
 		log.Println(err)
 	}
+	if response.Private != true {
+		content, header, err := httpCaller(strings.TrimSuffix(response.Contents_url, "{+path}"))
 
-	content, _, err := httpCaller(strings.TrimSuffix(response.Contents_url, "{+path}"))
-	if err != nil {
-		log.Println(err)
-	}
+		resetTime := checkRemainingRequest(header)
 
-	err = json.Unmarshal(content, &fileList)
-	if err != nil {
-		log.Println(err)
-	}
+		if resetTime != 0 {
+			log.Printf("Waiting %d seconds", resetTime)
+			time.Sleep(time.Duration(resetTime) * time.Second)
+		}
 
-	for _, file := range fileList {
-		if file.Name == "docker-compose.yml" || file.Name == "tutum.yml" {
-			c <- file
+		if err != nil {
+			log.Println(err)
+		}
+
+		err = json.Unmarshal(content, &fileList)
+		if err != nil {
+			log.Println(err)
+		}
+
+		for _, file := range fileList {
+			if file.Name == "docker-compose.yml" || file.Name == "tutum.yml" {
+				dbEntry.Author = response.Owner.Login
+				dbEntry.Branch = response.Default_branch
+				dbEntry.Description = response.Description + " " + response.Homepage
+				dbEntry.Path = "/"
+				dbEntry.ProfileLink = response.Owner.HTML_url
+				dbEntry.ProjectName = response.Name
+				dbEntry.Title = response.Name
+				log.Println(dbEntry)
+				c <- dbEntry
+			}
 		}
 	}
-
 }
 
 func main() {
-	//result := githubSearch("docker-compose")
+	c := make(chan StackfileDBEntry)
+	results := githubSearch("docker-compose")
 
-	c := make(chan GithubRepoFile)
-	go checkRepository("https://api.github.com/repos/shipyard/shipyard", c)
+	log.Println("Search done. Sleeping 20 seconds to avoid API throttling")
 
-	composeFile := <-c
+	time.Sleep(60 * time.Second)
 
-	log.Println(composeFile)
+	log.Println("Checking presence of docker-compose.yml in search results")
+	for _, repositories := range results.Items {
+		log.Println(repositories)
+		go checkRepository(repositories.Url, c)
+		time.Sleep(5 * time.Second)
+	}
+	for {
+		composeFile := <-c
+		log.Println(composeFile)
+	}
 }
