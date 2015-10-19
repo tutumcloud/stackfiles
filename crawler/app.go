@@ -48,6 +48,20 @@ type GithubRepoFile struct {
 	Download_url string `json:"download_url"`
 }
 
+type StackfileDBEntry struct {
+	Title       string   `json:"title"`
+	Branch      string   `json:"branch"`
+	Path        string   `json:"path"`
+	User        string   `json:"user"`
+	Author      string   `json:"author"`
+	Description string   `json:"description"`
+	Token       []string `json:"token"`
+	ProfileLink string   `json:"profileLink"`
+	ProjectName string   `json:"projectName"`
+	Tags        []string `json:"tags"`
+	Images      []string `json:"images"`
+}
+
 type Link struct {
 	Next bool
 	Last string
@@ -238,11 +252,11 @@ Loop:
 	return finalResponse
 }
 
-func main() {
-
+func checkRepository(link string, c chan GithubRepoFile) {
 	var response GithubRepoDetails
+	var fileList []GithubRepoFile
 
-	body, _, err := httpCaller("https://api.github.com/repos/shipyard/shipyard")
+	body, _, err := httpCaller(link)
 
 	if err != nil {
 		log.Println(err)
@@ -258,6 +272,26 @@ func main() {
 		log.Println(err)
 	}
 
-	log.Println(string(content))
+	err = json.Unmarshal(content, &fileList)
+	if err != nil {
+		log.Println(err)
+	}
 
+	for _, file := range fileList {
+		if file.Name == "docker-compose.yml" || file.Name == "tutum.yml" {
+			c <- file
+		}
+	}
+
+}
+
+func main() {
+	//result := githubSearch("docker-compose")
+
+	c := make(chan GithubRepoFile)
+	go checkRepository("https://api.github.com/repos/shipyard/shipyard", c)
+
+	composeFile := <-c
+
+	log.Println(composeFile)
 }
