@@ -10,6 +10,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"github.com/ghodss/yaml"
 )
 
 var (
@@ -261,8 +263,12 @@ Loop:
 	return finalResponse
 }
 
-func YamlToJson() {
-
+func YamlToJson(yamlFile []byte) ([]byte, error) {
+	json, err := yaml.YAMLToJSON(yamlFile)
+	if err != nil {
+		return nil, err
+	}
+	return json, nil
 }
 
 func Tokeniser() {
@@ -325,6 +331,19 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 				dbEntry.ProfileLink = response.Owner.HTML_url
 				dbEntry.ProjectName = response.Name
 				dbEntry.Title = response.Name
+
+				body, _, err := httpCaller(file.Download_url)
+				if err != nil {
+					log.Println(err)
+				}
+
+				json, err := YamlToJson(body)
+				if err != nil {
+					log.Println(err)
+				}
+
+				log.Println(string(json))
+
 				c <- dbEntry
 			}
 		}
@@ -333,7 +352,7 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 
 func main() {
 	c := make(chan StackfileDBEntry)
-	results := githubSearch("docker-compose")
+	/*results := githubSearch("docker-compose")
 
 	log.Println("Checking presence of docker-compose.yml in search results")
 	for _, repositories := range results.Items {
@@ -342,5 +361,7 @@ func main() {
 	for {
 		composeFile := <-c
 		log.Println(composeFile)
-	}
+	}*/
+	go checkRepository("https://api.github.com/repos/harshjv/docker-laravel", c)
+	log.Println(<-c)
 }
