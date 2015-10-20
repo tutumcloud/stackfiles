@@ -98,7 +98,8 @@ func httpCaller(request string) ([]byte, http.Header, error) {
 		if res.StatusCode == 403 {
 			time.Sleep(60 * time.Second)
 		}
-		log.Println("Unexpected Status Code ", res.Header)
+		err = errors.New("Unexpected Status Code " + strconv.Itoa(res.StatusCode))
+		return nil, nil, err
 	}
 
 	return body, res.Header, nil
@@ -271,12 +272,45 @@ func YamlToJson(yamlFile []byte) ([]byte, error) {
 	return json, nil
 }
 
-func Tokeniser() {
+func Tokeniser(name string) []string {
+	array := strings.Split(name, "")
+	newArray := []string{}
+	newArray = append(newArray, array[0])
 
+	for i := 1; i < len(array); i++ {
+		newArray = append(newArray, newArray[i-1]+array[i])
+	}
+
+	return newArray
 }
 
-func Taging() {
+func Taging(jsonFile []byte) ([]string, []string) {
+	keys := make(map[string]interface{})
 
+	err := json.Unmarshal(jsonFile, &keys)
+	if err != nil {
+		log.Println(err)
+	}
+
+	tags := make([]string, len(keys))
+	imageList := make([]interface{}, len(keys))
+
+	i := 0
+	for s, _ := range keys {
+		tags[i] = s
+		image := keys[tags[i]].(map[string]interface{})
+		imageList[i] = image["image"]
+		i++
+	}
+
+	images := []string{}
+	for _, v := range imageList {
+		if v != nil {
+			images = append(images, v.(string))
+		}
+	}
+
+	return tags, images
 }
 
 func checkRepository(link string, c chan StackfileDBEntry) {
@@ -331,6 +365,7 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 				dbEntry.ProfileLink = response.Owner.HTML_url
 				dbEntry.ProjectName = response.Name
 				dbEntry.Title = response.Name
+				dbEntry.Token = Tokeniser(response.Name)
 
 				body, _, err := httpCaller(file.Download_url)
 				if err != nil {
@@ -342,8 +377,11 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 					log.Println(err)
 				}
 
-				log.Println(string(json))
+				tags, images := Taging(json)
 
+				dbEntry.Tags = tags
+				dbEntry.Images = images
+				log.Println(dbEntry)
 				c <- dbEntry
 			}
 		}
@@ -352,16 +390,17 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 
 func main() {
 	c := make(chan StackfileDBEntry)
-	/*results := githubSearch("docker-compose")
+	results := githubSearch("docker-compose")
 
 	log.Println("Checking presence of docker-compose.yml in search results")
 	for _, repositories := range results.Items {
+		time.Sleep(2 * time.Second)
 		go checkRepository(repositories.Url, c)
 	}
 	for {
 		composeFile := <-c
 		log.Println(composeFile)
-	}*/
-	go checkRepository("https://api.github.com/repos/harshjv/docker-laravel", c)
-	log.Println(<-c)
+	}
+	/*go checkRepository("https://api.github.com/repos/shipyard/shipyard", c)
+	log.Println(<-c)*/
 }
