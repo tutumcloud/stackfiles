@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -13,6 +14,7 @@ import (
 
 	"github.com/ghodss/yaml"
 	"gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 )
 
 var (
@@ -58,17 +60,18 @@ type GithubRepoFile struct {
 }
 
 type StackfileDBEntry struct {
-	Title       string   `json:"title"`
-	Branch      string   `json:"branch"`
-	Path        string   `json:"path"`
-	User        string   `json:"user"`
-	Author      string   `json:"author"`
-	Description string   `json:"description"`
-	Token       []string `json:"token"`
-	ProfileLink string   `json:"profileLink"`
-	ProjectName string   `json:"projectName"`
-	Tags        []string `json:"tags"`
-	Images      []string `json:"images"`
+	Id          bson.ObjectId `bson:"_id"`
+	Title       string        `bson:"title"`
+	Branch      string        `bson:"branch"`
+	Path        string        `bson:"path"`
+	User        string        `bson:"user"`
+	Author      string        `bson:"author"`
+	Description string        `bson:"description"`
+	Token       []string      `bson:"token"`
+	ProfileLink string        `bson:"profileLink"`
+	ProjectName string        `bson:"projectName"`
+	Tags        []string      `bson:"tags"`
+	Images      []string      `bson:"images"`
 }
 
 type Link struct {
@@ -104,18 +107,6 @@ func httpCaller(request string) ([]byte, http.Header, error) {
 	}
 
 	return body, res.Header, nil
-}
-
-func mongoConnect() (s string) {
-
-	session, err := mgo.Dial("mongodb://admin:test@192.168.59.100:27018")
-	if err == nil {
-		defer session.Close()
-		s = "connected"
-	} else {
-		s = "not available"
-	}
-	return s
 }
 
 func checkRemainingRequest(header http.Header) int {
@@ -382,6 +373,7 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 				dbEntry.ProfileLink = response.Owner.HTML_url
 				dbEntry.ProjectName = response.Name
 				dbEntry.Title = response.Name
+				dbEntry.User = response.Owner.Login
 				dbEntry.Token = Tokeniser(response.Name)
 
 				body, _, err := httpCaller(file.Download_url)
@@ -404,9 +396,29 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 	}
 }
 
+func mongoConnectTest() (s string) {
+
+	session, err := mgo.Dial("mongodb://admin:test@192.168.59.100:27018")
+	if err == nil {
+		defer session.Close()
+		s = "connected"
+	} else {
+		s = "not available"
+	}
+	return s
+}
+
+func getMongoSession() (*mgo.Session, error) {
+	session, err := mgo.Dial("mongodb://admin:test@192.168.59.100:27018")
+	if err != nil {
+		return nil, err
+	}
+	return session, nil
+}
+
 func main() {
-	/*c := make(chan StackfileDBEntry)
-	results := githubSearch("docker-compose")
+	c := make(chan StackfileDBEntry)
+	/*results := githubSearch("docker-compose")
 
 	log.Println("Checking presence of docker-compose.yml in search results")
 	for _, repositories := range results.Items {
@@ -417,6 +429,25 @@ func main() {
 		composeFile := <-c
 		log.Println(composeFile)
 	}*/
-	mongostatus := mongoConnect()
-	log.Println(mongostatus)
+
+	go checkRepository("https://api.github.com/repos/shipyard/shipyard", c)
+	testFile := <-c
+	log.Println(testFile)
+
+	session, err := getMongoSession()
+	defer session.Close()
+	session.SetSafe(&mgo.Safe{})
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	collection := session.DB("admin").C("files")
+	doc := StackfileDBEntry{Id: bson.NewObjectId(), Author: testFile.Author, Tags: testFile.Tags, Images: testFile.Images, Branch: testFile.Branch, Description: testFile.Description, User: testFile.User, Path: testFile.Path, ProfileLink: testFile.ProfileLink, ProjectName: testFile.ProjectName, Title: testFile.Title, Token: testFile.Token}
+	err = collection.Insert(doc)
+	if err != nil {
+		fmt.Printf("Can't insert document: %v\n", err)
+		os.Exit(1)
+	}
+
 }
