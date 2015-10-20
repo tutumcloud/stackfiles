@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/ghodss/yaml"
+	"gopkg.in/mgo.v2"
 )
 
 var (
@@ -105,22 +106,36 @@ func httpCaller(request string) ([]byte, http.Header, error) {
 	return body, res.Header, nil
 }
 
+func mongoConnect() (s string) {
+
+	session, err := mgo.Dial("mongodb://admin:test@192.168.59.100:27018")
+	if err == nil {
+		defer session.Close()
+		s = "connected"
+	} else {
+		s = "not available"
+	}
+	return s
+}
+
 func checkRemainingRequest(header http.Header) int {
 
 	/*
 		Checking the remaining requests to avoid API throttling
 	*/
+	if len(header) != 0 {
+		remaining := header["X-Ratelimit-Remaining"][0]
+		if remaining == "0" {
 
-	remaining := header["X-Ratelimit-Remaining"][0]
-	if remaining == "0" {
-
-		/*
-			If limit is reached, we check the reset time
-			(which is divided because it's too long) and return it
-		*/
-		resetTime, _ := strconv.Atoi(header["X-Ratelimit-Reset"][0])
-		return resetTime / 10000000
+			/*
+				If limit is reached, we check the reset time
+				(which is divided because it's too long) and return it
+			*/
+			resetTime, _ := strconv.Atoi(header["X-Ratelimit-Reset"][0])
+			return resetTime / 10000000
+		}
 	}
+
 	return 0
 }
 
@@ -180,6 +195,7 @@ func githubSearch(term string) GithubResponseList {
 		First data fetching round
 	*/
 	body, header, err := httpCaller("https://api.github.com/search/repositories?q=" + term + "&sort=stars&order=desc&client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
+	log.Println(header)
 
 	if err != nil {
 		log.Println(err)
@@ -197,9 +213,10 @@ func githubSearch(term string) GithubResponseList {
 	/*
 		Loop through pagination
 	*/
+	log.Println("Loading Data...") //This should be replaced by a progress bar
+
 Loop:
 	for {
-		log.Println("Loading Data...") //This should be replaced by a progress bar
 		currentURL := link.Url
 
 		if link.Next == true {
@@ -320,7 +337,7 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 	var fileList []GithubRepoFile
 
 	body, header, err := httpCaller(link + "?client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
-
+	log.Println(link + "?client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
 	resetTime := checkRemainingRequest(header)
 
 	if resetTime != 0 {
@@ -381,7 +398,6 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 
 				dbEntry.Tags = tags
 				dbEntry.Images = images
-				log.Println(dbEntry)
 				c <- dbEntry
 			}
 		}
@@ -389,18 +405,18 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 }
 
 func main() {
-	c := make(chan StackfileDBEntry)
+	/*c := make(chan StackfileDBEntry)
 	results := githubSearch("docker-compose")
 
 	log.Println("Checking presence of docker-compose.yml in search results")
 	for _, repositories := range results.Items {
-		time.Sleep(2 * time.Second)
 		go checkRepository(repositories.Url, c)
 	}
+
 	for {
 		composeFile := <-c
 		log.Println(composeFile)
-	}
-	/*go checkRepository("https://api.github.com/repos/shipyard/shipyard", c)
-	log.Println(<-c)*/
+	}*/
+	mongostatus := mongoConnect()
+	log.Println(mongostatus)
 }
