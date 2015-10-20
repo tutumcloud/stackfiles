@@ -6,9 +6,15 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"strings"
 	"time"
+)
+
+var (
+	GITHUB_CLIENT_SECRET = os.Getenv("GITHUB_CLIENT_SECRET")
+	GITHUB_CLIENT_ID     = os.Getenv("GITHUB_CLIENT_ID")
 )
 
 type GithubResponseList struct {
@@ -87,7 +93,10 @@ func httpCaller(request string) ([]byte, http.Header, error) {
 	}
 
 	if res.StatusCode > 300 {
-		log.Fatal("Unexpected Status Code ", res)
+		if res.StatusCode == 403 {
+			time.Sleep(60 * time.Second)
+		}
+		log.Println("Unexpected Status Code ", res.Header)
 	}
 
 	return body, res.Header, nil
@@ -167,7 +176,7 @@ func githubSearch(term string) GithubResponseList {
 	/*
 		First data fetching round
 	*/
-	body, header, err := httpCaller("https://api.github.com/search/repositories?q=" + term + "&sort=stars&order=desc")
+	body, header, err := httpCaller("https://api.github.com/search/repositories?q=" + term + "&sort=stars&order=desc&client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
 
 	if err != nil {
 		log.Println(err)
@@ -192,7 +201,7 @@ Loop:
 
 		if link.Next == true {
 			var nextResponse GithubResponseList
-			body, header, err := httpCaller(currentURL)
+			body, header, err := httpCaller(currentURL + "&client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
 
 			if err != nil {
 				log.Println(err)
@@ -235,7 +244,7 @@ Loop:
 			/*
 				Extra sleep time to avoid throttling.
 			*/
-			time.Sleep(5 * time.Second)
+			//time.Sleep(5 * time.Second)
 
 			/*
 				If last page is reached we stop the loop
@@ -270,7 +279,7 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 	var response GithubRepoDetails
 	var fileList []GithubRepoFile
 
-	body, header, err := httpCaller(link)
+	body, header, err := httpCaller(link + "?client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
 
 	resetTime := checkRemainingRequest(header)
 
@@ -287,8 +296,9 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 	if err != nil {
 		log.Println(err)
 	}
+
 	if response.Private != true {
-		content, header, err := httpCaller(strings.TrimSuffix(response.Contents_url, "{+path}"))
+		content, header, err := httpCaller(strings.TrimSuffix(response.Contents_url, "{+path}") + "?client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
 
 		resetTime := checkRemainingRequest(header)
 
@@ -315,7 +325,6 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 				dbEntry.ProfileLink = response.Owner.HTML_url
 				dbEntry.ProjectName = response.Name
 				dbEntry.Title = response.Name
-				log.Println(dbEntry)
 				c <- dbEntry
 			}
 		}
@@ -326,15 +335,9 @@ func main() {
 	c := make(chan StackfileDBEntry)
 	results := githubSearch("docker-compose")
 
-	log.Println("Search done. Sleeping 20 seconds to avoid API throttling")
-
-	time.Sleep(60 * time.Second)
-
 	log.Println("Checking presence of docker-compose.yml in search results")
 	for _, repositories := range results.Items {
-		log.Println(repositories)
 		go checkRepository(repositories.Url, c)
-		time.Sleep(5 * time.Second)
 	}
 	for {
 		composeFile := <-c
