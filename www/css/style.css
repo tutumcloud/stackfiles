@@ -53,6 +53,13 @@ pre code{
     padding-top: 100px;
 }
 
+#hero-header .content p {
+  font-family: 'Helvetica Neue';
+  font-weight: 400;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
 .label{
     background-color: #FFFFFF!important;
 }
@@ -346,6 +353,14 @@ pre code{
     color: #1AAAF8;
     font-size: 22px;
     font-weight: 400;
+}
+
+#section-title h2 span{
+  margin-left: 8px;
+  font-family: 'Helvetica Neue';
+  font-weight: 400;
+  font-size: 13px;
+  text-transform: uppercase;
 }
 
 #section-title .login{
