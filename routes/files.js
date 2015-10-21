@@ -123,6 +123,16 @@ module.exports = function(app) {
       });
     });
 
+    app.get('/api/v1/index', function(req, res, next){
+      File.find({},function(err, files){
+        files.forEach(function(file){
+          file.index();
+        });
+        console.log("Crawled file indexed");
+      });
+      return next();
+    });
+
     app.get('/api/v1/files', function(req, res, next){
         File.paginate({}, {page: req.query.page, limit: req.query.limit, sortBy : {stars: -1}}, function(err, files){
             if(err){

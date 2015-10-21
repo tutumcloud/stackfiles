@@ -486,17 +486,23 @@ func main() {
 	fmt.Println("==> Testing MongoDB connection")
 	testDB := mongoConnectTest()
 	if testDB != false {
-		fmt.Println("==> MongoDB test successfull!")
+		fmt.Println("MongoDB test successfull!")
 		fmt.Println("==> Starting crawling process")
 		fmt.Println("-----------------------------")
 		fmt.Println("==> Reading existing entries")
 		link := readDB()
 		fmt.Println("Done!")
 		fmt.Println("-----------------------------")
-		fmt.Println("Filling database with new entries")
+		fmt.Println("==> Filling database with new entries")
 		fillDB(link)
 		fmt.Println("Done!")
 		fmt.Println("-----------------------------")
+		fmt.Println("==> Indexing data in ElasticSearch")
+		_, _, err := httpCaller("http://localhost:4000/api/v1/index")
+		if err != nil {
+			log.Println(err)
+		}
+		fmt.Println("Done!")
 	} else {
 		fmt.Println("==> MongoDB database not available")
 	}
