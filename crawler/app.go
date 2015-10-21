@@ -186,7 +186,6 @@ func githubSearch(term string) GithubResponseList {
 		First data fetching round
 	*/
 	body, header, err := httpCaller("https://api.github.com/search/repositories?q=" + term + "&sort=stars&order=desc&client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
-	log.Println(header)
 
 	if err != nil {
 		log.Println(err)
@@ -204,7 +203,7 @@ func githubSearch(term string) GithubResponseList {
 	/*
 		Loop through pagination
 	*/
-	log.Println("Loading Data...") //This should be replaced by a progress bar
+	fmt.Println("Loading Data...") //This should be replaced by a progress bar
 
 Loop:
 	for {
@@ -251,11 +250,6 @@ Loop:
 				link.Url = currentURL
 				link.Next = true
 			}
-
-			/*
-				Extra sleep time to avoid throttling.
-			*/
-			//time.Sleep(5 * time.Second)
 
 			/*
 				If last page is reached we stop the loop
@@ -328,7 +322,6 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 	var fileList []GithubRepoFile
 
 	body, header, err := httpCaller(link + "?client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
-	log.Println(link + "?client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
 	resetTime := checkRemainingRequest(header)
 
 	if resetTime != 0 {
@@ -409,15 +402,15 @@ func fillDB() {
 
 	collection := session.DB("admin").C("files")
 
+	fmt.Println("==> Searching Github for docker-compose repositories")
 	results := githubSearch("docker-compose")
-	log.Println("Checking presence of docker-compose.yml in search results")
+	fmt.Println("==> Checking presence of docker-compose.yml in search results")
 	for _, repositories := range results.Items {
 		go checkRepository(repositories.Url, c)
 	}
 
 	for {
 		file := <-c
-		log.Println(file)
 
 		doc := StackfileDBEntry{Id: bson.NewObjectId(), Author: file.Author, Tags: file.Tags, Images: file.Images, Branch: file.Branch, Description: file.Description, User: file.User, Path: file.Path, ProfileLink: file.ProfileLink, ProjectName: file.ProjectName, Title: file.Title, Token: file.Token}
 		err = collection.Insert(doc)
@@ -429,14 +422,14 @@ func fillDB() {
 
 }
 
-func mongoConnectTest() (s string) {
+func mongoConnectTest() (s bool) {
 
 	session, err := mgo.Dial("mongodb://admin:test@192.168.59.100:27018")
 	if err == nil {
 		defer session.Close()
-		s = "connected"
+		s = true
 	} else {
-		s = "not available"
+		s = false
 	}
 	return s
 }
@@ -450,5 +443,16 @@ func getMongoSession() (*mgo.Session, error) {
 }
 
 func main() {
-	fillDB()
+	fmt.Println("Starting crawler process")
+	fmt.Println("==> Testing MongoDB connection")
+	testDB := mongoConnectTest()
+	if testDB != false {
+		fmt.Println("==> MongoDB test successfull!")
+		fmt.Println("==> Starting crawling process")
+		fmt.Println("==> -------------------------")
+		fillDB()
+	} else {
+		fmt.Println("==> MongoDB database not available")
+	}
+	fmt.Println("Exiting crawler process")
 }
