@@ -369,7 +369,7 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 				dbEntry.User = response.Owner.Login
 				dbEntry.Token = Tokeniser(response.Name)
 
-				body, _, err := httpCaller(file.Download_url)
+				body, _, err := httpCaller("https://github.com/" + dbEntry.Author + "/" + dbEntry.Title + "/raw/master/")
 				if err != nil {
 					log.Println(err)
 				}
@@ -442,6 +442,26 @@ func getMongoSession() (*mgo.Session, error) {
 	return session, nil
 }
 
+func readDB() {
+	session, err := getMongoSession()
+	defer session.Close()
+	session.SetSafe(&mgo.Safe{})
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	collection := session.DB("admin").C("files")
+	var results []StackfileDBEntry
+	err = collection.Find(nil).All(&results)
+	if err != nil {
+		log.Println(err)
+	}
+	for _, file := range results {
+		log.Println(file.ProfileLink + "/" + file.ProjectName)
+	}
+}
+
 func main() {
 	fmt.Println("Starting crawler process")
 	fmt.Println("==> Testing MongoDB connection")
@@ -449,8 +469,9 @@ func main() {
 	if testDB != false {
 		fmt.Println("==> MongoDB test successfull!")
 		fmt.Println("==> Starting crawling process")
-		fmt.Println("==> -------------------------")
-		fillDB()
+		fmt.Println("-----------------------------")
+		readDB()
+		//fillDB()
 	} else {
 		fmt.Println("==> MongoDB database not available")
 	}
