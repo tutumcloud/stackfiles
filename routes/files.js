@@ -41,10 +41,7 @@ File.createMapping(function(err, mapping){
 });
 
 function reIndex(stream, count, total, done){
-    console.log('reIndexing');
   stream.on('data', function(doc){
-    console.log('reIndexing1');
-    console.log(doc);
     total++;
     count++;
     doc.index(function() {
@@ -118,6 +115,12 @@ module.exports = function(app) {
             });
         });
         res.redirect('/registry/' + file._id);
+    });
+
+    app.get('/api/v1/count', function(req, res, next){
+      File.find({}, function(err, files){
+        res.json({"count": files.length});
+      });
     });
 
     app.get('/api/v1/files', function(req, res, next){
