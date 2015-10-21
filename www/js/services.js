@@ -30,6 +30,12 @@ angular.module('registry.services', [])
              });
          },
 
+         getCount: function(){
+           return $http.get('/api/v1/count', {
+              method: 'GET'
+           });
+         },
+
          getRegistry: function(){
              return http.get('/registry');
          },
