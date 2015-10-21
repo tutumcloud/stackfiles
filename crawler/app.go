@@ -396,6 +396,39 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 	}
 }
 
+func fillDB() {
+	c := make(chan StackfileDBEntry)
+
+	session, err := getMongoSession()
+	defer session.Close()
+	session.SetSafe(&mgo.Safe{})
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	collection := session.DB("admin").C("files")
+
+	results := githubSearch("docker-compose")
+	log.Println("Checking presence of docker-compose.yml in search results")
+	for _, repositories := range results.Items {
+		go checkRepository(repositories.Url, c)
+	}
+
+	for {
+		file := <-c
+		log.Println(file)
+
+		doc := StackfileDBEntry{Id: bson.NewObjectId(), Author: file.Author, Tags: file.Tags, Images: file.Images, Branch: file.Branch, Description: file.Description, User: file.User, Path: file.Path, ProfileLink: file.ProfileLink, ProjectName: file.ProjectName, Title: file.Title, Token: file.Token}
+		err = collection.Insert(doc)
+		if err != nil {
+			fmt.Printf("Can't insert document: %v\n", err)
+			os.Exit(1)
+		}
+	}
+
+}
+
 func mongoConnectTest() (s string) {
 
 	session, err := mgo.Dial("mongodb://admin:test@192.168.59.100:27018")
@@ -417,37 +450,5 @@ func getMongoSession() (*mgo.Session, error) {
 }
 
 func main() {
-	c := make(chan StackfileDBEntry)
-	/*results := githubSearch("docker-compose")
-
-	log.Println("Checking presence of docker-compose.yml in search results")
-	for _, repositories := range results.Items {
-		go checkRepository(repositories.Url, c)
-	}
-
-	for {
-		composeFile := <-c
-		log.Println(composeFile)
-	}*/
-
-	go checkRepository("https://api.github.com/repos/shipyard/shipyard", c)
-	testFile := <-c
-	log.Println(testFile)
-
-	session, err := getMongoSession()
-	defer session.Close()
-	session.SetSafe(&mgo.Safe{})
-
-	if err != nil {
-		log.Println(err)
-	}
-
-	collection := session.DB("admin").C("files")
-	doc := StackfileDBEntry{Id: bson.NewObjectId(), Author: testFile.Author, Tags: testFile.Tags, Images: testFile.Images, Branch: testFile.Branch, Description: testFile.Description, User: testFile.User, Path: testFile.Path, ProfileLink: testFile.ProfileLink, ProjectName: testFile.ProjectName, Title: testFile.Title, Token: testFile.Token}
-	err = collection.Insert(doc)
-	if err != nil {
-		fmt.Printf("Can't insert document: %v\n", err)
-		os.Exit(1)
-	}
-
+	fillDB()
 }
