@@ -130,6 +130,15 @@ func checkRemainingRequest(header http.Header) int {
 	return 0
 }
 
+func stringInSlice(a string, list []string) bool {
+	for _, b := range list {
+		if b == a {
+			return true
+		}
+	}
+	return false
+}
+
 func getLinkDetails(headerArray http.Header) (Link, error) {
 	var newLink Link
 
@@ -316,6 +325,7 @@ func Taging(jsonFile []byte) ([]string, []string) {
 }
 
 func checkRepository(link string, c chan StackfileDBEntry) {
+	time.Sleep(5 * time.Second)
 	var dbEntry StackfileDBEntry
 
 	var response GithubRepoDetails
@@ -369,7 +379,7 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 				dbEntry.User = response.Owner.Login
 				dbEntry.Token = Tokeniser(response.Name)
 
-				body, _, err := httpCaller("https://github.com/" + dbEntry.Author + "/" + dbEntry.Title + "/raw/master/")
+				body, _, err := httpCaller("https://github.com/" + dbEntry.Author + "/" + dbEntry.Title + "/raw/master/docker-compose.yml")
 				if err != nil {
 					log.Println(err)
 				}
@@ -389,7 +399,7 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 	}
 }
 
-func fillDB() {
+func fillDB(existingEntries []string) {
 	c := make(chan StackfileDBEntry)
 
 	session, err := getMongoSession()
@@ -409,17 +419,22 @@ func fillDB() {
 		go checkRepository(repositories.Url, c)
 	}
 
+Loop:
 	for {
-		file := <-c
-
-		doc := StackfileDBEntry{Id: bson.NewObjectId(), Author: file.Author, Tags: file.Tags, Images: file.Images, Branch: file.Branch, Description: file.Description, User: file.User, Path: file.Path, ProfileLink: file.ProfileLink, ProjectName: file.ProjectName, Title: file.Title, Token: file.Token}
-		err = collection.Insert(doc)
-		if err != nil {
-			fmt.Printf("Can't insert document: %v\n", err)
-			os.Exit(1)
+		select {
+		case file := <-c:
+			if !stringInSlice(file.ProfileLink+"/"+file.ProjectName, existingEntries) {
+				doc := StackfileDBEntry{Id: bson.NewObjectId(), Author: file.Author, Tags: file.Tags, Images: file.Images, Branch: file.Branch, Description: file.Description, User: file.User, Path: file.Path, ProfileLink: file.ProfileLink, ProjectName: file.ProjectName, Title: file.Title, Token: file.Token}
+				err = collection.Insert(doc)
+				if err != nil {
+					fmt.Printf("Can't insert document: %v\n", err)
+				}
+			}
+		case <-time.After(10 * time.Second):
+			close(c)
+			break Loop
 		}
 	}
-
 }
 
 func mongoConnectTest() (s bool) {
@@ -442,10 +457,12 @@ func getMongoSession() (*mgo.Session, error) {
 	return session, nil
 }
 
-func readDB() {
+func readDB() []string {
 	session, err := getMongoSession()
 	defer session.Close()
 	session.SetSafe(&mgo.Safe{})
+
+	link := []string{}
 
 	if err != nil {
 		log.Println(err)
@@ -457,9 +474,11 @@ func readDB() {
 	if err != nil {
 		log.Println(err)
 	}
+
 	for _, file := range results {
-		log.Println(file.ProfileLink + "/" + file.ProjectName)
+		link = append(link, file.ProfileLink+"/"+file.ProjectName)
 	}
+	return link
 }
 
 func main() {
@@ -470,8 +489,14 @@ func main() {
 		fmt.Println("==> MongoDB test successfull!")
 		fmt.Println("==> Starting crawling process")
 		fmt.Println("-----------------------------")
-		readDB()
-		//fillDB()
+		fmt.Println("==> Reading existing entries")
+		link := readDB()
+		fmt.Println("Done!")
+		fmt.Println("-----------------------------")
+		fmt.Println("Filling database with new entries")
+		fillDB(link)
+		fmt.Println("Done!")
+		fmt.Println("-----------------------------")
 	} else {
 		fmt.Println("==> MongoDB database not available")
 	}
