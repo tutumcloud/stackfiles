@@ -444,7 +444,7 @@ Loop:
 					fmt.Printf("Can't insert document: %v\n", err)
 				}
 			}
-		case <-time.After(60 * time.Second):
+		case <-time.After(180 * time.Second):
 			close(c)
 			break Loop
 		}
