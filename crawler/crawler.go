@@ -36,6 +36,7 @@ type GithubResponseItem struct {
 type GithubOwner struct {
 	Login    string `json:"login"`
 	HTML_url string `json:"html_url"`
+	Type     string `json:"type"`
 }
 
 type GithubRepoDetails struct {
@@ -344,34 +345,34 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 	var fileList []GithubRepoFile
 
 	body, header, err := httpCaller(link + "?client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
+
+	if err != nil {
+		log.Println(err)
+	}
+
 	resetTime := checkRemainingRequest(header)
 
 	if resetTime != 0 {
 		log.Printf("Waiting %d seconds", resetTime)
 		time.Sleep(time.Duration(resetTime) * time.Second)
 	}
-
-	if err != nil {
-		log.Println(err)
-	}
-
 	err = json.Unmarshal(body, &response)
 	if err != nil {
 		log.Println(err)
 	}
 
-	if response.Private != true {
+	if response.Private != true && response.Owner.Type == "User" {
 		content, header, err := httpCaller(strings.TrimSuffix(response.Contents_url, "{+path}") + "?client_id=" + GITHUB_CLIENT_ID + "&client_secret=" + GITHUB_CLIENT_SECRET)
 
 		resetTime := checkRemainingRequest(header)
 
+		if err != nil {
+			log.Println(err)
+		}
+
 		if resetTime != 0 {
 			log.Printf("Waiting %d seconds", resetTime)
 			time.Sleep(time.Duration(resetTime) * time.Second)
-		}
-
-		if err != nil {
-			log.Println(err)
 		}
 
 		err = json.Unmarshal(content, &fileList)
@@ -393,6 +394,7 @@ func checkRepository(link string, c chan StackfileDBEntry) {
 
 				body, _, err := httpCaller("https://github.com/" + dbEntry.Author + "/" + dbEntry.Title + "/raw/master/docker-compose.yml")
 				if err != nil {
+					log.Println("https://github.com/" + dbEntry.Author + "/" + dbEntry.Title + "/raw/master/docker-compose.yml")
 					log.Println(err)
 				}
 
