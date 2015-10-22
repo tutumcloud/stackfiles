@@ -81,6 +81,12 @@ type Link struct {
 }
 
 /*
+----------------------------------------------
+HELPERS FUNCTIONS
+----------------------------------------------
+*/
+
+/*
 	Classic http caller function that returns the body and the header of a request
 	if successful
 */
@@ -139,6 +145,55 @@ func stringInSlice(a string, list []string) bool {
 	return false
 }
 
+func YamlToJson(yamlFile []byte) ([]byte, error) {
+	json, err := yaml.YAMLToJSON(yamlFile)
+	if err != nil {
+		return nil, err
+	}
+	return json, nil
+}
+
+func Tokeniser(name string) []string {
+	array := strings.Split(name, "")
+	newArray := []string{}
+	newArray = append(newArray, array[0])
+
+	for i := 1; i < len(array); i++ {
+		newArray = append(newArray, newArray[i-1]+array[i])
+	}
+
+	return newArray
+}
+
+func Taging(jsonFile []byte) ([]string, []string) {
+	keys := make(map[string]interface{})
+
+	err := json.Unmarshal(jsonFile, &keys)
+	if err != nil {
+		log.Println(err)
+	}
+
+	tags := make([]string, len(keys))
+	imageList := make([]interface{}, len(keys))
+
+	i := 0
+	for s, _ := range keys {
+		tags[i] = s
+		image := keys[tags[i]].(map[string]interface{})
+		imageList[i] = image["image"]
+		i++
+	}
+
+	images := []string{}
+	for _, v := range imageList {
+		if v != nil {
+			images = append(images, v.(string))
+		}
+	}
+
+	return tags, images
+}
+
 func getLinkDetails(headerArray http.Header) (Link, error) {
 	var newLink Link
 
@@ -183,6 +238,12 @@ func getLinkDetails(headerArray http.Header) (Link, error) {
 
 	return newLink, err
 }
+
+/*
+----------------------------------------------
+MAIN CRAWLING FUNCTIONS
+----------------------------------------------
+*/
 
 func githubSearch(term string) GithubResponseList {
 
@@ -273,55 +334,6 @@ Loop:
 	}
 
 	return finalResponse
-}
-
-func YamlToJson(yamlFile []byte) ([]byte, error) {
-	json, err := yaml.YAMLToJSON(yamlFile)
-	if err != nil {
-		return nil, err
-	}
-	return json, nil
-}
-
-func Tokeniser(name string) []string {
-	array := strings.Split(name, "")
-	newArray := []string{}
-	newArray = append(newArray, array[0])
-
-	for i := 1; i < len(array); i++ {
-		newArray = append(newArray, newArray[i-1]+array[i])
-	}
-
-	return newArray
-}
-
-func Taging(jsonFile []byte) ([]string, []string) {
-	keys := make(map[string]interface{})
-
-	err := json.Unmarshal(jsonFile, &keys)
-	if err != nil {
-		log.Println(err)
-	}
-
-	tags := make([]string, len(keys))
-	imageList := make([]interface{}, len(keys))
-
-	i := 0
-	for s, _ := range keys {
-		tags[i] = s
-		image := keys[tags[i]].(map[string]interface{})
-		imageList[i] = image["image"]
-		i++
-	}
-
-	images := []string{}
-	for _, v := range imageList {
-		if v != nil {
-			images = append(images, v.(string))
-		}
-	}
-
-	return tags, images
 }
 
 func checkRepository(link string, c chan StackfileDBEntry) {
@@ -430,7 +442,7 @@ Loop:
 					fmt.Printf("Can't insert document: %v\n", err)
 				}
 			}
-		case <-time.After(10 * time.Second):
+		case <-time.After(60 * time.Second):
 			close(c)
 			break Loop
 		}
@@ -439,7 +451,7 @@ Loop:
 
 func mongoConnectTest() (s bool) {
 
-	session, err := mgo.Dial("mongodb://admin:test@192.168.59.100:27018")
+	session, err := mgo.Dial("mongodb://admin:" + os.Getenv("MONGODB_PASS") + "@" + os.Getenv("MONGODB_PORT_27017_TCP_ADDR") + ":" + os.Getenv("MONGODB_PORT_27017_TCP_PORT"))
 	if err == nil {
 		defer session.Close()
 		s = true
@@ -450,7 +462,7 @@ func mongoConnectTest() (s bool) {
 }
 
 func getMongoSession() (*mgo.Session, error) {
-	session, err := mgo.Dial("mongodb://admin:test@192.168.59.100:27018")
+	session, err := mgo.Dial("mongodb://admin:" + os.Getenv("MONGODB_PASS") + "@" + os.Getenv("MONGODB_PORT_27017_TCP_ADDR") + ":" + os.Getenv("MONGODB_PORT_27017_TCP_PORT"))
 	if err != nil {
 		return nil, err
 	}
@@ -498,7 +510,7 @@ func main() {
 		fmt.Println("Done!")
 		fmt.Println("-----------------------------")
 		fmt.Println("==> Indexing data in ElasticSearch")
-		_, _, err := httpCaller("http://localhost:4000/api/v1/index")
+		_, _, err := httpCaller(os.Getenv("BASE_URL") + "/api/v1/index")
 		if err != nil {
 			log.Println(err)
 		}
