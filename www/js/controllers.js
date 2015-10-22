@@ -77,6 +77,11 @@ angular.module('registry.controllers', [])
 })
 
 .controller('MainController', function($scope, $window, API){
+
+    API.getCount().success(function(data, status, headers, config){
+      $scope.fileNumber = data.count;
+    });
+
     $scope.search = function(){
         if(this.data.search !== ""){
             $window.localStorage.search = this.data.search;
