@@ -126,10 +126,15 @@ module.exports = function(app) {
     app.get('/api/v1/index', function(req, res, next){
       File.find({},function(err, files){
         files.forEach(function(file){
-          file.index();
+          file.index(function(err, indexed){
+            if(err){
+              console.log(err);
+              return next();
+            }
+          });
         });
-        console.log("Crawled file indexed");
       });
+      console.log("Crawled file indexed");
       return next();
     });
 
