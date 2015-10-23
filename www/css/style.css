@@ -713,7 +713,7 @@ svg.star.btn-on-unfav path{
 .tags{
     display: inline-block;
     padding-right: 5px;
-    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .grey-tag{
