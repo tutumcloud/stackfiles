@@ -524,6 +524,7 @@ func crawl() {
 }
 
 func main() {
+
 	timing, err := strconv.Atoi(os.Getenv("SCHEDULE_TIME"))
 
 	if os.Getenv("SCHEDULE_TIME") == "" || timing < 0 {
@@ -536,7 +537,9 @@ func main() {
 		return
 	}
 
-	if timing >= 0 {
+	crawl()
+
+	if timing > 0 {
 		ticker := time.NewTicker(time.Duration(timing) * time.Minute)
 		for {
 			select {
@@ -544,9 +547,5 @@ func main() {
 				crawl()
 			}
 		}
-	} else {
-		//This is to have a set of data for testing and development purposes
-		log.Println("SCHEDULE_TIME is 0, the crawling task will be scheduled to run only once")
-		crawl()
 	}
 }
