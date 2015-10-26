@@ -495,7 +495,7 @@ func readDB() []string {
 	return link
 }
 
-func main() {
+func crawl() {
 	fmt.Println("Starting crawler process")
 	fmt.Println("==> Testing MongoDB connection")
 	testDB := mongoConnectTest()
@@ -521,4 +521,16 @@ func main() {
 		fmt.Println("==> MongoDB database not available")
 	}
 	fmt.Println("Exiting crawler process")
+}
+
+func main() {
+	ticker := time.NewTicker(10 * time.Minute)
+	go func() {
+		for {
+			select {
+			case <-ticker.C:
+				crawl()
+			}
+		}
+	}()
 }
