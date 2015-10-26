@@ -1,4 +1,4 @@
-package main
+package main // import "github.com/tutumcloud/stackfiles/crawler"
 
 import (
 	"encoding/json"
