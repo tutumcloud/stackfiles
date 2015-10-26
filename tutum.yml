@@ -10,8 +10,6 @@ crawler:
   links:
     - mongodb
   restart: always
-  volumes:
-    - '/etc/ssl/certs/ca-certificates.crt:/etc/ssl/certs/ca-certificates.crt'
 elasticsearch:
   image: 'tutum/elasticsearch:latest'
   environment:
