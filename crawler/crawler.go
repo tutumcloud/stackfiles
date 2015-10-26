@@ -526,19 +526,27 @@ func crawl() {
 func main() {
 	timing, err := strconv.Atoi(os.Getenv("SCHEDULE_TIME"))
 
-	if os.Getenv("SCHEDULE_TIME") == "" || timing <= 0 {
-		log.Println("SCHEDULE_TIME must be declared as environment variable with a value greater than 0")
+	if os.Getenv("SCHEDULE_TIME") == "" || timing < 0 {
+		log.Println("SCHEDULE_TIME must be declared as environment variable")
+		return
 	}
 
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	ticker := time.NewTicker(time.Duration(timing) * time.Minute)
-	for {
-		select {
-		case <-ticker.C:
-			crawl()
+
+	if timing >= 0 {
+		ticker := time.NewTicker(time.Duration(timing) * time.Minute)
+		for {
+			select {
+			case <-ticker.C:
+				crawl()
+			}
 		}
+	} else {
+		//This is to have a set of data for testing and development purposes
+		log.Println("SCHEDULE_TIME is 0, the crawling task will be scheduled to run only once")
+		crawl()
 	}
 }

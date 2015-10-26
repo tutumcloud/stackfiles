@@ -14,3 +14,11 @@ elasticsearch:
     environment:
       - ELASTICSEARCH_USER=admin
       - ELASTICSEARCH_PASS=test
+#crawler:
+#  image: 'tutum.co/maximeheckel/stackfiles-crawler:staging'
+#  environment:
+#    - BASE_URL=http://localhost:4000
+#    - MONGODB_PASS=test
+#    - SCHEDULE_TIME=0
+#  links:
+#    - mongodb
