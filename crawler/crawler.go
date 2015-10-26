@@ -524,13 +524,21 @@ func crawl() {
 }
 
 func main() {
-	ticker := time.NewTicker(10 * time.Minute)
-	go func() {
-		for {
-			select {
-			case <-ticker.C:
-				crawl()
-			}
+	timing, err := strconv.Atoi(os.Getenv("SCHEDULE_TIME"))
+
+	if os.Getenv("SCHEDULE_TIME") == "" || timing <= 0 {
+		log.Println("SCHEDULE_TIME must be declared as environment variable with a value greater than 0")
+	}
+
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	ticker := time.NewTicker(time.Duration(timing) * time.Minute)
+	for {
+		select {
+		case <-ticker.C:
+			crawl()
 		}
-	}()
+	}
 }
