@@ -288,6 +288,17 @@ angular.module('registry.controllers', [])
         });
     };
 
+    processImages = function(images){
+      var processedImages = [];
+      images.forEach(function(item){
+        image = item.split(':')[0];
+        if(image.split('/').length === 1){
+          image = "library/" + image;
+        }
+        processedImages.push(image);
+      });
+      return processedImages;
+    };
 })
 
 .controller('CreateController', function($scope, $rootScope, $window, API){
