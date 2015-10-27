@@ -35,6 +35,15 @@
         </div>
         <hr>
         <div class="section">
+            <div class="label">Images</div>
+            <div class="content">
+              <div class="images" ng-repeat="image in images">
+                  <a href="https://hub.docker.com/r/{{image}}" target="blank">{{image}}</a>
+              </div>
+            </div>
+        </div>
+        <hr>
+        <div class="section">
             <div class="label">Service tags</div>
             <div class="content">
               <div class="tags" ng-repeat="tags in data.tags">
