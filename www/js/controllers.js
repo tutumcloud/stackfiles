@@ -244,6 +244,7 @@ angular.module('registry.controllers', [])
         $scope.data = data;
         API.getYAMLFile(data._id, data.projectName, data.path).success(function(yamlData, status, headers, config){
             $scope.composeFile = yamlData;
+            $scope.images = processImages(data.images);
             $scope.loaded = true;
         }).error(function(data, status, headers, config){
             $scope.composeFile = "Unable to fetch tutum.yml from Github repository. Please select a repository that contains a tutum.yml or a docker-compose.yml file";
@@ -291,6 +292,16 @@ angular.module('registry.controllers', [])
         });
     };
 
+    processImages = function(images){
+      var processedImages = [];
+      images.forEach(function(image){
+        if(image.split('/').length === 1){
+          image = "library/" + image;
+        }
+        processedImages.push(image);
+      });
+       return processedImages;
+    };
 })
 
 .controller('CreateController', function($scope, $rootScope, $window, API){
