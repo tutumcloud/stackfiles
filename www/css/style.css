@@ -717,7 +717,7 @@ svg.star.btn-on-unfav path{
 .tags{
     display: inline-block;
     padding-right: 5px;
-    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .grey-tag{
@@ -993,18 +993,27 @@ textarea.form-control{
 
 #detail hr{
     border-color: #E0E4E7;
-    margin-top: 35px;
     margin-bottom: 19px;
 }
 
 .section .label{
     padding-left: 0;
-    padding-right: 74px;
+    width: 150px;
     color: #8F9EA8;
     font-size: 12px;
     font-weight: 400;
+    text-align: left;
     text-transform: uppercase;
     display: inline-block;
+}
+
+.section .images{
+  margin-bottom: 5px;
+}
+
+.section .images a{
+  color: #254356;
+  text-decoration: underline;
 }
 
 .section .content{
