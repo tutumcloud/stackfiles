@@ -18,6 +18,7 @@ var schema = new mongoose.Schema({
     },
     profileLink: {type: String},
     projectName: {type: String},
+    type: {type: String},
     tags: {
         type: Array,
         es_type:'string',
