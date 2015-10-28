@@ -82,7 +82,8 @@ function getYAML(username, repositoryName, branch, path, callback){
 
     request.get(options, function(err, data){
         if(data.statusCode == 404){
-            request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/docker-compose.yml", function(err, data){
+            options.url = "https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/docker-compose.yml";
+            request.get(options, function(err, data){
                 if(data.statusCode == 404){
                     callback("File not found", null);
                 } else {
