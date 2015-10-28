@@ -672,6 +672,11 @@ span.stack-user{
     text-align: center;
 }
 
+a.download-btn{
+    margin-top: 25px;
+    padding-right: 25px;
+}
+
 a.delete-btn{
     margin-top: 20px;
 }
