@@ -1,5 +1,6 @@
 var yaml = require('js-yaml'),
     fs   = require('fs'),
+    http = require('http'),
     mongoosastic = require('mongoosastic'),
     request = require('request'),
     path = require('path'),
@@ -78,6 +79,19 @@ function escapeHtml(unsafe) {
          .replace(/(?:\r\n|\r|\n)/g, '\\n');
  }
 
+ function download(url, dest) {
+   var request = http.get(url, function(response) {
+    if (response.statusCode === 200) {
+        var file = fs.createWriteStream(dest);
+        response.pipe(file);
+    }
+    // Add timeout.
+    request.setTimeout(12000, function () {
+        request.abort();
+    });
+  });
+ }
+
 module.exports = function(app) {
 
     app.post('/api/v1/create', auth, function(req, res){
@@ -153,6 +167,39 @@ module.exports = function(app) {
                 return next(new Error(err));
             }
             res.json(file);
+        });
+    });
+
+    app.get('/api/v1/files/:id/url', function(req, res, next){
+        var url = "";
+        File.findOne({_id: req.params.id}, function(err, file){
+            if(err){
+                return next(new Error(err));
+            }
+
+            var options = {
+              url: "https://github.com/" + file.user + "/" + file.projectName + "/raw/" + file.branch + "/" + file.path + "/tutum.yml",
+              method: 'GET',
+            };
+
+
+            request.get(options, function(err, data){
+                if(data.statusCode == 404){
+                    options.url = "https://github.com/" + file.user + "/" + file.projectName + "/raw/" + file.branch + "/" + file.path + "/docker-compose.yml";
+                    request.get(options, function(err, data){
+                        if(data.statusCode == 404){
+                            callback("File not found", null);
+                        } else {
+                            url = options.url;
+                            res.send(url);
+                        }
+                    });
+                } else {
+                    url = options.url;
+                    res.send(url);
+                }
+
+            });
         });
     });
 
