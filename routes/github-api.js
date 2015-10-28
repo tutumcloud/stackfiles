@@ -112,11 +112,10 @@ function getREADME(username, repositoryName, callback){
 
 module.exports = function(app) {
 
-    app.get('/api/v1/user', function(req, res){
+    app.get('/api/v1/user', function(req, res, next){
         if(req.user !== undefined){
             res.json(req.user);
         }
-
     });
 
     //GET ORGS LIST AT CREATION
