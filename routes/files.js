@@ -170,39 +170,6 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/api/v1/files/:id/url', function(req, res, next){
-        var url = "";
-        File.findOne({_id: req.params.id}, function(err, file){
-            if(err){
-                return next(new Error(err));
-            }
-
-            var options = {
-              url: "https://github.com/" + file.user + "/" + file.projectName + "/raw/" + file.branch + "/" + file.path + "/tutum.yml",
-              method: 'GET',
-            };
-
-
-            request.get(options, function(err, data){
-                if(data.statusCode == 404){
-                    options.url = "https://github.com/" + file.user + "/" + file.projectName + "/raw/" + file.branch + "/" + file.path + "/docker-compose.yml";
-                    request.get(options, function(err, data){
-                        if(data.statusCode == 404){
-                            callback("File not found", null);
-                        } else {
-                            url = options.url;
-                            res.send(url);
-                        }
-                    });
-                } else {
-                    url = options.url;
-                    res.send(url);
-                }
-
-            });
-        });
-    });
-
     app.get('/embed/embed.css', function(req, res, next){
         res.sendFile(path.resolve(__dirname + '/../www/css/embed.css'));
     });
