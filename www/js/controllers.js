@@ -245,6 +245,7 @@ angular.module('registry.controllers', [])
         API.getYAMLFile(data._id, data.projectName, data.path).success(function(yamlData, status, headers, config){
             $scope.composeFile = yamlData;
             $scope.images = processImages(data.images);
+            $scope.downloadLink = "https://github.com/" + data.user + "/" + data.projectName + "/raw/" + data.branch + "/" + data.path + "/docker-compose.yml";
             $scope.loaded = true;
         }).error(function(data, status, headers, config){
             $scope.composeFile = "Unable to fetch tutum.yml from Github repository. Please select a repository that contains a tutum.yml or a docker-compose.yml file";
