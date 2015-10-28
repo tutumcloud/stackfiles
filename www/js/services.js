@@ -86,6 +86,12 @@ angular.module('registry.services', [])
              });
          },
 
+         getUrl: function(id){
+           return $http.get('/api/v1/files/' + id + '/url', {
+             method: 'GET'
+           });
+         },
+
          deleteStackfile: function(id){
              return $http.delete('/api/v1/files/' + id,{
                  method:'DELETE'
