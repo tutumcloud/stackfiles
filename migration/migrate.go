@@ -1,5 +1,6 @@
 package main // import "github.com/tutumcloud/stackfiles/migration"
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -9,7 +10,9 @@ import (
 
 func migrate(session *mgo.Session) {
 	collection := session.DB("admin").C("files")
+	fmt.Println("==> Launching Type migration")
 	migrations.TypeMigration(collection)
+	fmt.Println("==> End of Type migration")
 }
 
 func getMongoSession() (*mgo.Session, error) {
