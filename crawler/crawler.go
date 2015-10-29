@@ -73,6 +73,7 @@ type StackfileDBEntry struct {
 	ProjectName string        `bson:"projectName"`
 	Tags        []string      `bson:"tags"`
 	Images      []string      `bson:"images"`
+	Type        string        `bson:"type"`
 }
 
 type Link struct {
@@ -438,7 +439,7 @@ Loop:
 		select {
 		case file := <-c:
 			if !stringInSlice(file.ProfileLink+"/"+file.ProjectName, existingEntries) {
-				doc := StackfileDBEntry{Id: bson.NewObjectId(), Author: file.Author, Tags: file.Tags, Images: file.Images, Branch: file.Branch, Description: file.Description, User: file.User, Path: file.Path, ProfileLink: file.ProfileLink, ProjectName: file.ProjectName, Title: file.Title, Token: file.Token}
+				doc := StackfileDBEntry{Id: bson.NewObjectId(), Author: file.Author, Tags: file.Tags, Images: file.Images, Branch: file.Branch, Description: file.Description, User: file.User, Path: file.Path, ProfileLink: file.ProfileLink, ProjectName: file.ProjectName, Title: file.Title, Token: file.Token, Type: "docker-compose"}
 				err = collection.Insert(doc)
 				if err != nil {
 					fmt.Printf("Can't insert document: %v\n", err)

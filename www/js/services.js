@@ -86,12 +86,6 @@ angular.module('registry.services', [])
              });
          },
 
-         getUrl: function(id){
-           return $http.get('/api/v1/files/' + id + '/url', {
-             method: 'GET'
-           });
-         },
-
          deleteStackfile: function(id){
              return $http.delete('/api/v1/files/' + id,{
                  method:'DELETE'
@@ -139,7 +133,7 @@ angular.module('registry.services', [])
         },
 
         getUserReposInfo: function(orgname, repo, branch, path){
-            return $http.post('/api/v1/user/repos/new',{
+            return $http.get('/api/v1/user/repos/new',{
                 method: 'GET',
                 params: {
                     orgname: orgname,
@@ -151,8 +145,8 @@ angular.module('registry.services', [])
         },
 
         getYAMLFile: function(id, repo, path){
-            return $http.post('/api/v1/user/repos/file',{
-                method: 'POST',
+            return $http.get('/api/v1/user/repos/file',{
+                method: 'GET',
                 params: {
                     id : id,
                     repo: repo,
