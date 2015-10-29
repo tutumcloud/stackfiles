@@ -52,7 +52,15 @@ func TypeMigration(collection *mgo.Collection) {
 	}
 
 	for _, file := range existingEntries {
-		log.Println(file.Type)
+		log.Println(file.Id)
+		res, _ := httpCaller("https://github.com/" + file.Author + "/" + file.ProjectName + "/raw/master/tutum.yml")
+		if res.StatusCode == 404 {
+			log.Println("docker-compose.yml")
+			collection.UpdateId(file.Id, bson.M{"$set": bson.M{"type": "docker-compose"}})
+		} else {
+			log.Println("tutum.yml")
+			collection.UpdateId(file.Id, bson.M{"$set": bson.M{"type": "tutum"}})
+		}
 	}
 	/*body, _, err := httpCaller("https://github.com/" + dbEntry.Author + "/" + dbEntry.Title + "/raw/master/docker-compose.yml")
 	if err != nil {
