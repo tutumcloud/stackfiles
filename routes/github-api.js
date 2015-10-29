@@ -87,11 +87,11 @@ function getYAML(username, repositoryName, branch, path, callback){
                 if(data.statusCode == 404){
                     callback("File not found", null);
                 } else {
-                    callback(null, data.body);
+                    callback(null, {"body": data.body, "type": "docker-compose"});
                 }
             });
         } else {
-            callback(null, data.body);
+            callback(null, {"body": data.body, "type": "tutum"});
         }
 
     });
@@ -109,13 +109,10 @@ function getREADME(username, repositoryName, callback){
 
 module.exports = function(app) {
 
-    app.get('/api/v1/user', function(req, res){
+    app.get('/api/v1/user', function(req, res, next){
         if(req.user !== undefined){
             res.json(req.user);
-        } else {
-            res.statusCode = 400;
         }
-
     });
 
     //GET ORGS LIST AT CREATION
@@ -179,26 +176,25 @@ module.exports = function(app) {
     });
 
     //GET YAML FOR PREVIEW AT CREATION
-    app.post('/api/v1/user/repos/new', function(req, res){
-        var organization = req.body.params.orgname;
-        var repositoryName = req.body.params.repo;
-        var repositoryPath = req.body.params.path;
-        var branch = req.body.params.branch;
+    app.get('/api/v1/user/repos/new', function(req, res){
+        var organization = req.query.orgname;
+        var repositoryName = req.query.repo;
+        var repositoryPath = req.query.path;
+        var branch = req.query.branch;
         getYAML(organization, repositoryName, branch, repositoryPath, function(err, yaml){
             if(err){
                 res.send(err);
             } else {
-                res.writeHead(200, {'Content-Type': 'text/x-yaml; charset=utf-8'});
-                res.end(yaml);
+                res.json(yaml);
             }
         });
     });
 
     //GET YAML FROM REGISTRY
-    app.post('/api/v1/user/repos/file', function(req, res){
-        var repositoryName = req.body.params.repo;
-        var repositoryPath = req.body.params.path;
-        File.findOne({_id: req.body.params.id}, function(err, file){
+    app.get('/api/v1/user/repos/file', function(req, res){
+        var repositoryName = req.query.repo;
+        var repositoryPath = req.query.path;
+        File.findOne({_id: req.query.id}, function(err, file){
             if(err){
                 res.json(new Error(err));
                 res.redirect('/404');
@@ -208,7 +204,7 @@ module.exports = function(app) {
                         res.send('"Unable to fetch stackfile from Github. The file might have been moved or the repository deleted by its owner."');
                     } else {
                         res.writeHead(200, {'Content-Type': 'text/x-yaml; charset=utf-8'});
-                        res.end(yaml);
+                        res.end(yaml.body);
                     }
                 });
             }

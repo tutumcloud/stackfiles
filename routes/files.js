@@ -113,6 +113,7 @@ module.exports = function(app) {
             user: req.body.params.form.orgname,
             author: req.user.username,
             description: req.body.params.form.description,
+            type: req.body.params.form.type,
             token: tokenizer(req.body.params.form.title).concat(serviceToken),
             profileLink: "https://github.com/"+req.body.params.form.orgname,
             projectName: req.body.params.form.name,
@@ -167,39 +168,6 @@ module.exports = function(app) {
                 return next(new Error(err));
             }
             res.json(file);
-        });
-    });
-
-    app.get('/api/v1/files/:id/url', function(req, res, next){
-        var url = "";
-        File.findOne({_id: req.params.id}, function(err, file){
-            if(err){
-                return next(new Error(err));
-            }
-
-            var options = {
-              url: "https://github.com/" + file.user + "/" + file.projectName + "/raw/" + file.branch + "/" + file.path + "/tutum.yml",
-              method: 'GET',
-            };
-
-
-            request.get(options, function(err, data){
-                if(data.statusCode == 404){
-                    options.url = "https://github.com/" + file.user + "/" + file.projectName + "/raw/" + file.branch + "/" + file.path + "/docker-compose.yml";
-                    request.get(options, function(err, data){
-                        if(data.statusCode == 404){
-                            callback("File not found", null);
-                        } else {
-                            url = options.url;
-                            res.send(url);
-                        }
-                    });
-                } else {
-                    url = options.url;
-                    res.send(url);
-                }
-
-            });
         });
     });
 
