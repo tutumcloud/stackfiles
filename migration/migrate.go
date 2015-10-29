@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"./migrations"
+	"github.com/tutumcloud/stackfiles/migration/migrations"
 	"gopkg.in/mgo.v2"
 )
 
