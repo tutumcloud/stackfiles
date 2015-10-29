@@ -9,7 +9,7 @@ import (
 
 func migrate(session *mgo.Session) {
 	collection := session.DB("admin").C("files")
-	go migrations.TypeMigration(collection)
+	migrations.TypeMigration(collection)
 }
 
 func getMongoSession() (*mgo.Session, error) {
