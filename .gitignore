@@ -1,3 +1,5 @@
 node_modules
 test.html
 newrelic_agent.log
+crawler/crawler
+migration/migrate

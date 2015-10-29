@@ -1,24 +1,47 @@
+crawler:
+  image: 'tutum.co/admin/stackfiles-crawler:latest'
+  autoredeploy: true
+  environment:
+    - BASE_URL=**changeme**
+    - GITHUB_CLIENT_ID=**changeme**
+    - GITHUB_CLIENT_SECRET=**changeme**
+    - MONGODB_PASS=**changeme**
+    - SCHEDULE_TIME=**changeme**
+  links:
+    - mongodb
+  restart: always
 elasticsearch:
-  image: 'elasticsearch:latest'
+  image: 'tutum/elasticsearch:latest'
+  environment:
+    - ELASTICSEARCH_PASS=**changeme**
+    - ELASTICSEARCH_USER=**changeme**
   ports:
     - '9200:9200'
     - '9300:9300'
 mongodb:
-  image: 'mongo:latest'
+  image: 'tutum/mongodb:3.0'
   environment:
+    - MONGODB_PASS=**changeme**
     - OPLOG_SIZE=1
   ports:
     - '27018:27017'
     - '28018:28017'
 registry:
-  image: 'tutum.co/admin/stackfileio:latest'
+  image: 'tutum.co/admin/stackfilesio:latest'
+  autoredeploy: true
   environment:
+    - BASE_URL=**changeme**
+    - CALLBACK_URL= **changeme**
+    - ELASTICSEARCH_PASS=**changeme**
+    - ELASTICSEARCH_USER=**changeme**
     - GITHUB_CLIENT_ID=**changeme**
     - GITHUB_CLIENT_SECRET=**changeme**
-    - CALLBACK_URL="**changeme"
+    - MONGODB_PASS=**changeme**
     - NODE_ENV=production
+    - SENTRY_DSN=**changeme**
   links:
     - elasticsearch
     - mongodb
   ports:
-    - '8082:80'
+    - '80:80'
+  restart: on-failure
