@@ -112,8 +112,6 @@ module.exports = function(app) {
     app.get('/api/v1/user', function(req, res, next){
         if(req.user !== undefined){
             res.json(req.user);
-        } else {
-            return next();
         }
     });
 
