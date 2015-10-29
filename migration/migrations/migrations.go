@@ -1,8 +1,10 @@
 package migrations
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"sync"
 
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -45,26 +47,31 @@ func readDB(collection *mgo.Collection) ([]StackfileDBEntry, error) {
 }
 
 func TypeMigration(collection *mgo.Collection) {
+
+	var wg sync.WaitGroup
+
+	fmt.Println("Reading existing entries")
 	existingEntries, err := readDB(collection)
 
 	if err != nil {
 		log.Println(err)
 	}
 
+	wg.Add(len(existingEntries))
+
 	for _, file := range existingEntries {
-		log.Println(file.Id)
-		res, _ := httpCaller("https://github.com/" + file.Author + "/" + file.ProjectName + "/raw/master/tutum.yml")
-		if res.StatusCode == 404 {
-			log.Println("docker-compose.yml")
-			collection.UpdateId(file.Id, bson.M{"$set": bson.M{"type": "docker-compose"}})
-		} else {
-			log.Println("tutum.yml")
-			collection.UpdateId(file.Id, bson.M{"$set": bson.M{"type": "tutum"}})
-		}
+		go func(file StackfileDBEntry) {
+			defer wg.Done()
+			if file.Type == "" {
+				res, _ := httpCaller("https://github.com/" + file.Author + "/" + file.ProjectName + "/raw/master/tutum.yml")
+				if res.StatusCode == 404 {
+					collection.UpdateId(file.Id, bson.M{"$set": bson.M{"type": "docker-compose"}})
+				} else {
+					collection.UpdateId(file.Id, bson.M{"$set": bson.M{"type": "tutum"}})
+				}
+			}
+		}(file)
 	}
-	/*body, _, err := httpCaller("https://github.com/" + dbEntry.Author + "/" + dbEntry.Title + "/raw/master/docker-compose.yml")
-	if err != nil {
-		log.Println("https://github.com/" + dbEntry.Author + "/" + dbEntry.Title + "/raw/master/docker-compose.yml")
-		log.Println(err)
-	}*/
+	wg.Wait()
+	fmt.Println("Processed all entries")
 }
