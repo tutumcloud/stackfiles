@@ -113,6 +113,7 @@ module.exports = function(app) {
             user: req.body.params.form.orgname,
             author: req.user.username,
             description: req.body.params.form.description,
+            type: req.body.params.form.type,
             token: tokenizer(req.body.params.form.title).concat(serviceToken),
             profileLink: "https://github.com/"+req.body.params.form.orgname,
             projectName: req.body.params.form.name,

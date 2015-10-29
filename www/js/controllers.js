@@ -245,6 +245,7 @@ angular.module('registry.controllers', [])
         API.getYAMLFile(data._id, data.projectName, data.path).success(function(yamlData, status, headers, config){
             $scope.composeFile = yamlData;
             $scope.images = processImages(data.images);
+            $scope.downloadLink = "https://github.com/" + data.user + "/" + data.projectName + "/raw/" + data.branch + "/" + data.path + "/"+ data.type +".yml";
             $scope.loaded = true;
         }).error(function(data, status, headers, config){
             $scope.composeFile = "Unable to fetch tutum.yml from Github repository. Please select a repository that contains a tutum.yml or a docker-compose.yml file";
@@ -367,14 +368,17 @@ angular.module('registry.controllers', [])
 
     $scope.getComposeFile = function(orgname, name, branch, path){
 
+        $scope.type = "";
         $scope.stackfile = "";
+
         API.getUserReposInfo(orgname, name, branch, path).success(function(data, status, headers, config){
             if(data === "File not found"){
                 $scope.stackfile = "Unable to fetch tutum.yml from Github repository. Please select a repository that contains a tutum.yml or a docker-compose.yml file";
                 $scope.locked = true;
             } else {
                 $scope.locked = false;
-                $scope.stackfile = data;
+                $scope.stackfile = data.body;
+                $scope.type = data.type;
             }
         }).error(function(data, status, headers, config){
             $scope.err = true;
@@ -389,6 +393,7 @@ angular.module('registry.controllers', [])
         var projectName = this.data.reponame;
         var organizationName = this.data.orgname;
         var description = this.data.description;
+        var type = $scope.type;
 
         var form = {
             title: title.replace(/[^a-zA-Z0-9]/g,' '),
@@ -397,7 +402,8 @@ angular.module('registry.controllers', [])
             path: path,
             name: projectName,
             orgname: organizationName,
-            description: description
+            description: description,
+            type: type
         };
 
         API.saveFile(form).success(function(data, status, headers, config){
