@@ -115,8 +115,6 @@ module.exports = function(app) {
     app.get('/api/v1/user', function(req, res){
         if(req.user !== undefined){
             res.json(req.user);
-        } else {
-            res.statusCode = 400;
         }
 
     });
