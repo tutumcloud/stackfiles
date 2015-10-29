@@ -180,11 +180,11 @@ module.exports = function(app) {
     });
 
     //GET YAML FOR PREVIEW AT CREATION
-    app.post('/api/v1/user/repos/new', function(req, res){
-        var organization = req.body.params.orgname;
-        var repositoryName = req.body.params.repo;
-        var repositoryPath = req.body.params.path;
-        var branch = req.body.params.branch;
+    app.get('/api/v1/user/repos/new', function(req, res){
+        var organization = req.query.orgname;
+        var repositoryName = req.query.repo;
+        var repositoryPath = req.query.path;
+        var branch = req.query.branch;
         getYAML(organization, repositoryName, branch, repositoryPath, function(err, yaml){
             if(err){
                 res.send(err);
@@ -196,10 +196,10 @@ module.exports = function(app) {
     });
 
     //GET YAML FROM REGISTRY
-    app.post('/api/v1/user/repos/file', function(req, res){
-        var repositoryName = req.body.params.repo;
-        var repositoryPath = req.body.params.path;
-        File.findOne({_id: req.body.params.id}, function(err, file){
+    app.get('/api/v1/user/repos/file', function(req, res){
+        var repositoryName = req.query.repo;
+        var repositoryPath = req.query.path;
+        File.findOne({_id: req.query.id}, function(err, file){
             if(err){
                 res.json(new Error(err));
                 res.redirect('/404');
