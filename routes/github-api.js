@@ -91,11 +91,11 @@ function getYAML(username, repositoryName, branch, path, callback){
                 if(data.statusCode == 404){
                     callback("File not found", null);
                 } else {
-                    callback(null, data.body);
+                    callback(null, {"body": data.body, "type": "docker-compose"});
                 }
             });
         } else {
-            callback(null, data.body);
+            callback(null, {"body": data.body, "type": "tutum"});
         }
       }
     });
@@ -189,8 +189,7 @@ module.exports = function(app) {
             if(err){
                 res.send(err);
             } else {
-                res.writeHead(200, {'Content-Type': 'text/x-yaml; charset=utf-8'});
-                res.end(yaml);
+                res.json(yaml);
             }
         });
     });
@@ -209,7 +208,7 @@ module.exports = function(app) {
                         res.send('"Unable to fetch stackfile from Github. The file might have been moved or the repository deleted by its owner."');
                     } else {
                         res.writeHead(200, {'Content-Type': 'text/x-yaml; charset=utf-8'});
-                        res.end(yaml);
+                        res.end(yaml.body);
                     }
                 });
             }
