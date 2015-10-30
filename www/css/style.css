@@ -82,7 +82,7 @@ pre code{
     background: #FFFFFF;
     color: #1AAAF8;
     width: 180px;
-    padding: 6px 40px 6px 26px!important;
+    padding: 6px 40px 6px 20px!important;
 }
 
 .btn.boxed-btn.github-btn:hover {
@@ -137,6 +137,8 @@ pre code{
 
 #hero-header .content img {
     width: 16px;
+    margin-right: 4px;
+    margin-bottom: 2px;
 }
 
 #hero-header .footer{
