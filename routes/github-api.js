@@ -81,6 +81,10 @@ function getYAML(username, repositoryName, branch, path, callback){
 
 
     request.get(options, function(err, data){
+      if(err){
+        callback(err, null);
+      }
+      if(data){
         if(data.statusCode == 404){
             request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/docker-compose.yml", function(err, data){
                 if(data.statusCode == 404){
@@ -92,7 +96,7 @@ function getYAML(username, repositoryName, branch, path, callback){
         } else {
             callback(null, data.body);
         }
-
+      }
     });
 }
 
