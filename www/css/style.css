@@ -53,6 +53,13 @@ pre code{
     padding-top: 100px;
 }
 
+#hero-header .content p {
+  font-family: 'Helvetica Neue';
+  font-weight: 400;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
 .label{
     background-color: #FFFFFF!important;
 }
@@ -75,7 +82,7 @@ pre code{
     background: #FFFFFF;
     color: #1AAAF8;
     width: 180px;
-    padding: 6px 40px 6px 26px!important;
+    padding: 6px 40px 6px 20px!important;
 }
 
 .btn.boxed-btn.github-btn:hover {
@@ -130,6 +137,18 @@ pre code{
 
 #hero-header .content img {
     width: 16px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+}
+
+#hero-header .content .counter{
+  margin-top: 45px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+#hero-header .content .counter span{
+  font-weight: 700;
 }
 
 #hero-header .footer{
@@ -348,6 +367,14 @@ pre code{
     font-weight: 400;
 }
 
+#section-title h2 span{
+  margin-left: 8px;
+  font-family: 'Helvetica Neue';
+  font-weight: 400;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
 #section-title .login{
     position: absolute;
     top: 0;
@@ -537,8 +564,8 @@ pre code{
 }
 
 .table>tbody>tr>td{
-    border-top: 1px solid #F7F8F9;
-    border-bottom: 1px solid #F7F8F9;
+    border-top: 1px solid #E0E4E7;
+    border-bottom: 1px solid #E0E4E7;
     padding-top: 19px;
     padding-left: 8px;
     padding-right: 8px;
@@ -645,7 +672,11 @@ span.stack-user{
     font-weight: 400;
     line-height: 28px;
     text-align: center;
-    padding-right: 100px;
+}
+
+a.download-btn{
+    margin-top: 23px;
+    padding-right: 25px;
 }
 
 a.delete-btn{
@@ -693,13 +724,14 @@ svg.star.btn-on-unfav path{
 .tags{
     display: inline-block;
     padding-right: 5px;
+    padding-bottom: 10px;
 }
 
 .grey-tag{
     background-color: #E0E4E7;
-    color: #8F9EA8;
+    color: #445D6E;
     padding: 3px 6px 3px 6px;
-    border-radius: 4px;
+    border-radius: 2px;
     font-size: 14px;
     font-weight: 400;
 }
@@ -968,18 +1000,27 @@ textarea.form-control{
 
 #detail hr{
     border-color: #E0E4E7;
-    margin-top: 35px;
     margin-bottom: 19px;
 }
 
 .section .label{
     padding-left: 0;
-    padding-right: 74px;
+    width: 150px;
     color: #8F9EA8;
     font-size: 12px;
     font-weight: 400;
+    text-align: left;
     text-transform: uppercase;
     display: inline-block;
+}
+
+.section .images{
+  margin-bottom: 5px;
+}
+
+.section .images a{
+  color: #254356;
+  text-decoration: underline;
 }
 
 .section .content{
