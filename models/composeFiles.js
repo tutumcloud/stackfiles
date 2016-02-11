@@ -35,7 +35,7 @@ var env = process.env.NODE_ENV;
 if (env == 'development'){
     console.log("Using dev ES");
     schema.plugin(mongoosastic, {
-      host: '192.168.59.100',
+      host: '192.168.99.100',
       auth: 'admin:test'
     });
     schema.plugin(mongoosePaginate);

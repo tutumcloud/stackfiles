@@ -2,6 +2,7 @@
     <div class="elem-bar">
         <h2><a href="/registry">Stacks</a> / {{data.title}}</h2>
         <a class="delete-btn pull-right" ng-show="loaded == true && user==data.author" ng-click="deleteStackfile(data._id)"><img src="img/delete.svg"></a>
+        <a class="download-btn pull-right" download target="blank" href="{{downloadLink}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 20h14v-2H5v2z"/></svg></a>
     </div>
 </div>
 <div id="loading" ng-hide="loaded == true">
@@ -35,9 +36,20 @@
         </div>
         <hr>
         <div class="section">
+            <div class="label">Images</div>
+            <div class="content">
+              <div class="images" ng-repeat="image in images">
+                  <a href="https://hub.docker.com/r/{{image}}" target="blank">{{image}}</a>
+              </div>
+            </div>
+        </div>
+        <hr>
+        <div class="section">
             <div class="label">Service tags</div>
-            <div class="tags" ng-repeat="tags in data.tags">
-                <div class="grey-tag">{{tags}}</div>
+            <div class="content">
+              <div class="tags" ng-repeat="tags in data.tags">
+                  <div class="grey-tag">{{tags}}</div>
+              </div>
             </div>
         </div>
         <hr>
@@ -49,7 +61,7 @@
             </div>
         </div>
         <hr>
-        <button class="btn boxed-btn deploy-btn full pull-right" ng-click="deploy(data._id)">Deploy to Tutum</button>
+        <button class="btn boxed-btn deploy-btn full pull-right" ng-click="deploy(data._id)">Deploy to Docker Cloud</button>
         <button class="btn boxed-btn embed-btn pull-right" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account" ng-click="toggleModal(); generateEmbed(data._id);">Embed</button>
     </div>
 </div>
