@@ -32,7 +32,7 @@
             <tbody>
                 <tr ng-repeat="result in results" ng-class-odd="odd" ng-class-even="even" ng-hide="currentSection === 1">
                     <td class="main"><a class="stack-name" href="/registry/{{result._id}}">{{result._source.title}}</a><p class="stack-services">{{result._source.tags.length}} Services<span class="stack-user">By {{result._source.user}}</span></p></td>
-                    <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(result._id)" target="_blank">Deploy to Tutum</a></td>
+                    <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(result._id)" target="_blank">Deploy to Docker Cloud</a></td>
                     <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account"><a style="cursor:pointer;" ng-click="toggleModal(); generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
                     <td style="vertical-align:middle; padding-top:33px;" data-toggle="tooltip" data-placement="top" title="Click here to favorite this stack">
                       <svg ng-controller="FavController" ng-click="toggleStatus(result); increment(result._source)" ng-class="{'btn-off':!isSelected(result), 'btn-on':isSelected(result)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
@@ -65,7 +65,7 @@
             <tbody>
                 <tr ng-repeat="file in files" ng-class-odd="odd" ng-class-even="even">
                     <td class="main"><a class="stack-name" href="/registry/{{file._id}}">{{file.title}}</a><p class="stack-services">{{file.tags.length}} Services <span class="stack-user">By {{file.user}}</span></p></td>
-                    <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(file._id)" target="_blank">Deploy to Tutum</a></td>
+                    <td style="vertical-align:middle"><a class="btn boxed-btn deploy-btn" ng-click="deploy(file._id)" target="_blank">Deploy to Docker Cloud</a></td>
                     <td style="vertical-align:middle" data-toggle="tooltip" data-placement="top" title="Click here to deploy this stack on your Tutum account"><a style="cursor:pointer;" ng-click="toggleModal(); generateEmbed(file._id);"><img src="img/embed.svg" style="width:24px;"></a></td>
                     <td style="vertical-align:middle; padding-top:33px;" data-toggle="tooltip" data-placement="top" title="Click here to favorite this stack">
                       <svg ng-controller="FavController" ng-click="toggleStatus(file); increment(file)"" ng-class="{'btn-off':!isSelected(file), 'btn-on':isSelected(file)}" class="star"  width="24px" height="24px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">

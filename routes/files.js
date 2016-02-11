@@ -164,7 +164,7 @@ module.exports = function(app) {
                 jsFile = "document.write('<link rel=\"stylesheet\" href=\""+ BASE_URL +"/embed/embed.css\">');" +
                 "document.write('<div id=\"stackfile\"><pre class=\"pre-stackfile\"><p class=\"stack\">"+escapeHtml(data.body)+"</p><div class=\"footer-stackfile\">"+
                 "<p>Stackfile hosted by </p><a href=\"https://tutum.co\">Tutum</a><span><a class=\"boxed-btn\" "+
-                "href=\"https://dashboard.tutum.co/stack/deploy/?repo="+ file.profileLink + "/" + file.projectName + "\" target=\"blank\">Deploy to Tutum</a></span></div></pre></div>')";
+                "href=\"https://cloud.docker.com/stack/deploy/?repo="+ file.profileLink + "/" + file.projectName + "\" target=\"blank\">Deploy to Docker Cloud</a></span></div></pre></div>')";
                 res.end(jsFile);
             });
         });
@@ -285,7 +285,7 @@ module.exports = function(app) {
             if(err){
                 return next(new Error(err));
             } else {
-                res.redirect('https://dashboard.tutum.co/stack/deploy/?repo='+file.profileLink+'/'+file.projectName+'/tree/'+file.branch+'/'+ file.path.substr(1));
+                res.redirect('https://cloud.docker.com/stack/deploy/?repo='+file.profileLink+'/'+file.projectName+'/tree/'+file.branch+'/'+ file.path.substr(1));
             }
         });
     });
