@@ -34,7 +34,7 @@ var onClose = function() {
 
 if (env == 'development'){
     console.log("Using dev DB");
-    var db = mongoose.createConnection('mongodb://admin:test@192.168.59.100:27018');
+    var db = mongoose.createConnection('mongodb://admin:test@192.168.99.100:27018');
     db.once('open', onOpen);
     db.once('close', onClose);
     db.on('error', onError);
