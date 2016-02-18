@@ -73,30 +73,36 @@ function getYAML(username, repositoryName, branch, path, callback){
       'Content-Type':     'text/x-yaml; charset=utf-8'
     };
 
-    var options = {
-      url: "https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/tutum.yml",
-      method: 'GET',
-      headers: headers
-    };
+    var files = ["docker-cloud.yml", "tutum.yml", "docker-compose.yml"];
 
-
-    request.get(options, function(err, data){
-      if(err){
-        callback(err, null);
-      }
-      if(data){
-        if(data.statusCode == 404){
-            request.get("https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/docker-compose.yml", function(err, data){
-                if(data.statusCode == 404){
-                    callback("File not found", null);
+    function fileRequest(files, i, cb){
+        var options = {
+          url: "https://github.com/" + username + "/" + repositoryName + "/raw/" + branch + "/" + path + "/" + files[i],
+          method: 'GET',
+          headers: headers
+        };
+        request.get(options, function(err, data){
+            if(err){
+                cb(err, null);
+            }
+            if(data){
+                if(data.statusCode == 404 && i < 3){
+                    fileRequest(files, i + 1, cb);
+                } else if(i === 3) {
+                    cb(err, null);
                 } else {
-                    callback(null, data.body);
+                    cb(null, data.body);
                 }
-            });
+            }
+        });
+    }
+
+    fileRequest(files, 0, function(err, data){
+        if(err){
+            callback(err, null);
         } else {
-            callback(null, data.body);
+            callback(null, data);
         }
-      }
     });
 }
 
